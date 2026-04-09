@@ -384,6 +384,178 @@
   .msg-block.blue { background: #EFF6FF; border-left-color: var(--blue); }
   .msg-block strong { font-weight: 800; }
 
+  /* ===== BIGGER THAN BELARAY — CHS IMPACT SECTION ===== */
+  .impact-section {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a0a00 50%, #0f0f23 100%);
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .impact-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(220,38,38,0.03) 60px, rgba(220,38,38,0.03) 61px);
+  }
+  .impact-label {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .impact-section h2 {
+    font-size: clamp(26px, 5vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.15;
+  }
+  .impact-section h2 .red { color: var(--red); }
+  .impact-sub {
+    color: #9ca3af;
+    font-size: clamp(15px, 2vw, 19px);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+  .impact-sub strong { color: #f87171; }
+
+  /* Impact stat cards */
+  .impact-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto 50px;
+    position: relative;
+    z-index: 1;
+  }
+  .impact-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(220,38,38,0.3);
+    border-radius: 16px;
+    padding: 24px 12px;
+  }
+  .impact-stat .stat-num {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .impact-stat .stat-label {
+    font-size: 12px;
+    color: #f87171;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    font-weight: 700;
+  }
+
+  /* Hospital grid */
+  .hospital-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .hospital-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    transition: transform 0.3s;
+  }
+  .hospital-card:hover { transform: translateY(-4px); }
+  .hospital-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    filter: grayscale(50%);
+    transition: filter 0.3s;
+  }
+  .hospital-card:hover img { filter: grayscale(0%); }
+  .hospital-info {
+    padding: 14px 16px;
+    text-align: left;
+  }
+  .hospital-info h3 {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+  }
+  .hospital-info p {
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  /* Specialty tickers */
+  .specialty-highlight {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .specialty-highlight h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .spec-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  .spec-pill {
+    background: rgba(220,38,38,0.12);
+    border: 1px solid rgba(220,38,38,0.3);
+    color: #f87171;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 50px;
+  }
+  .spec-pill strong {
+    color: #fff;
+    margin-right: 4px;
+  }
+  .impact-bottom-label {
+    margin-top: 20px;
+    padding: 18px 28px;
+    background: rgba(220,38,38,0.1);
+    border: 2px solid var(--red);
+    border-radius: 14px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+  }
+  .impact-bottom-label span {
+    color: #fff;
+    font-weight: 900;
+    font-size: clamp(15px, 2.5vw, 22px);
+    line-height: 1.4;
+  }
+  .impact-bottom-label .red { color: var(--red); }
+
   /* ===== ACTION SECTION ===== */
   .action-section {
     background: var(--light);
@@ -607,6 +779,10 @@
     .sticky-cta { flex-direction: column; padding: 14px 12px 10px; gap: 6px; }
     .sticky-cta a { width: 100%; justify-content: center; font-size: 14px; }
     .sticky-cta a.secondary { font-size: 12px; padding: 10px 14px; }
+    .impact-section { padding: 50px 12px; }
+    .impact-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .hospital-grid { grid-template-columns: 1fr; }
+    .hospital-card img { height: 160px; }
   }
   @media (max-width: 380px) {
     .hero-title { font-size: 24px; }
@@ -614,6 +790,8 @@
     .countdown-num { font-size: 22px; }
     .provider-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .provider-card img { height: 140px; }
+    .impact-stats { gap: 6px; }
+    .impact-stat .stat-num { font-size: 24px; }
   }
   @media (pointer: coarse) {
     .phone-link, .sticky-cta a, .lang-btn, .audio-btn { min-height: 44px; }
@@ -706,7 +884,7 @@
   </p>
 </div>
 
-<!-- ===== YOUR TEAM ===== -->
+<!-- ===== YOUR BELARAY TEAM ===== -->
 <section class="team-section">
   <h2>
     <span class="en">These Are <span class="red">Your Providers.</span> You Could Lose Them.</span>
@@ -717,79 +895,38 @@
     <span class="es">8 proveedores. Certificados. Sirviendo a Hicksville y Stony Brook.</span>
   </p>
   <div class="provider-grid">
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/9d9cec64-ffb7-400a-af3f-64d3d210e82f-1000h.jpg" alt="Dr. Amy Slear" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Dr. Amy Slear, MD</div>
-        <div class="provider-role">Board Certified</div>
-        <div class="provider-spec">General Dermatology</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Dr. Amy Slear, MD</div><div class="provider-role">Board Certified</div><div class="provider-spec">General Dermatology</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/4dce60d2-5160-4dd9-9985-56721612afe0-1000h.jpg" alt="Dr. Jeffrey Ellis" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Dr. Jeffrey Ellis, MD</div>
-        <div class="provider-role">Dual Board Certified</div>
-        <div class="provider-spec">Skin Cancer Management & Mohs Surgery</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Dr. Jeffrey Ellis, MD</div><div class="provider-role">Dual Board Certified</div><div class="provider-spec">Skin Cancer Management & Mohs Surgery</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/Dana-Baigrie-DO-1000h.JPG" alt="Dr. Dana Baigrie" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Dr. Dana Baigrie, DO</div>
-        <div class="provider-role">Dual Board Certified</div>
-        <div class="provider-spec">Skin Cancer Management & Mohs Surgery</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Dr. Dana Baigrie, DO</div><div class="provider-role">Dual Board Certified</div><div class="provider-spec">Skin Cancer Management & Mohs Surgery</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/RachelEllisMD-1000h.jpg" alt="Dr. Rachel Ellis" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Dr. Rachel Ellis, MD</div>
-        <div class="provider-role">Board Certified</div>
-        <div class="provider-spec">Oculofacial Plastic & Reconstructive Surgery</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Dr. Rachel Ellis, MD</div><div class="provider-role">Board Certified</div><div class="provider-spec">Oculofacial Plastic & Reconstructive Surgery</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/DrWong-1000h.jpg" alt="Dr. Anthony Wong" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Dr. Anthony Wong, MD</div>
-        <div class="provider-role">Board Certified</div>
-        <div class="provider-spec">Skin Cancer, Mohs Surgery & Dermatological Surgery</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Dr. Anthony Wong, MD</div><div class="provider-role">Board Certified</div><div class="provider-spec">Skin Cancer, Mohs Surgery & Dermatological Surgery</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/Amrit+Kumar+PA-1000h.jpg" alt="Amrit Kumar" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Amrit Kumar, PA-C</div>
-        <div class="provider-role">Board Certified PA</div>
-        <div class="provider-spec">General & Pediatric Dermatology</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Amrit Kumar, PA-C</div><div class="provider-role">Board Certified PA</div><div class="provider-spec">General & Pediatric Dermatology</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/Mona-2BAvishay-6587a078-1000h.jpg" alt="Mona Avishay" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Mona Avishay, PA-C</div>
-        <div class="provider-role">Board Certified PA</div>
-        <div class="provider-spec">General & Pediatric Dermatology</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Mona Avishay, PA-C</div><div class="provider-role">Board Certified PA</div><div class="provider-spec">General & Pediatric Dermatology</div></div>
     </div>
-
     <div class="provider-card">
       <img src="https://lirp.cdn-website.com/2d849614/dms3rep/multi/opt/Alison+Devitt-+PA-1000h.jpg" alt="Alison Devitt" loading="lazy">
-      <div class="provider-info">
-        <div class="provider-name">Alison Devitt, PA</div>
-        <div class="provider-role">Board Certified PA</div>
-        <div class="provider-spec">General & Pediatric Dermatology</div>
-      </div>
+      <div class="provider-info"><div class="provider-name">Alison Devitt, PA</div><div class="provider-role">Board Certified PA</div><div class="provider-spec">General & Pediatric Dermatology</div></div>
     </div>
-
   </div>
   <div class="lost-label">
     <span class="en"><span>All 8 providers — gone from Healthfirst after May 15</span></span>
@@ -808,7 +945,7 @@
   </div>
 </div>
 
-<!-- ===== SIMPLE MESSAGE ===== -->
+<!-- ===== WHAT THIS MEANS ===== -->
 <section class="message-section">
   <div class="message-box">
     <div class="msg-icon">⚠️</div>
@@ -816,30 +953,128 @@
       <span class="en">What This Means For You</span>
       <span class="es">Lo Que Esto Significa Para Ti</span>
     </h2>
-
     <div class="msg-block">
       <span class="en">After <strong>May 15, 2026</strong>, if you have <strong>Healthfirst Medicaid</strong>, you may <strong>not be able to see your dermatologist</strong> at Belaray.</span>
       <span class="es">Después del <strong>15 de mayo de 2026</strong>, si tienes <strong>Healthfirst Medicaid</strong>, puede que <strong>no puedas ver a tu dermatólogo</strong> en Belaray.</span>
     </div>
-
     <div class="msg-block" style="background:#FFF7ED; border-left-color:#EA580C;">
       <span class="en">Belaray has cared for Healthfirst Medicaid patients for <strong>over 20 years</strong>. We don't want you to lose your doctor.</span>
       <span class="es">Belaray ha cuidado a pacientes de Healthfirst Medicaid por <strong>más de 20 años</strong>. No queremos que pierdas a tu doctor.</span>
     </div>
+  </div>
+</section>
 
+<!-- ========================================================= -->
+<!-- ===== IT'S BIGGER THAN BELARAY — FULL CHS IMPACT ===== -->
+<!-- ========================================================= -->
+<section class="impact-section">
+  <div class="impact-label">
+    <span class="en">The Full Picture</span>
+    <span class="es">La Imagen Completa</span>
+  </div>
+  <h2>
+    <span class="en">It's Not Just Belaray.<br>It's <span class="red">Your Entire Health Network.</span></span>
+    <span class="es">No Es Solo Belaray.<br>Es <span class="red">Toda Tu Red de Salud.</span></span>
+  </h2>
+  <p class="impact-sub">
+    <span class="en">Healthfirst could not reach an agreement with <strong>Catholic Health Services</strong> — one of the largest healthcare systems on Long Island. After May 15, Healthfirst Medicaid members could lose access to <strong>all of this</strong>:</span>
+    <span class="es">Healthfirst no pudo llegar a un acuerdo con <strong>Catholic Health Services</strong> — uno de los sistemas de salud más grandes de Long Island. Después del 15 de mayo, los miembros de Healthfirst Medicaid podrían perder acceso a <strong>todo esto</strong>:</span>
+  </p>
+
+  <!-- IMPACT STATS -->
+  <div class="impact-stats">
+    <div class="impact-stat">
+      <div class="stat-num" data-count="3177">0</div>
+      <div class="stat-label"><span class="en">Providers</span><span class="es">Proveedores</span></div>
+    </div>
+    <div class="impact-stat">
+      <div class="stat-num" data-count="6">0</div>
+      <div class="stat-label"><span class="en">Hospitals</span><span class="es">Hospitales</span></div>
+    </div>
+    <div class="impact-stat">
+      <div class="stat-num" data-count="87">0</div>
+      <div class="stat-label"><span class="en">Locations</span><span class="es">Ubicaciones</span></div>
+    </div>
+    <div class="impact-stat">
+      <div class="stat-num" data-count="190">0</div>
+      <div class="stat-label"><span class="en">Specialties</span><span class="es">Especialidades</span></div>
+    </div>
+  </div>
+
+  <!-- HOSPITALS -->
+  <div class="hospital-grid">
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2026-01/2025-12-18%20Catholic%20Health%20-%20GSUH%20Pavilion%20Signage_IMG_0002.jpg" alt="Good Samaritan University Hospital" loading="lazy">
+      <div class="hospital-info"><h3>Good Samaritan University Hospital</h3><p>West Islip, NY</p></div>
+    </div>
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2024-06/mh-retouch-1920x870.jpg" alt="Mercy Hospital" loading="lazy">
+      <div class="hospital-info"><h3>Mercy Hospital</h3><p>Rockville Centre, NY</p></div>
+    </div>
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2024-06/scsh-retouch-1920x870.jpg" alt="St. Catherine of Siena Hospital" loading="lazy">
+      <div class="hospital-info"><h3>St. Catherine of Siena Hospital</h3><p>Smithtown, NY</p></div>
+    </div>
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2024-06/sch-retouch-1920x870.jpg" alt="St. Charles Hospital" loading="lazy">
+      <div class="hospital-info"><h3>St. Charles Hospital</h3><p>Port Jefferson, NY</p></div>
+    </div>
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2024-06/sfh-retouch-1920x870.jpg" alt="St. Francis Hospital & Heart Center" loading="lazy">
+      <div class="hospital-info"><h3>St. Francis Hospital & Heart Center</h3><p>Roslyn, NY</p></div>
+    </div>
+    <div class="hospital-card">
+      <img src="https://www.catholichealthli.org/sites/default/files/2024-06/sjh-retouch-1920x870.jpg" alt="St. Joseph Hospital" loading="lazy">
+      <div class="hospital-info"><h3>St. Joseph Hospital</h3><p>Bethpage, NY</p></div>
+    </div>
+  </div>
+
+  <!-- SPECIALTIES YOU'D LOSE -->
+  <div class="specialty-highlight">
+    <h3>
+      <span class="en">Specialties at Risk:</span>
+      <span class="es">Especialidades en Riesgo:</span>
+    </h3>
+    <div class="spec-pills">
+      <span class="spec-pill"><strong>547</strong> <span class="en">Internal Medicine</span><span class="es">Medicina Interna</span></span>
+      <span class="spec-pill"><strong>319</strong> <span class="en">Family Medicine</span><span class="es">Medicina Familiar</span></span>
+      <span class="spec-pill"><strong>168</strong> <span class="en">Pediatrics</span><span class="es">Pediatría</span></span>
+      <span class="spec-pill"><strong>127</strong> <span class="en">Cardiology</span><span class="es">Cardiología</span></span>
+      <span class="spec-pill"><strong>123</strong> <span class="en">OB/GYN</span><span class="es">Obstetricia/Ginecología</span></span>
+      <span class="spec-pill"><strong>109</strong> <span class="en">Orthopedics</span><span class="es">Ortopedia</span></span>
+      <span class="spec-pill"><strong>97</strong> <span class="en">General Surgery</span><span class="es">Cirugía General</span></span>
+      <span class="spec-pill"><strong>89</strong> <span class="en">Psychiatry</span><span class="es">Psiquiatría</span></span>
+      <span class="spec-pill"><strong>84</strong> <span class="en">Emergency Medicine</span><span class="es">Medicina de Emergencia</span></span>
+      <span class="spec-pill"><strong>78</strong> <span class="en">Radiology</span><span class="es">Radiología</span></span>
+    </div>
+  </div>
+
+  <div class="impact-bottom-label">
+    <span>
+      <span class="en">Your dermatologist at Belaray is just the beginning.<br><span class="red">Healthfirst is cutting you off from thousands of providers.</span></span>
+      <span class="es">Tu dermatólogo en Belaray es solo el comienzo.<br><span class="red">Healthfirst te está cortando el acceso a miles de proveedores.</span></span>
+    </span>
+  </div>
+</section>
+
+<!-- ===== WHAT YOU CAN DO ===== -->
+<section class="message-section">
+  <div class="message-box">
+    <div class="msg-icon">💪</div>
+    <h2>
+      <span class="en">You Have the Power to Fix This</span>
+      <span class="es">Tienes el Poder de Arreglar Esto</span>
+    </h2>
     <div class="msg-block green">
       <strong><span class="en">What You Can Do:</span><span class="es">Lo Que Puedes Hacer:</span></strong><br>
-      <span class="en">You can <strong>pick a new health plan</strong> to stay with your dermatologist. You can pick <strong>any plan you want.</strong></span>
-      <span class="es">Puedes <strong>elegir un nuevo plan de salud</strong> para quedarte con tu dermatólogo. Puedes elegir <strong>cualquier plan que quieras.</strong></span>
+      <span class="en">You can <strong>pick a new health plan</strong> to stay with your dermatologist — and keep access to all your other doctors and hospitals too. You can pick <strong>any plan you want.</strong></span>
+      <span class="es">Puedes <strong>elegir un nuevo plan de salud</strong> para quedarte con tu dermatólogo — y mantener acceso a todos tus otros doctores y hospitales también. Puedes elegir <strong>cualquier plan que quieras.</strong></span>
     </div>
-
     <div class="msg-block blue">
       <strong><span class="en">Good to Know:</span><span class="es">Bueno Saber:</span></strong><br>
-      <span class="en">Some plans, like <strong>Fidelis</strong>, still work with Belaray. You can switch your plan and keep your doctor!</span>
-      <span class="es">Algunos planes, como <strong>Fidelis</strong>, todavía trabajan con Belaray. ¡Puedes cambiar tu plan y quedarte con tu doctor!</span>
+      <span class="en">Some plans, like <strong>Fidelis</strong>, still work with Belaray and Catholic Health. You can switch your plan and keep <strong>all</strong> your doctors!</span>
+      <span class="es">Algunos planes, como <strong>Fidelis</strong>, todavía trabajan con Belaray y Catholic Health. ¡Puedes cambiar tu plan y quedarte con <strong>todos</strong> tus doctores!</span>
     </div>
-
-    <!-- AUDIO BUTTONS (light) -->
     <div class="audio-bar" style="margin-top:20px">
       <button class="audio-btn light" id="audio-en-2" onclick="playAudio('en')">
         <span class="audio-icon">🔊</span>
@@ -873,7 +1108,7 @@
     <div class="action-card">
       <div class="step-num">2</div>
       <h3><span class="en">Ask About Fidelis</span><span class="es">Pregunta Por Fidelis</span></h3>
-      <p><span class="en">Fidelis works with Belaray. Ask to switch to a plan that keeps your dermatologist.</span><span class="es">Fidelis trabaja con Belaray. Pide cambiar a un plan que te deje quedarte con tu dermatólogo.</span></p>
+      <p><span class="en">Fidelis works with Belaray and Catholic Health. Ask to switch to a plan that keeps all your doctors.</span><span class="es">Fidelis trabaja con Belaray y Catholic Health. Pide cambiar a un plan que te deje quedarte con todos tus doctores.</span></p>
       <div class="say-script">
         <span class="en">"Can I switch to Fidelis?"</span>
         <span class="es">"¿Puedo cambiar a Fidelis?"</span>
@@ -899,8 +1134,8 @@
       <p><span class="en">Call Member Services. Tell them you want to file a <strong>grievance</strong> (complaint).</span><span class="es">Llama a Servicios al Miembro. Diles que quieres hacer una <strong>queja</strong> formal.</span></p>
       <div class="complain-phone">1-866-463-6743</div>
       <div class="say-script">
-        <span class="en">"I want to file a grievance. I am losing access to my dermatologist at Belaray."</span>
-        <span class="es">"Quiero presentar una queja. Estoy perdiendo acceso a mi dermatólogo en Belaray."</span>
+        <span class="en">"I want to file a grievance. I am losing access to my dermatologist at Belaray and thousands of providers across Catholic Health."</span>
+        <span class="es">"Quiero presentar una queja. Estoy perdiendo acceso a mi dermatólogo en Belaray y miles de proveedores de Catholic Health."</span>
       </div>
     </div>
     <div class="complain-card">
@@ -911,8 +1146,8 @@
       <p><span class="en">Email:</span><span class="es">Correo:</span> <span class="complain-email">managedcarecomplaint@health.ny.gov</span></p>
       <ul>
         <li><span class="en">Can't see your dermatologist</span><span class="es">No puedes ver a tu dermatólogo</span></li>
+        <li><span class="en">Losing access to hospitals</span><span class="es">Perdiendo acceso a hospitales</span></li>
         <li><span class="en">Network problems</span><span class="es">Problemas de red</span></li>
-        <li><span class="en">Denials or delays</span><span class="es">Negaciones o demoras</span></li>
         <li><span class="en">Plan behavior</span><span class="es">Comportamiento del plan</span></li>
       </ul>
     </div>
@@ -933,7 +1168,7 @@
   </h2>
   <p><span class="en">Some plans, like</span><span class="es">Algunos planes, como</span></p>
   <div class="fidelis">Fidelis</div>
-  <p><span class="en">still work with Belaray Dermatology. You can <strong>pick any plan you want.</strong> Call today.</span><span class="es">todavía trabajan con Belaray Dermatology. Puedes <strong>elegir el plan que quieras.</strong> Llama hoy.</span></p>
+  <p><span class="en">still work with Belaray Dermatology and all Catholic Health hospitals. You can <strong>pick any plan you want.</strong> Call today.</span><span class="es">todavía trabajan con Belaray Dermatology y todos los hospitales de Catholic Health. Puedes <strong>elegir el plan que quieras.</strong> Llama hoy.</span></p>
 </section>
 
 <!-- ===== STICKY CTA ===== -->
@@ -998,6 +1233,56 @@ const yearsObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 yearsObserver.observe(yearsEl);
 
+// ===== IMPACT STAT COUNTER ANIMATION =====
+function animateStatCount(el, target) {
+  const duration = 2000;
+  const steps = 60;
+  const increment = target / steps;
+  let current = 0;
+  const interval = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      el.textContent = target.toLocaleString();
+      clearInterval(interval);
+    } else {
+      el.textContent = Math.floor(current).toLocaleString();
+    }
+  }, duration / steps);
+}
+
+const impactObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statNums = entry.target.querySelectorAll('.stat-num[data-count]');
+      statNums.forEach(el => {
+        const target = parseInt(el.dataset.count);
+        animateStatCount(el, target);
+      });
+      impactObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const impactStats = document.querySelector('.impact-stats');
+if (impactStats) impactObserver.observe(impactStats);
+
+// ===== STICKY CTA =====
+const stickyCta = document.getElementById('sticky-cta');
+const heroSection = document.querySelector('.hero');
+const stickyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      stickyCta.classList.add('visible');
+    } else {
+      stickyCta.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.15 });
+stickyObserver.observe(heroSection);
+// Scroll fallback
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 300) stickyCta.classList.add('visible');
+});
+
 // ===== PHONE CALL HANDLER =====
 function showToast(message, number) {
   let toast = document.getElementById('phone-toast');
@@ -1037,16 +1322,20 @@ const audioMessages = {
     "After May 15, Belaray may not take Healthfirst Medicaid.",
     "This means you may not be able to see your dermatologist here.",
     "Belaray has cared for Healthfirst Medicaid patients for over 20 years. We don't want you to lose your doctor.",
+    "But it's not just Belaray.",
+    "Healthfirst could not reach an agreement with Catholic Health Services, one of the largest healthcare systems on Long Island.",
+    "That means you could also lose access to over 3,000 providers, 6 hospitals, and 87 locations.",
+    "Hospitals like Good Samaritan, Mercy, St. Francis, St. Catherine, St. Charles, and St. Joseph could all be out of network.",
+    "Specialties like cardiology, pediatrics, OB GYN, surgery, and emergency medicine are all at risk.",
     "But you can fix this.",
-    "You can pick a new health plan to stay with your dermatologist.",
-    "Some plans, like Fidelis, still work with Belaray.",
-    "You can pick any plan you want.",
+    "You can pick a new health plan to stay with your dermatologist and keep access to all your doctors and hospitals.",
+    "Some plans, like Fidelis, still work with Belaray and Catholic Health.",
     "Call New York Medicaid Choice at 1 800 505 5678.",
     "Say: I want to keep my doctor at Belaray Dermatology.",
     "You can also complain.",
-    "First, call Healthfirst at 1 866 463 6743 and say: I want to file a grievance. I am losing access to my dermatologist.",
+    "Call Healthfirst at 1 866 463 6743 and say: I want to file a grievance.",
     "Then, call the New York State Department of Health at 1 800 206 8125.",
-    "For more help, call the New York Attorney General at 1 800 428 9071. They can give you an advocate.",
+    "For more help, call the New York Attorney General at 1 800 428 9071.",
     "Act now. Call today. Keep your doctor at Belaray."
   ],
   es: [
@@ -1055,16 +1344,20 @@ const audioMessages = {
     "Después del 15 de mayo, Belaray puede que no acepte Healthfirst Medicaid.",
     "Eso quiere decir que puede que no puedas ver a tu dermatólogo aquí.",
     "Belaray ha cuidado a pacientes de Healthfirst Medicaid por más de 20 años. No queremos que pierdas a tu doctor.",
+    "Pero no es solo Belaray.",
+    "Healthfirst no pudo llegar a un acuerdo con Catholic Health Services, uno de los sistemas de salud más grandes de Long Island.",
+    "Eso significa que también podrías perder acceso a más de 3,000 proveedores, 6 hospitales y 87 ubicaciones.",
+    "Hospitales como Good Samaritan, Mercy, St. Francis, St. Catherine, St. Charles y St. Joseph podrían quedar fuera de red.",
+    "Especialidades como cardiología, pediatría, obstetricia, cirugía y medicina de emergencia están en riesgo.",
     "Pero puedes arreglar esto.",
-    "Puedes elegir un nuevo plan de salud para quedarte con tu dermatólogo.",
-    "Algunos planes, como Fidelis, todavía trabajan con Belaray.",
-    "Puedes elegir el plan que quieras.",
+    "Puedes elegir un nuevo plan de salud para quedarte con tu dermatólogo y mantener acceso a todos tus doctores y hospitales.",
+    "Algunos planes, como Fidelis, todavía trabajan con Belaray y Catholic Health.",
     "Llama a New York Medicaid Choice al 1 800 505 5678.",
     "Di: Quiero quedarme con mi doctor en Belaray Dermatology.",
     "También puedes quejarte.",
-    "Primero, llama a Healthfirst al 1 866 463 6743 y di: Quiero presentar una queja. Estoy perdiendo acceso a mi dermatólogo.",
+    "Llama a Healthfirst al 1 866 463 6743 y di: Quiero presentar una queja.",
     "Después, llama al Departamento de Salud del Estado de Nueva York al 1 800 206 8125.",
-    "Para más ayuda, llama al Fiscal General de Nueva York al 1 800 428 9071. Ellos pueden darte un defensor.",
+    "Para más ayuda, llama al Fiscal General de Nueva York al 1 800 428 9071.",
     "Actúa ahora. Llama hoy. Quédate con tu doctor en Belaray."
   ]
 };
@@ -1097,19 +1390,11 @@ function setAllBtnsState(playing, lang) {
   });
 }
 
-function stopAudio() {
-  if (window.speechSynthesis) window.speechSynthesis.cancel();
-  isPlaying = false;
-  if (currentLang) setAllBtnsState(false, currentLang);
-  currentLang = null;
-}
-
 function playAudio(lang) {
-  if (isPlaying && currentLang === lang) { stopAudio(); return; }
-  if (isPlaying) stopAudio();
-  if (!window.speechSynthesis) {
-    alert(lang === 'en' ? 'Sorry, your browser does not support audio.' : 'Lo siento, tu navegador no tiene audio.');
-    return;
+  if (isPlaying) {
+    speechSynthesis.cancel();
+    setAllBtnsState(false, currentLang);
+    if (currentLang === lang) { isPlaying = false; currentLang = null; return; }
   }
   isPlaying = true;
   currentLang = lang;
@@ -1117,41 +1402,21 @@ function playAudio(lang) {
   const messages = audioMessages[lang];
   let index = 0;
   function speakNext() {
-    if (index >= messages.length || !isPlaying) { stopAudio(); return; }
+    if (index >= messages.length || !isPlaying) {
+      isPlaying = false;
+      currentLang = null;
+      setAllBtnsState(false, lang);
+      return;
+    }
     const utter = new SpeechSynthesisUtterance(messages[index]);
-    utter.lang = lang === 'en' ? 'en-US' : 'es-US';
-    utter.rate = 0.85;
-    const voices = speechSynthesis.getVoices();
-    const targetLang = lang === 'en' ? 'en' : 'es';
-    const preferred = voices.find(v => v.lang.startsWith(targetLang) && v.name.includes('Google'))
-                   || voices.find(v => v.lang.startsWith(targetLang) && !v.localService)
-                   || voices.find(v => v.lang.startsWith(targetLang));
-    if (preferred) utter.voice = preferred;
-    utter.onend = () => { index++; if (isPlaying) setTimeout(speakNext, 400); };
-    utter.onerror = () => { stopAudio(); };
+    utter.lang = lang === 'es' ? 'es-US' : 'en-US';
+    utter.rate = 0.9;
+    utter.onend = function() { index++; setTimeout(speakNext, 400); };
+    utter.onerror = function() { isPlaying = false; setAllBtnsState(false, lang); };
     speechSynthesis.speak(utter);
   }
-  if (speechSynthesis.getVoices().length === 0) {
-    speechSynthesis.onvoiceschanged = () => { speakNext(); };
-  } else { speakNext(); }
+  speakNext();
 }
-window.addEventListener('beforeunload', stopAudio);
-
-// ===== STICKY CTA =====
-const stickyCta = document.getElementById('sticky-cta');
-const heroEl = document.querySelector('.hero');
-if ('IntersectionObserver' in window) {
-  const stickyObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      stickyCta.classList.toggle('visible', !entry.isIntersecting);
-    });
-  }, { threshold: 0.1 });
-  stickyObs.observe(heroEl);
-}
-window.addEventListener('scroll', () => {
-  stickyCta.classList.toggle('visible', window.scrollY > 300);
-}, { passive: true });
 </script>
-
 </body>
 </html>
