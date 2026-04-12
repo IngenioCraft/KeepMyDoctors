@@ -958,6 +958,52 @@
     margin-top: 4px;
     letter-spacing: 1px;
   }
+
+  /* ===== SHARE BUTTON ===== */
+  .share-section {
+    background: #fff;
+    padding: 28px 20px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+  }
+  .share-section p {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark, #111827);
+    margin-bottom: 12px;
+  }
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 44px;
+  }
+  .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .share-btn.whatsapp { background: #25D366; }
+  .share-btn.facebook { background: #1877F2; }
+  .share-btn.twitter { background: #000; }
+  .share-btn.sms { background: #6B7280; }
+  .share-btn.copy-link { background: #374151; }
+  .share-btn.copy-link.copied { background: #16A34A; }
+  @media (max-width: 768px) {
+    .share-btn { width: 100%; justify-content: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -1352,6 +1398,34 @@ Gracias.</span></div>
   <p><span class="en">still work with Walk-in Dermatology and all Catholic Health hospitals. You can <strong>pick any plan you want.</strong> Call today.</span><span class="es">todavía trabajan con Walk-in Dermatology y todos los hospitales de Catholic Health. Puedes <strong>elegir el plan que quieras.</strong> Llama hoy.</span></p>
 </section>
 
+
+<!-- ===== SHARE — SPREAD THE WORD ===== -->
+<section class="share-section">
+  <p>
+    <span class="en">Share This Page — Help Others Keep Their Doctors</span>
+    <span class="es">Comparte Esta Página — Ayuda a Otros a Quedarse Con Sus Doctores</span>
+  </p>
+  <div class="share-buttons">
+    <a class="share-btn whatsapp" id="share-whatsapp" href="#" target="_blank" rel="noopener">
+      <span>WhatsApp</span>
+    </a>
+    <a class="share-btn facebook" id="share-facebook" href="#" target="_blank" rel="noopener">
+      <span>Facebook</span>
+    </a>
+    <a class="share-btn twitter" id="share-twitter" href="#" target="_blank" rel="noopener">
+      <span>X / Twitter</span>
+    </a>
+    <a class="share-btn sms" id="share-sms" href="#">
+      <span class="en">Text Message</span>
+      <span class="es">Mensaje de Texto</span>
+    </a>
+    <button class="share-btn copy-link" id="share-copy" onclick="copyShareLink()">
+      <span class="en">Copy Link</span>
+      <span class="es">Copiar Enlace</span>
+    </button>
+  </div>
+</section>
+
 <!-- ===== STICKY CTA — 3 BUTTONS ===== -->
 <div class="sticky-cta" id="sticky-cta">
   <a href="tel:+15166211982" class="cta-call" onclick="return handleCallClick(event, '516-621-1982', 'Walk-in Dermatology')">
@@ -1399,6 +1473,13 @@ function setLang(lang) {
     document.getElementById('btn-es').classList.remove('active');
   }
 }
+
+// ===== URL-BASED LANGUAGE DETECTION =====
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var lang = params.get('lang');
+  if (lang === 'es') { setLang('es'); }
+})();
 
 // ===== COUNTDOWN TO MAY 15 =====
 function updateCountdown() {
@@ -1625,6 +1706,52 @@ function playAudio(lang) {
   }
   speakNext();
 }
+
+function copyShareLink() {
+  var isSpanish = document.body.classList.contains('spanish');
+  var url = window.location.href.split('?')[0] + (isSpanish ? '?lang=es' : '');
+  var btn = document.getElementById('share-copy');
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function() {
+      btn.classList.add('copied');
+      var orig = btn.innerHTML;
+      btn.innerHTML = isSpanish ? '✅ Enlace Copiado!' : '✅ Link Copied!';
+      setTimeout(function() { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2500);
+    }).catch(function() {});
+  }
+}
+
+// ===== SHARE BUTTONS =====
+(function() {
+  var pageUrl = encodeURIComponent(window.location.href.split('?')[0]);
+  var isSpanish = document.body.classList.contains('spanish');
+  var msgEn = encodeURIComponent('Your Healthfirst Medicaid doctor could be gone after May 15. See what you can do: ');
+  var msgEs = encodeURIComponent('Tu doctor de Healthfirst Medicaid podría irse después del 15 de mayo. Mira lo que puedes hacer: ');
+  var msg = isSpanish ? msgEs : msgEn;
+
+  function updateShareLinks() {
+    var s = document.body.classList.contains('spanish');
+    var langUrl = pageUrl + (s ? encodeURIComponent('?lang=es') : '');
+    msg = s ? msgEs : msgEn;
+    var wa = document.getElementById('share-whatsapp');
+    var fb = document.getElementById('share-facebook');
+    var tw = document.getElementById('share-twitter');
+    var sm = document.getElementById('share-sms');
+    if(wa) wa.href = 'https://wa.me/?text=' + msg + langUrl;
+    if(fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + langUrl;
+    if(tw) tw.href = 'https://twitter.com/intent/tweet?text=' + msg + langUrl;
+    if(sm) sm.href = 'sms:?body=' + decodeURIComponent(msg + langUrl);
+  }
+  updateShareLinks();
+
+  // Re-update when language changes
+  var origSetLang = window.setLang;
+  window.setLang = function(lang) {
+    origSetLang(lang);
+    setTimeout(updateShareLinks, 50);
+  };
+})();
+
 </script>
 </body>
 </html>
