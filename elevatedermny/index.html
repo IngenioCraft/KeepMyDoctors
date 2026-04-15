@@ -522,10 +522,11 @@
   }
   .action-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
+    align-items: start;
   }
   .action-card {
     background: #fff;
@@ -716,11 +717,9 @@
     .action-section { padding: 40px 12px; }
     .action-cards { grid-template-columns: 1fr; }
     .phone-link { display: block; text-align: center; }
-    .complain-section { padding: 40px 12px; }
-    .complain-steps { grid-template-columns: 1fr; }
     .sticky-cta { flex-direction: column; padding: 14px 12px 10px; gap: 6px; }
     .sticky-cta a { width: 100%; justify-content: center; font-size: 14px; }
-    .sticky-cta a.cta-complain, .sticky-cta a.cta-switch { font-size: 12px; padding: 10px 14px; }
+    .sticky-cta a.cta-switch { font-size: 12px; padding: 10px 14px; }
     .impact-section { padding: 50px 12px; }
     .impact-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .hospital-grid { grid-template-columns: 1fr; }
@@ -970,6 +969,10 @@
 <!-- ===== CALL TO ACTION ===== -->
 <section class="action-section" id="action-switch">
   <h2><span class="en">Call Now. Keep Your Doctor.</span><span class="es">Llama Ahora. Quédate Con Tu Doctora.</span></h2>
+  <p style="text-align:center; font-size:13px; color:#6b7280; margin: -16px auto 24px; max-width:700px;">
+    <span class="en">Healthfirst has cut off <strong>3,177 providers</strong>, <strong>6 hospitals</strong>, and <strong>87 locations</strong> across Catholic Health from its network.</span>
+    <span class="es">Healthfirst ha eliminado <strong>3,177 proveedores</strong>, <strong>6 hospitales</strong> y <strong>87 ubicaciones</strong> de Catholic Health de su red.</span>
+  </p>
   <div class="action-cards">
     <div class="action-card urgent">
       <div class="step-num">1</div>
@@ -984,71 +987,20 @@
       <p><span class="en">Fidelis works with Elevate Dermatology and Catholic Health. Ask to switch to a plan that keeps all your doctors.</span><span class="es">Fidelis trabaja con Elevate Dermatology y Catholic Health. Pide cambiar a un plan que te deje quedarte con todos tus doctores.</span></p>
       <div class="say-script"><span class="en">"Can I switch to Fidelis?"</span><span class="es">"¿Puedo cambiar a Fidelis?"</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ===== COMPLAIN ===== -->
-<section class="complain-section" id="complaints">
-  <h2><span class="en">Your Voice Matters. Complain.</span><span class="es">Tu Voz Importa. Quéjate.</span></h2>
-  <p class="complain-sub"><span class="en">You have the <strong>right</strong> to complain. Here's how, step by step.</span><span class="es">Tienes el <strong>derecho</strong> de quejarte. Aquí te decimos cómo, paso a paso.</span></p>
-  <div class="complain-steps">
-    <div class="complain-card">
-      <div class="step-badge"><span class="en">Step 1 — Start Here</span><span class="es">Paso 1 — Empieza Aquí</span></div>
+    <div class="action-card urgent">
+      <div class="step-num">3</div>
       <h3><span class="en">Call Healthfirst</span><span class="es">Llama a Healthfirst</span></h3>
-      <p><span class="en">Call Member Services. Tell them you want to file a <strong>grievance</strong> (complaint).</span><span class="es">Llama a Servicios al Miembro. Diles que quieres hacer una <strong>queja</strong> formal.</span></p>
-      <div class="complain-phone"><a href="tel:+18664636743" onclick="return handleCallClick(event, '1-866-463-6743', 'Healthfirst')">1-866-463-6743</a></div>
-      <div class="say-script"><span class="en">"I want to file a grievance. I am losing access to my dermatologist at Elevate Dermatology and thousands of providers across Catholic Health."</span><span class="es">"Quiero presentar una queja. Estoy perdiendo acceso a mi dermatóloga en Elevate Dermatology y miles de proveedores de Catholic Health."</span></div>
-      <address class="complain-address"><strong><span class="en">Prefer to write?</span><span class="es">¿Prefieres escribir?</span></strong><br>Healthfirst, 100 Church Street, New York, NY 10007</address>
-    </div>
-    <div class="complain-card">
-      <div class="step-badge"><span class="en">Step 2 — Escalate</span><span class="es">Paso 2 — Escalar</span></div>
-      <h3><span class="en">NYS Department of Health</span><span class="es">Departamento de Salud de NY</span></h3>
-      <p><span class="en">This is <strong>powerful</strong>. The state investigates problems with access, network, and denials.</span><span class="es">Esto es <strong>poderoso</strong>. El estado investiga problemas de acceso, red y negaciones.</span></p>
-      <div class="complain-phone"><a href="tel:+18002068125" onclick="return handleCallClick(event, '1-800-206-8125', 'NYS Dept of Health')">1-800-206-8125</a></div>
-      <p><span class="en">Email:</span><span class="es">Correo:</span> <span class="complain-email"><a href="mailto:managedcarecomplaint@health.ny.gov">managedcarecomplaint@health.ny.gov</a></span></p>
-      <ul>
-        <li><span class="en">Can't see your dermatologist</span><span class="es">No puedes ver a tu dermatóloga</span></li>
-        <li><span class="en">Losing access to hospitals</span><span class="es">Perdiendo acceso a hospitales</span></li>
-        <li><span class="en">Network problems</span><span class="es">Problemas de red</span></li>
-        <li><span class="en">Plan behavior</span><span class="es">Comportamiento del plan</span></li>
-      </ul>
-      <address class="complain-address"><strong><span class="en">Prefer to write?</span><span class="es">¿Prefieres escribir?</span></strong><br><span class="en">NYS DOH, Managed Care Complaint Unit, OHIP DHPCO 1CP-1609, Albany, NY 12237</span><span class="es">NYS DOH, Unidad de Quejas de Managed Care, OHIP DHPCO 1CP-1609, Albany, NY 12237</span></address>
-      <div class="email-template">
-        <div class="email-template-label"><span class="en">Pre-Written Email — Copy & Send</span><span class="es">Correo Pre-Escrito — Copia y Envía</span></div>
-        <div class="email-template-subject"><span class="en">Subject: Complaint: Loss of Access to Dermatologist and Catholic Health Providers — Healthfirst Medicaid</span><span class="es">Asunto: Queja: Pérdida de Acceso a Dermatóloga y Proveedores de Catholic Health — Healthfirst Medicaid</span></div>
-        <div class="email-template-body"><span class="en">To Whom It May Concern,
-
-I am a Healthfirst Medicaid member writing to report a serious loss of access to care. Effective May 15, 2026, Healthfirst has failed to maintain its contract with Catholic Health Services, resulting in the loss of my dermatologist at Elevate Dermatology as well as over 3,000 providers and 6 hospitals across Long Island.
-
-I am requesting that the Department investigate this disruption in access and take appropriate action to protect Medicaid members.
-
-Thank you.</span><span class="es">A quien corresponda,
-
-Soy miembro de Healthfirst Medicaid y escribo para reportar una pérdida seria de acceso a atención médica. A partir del 15 de mayo de 2026, Healthfirst no ha podido mantener su contrato con Catholic Health Services, lo que resulta en la pérdida de mi dermatóloga en Elevate Dermatology y más de 3,000 proveedores y 6 hospitales en Long Island.
-
-Solicito que el Departamento investigue esta interrupción en el acceso y tome las medidas apropiadas para proteger a los miembros de Medicaid.
-
-Gracias.</span></div>
-        <button class="copy-email-btn" onclick="copyEmailTemplate()"><span class="en">📋 Copy Email to Clipboard</span><span class="es">📋 Copiar Correo al Portapapeles</span></button>
+      <p><span class="en">Tell Healthfirst <strong>why</strong> you are leaving. Every call puts pressure on them to restore the network.</span><span class="es">Dile a Healthfirst <strong>por qué</strong> te vas. Cada llamada les presiona a restaurar la red.</span></p>
+      <a href="tel:+18664636743" class="phone-link red" onclick="return handleCallClick(event, '1-866-463-6743', 'Healthfirst')">1-866-463-6743</a>
+      <div class="say-script">
+        <span class="en">"I am leaving Healthfirst for Fidelis because you dropped Elevate Dermatology and the Catholic Health providers I rely on."</span>
+        <span class="es">"Voy a dejar Healthfirst por Fidelis porque ustedes eliminaron a Elevate Dermatology y los proveedores de Catholic Health que necesito."</span>
       </div>
-    </div>
-    <div class="complain-card">
-      <div class="step-badge"><span class="en">Step 3 — More Help</span><span class="es">Paso 3 — Más Ayuda</span></div>
-      <h3><span class="en">NY Attorney General</span><span class="es">Fiscal General de NY</span></h3>
-      <p><span class="en">The Health Care Helpline can assign an <strong>advocate</strong> to help you and <strong>intervene</strong> with plans.</span><span class="es">La Línea de Ayuda de Salud puede asignarte un <strong>defensor</strong> para ayudarte e <strong>intervenir</strong> con los planes.</span></p>
-      <div class="complain-phone"><a href="tel:+18004289071" onclick="return handleCallClick(event, '1-800-428-9071', 'NY Attorney General')">1-800-428-9071</a></div>
-      <a href="https://pcf.ag.ny.gov/form/HCF" target="_blank" rel="noopener" class="file-online-btn"><span class="en">📝 File Online with NY Attorney General</span><span class="es">📝 Presenta Queja en Línea con el Fiscal General</span></a>
     </div>
   </div>
 </section>
 
 <!-- ===== GOOD TO KNOW ===== -->
-<section class="good-section">
-  <h2><span class="en">Good News</span><span class="es">Buenas Noticias</span></h2>
-  <p><span class="en">Some plans, like</span><span class="es">Algunos planes, como</span></p>
-  <div class="fidelis">Fidelis</div>
-  <p><span class="en">still work with Elevate Dermatology and all Catholic Health hospitals. You can <strong>pick any plan you want.</strong> Call today.</span><span class="es">todavía trabajan con Elevate Dermatology y todos los hospitales de Catholic Health. Puedes <strong>elegir el plan que quieras.</strong> Llama hoy.</span></p>
-</section>
 
 
 <!-- ===== SHARE — SPREAD THE WORD ===== -->
@@ -1080,9 +1032,7 @@ Gracias.</span></div>
 
 <!-- ===== STICKY CTA — 3 BUTTONS ===== -->
 <div class="sticky-cta" id="sticky-cta">
-  <a href="tel:+18005055678" class="cta-call" onclick="return handleCallClick(event, '1-800-505-5678', 'New York Medicaid Choice')"><span class="en">📞 Call Now</span><span class="es">📞 Llama</span></a>
-  <a href="#complaints" class="cta-complain" onclick="document.getElementById('complaints').scrollIntoView({behavior:'smooth'}); return false;"><span class="en">⚖️ Complain</span><span class="es">⚖️ Quéjate</span></a>
-  <a href="#action-switch" class="cta-switch" onclick="document.getElementById('action-switch').scrollIntoView({behavior:'smooth'}); return false;"><span class="en">🔄 Switch Plans</span><span class="es">🔄 Cambia de Plan</span></a>
+  <a href="tel:+18005055678" class="cta-call" onclick="return handleCallClick(event, '1-800-505-5678', 'New York Medicaid Choice')"><span class="en">📞 Switch to Fidelis — Call Now</span><span class="es">📞 Cambia a Fidelis — Llama</span></a>
 </div>
 
 <!-- ===== FOOTER ===== -->
