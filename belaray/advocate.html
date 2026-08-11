@@ -516,6 +516,10 @@
     <h3><span class="en">📞 Letter 3: To Healthfirst itself — file a member grievance</span><span class="es">📞 Carta 3: A Healthfirst — presente una queja de miembro</span><span class="pa">📞 ਚਿੱਠੀ 3: ਸਿੱਧਾ Healthfirst ਨੂੰ — ਮੈਂਬਰ ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ</span><span class="bn">📞 চিঠি ৩: সরাসরি Healthfirst-কে — সদস্য অভিযোগ দাখিল করুন</span><span class="hi">📞 पत्र 3: सीधे Healthfirst को — सदस्य शिकायत दर्ज करें</span></h3>
     <p class="to-line" id="healthfirst-toline"></p>
     <textarea id="txt-healthfirst"></textarea>
+    <div class="field" style="margin-top:10px;">
+     <label class="f-label" for="f-contact"><span class="en">Your phone or email, so Healthfirst can reply to you (goes on the fax cover page)</span><span class="es">Su teléfono o correo, para que Healthfirst pueda responderle (va en la portada del fax)</span><span class="pa">ਤੁਹਾਡਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ, ਤਾਂ ਜੋ Healthfirst ਤੁਹਾਨੂੰ ਜਵਾਬ ਦੇ ਸਕੇ (ਫੈਕਸ ਦੇ ਕਵਰ ਪੇਜ 'ਤੇ ਜਾਂਦਾ ਹੈ)</span><span class="bn">আপনার ফোন বা ইমেইল, যাতে Healthfirst আপনাকে উত্তর দিতে পারে (ফ্যাক্স কভার পাতায় যাবে)</span><span class="hi">आपका फ़ोन या ईमेल, ताकि Healthfirst आपको जवाब दे सके (फ़ैक्स कवर पेज पर जाता है)</span></label>
+     <input type="text" id="f-contact" placeholder="(516) 555-1234 / name@email.com" autocomplete="tel email">
+    </div>
     <div class="letter-actions" id="healthfirst-actions"></div>
     <p class="send-note" id="healthfirst-note"></p>
    </div>
@@ -550,6 +554,9 @@
  <script>
   // Letter-API endpoint (Vercel serverless function). Falls back to template letters if unreachable.
   const WORKER_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/letter";
+  // Fax endpoint (same Vercel project). Faxes the grievance letter straight to
+  // Healthfirst Appeals & Grievances; destination is fixed server-side.
+  const FAX_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/fax";
 
   // ===== LANGUAGE =====
   var LANG = 'en';
@@ -576,6 +583,12 @@
     medicareNote: { en: 'Copy your letter into Medicare\'s complaint form, or call <a href="tel:18006334227">1-800-MEDICARE</a>. Network complaints can trigger Medicare to review the plan.', es: 'Copie su carta en el formulario de Medicare, o llame al <a href="tel:18006334227">1-800-MEDICARE</a>.', pa: 'ਚਿੱਠੀ Medicare ਦੇ ਫਾਰਮ ਵਿੱਚ ਪਾਓ, ਜਾਂ <a href="tel:18006334227">1-800-MEDICARE</a> \'ਤੇ ਫ਼ੋਨ ਕਰੋ।', bn: 'চিঠি Medicare-এর ফর্মে দিন, বা <a href="tel:18006334227">1-800-MEDICARE</a> নম্বরে ফোন করুন।', hi: 'पत्र Medicare के फ़ॉर्म में डालें, या <a href="tel:18006334227">1-800-MEDICARE</a> पर फ़ोन करें।' },
     notSure: { en: '<br>Not sure which plan you have? Text us at <a href="sms:5168227546">(516) 822-7546</a>.', es: '<br>¿No sabe su plan? Envíenos un texto al <a href="sms:5168227546">(516) 822-7546</a>.', pa: '<br>ਪਲਾਨ ਪੱਕਾ ਨਹੀਂ? <a href="sms:5168227546">(516) 822-7546</a> \'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ।', bn: '<br>প্ল্যান নিশ্চিত নন? <a href="sms:5168227546">(516) 822-7546</a> নম্বরে মেসেজ করুন।', hi: '<br>प्लान पक्का नहीं? <a href="sms:5168227546">(516) 822-7546</a> पर मैसेज करें।' },
     callHf: { en: '📞 Call Healthfirst', es: '📞 Llamar a Healthfirst', pa: '📞 Healthfirst ਨੂੰ ਫ਼ੋਨ ਕਰੋ', bn: '📞 Healthfirst-কে ফোন করুন', hi: '📞 Healthfirst को फ़ोन करें' },
+    faxBtn: { en: '📠 Fax it to Healthfirst now', es: '📠 Enviar por fax a Healthfirst ahora', pa: '📠 ਹੁਣੇ Healthfirst ਨੂੰ ਫੈਕਸ ਕਰੋ', bn: '📠 এখনই Healthfirst-কে ফ্যাক্স করুন', hi: '📠 अभी Healthfirst को फ़ैक्स करें' },
+    faxConfirm: { en: 'This will fax your grievance letter to Healthfirst Appeals and Grievances (1-646-313-4618) right now, with your name on the cover page. Send it?', es: 'Esto enviará su carta de queja por fax a Healthfirst (1-646-313-4618) ahora mismo, con su nombre en la portada. ¿Enviar?', pa: 'ਇਹ ਤੁਹਾਡੀ ਸ਼ਿਕਾਇਤ ਚਿੱਠੀ ਹੁਣੇ Healthfirst (1-646-313-4618) ਨੂੰ ਫੈਕਸ ਕਰੇਗਾ, ਕਵਰ ਪੇਜ ਉੱਤੇ ਤੁਹਾਡੇ ਨਾਮ ਨਾਲ। ਭੇਜੀਏ?', bn: 'এটি আপনার অভিযোগের চিঠি এখনই Healthfirst (1-646-313-4618)-এ ফ্যাক্স করবে, কভার পাতায় আপনার নাম সহ। পাঠাবেন?', hi: 'यह आपका शिकायत पत्र अभी Healthfirst (1-646-313-4618) को फ़ैक्स करेगा, कवर पेज पर आपके नाम के साथ। भेजें?' },
+    faxSending: { en: 'Sending your fax…', es: 'Enviando su fax…', pa: 'ਫੈਕਸ ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ…', bn: 'ফ্যাক্স পাঠানো হচ্ছে…', hi: 'फ़ैक्स भेजा जा रहा है…' },
+    faxSent: { en: '📠 Fax sent! Healthfirst must answer a written grievance in writing.', es: '📠 ¡Fax enviado! Healthfirst debe responder por escrito.', pa: '📠 ਫੈਕਸ ਭੇਜ ਦਿੱਤਾ! Healthfirst ਨੂੰ ਲਿਖਤੀ ਜਵਾਬ ਦੇਣਾ ਪਵੇਗਾ।', bn: '📠 ফ্যাক্স পাঠানো হয়েছে! Healthfirst-কে লিখিত উত্তর দিতে হবে।', hi: '📠 फ़ैक्स भेज दिया! Healthfirst को लिखित जवाब देना होगा।' },
+    faxFailed: { en: 'The fax could not be sent right now. Please try again in a minute, or use Call or Copy instead.', es: 'No se pudo enviar el fax. Intente de nuevo en un minuto, o use Llamar o Copiar.', pa: 'ਫੈਕਸ ਨਹੀਂ ਭੇਜਿਆ ਜਾ ਸਕਿਆ। ਇੱਕ ਮਿੰਟ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਜਾਂ Call ਜਾਂ Copy ਵਰਤੋ।', bn: 'ফ্যাক্স পাঠানো যায়নি। এক মিনিট পরে আবার চেষ্টা করুন, বা Call বা Copy ব্যবহার করুন।', hi: 'फ़ैक्स नहीं भेजा जा सका। एक मिनट बाद फिर कोशिश करें, या Call या Copy इस्तेमाल करें।' },
+    faxNeedContact: { en: 'Please add your phone or email first, so Healthfirst can reply to you.', es: 'Primero agregue su teléfono o correo, para que Healthfirst pueda responderle.', pa: 'ਪਹਿਲਾਂ ਆਪਣਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ ਲਿਖੋ, ਤਾਂ ਜੋ Healthfirst ਜਵਾਬ ਦੇ ਸਕੇ।', bn: 'আগে আপনার ফোন বা ইমেইল দিন, যাতে Healthfirst উত্তর দিতে পারে।', hi: 'पहले अपना फ़ोन या ईमेल लिखें, ताकि Healthfirst जवाब दे सके।' },
     shareBtn: { en: '📲 Share with my family', es: '📲 Compartir con mi familia', pa: '📲 ਆਪਣੇ ਪਰਿਵਾਰ ਨਾਲ ਸਾਂਝਾ ਕਰੋ', bn: '📲 পরিবারের সাথে শেয়ার করুন', hi: '📲 अपने परिवार से साझा करें' },
     shareText: { en: 'Healthfirst dropped our dermatologist, Belaray, after 20 years. It takes 3 minutes to send letters that can help bring them back:', es: 'Healthfirst dejó fuera a nuestro dermatólogo, Belaray, después de 20 años. Toma 3 minutos enviar cartas que pueden ayudar a traerlos de vuelta:', pa: 'Healthfirst ਨੇ 20 ਸਾਲਾਂ ਬਾਅਦ ਸਾਡੇ ਚਮੜੀ ਦੇ ਡਾਕਟਰ ਬੇਲਾਰੇ ਨੂੰ ਕੱਢ ਦਿੱਤਾ। ਉਨ੍ਹਾਂ ਨੂੰ ਵਾਪਸ ਲਿਆਉਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜਣ ਵਿੱਚ ਸਿਰਫ਼ 3 ਮਿੰਟ ਲੱਗਦੇ ਹਨ:', bn: 'Healthfirst ২০ বছর পর আমাদের চর্মরোগ বিশেষজ্ঞ বেলারে-কে বাদ দিয়েছে। তাদের ফিরিয়ে আনতে সাহায্য করার চিঠি পাঠাতে মাত্র ৩ মিনিট লাগে:', hi: 'Healthfirst ने 20 साल बाद हमारे त्वचा डॉक्टर बेलारे को निकाल दिया। उन्हें वापस लाने में मदद करने वाले पत्र भेजने में सिर्फ़ 3 मिनट लगते हैं:' },
     shareCopied: { en: 'Link copied — text it to your family!', es: '¡Enlace copiado — envíelo a su familia!', pa: 'ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ — ਆਪਣੇ ਪਰਿਵਾਰ ਨੂੰ ਭੇਜੋ!', bn: 'লিংক কপি হয়েছে — পরিবারকে পাঠান!', hi: 'लिंक कॉपी हो गया — अपने परिवार को भेजें!' },
@@ -800,7 +813,7 @@
     return {
       assembly: 'To: ' + a.name + ' <' + a.email + '>\nAlso send to: ' + s.name + ' <' + s.email + '>\nSubject: Constituent request: Healthfirst network access to Belaray Dermatology\n\n',
       regulator: reg,
-      healthfirst: 'To: Healthfirst Member Services\nCall: ' + hfPhone + ' (the number on the back of your member ID card is always correct)\nOr: secure Message Center at my.healthfirst.org, or mail to: Healthfirst Appeals and Grievances Department, P.O. Box 5166, New York, NY 10274-5166\nSubject: Formal grievance - network access to my dermatologist\n\n'
+      healthfirst: 'To: Healthfirst Member Services\nCall: ' + hfPhone + ' (the number on the back of your member ID card is always correct)\nFax: 1-646-313-4618 (Appeals and Grievances Department)\nOr: secure Message Center at my.healthfirst.org, or mail to: Healthfirst Appeals and Grievances Department, P.O. Box 5166, New York, NY 10274-5166\nSubject: Formal grievance - network access to my dermatologist\n\n'
     };
   }
 
@@ -814,9 +827,15 @@
   function setupHealthfirstCard(answers) {
     var hfPhone = PLAN_INFO[answers.planKey].hfPhone;
     document.getElementById('healthfirst-toline').textContent =
-      'To: Healthfirst Member Services · ' + hfPhone;
+      'To: Healthfirst Member Services · ' + hfPhone + ' · Fax (Appeals & Grievances): 1-646-313-4618';
     var actions = document.getElementById('healthfirst-actions');
     actions.innerHTML = '';
+
+    var faxBtn = document.createElement('button');
+    faxBtn.className = 'act-btn act-primary';
+    faxBtn.textContent = t('faxBtn');
+    faxBtn.onclick = function() { faxHealthfirst(faxBtn); };
+    actions.appendChild(faxBtn);
 
     var callBtn = document.createElement('a');
     callBtn.className = 'act-btn act-primary';
@@ -1020,6 +1039,47 @@
     if (typeof plausible !== 'undefined') plausible('email_self', { props: { which: which } });
     window.location.href = 'mailto:?subject=' + encodeURIComponent('My letter about Belaray Dermatology (' + which + ') - send when ready') + '&body=' + encodeURIComponent(body);
     showToast(t('emailSelfToast'));
+  }
+
+  // One-tap written grievance: the server renders the letter as a PDF with a
+  // cover page (patient name + reply contact) and faxes it to Healthfirst
+  // Appeals & Grievances. Requires a reply contact so every fax is traceable
+  // to a real, reachable member.
+  async function faxHealthfirst(btn) {
+    var contact = document.getElementById('f-contact').value.trim();
+    if (!contact) {
+      showToast(t('faxNeedContact'));
+      document.getElementById('f-contact').focus();
+      return;
+    }
+    if (!confirm(t('faxConfirm'))) return;
+    var body = stripHeader(document.getElementById('txt-healthfirst').value);
+    var planSel = document.getElementById('f-plan').value;
+    var planLabel = (PLAN_INFO[planSel] || {}).label || 'a Healthfirst plan';
+    btn.disabled = true;
+    var old = btn.textContent;
+    btn.textContent = t('faxSending');
+    try {
+      var resp = await fetch(FAX_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          letterText: body,
+          patientName: document.getElementById('f-name').value.trim(),
+          patientTown: document.getElementById('f-town').value,
+          patientContact: contact,
+          planType: planLabel
+        })
+      });
+      if (!resp.ok) throw new Error('fax_failed');
+      showToast(t('faxSent'));
+      if (typeof plausible !== 'undefined') plausible('fax_sent', { props: { plan: planSel } });
+    } catch (e) {
+      showToast(t('faxFailed'));
+      if (typeof plausible !== 'undefined') plausible('fax_failed', {});
+    }
+    btn.disabled = false;
+    btn.textContent = old;
   }
 
   function openMail(which) {
