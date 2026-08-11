@@ -49,6 +49,27 @@ Produce THREE letters:
 2. "regulator_letter" — a formal but personal complaint addressed per the recipient specified in the input (e.g. "Dear New York State Department of Health Managed Care Complaint Unit," / "Dear New York State Department of Financial Services," / "To Whom It May Concern at Medicare,"). State the member's plan type, describe the severed established physician relationship, present the patient's concrete access evidence (offices called, directory inaccuracies, quoted waits, travel distance), and request that the plan's dermatology network adequacy be reviewed and that Belaray Dermatology be restored to the network.
 3. "healthfirst_letter" — a formal member grievance addressed "Dear Healthfirst Member Services,". Written as a paying/enrolled member of the plan named in the input, directly to their own insurer. It should: state plainly that the member is filing a formal grievance about network access to dermatology; condense the member's stake (relationship, ongoing care, access evidence) into its sharpest form rather than repeating the other letters at full length; state that the member did not choose this disruption and that the practice is willing to participate; ask Healthfirst to restore Belaray Dermatology to the network; and explicitly request that this be logged as a formal grievance with a written response and a grievance reference number. Firm, civil, unambiguous — the tone of a member the company should worry about losing. Roughly 250-400 words.`;
 
+const PHYSICIAN_PROMPT = `You draft advocacy letters for physicians and clinicians in Nassau and Suffolk County, New York, who refer patients to Belaray Dermatology (Hicksville and Stony Brook). Healthfirst terminated its network relationship with Belaray in May 2026 and in August 2026 declined the practice's application to rejoin, despite Belaray participating since 2006. The practice remains open and willing to participate; referring clinicians and their Healthfirst patients have lost a functioning dermatology referral pathway.
+
+You will receive one clinician's questionnaire answers. Write in the clinician's own professional first-person voice.
+
+How to write:
+- Use ONLY the facts supplied. Never invent details, statistics, patient counts, or patient stories. Omit blank topics.
+- NEVER include patient-identifying information. Speak about the clinician's patient panel in general terms only.
+- Professional, collegial, specific. A physician's letter should read like a physician wrote it: clinical stakes stated plainly (delayed evaluation of suspicious lesions, interrupted melanoma surveillance, loss of a Mohs-with-same-day-oculoplastic-reconstruction referral pathway, loss of phototherapy access, avoidable emergency department utilization), not marketing language.
+- Some referrers are themselves dermatologists or Mohs surgeons who send Belaray their complex cases (advanced or high-risk Mohs, Mohs with same-day oculoplastic reconstruction, phototherapy). When the specialty in the input is dermatology or Mohs surgery, write specialist-to-specialist: the loss is a tertiary referral pathway for cases beyond the referrer's own scope, and there is no comparable in-network destination for those cases — testimony from within the specialty itself that the network cannot absorb this care.
+- The core argument is network adequacy seen from the referring side: a directory listing is not a referral pathway. If the clinician reports they cannot get Healthfirst patients seen in a timely way, that is front-line evidence the network is inadequate. New York's managed-care standards generally expect a specialist appointment within 4-6 weeks.
+- Where the answers support it: the clinician did not choose this disruption, Belaray is willing to participate, and the insurer's decision alone severed a functioning referral relationship.
+- Do not praise Belaray's reputation except as it bears on patient access and referral function.
+- Each letter roughly 300-500 words, in English.
+- Vary structure and phrasing so letters from different clinicians never look templated.
+- Sign with the clinician's name, credentials, specialty, and practice/town as provided.
+
+Produce THREE letters:
+1. "assembly_letter" — a letter to the NY State legislator named in the input, from a community physician. IMPORTANT: it may also be sent to the State Senator with only the salutation changed, so refer to "your office" and avoid chamber-specific references. Explain how the insurer's decision affects the clinician's patients and ability to practice, and ask your office to contact Healthfirst, raise the issue with the NYS Department of Health, and examine whether Healthfirst's dermatology network is genuinely adequate — and to help restore Belaray Dermatology to the network.
+2. "regulator_letter" — a formal complaint to the New York State Department of Health, Managed Care Complaint Unit ("Dear New York State Department of Health, Managed Care Complaint Unit,") — providers may file complaints with the State directly. State the clinician's role and referral relationship, the concrete access problems observed since the termination, and request a review of Healthfirst's dermatology network adequacy and restoration of the practice.
+3. "healthfirst_letter" — a letter to Healthfirst Provider Services / network management ("Dear Healthfirst Provider Services,"), from a referring clinician. Professional and firm: describe the referral impact on Healthfirst's own members, request reconsideration of the August 2026 decision and restoration of Belaray Dermatology to the network, and ask for a written response.`;
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -74,7 +95,9 @@ export default {
     }
 
     const a = payload.answers || {};
-    const prompt = buildPrompt(a);
+    const isPhysician = a.role === "physician";
+    const prompt = isPhysician ? buildPhysicianPrompt(a) : buildPrompt(a);
+    const systemText = isPhysician ? PHYSICIAN_PROMPT : SYSTEM_PROMPT;
 
     try {
       const apiResp = await fetch("https://api.anthropic.com/v1/messages", {
@@ -88,7 +111,7 @@ export default {
           model: "claude-opus-5",
           max_tokens: 5000,
           // effort "low" roughly halves generation time with minimal quality impact
-          system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+          system: [{ type: "text", text: systemText, cache_control: { type: "ephemeral" } }],
           output_config: {
             effort: "low",
             format: {
@@ -183,7 +206,30 @@ function buildPrompt(a) {
   add("Anything else, in the patient's own words", clip(a.ownWords));
 
   return (
-    "Here are one patient's questionnaire answers. Draft the two letters described in your instructions.\n\n" +
+    "Here are one patient's questionnaire answers. Draft the three letters described in your instructions.\n\n" +
+    lines.join("\n")
+  );
+}
+
+function buildPhysicianPrompt(a) {
+  const lines = [];
+  const add = (label, val) => {
+    if (val && String(val).trim()) lines.push(`${label}: ${val}`);
+  };
+  add("Clinician name (for signature)", clip(a.name));
+  add("Credentials", clip(a.credentials));
+  add("Specialty", clip(a.specialty));
+  add("Practice name", clip(a.practice));
+  add("Town / area", clip(a.town));
+  add("NY State legislator to address in the assembly letter", clip(a.assemblyRep));
+  add("How long they have referred patients to Belaray", clip(a.yearsReferring));
+  const pat = clipList(a.patientImpact);
+  if (pat.length) add("How their patients are affected", pat.join("; "));
+  const prac = clipList(a.practiceImpact);
+  if (prac.length) add("How their practice and referral workflow are affected", prac.join("; "));
+  add("Anything else, in the clinician's own words", clip(a.ownWords));
+  return (
+    "Here are one referring clinician's questionnaire answers. Draft the three letters described in your instructions.\n\n" +
     lines.join("\n")
   );
 }
