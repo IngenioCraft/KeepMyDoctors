@@ -4,60 +4,47 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Belaray Dermatology &#8212; Healthfirst Update | KeepMyDoctors</title>
- <meta name="description" content="Important update for Healthfirst patients at Belaray Dermatology: Healthfirst has declined to restore network access — here's what it means and how you can help.">
+ <meta name="description" content="Healthfirst declined to restore Belaray Dermatology to its network. Here's what it means for patients — and how your voice can change it.">
  <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --teal: #5B8FA8;
-    --teal-dark: #4a7a91;
-    --teal-light: #e8f2f7;
-    --teal-bg: #f4f9fb;
-    --dark: #1f2937;
-    --gray: #6B7280;
-    --light: #F9FAFB;
-    --white: #ffffff;
-    --green: #16A34A;
-    --green-light: #F0FDF4;
-    --amber: #D97706;
-    --amber-light: #FFFBEB;
+    --teal: #5B8FA8; --teal-dark: #4a7a91; --teal-light: #e8f2f7; --teal-bg: #f4f9fb;
+    --dark: #1f2937; --gray: #6B7280; --light: #F9FAFB; --white: #ffffff;
+    --green: #16A34A; --green-light: #F0FDF4; --amber: #D97706; --amber-light: #FFFBEB;
   }
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    color: var(--dark);
-    background: var(--white);
-    overflow-x: hidden;
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, 'Noto Sans Gurmukhi', 'Noto Sans Bengali', 'Noto Sans Devanagari', sans-serif;
+    color: var(--dark); background: var(--white); overflow-x: hidden; line-height: 1.6;
   }
 
-  /* ===== LANGUAGE TOGGLE ===== */
+  /* ===== LANGUAGE TOGGLE (5 languages) ===== */
   .lang-toggle {
-    position: fixed;
-    top: 12px; right: 12px;
-    z-index: 1001;
-    display: flex; gap: 4px;
-    background: rgba(91,143,168,0.95);
-    border-radius: 8px; padding: 4px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    position: fixed; top: 10px; right: 10px; z-index: 1001;
+    display: flex; gap: 3px; flex-wrap: wrap; justify-content: flex-end;
+    background: rgba(91,143,168,0.95); border-radius: 8px; padding: 4px;
+    backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0,0,0,0.1); max-width: 94vw;
   }
   .lang-btn {
-    padding: 8px 14px; border: none; border-radius: 6px;
-    font-weight: 700; font-size: 13px; cursor: pointer;
-    transition: all 0.2s; background: transparent; color: #fff; min-height: 44px;
+    padding: 6px 10px; border: none; border-radius: 6px;
+    font-weight: 700; font-size: 12px; cursor: pointer;
+    transition: all 0.2s; background: transparent; color: #fff; min-height: 38px; font-family: inherit;
   }
   .lang-btn.active { background: #fff; color: var(--teal); }
-  .es { display: none; }
-  body.spanish .en { display: none; }
-  body.spanish .es { display: block; }
-  body.spanish span.es, body.spanish a.es { display: inline; }
+
+  .es, .pa, .bn, .hi { display: none; }
+  body.lang-es .en, body.lang-es .pa, body.lang-es .bn, body.lang-es .hi { display: none; }
+  body.lang-pa .en, body.lang-pa .es, body.lang-pa .bn, body.lang-pa .hi { display: none; }
+  body.lang-bn .en, body.lang-bn .es, body.lang-bn .pa, body.lang-bn .hi { display: none; }
+  body.lang-hi .en, body.lang-hi .es, body.lang-hi .pa, body.lang-hi .bn { display: none; }
+  body.lang-es .es, body.lang-pa .pa, body.lang-bn .bn, body.lang-hi .hi { display: block; }
+  body.lang-es span.es, body.lang-es a.es, body.lang-pa span.pa, body.lang-pa a.pa,
+  body.lang-bn span.bn, body.lang-bn a.bn, body.lang-hi span.hi, body.lang-hi a.hi { display: inline; }
 
   /* ===== HERO ===== */
   .hero {
     background: linear-gradient(135deg, var(--teal-bg) 0%, var(--white) 100%);
-    padding: 28px 20px 36px;
-    text-align: center;
-    border-bottom: 3px solid var(--teal);
+    padding: 58px 20px 36px; text-align: center; border-bottom: 3px solid var(--teal);
   }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
@@ -66,35 +53,22 @@
     font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
     text-transform: uppercase; margin-bottom: 18px;
   }
-  .hero-badge .dot {
-    width: 8px; height: 8px; background: #fff;
-    border-radius: 50%; animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity:1; transform:scale(1); }
-    50% { opacity:0.6; transform:scale(1.3); }
-  }
+  .hero-badge .dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.3); } }
   .hero h1 {
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 800; color: var(--dark);
-    line-height: 1.2; margin-bottom: 12px;
-    max-width: 640px; margin-left: auto; margin-right: auto;
+    font-size: clamp(24px, 5vw, 36px); font-weight: 800; color: var(--dark);
+    line-height: 1.2; margin-bottom: 12px; max-width: 640px; margin-left: auto; margin-right: auto;
   }
   .hero-sub {
-    font-size: clamp(15px, 2.5vw, 17px);
-    color: var(--gray); max-width: 560px;
+    font-size: clamp(15px, 2.5vw, 17px); color: var(--gray); max-width: 580px;
     margin: 0 auto; line-height: 1.7;
   }
 
   /* ===== INFO CARDS ===== */
   .info-section { padding: 40px 20px 24px; max-width: 760px; margin: 0 auto; }
   .info-card {
-    background: var(--white);
-    border: 2px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 28px 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: var(--white); border: 2px solid #e5e7eb; border-radius: 16px;
+    padding: 28px 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
   .info-card.highlight { border-color: var(--teal); background: var(--teal-bg); }
   .info-card.good { border-color: var(--green); background: var(--green-light); }
@@ -112,80 +86,37 @@
   }
   .cta-inline:hover { transform: translateY(-1px); filter: brightness(0.94); }
 
-  /* ===== WHAT TO KNOW SECTION ===== */
+  /* ===== POINT CARDS ===== */
   .points-section { padding: 0 20px 48px; max-width: 760px; margin: 0 auto; }
   .points-section h2 {
-    font-size: clamp(20px, 4vw, 26px);
-    font-weight: 800; color: var(--dark);
+    font-size: clamp(20px, 4vw, 26px); font-weight: 800; color: var(--dark);
     text-align: center; margin: 24px 0 28px;
   }
   .point-card {
     display: flex; gap: 18px; align-items: flex-start;
-    background: var(--white);
-    border: 2px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 24px 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: var(--white); border: 2px solid #e5e7eb; border-radius: 16px;
+    padding: 24px 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  .point-icon {
-    font-size: 28px; min-width: 40px; text-align: center; padding-top: 2px;
-  }
+  .point-icon { font-size: 28px; min-width: 40px; text-align: center; padding-top: 2px; }
   .point-content h3 { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
   .point-content p { font-size: 14px; color: var(--gray); line-height: 1.7; }
   .point-content a { color: var(--teal-dark); font-weight: 700; }
 
-  /* ===== TIMELINE ===== */
-  .expect-section { background: var(--light); padding: 48px 20px; }
-  .expect-inner { max-width: 760px; margin: 0 auto; }
-  .expect-section h2 {
-    font-size: clamp(20px, 4vw, 26px);
-    font-weight: 800; color: var(--dark);
-    text-align: center; margin-bottom: 8px;
-  }
-  .expect-sub { text-align: center; color: var(--gray); font-size: 15px; margin-bottom: 32px; }
-  .timeline { display: flex; flex-direction: column; position: relative; }
-  .timeline::before {
-    content: ''; position: absolute;
-    left: 24px; top: 24px; bottom: 24px;
-    width: 3px; background: var(--teal); opacity: 0.3; border-radius: 2px;
-  }
-  .timeline-item { display: flex; gap: 20px; padding: 20px 0; position: relative; }
-  .timeline-dot {
-    width: 48px; height: 48px; min-width: 48px;
-    background: var(--teal); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-size: 16px;
-    position: relative; z-index: 1;
-    box-shadow: 0 2px 8px rgba(91,143,168,0.3);
-  }
-  .timeline-dot.amber { background: #D97706; box-shadow: 0 2px 8px rgba(217,119,6,0.3); }
-  .timeline-dot.green { background: var(--green); box-shadow: 0 2px 8px rgba(22,163,74,0.3); }
-  .timeline-content h3 { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
-  .timeline-content p { font-size: 14px; color: var(--gray); line-height: 1.6; }
-  .timeline-content a { color: var(--teal-dark); font-weight: 700; }
-  .timeline-date {
-    font-size: 12px; font-weight: 700; color: var(--teal);
-    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
-  }
-  .timeline-date.amber { color: #D97706; }
-  .timeline-date.green { color: var(--green); }
-
   /* ===== FAQ ===== */
-  .faq-section { padding: 48px 20px; max-width: 760px; margin: 0 auto; }
+  .faq-section { padding: 8px 20px 48px; max-width: 760px; margin: 0 auto; }
   .faq-section h2 { font-size: clamp(20px, 4vw, 26px); font-weight: 800; text-align: center; color: var(--dark); margin-bottom: 28px; }
   .faq-item { border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
   .faq-item:hover { border-color: var(--teal); }
   .faq-q {
     padding: 18px 20px; font-size: 15px; font-weight: 700; color: var(--dark);
     cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-    background: var(--white); border: none; width: 100%; text-align: left; min-height: 44px;
+    background: var(--white); border: none; width: 100%; text-align: left; min-height: 44px; font-family: inherit;
   }
   .faq-q:hover { background: var(--light); }
   .faq-arrow { font-size: 18px; color: var(--teal); transition: transform 0.2s; min-width: 24px; text-align: center; }
   .faq-item.open .faq-arrow { transform: rotate(180deg); }
   .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-  .faq-item.open .faq-a { padding: 0 20px 18px; max-height: 400px; }
+  .faq-item.open .faq-a { padding: 0 20px 18px; max-height: 460px; }
   .faq-a p { font-size: 14px; color: var(--gray); line-height: 1.7; }
   .faq-a a { color: var(--teal-dark); font-weight: 700; }
 
@@ -194,10 +125,8 @@
   .contact-banner h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
   .contact-banner p { font-size: 15px; opacity: 0.9; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
   .cta-btn {
-    display: inline-block; background: #fff;
-    padding: 14px 36px; border-radius: 24px;
-    font-size: 19px; font-weight: 800;
-    text-decoration: none; transition: transform 0.2s;
+    display: inline-block; background: #fff; padding: 14px 36px; border-radius: 24px;
+    font-size: 19px; font-weight: 800; text-decoration: none; transition: transform 0.2s;
     color: var(--teal-dark);
   }
   .cta-btn:hover { transform: translateY(-2px); }
@@ -206,8 +135,7 @@
 
   /* ===== STICKY CTA ===== */
   .sticky-cta {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    z-index: 999;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
     background: linear-gradient(transparent, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.98));
     padding: 16px 20px 14px; text-align: center;
     transform: translateY(100%); transition: transform 0.4s ease;
@@ -223,36 +151,17 @@
   }
   .sticky-cta a:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
-  /* ===== FOOTER ===== */
   footer {
-    background: var(--dark); color: #9CA3AF;
-    text-align: center; padding: 28px 20px 80px;
-    font-size: 13px; line-height: 1.8;
+    background: var(--dark); color: #9CA3AF; text-align: center;
+    padding: 28px 20px 80px; font-size: 13px; line-height: 1.8;
   }
   footer a { color: var(--teal); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
 
-  /* ===== TOAST ===== */
-  .toast-notification {
-    position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%);
-    background: #1a1a2e; color: #fff; padding: 16px 28px; border-radius: 12px;
-    font-size: 1rem; font-weight: 600; z-index: 100000;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-    transition: bottom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    text-align: center; max-width: 90vw; border: 2px solid var(--teal);
-  }
-  .toast-notification.show { bottom: 30px; }
-
-  /* ===== RESPONSIVE ===== */
   @media (max-width: 560px) {
     .hero h1 { font-size: 22px; }
     .info-section, .faq-section, .points-section { padding-left: 16px; padding-right: 16px; }
-    .expect-section { padding-left: 16px; padding-right: 16px; }
     .sticky-cta a { width: 100%; justify-content: center; font-size: 15px; padding: 14px 20px; }
-    .timeline::before { left: 20px; }
-    .timeline-dot { width: 40px; height: 40px; min-width: 40px; font-size: 14px; }
   }
-  @media (pointer: coarse) { .lang-btn, .faq-q, .cta-btn { min-height: 44px; } }
  </style>
  <script async src="https://plausible.io/js/pa-WhrBFEXMP6NUSZvRqGXVV.js"></script>
  <script>
@@ -266,6 +175,9 @@
  <div class="lang-toggle">
   <button class="lang-btn active" onclick="setLang('en')" id="btn-en">English</button>
   <button class="lang-btn" onclick="setLang('es')" id="btn-es">Español</button>
+  <button class="lang-btn" onclick="setLang('pa')" id="btn-pa">ਪੰਜਾਬੀ</button>
+  <button class="lang-btn" onclick="setLang('bn')" id="btn-bn">বাংলা</button>
+  <button class="lang-btn" onclick="setLang('hi')" id="btn-hi">हिन्दी</button>
  </div>
 
  <!-- ===== HERO ===== -->
@@ -274,14 +186,23 @@
    <span class="dot"></span>
    <span class="en">Update About Your Insurance</span>
    <span class="es">Aviso Sobre Su Seguro</span>
+   <span class="pa">ਤੁਹਾਡੇ ਬੀਮੇ ਬਾਰੇ ਅੱਪਡੇਟ</span>
+   <span class="bn">আপনার বীমা সম্পর্কে আপডেট</span>
+   <span class="hi">आपके बीमा के बारे में अपडेट</span>
   </div>
   <h1>
    <span class="en">We're Still Here for You</span>
    <span class="es">Seguimos Aquí Para Usted</span>
+   <span class="pa">ਅਸੀਂ ਹਾਲੇ ਵੀ ਤੁਹਾਡੇ ਲਈ ਇੱਥੇ ਹਾਂ</span>
+   <span class="bn">আমরা এখনও আপনার পাশে আছি</span>
+   <span class="hi">हम अब भी आपके लिए यहाँ हैं</span>
   </h1>
   <p class="hero-sub">
-   <span class="en">After 20 years and thousands of patients in our care, Healthfirst has refused to let Belaray back into its network — a business decision that restricts <em>your</em> access to <em>your</em> doctors. We're not giving up, and your voice matters. Here's what you need to know, and how you can push back.</span>
-   <span class="es">Después de 20 años y miles de pacientes bajo nuestro cuidado, Healthfirst se negó a aceptar a Belaray de vuelta en su red — una decisión de negocios que restringe <em>su</em> acceso a <em>sus</em> médicos. No nos rendimos, y su voz importa. Aquí está lo que necesita saber, y cómo puede reclamar.</span>
+   <span class="en">After 20 years and thousands of patients in our care, Healthfirst has refused to let Belaray back into its network. A business decision — <strong>made for you, without you</strong>. Here's what it means, and how to push back.</span>
+   <span class="es">Después de 20 años y miles de pacientes bajo nuestro cuidado, Healthfirst se negó a aceptar a Belaray de vuelta en su red. Una decisión de negocios — <strong>tomada por usted, sin usted</strong>. Aquí está lo que significa, y cómo reclamar.</span>
+   <span class="pa">20 ਸਾਲਾਂ ਅਤੇ ਹਜ਼ਾਰਾਂ ਮਰੀਜ਼ਾਂ ਦੀ ਦੇਖਭਾਲ ਤੋਂ ਬਾਅਦ, Healthfirst ਨੇ ਬੇਲਾਰੇ ਨੂੰ ਆਪਣੇ ਨੈੱਟਵਰਕ ਵਿੱਚ ਵਾਪਸ ਲੈਣ ਤੋਂ ਇਨਕਾਰ ਕਰ ਦਿੱਤਾ। ਇੱਕ ਵਪਾਰਕ ਫ਼ੈਸਲਾ — <strong>ਤੁਹਾਡੇ ਲਈ, ਤੁਹਾਡੇ ਬਿਨਾਂ ਲਿਆ ਗਿਆ</strong>। ਇੱਥੇ ਪੜ੍ਹੋ ਕਿ ਇਸਦਾ ਕੀ ਮਤਲਬ ਹੈ, ਅਤੇ ਕਿਵੇਂ ਜਵਾਬ ਦੇਣਾ ਹੈ।</span>
+   <span class="bn">২০ বছর এবং হাজারো রোগীর সেবার পর, Healthfirst বেলারে-কে তাদের নেটওয়ার্কে ফিরিয়ে নিতে অস্বীকার করেছে। একটি ব্যবসায়িক সিদ্ধান্ত — <strong>আপনার জন্য, আপনাকে ছাড়াই নেওয়া</strong>। এর অর্থ কী, এবং কীভাবে প্রতিবাদ করবেন — এখানে জানুন।</span>
+   <span class="hi">20 साल और हज़ारों मरीज़ों की देखभाल के बाद, Healthfirst ने बेलारे को अपने नेटवर्क में वापस लेने से इनकार कर दिया। एक व्यावसायिक फ़ैसला — <strong>आपके लिए, आपके बिना लिया गया</strong>। यहाँ जानें इसका क्या मतलब है, और कैसे जवाब देना है।</span>
   </p>
  </section>
 
@@ -290,48 +211,61 @@
   <div class="info-card highlight">
    <div class="info-card-icon">📋</div>
    <h2>
-    <span class="en">What's Going On</span>
-    <span class="es">Qué Está Pasando</span>
+    <span class="en">What Happened</span>
+    <span class="es">Qué Pasó</span>
+    <span class="pa">ਕੀ ਹੋਇਆ</span>
+    <span class="bn">কী ঘটেছে</span>
+    <span class="hi">क्या हुआ</span>
    </h2>
    <p>
-    <span class="en">Belaray proudly cared for Healthfirst members for <strong>20 years — since 2006</strong>. In May 2026, a contract change on Healthfirst's side put us out of network. We submitted our credentialing right away and fully expected to be welcomed back — two decades of partnership, an excellent record the entire time, and thousands of your neighbors in our care.</span>
-    <span class="es">Belaray atendió con orgullo a miembros de Healthfirst por <strong>20 años — desde 2006</strong>. En mayo de 2026, un cambio de contrato del lado de Healthfirst nos dejó fuera de la red. Enviamos nuestra acreditación de inmediato y esperábamos plenamente ser aceptados de vuelta — dos décadas de colaboración, un récord excelente todo ese tiempo, y miles de sus vecinos bajo nuestro cuidado.</span>
-   </p>
-   <p>
-    <span class="en">Instead, in August 2026 <strong>Healthfirst declined our application</strong>, citing its "current network needs." Not quality. Not our record. A business decision — made for you, without you.</span>
-    <span class="es">En cambio, en agosto de 2026 <strong>Healthfirst rechazó nuestra solicitud</strong>, citando las "necesidades actuales de su red." No fue por calidad. No fue por nuestro récord. Fue una decisión de negocios — tomada por usted, sin usted.</span>
+    <span class="en">Belaray cared for Healthfirst members from the day we opened in <strong>2006</strong>. In <strong>May 2026</strong>, a contract change on Healthfirst's side put us out of network. We submitted our credentialing immediately and — with a 20-year record — expected to be welcomed back. In <strong>August 2026</strong>, Healthfirst declined, citing its "current network needs." Not quality. Not our record. We are still pressing through every channel, and both offices remain open.</span>
+    <span class="es">Belaray atendió a miembros de Healthfirst desde que abrimos en <strong>2006</strong>. En <strong>mayo de 2026</strong>, un cambio de contrato del lado de Healthfirst nos dejó fuera de la red. Enviamos nuestra acreditación de inmediato y — con 20 años de historial — esperábamos ser aceptados. En <strong>agosto de 2026</strong>, Healthfirst dijo que no, citando las "necesidades actuales de su red." No fue por calidad. No fue por nuestro historial. Seguimos presionando por todos los canales, y nuestras dos oficinas siguen abiertas.</span>
+    <span class="pa">ਬੇਲਾਰੇ ਨੇ <strong>2006</strong> ਵਿੱਚ ਖੁੱਲ੍ਹਣ ਦੇ ਦਿਨ ਤੋਂ Healthfirst ਮੈਂਬਰਾਂ ਦੀ ਦੇਖਭਾਲ ਕੀਤੀ। <strong>ਮਈ 2026</strong> ਵਿੱਚ, Healthfirst ਵੱਲੋਂ ਇਕਰਾਰਨਾਮੇ ਦੇ ਬਦਲਾਅ ਨੇ ਸਾਨੂੰ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਕਰ ਦਿੱਤਾ। ਅਸੀਂ ਤੁਰੰਤ ਆਪਣੇ ਕਾਗਜ਼ ਜਮ੍ਹਾਂ ਕੀਤੇ ਅਤੇ — 20 ਸਾਲਾਂ ਦੇ ਰਿਕਾਰਡ ਨਾਲ — ਵਾਪਸ ਲਏ ਜਾਣ ਦੀ ਉਮੀਦ ਸੀ। <strong>ਅਗਸਤ 2026</strong> ਵਿੱਚ Healthfirst ਨੇ ਇਨਕਾਰ ਕਰ ਦਿੱਤਾ, "ਮੌਜੂਦਾ ਨੈੱਟਵਰਕ ਲੋੜਾਂ" ਦਾ ਹਵਾਲਾ ਦੇ ਕੇ। ਗੁਣਵੱਤਾ ਕਰਕੇ ਨਹੀਂ। ਸਾਡੇ ਰਿਕਾਰਡ ਕਰਕੇ ਨਹੀਂ। ਅਸੀਂ ਹਰ ਰਾਹ ਰਾਹੀਂ ਕੋਸ਼ਿਸ਼ ਜਾਰੀ ਰੱਖ ਰਹੇ ਹਾਂ, ਅਤੇ ਦੋਵੇਂ ਦਫ਼ਤਰ ਖੁੱਲ੍ਹੇ ਹਨ।</span>
+    <span class="bn">বেলারে <strong>২০০৬</strong> সালে খোলার দিন থেকে Healthfirst সদস্যদের সেবা করেছে। <strong>মে ২০২৬</strong>-এ Healthfirst-এর পক্ষের একটি চুক্তি পরিবর্তন আমাদের নেটওয়ার্কের বাইরে করে দেয়। আমরা সাথে সাথে আমাদের কাগজপত্র জমা দিই এবং — ২০ বছরের রেকর্ড নিয়ে — ফিরিয়ে নেওয়ার আশা করেছিলাম। <strong>আগস্ট ২০২৬</strong>-এ Healthfirst অস্বীকার করে, "বর্তমান নেটওয়ার্ক প্রয়োজন"-এর কথা বলে। মানের কারণে নয়। আমাদের রেকর্ডের কারণে নয়। আমরা প্রতিটি পথে চেষ্টা চালিয়ে যাচ্ছি, এবং দুটি অফিসই খোলা আছে।</span>
+    <span class="hi">बेलारे ने <strong>2006</strong> में खुलने के दिन से Healthfirst सदस्यों की देखभाल की। <strong>मई 2026</strong> में, Healthfirst की ओर से अनुबंध बदलाव ने हमें नेटवर्क से बाहर कर दिया। हमने तुरंत अपने दस्तावेज़ जमा किए और — 20 साल के रिकॉर्ड के साथ — वापस लिए जाने की उम्मीद थी। <strong>अगस्त 2026</strong> में Healthfirst ने इनकार कर दिया, "मौजूदा नेटवर्क ज़रूरतों" का हवाला देकर। गुणवत्ता की वजह से नहीं। हमारे रिकॉर्ड की वजह से नहीं। हम हर रास्ते से कोशिश जारी रखे हुए हैं, और दोनों दफ़्तर खुले हैं।</span>
    </p>
   </div>
 
   <div class="info-card action">
-   <div class="info-card-icon">📣</div>
+   <div class="info-card-icon">⏱️</div>
    <h2>
-    <span class="en">What "Network Needs" Really Means for You</span>
-    <span class="es">Qué Significan Realmente las "Necesidades de la Red" Para Usted</span>
+    <span class="en">The 4–6 Week Test</span>
+    <span class="es">La Prueba de 4–6 Semanas</span>
+    <span class="pa">4–6 ਹਫ਼ਤਿਆਂ ਦਾ ਟੈਸਟ</span>
+    <span class="bn">৪–৬ সপ্তাহের পরীক্ষা</span>
+    <span class="hi">4–6 हफ़्तों की परीक्षा</span>
    </h2>
    <p>
-    <span class="en">By turning us away, Healthfirst is telling New York State that its network already has plenty of dermatologists — that <strong>you can get a specialist appointment within about 6 weeks</strong>, any time you need one. That is the access standard their network is supposed to meet.</span>
-    <span class="es">Al rechazarnos, Healthfirst le está diciendo al Estado de Nueva York que su red ya tiene suficientes dermatólogos — que <strong>usted puede conseguir una cita con un especialista dentro de unas 6 semanas</strong>, cuando la necesite. Ese es el estándar de acceso que su red debe cumplir.</span>
-   </p>
-   <p>
-    <span class="en">Is that your experience? Call the dermatologists in their directory and see. If you're being quoted months, or told "not accepting new patients," then this isn't Belaray losing a contract — <strong>it's your own insurer restricting your access to care</strong>, while telling the State everything is fine. You have the right to push back, and regulators listen when members speak up. We built a tool that writes your <strong>personal letters in about 3 minutes</strong> — to your state legislators and to the agency that oversees your plan.</span>
-    <span class="es">¿Esa es su experiencia? Llame a los dermatólogos de su directorio y compruébelo. Si le ofrecen citas en meses, o le dicen "no aceptamos pacientes nuevos," entonces esto no es Belaray perdiendo un contrato — <strong>es su propia aseguradora restringiendo su acceso a la atención</strong>, mientras le dice al Estado que todo está bien. Usted tiene el derecho de reclamar, y los reguladores escuchan cuando los miembros alzan la voz. Creamos una herramienta que escribe sus <strong>cartas personales en unos 3 minutos</strong> — a sus legisladores estatales y a la agencia que supervisa su plan.</span>
+    <span class="en">New York expects managed-care plans to offer a specialist appointment within about <strong>4–6 weeks</strong>. By turning us away, Healthfirst is telling the State its network already meets that standard without Belaray. So test it: <strong>call the dermatologists in your Healthfirst directory.</strong> If you can't get an appointment within 6 weeks — or no one picks up, or they don't speak your language — that's your own insurer restricting your access to care, and regulators need to hear it. Our tool turns your real experience into personal letters to your legislators and the State, in about 3 minutes.</span>
+    <span class="es">Nueva York espera que los planes ofrezcan una cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Al rechazarnos, Healthfirst le dice al Estado que su red ya cumple ese estándar sin Belaray. Así que pruébelo: <strong>llame a los dermatólogos de su directorio de Healthfirst.</strong> Si no consigue cita dentro de 6 semanas — o nadie contesta, o no hablan su idioma — es su propia aseguradora restringiendo su acceso, y los reguladores necesitan saberlo. Nuestra herramienta convierte su experiencia real en cartas personales a sus legisladores y al Estado, en unos 3 minutos.</span>
+    <span class="pa">ਨਿਊਯਾਰਕ ਉਮੀਦ ਕਰਦਾ ਹੈ ਕਿ ਪਲਾਨ ਲਗਭਗ <strong>4–6 ਹਫ਼ਤਿਆਂ</strong> ਵਿੱਚ ਸਪੈਸ਼ਲਿਸਟ ਦੀ ਮੁਲਾਕਾਤ ਦੇਣ। ਸਾਨੂੰ ਠੁਕਰਾ ਕੇ, Healthfirst ਰਾਜ ਨੂੰ ਕਹਿ ਰਿਹਾ ਹੈ ਕਿ ਉਸਦਾ ਨੈੱਟਵਰਕ ਬੇਲਾਰੇ ਤੋਂ ਬਿਨਾਂ ਵੀ ਇਹ ਮਿਆਰ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਤਾਂ ਅਜ਼ਮਾਓ: <strong>ਆਪਣੀ Healthfirst ਡਾਇਰੈਕਟਰੀ ਦੇ ਡਾਕਟਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰੋ।</strong> ਜੇ 6 ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਮੁਲਾਕਾਤ ਨਹੀਂ ਮਿਲਦੀ — ਜਾਂ ਕੋਈ ਫ਼ੋਨ ਨਹੀਂ ਚੁੱਕਦਾ, ਜਾਂ ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਨਹੀਂ ਬੋਲਦੇ — ਤਾਂ ਤੁਹਾਡਾ ਆਪਣਾ ਬੀਮਾ ਤੁਹਾਡੀ ਪਹੁੰਚ ਰੋਕ ਰਿਹਾ ਹੈ, ਅਤੇ ਰੈਗੂਲੇਟਰਾਂ ਨੂੰ ਇਹ ਸੁਣਨਾ ਚਾਹੀਦਾ ਹੈ। ਸਾਡਾ ਟੂਲ ਤੁਹਾਡੇ ਅਸਲ ਤਜਰਬੇ ਨੂੰ ਲਗਭਗ 3 ਮਿੰਟਾਂ ਵਿੱਚ ਨਿੱਜੀ ਚਿੱਠੀਆਂ ਵਿੱਚ ਬਦਲ ਦਿੰਦਾ ਹੈ।</span>
+    <span class="bn">নিউ ইয়র্ক আশা করে প্ল্যানগুলি প্রায় <strong>৪–৬ সপ্তাহের</strong> মধ্যে বিশেষজ্ঞের অ্যাপয়েন্টমেন্ট দেবে। আমাদের প্রত্যাখ্যান করে Healthfirst রাজ্যকে বলছে, বেলারে ছাড়াই তাদের নেটওয়ার্ক এই মান পূরণ করে। তাহলে পরীক্ষা করুন: <strong>আপনার Healthfirst ডিরেক্টরির ডাক্তারদের ফোন করুন।</strong> ৬ সপ্তাহের মধ্যে অ্যাপয়েন্টমেন্ট না পেলে — বা কেউ ফোন না ধরলে, বা আপনার ভাষা না বললে — সেটা আপনার নিজের বীমা কোম্পানি আপনার চিকিৎসার পথ আটকাচ্ছে, এবং নিয়ন্ত্রকদের তা জানা দরকার। আমাদের টুল আপনার বাস্তব অভিজ্ঞতাকে প্রায় ৩ মিনিটে ব্যক্তিগত চিঠিতে রূপ দেয়।</span>
+    <span class="hi">न्यूयॉर्क अपेक्षा करता है कि प्लान लगभग <strong>4–6 हफ़्तों</strong> में विशेषज्ञ की अपॉइंटमेंट दें। हमें ठुकराकर, Healthfirst राज्य से कह रहा है कि उसका नेटवर्क बेलारे के बिना भी यह मानक पूरा करता है। तो परखिए: <strong>अपनी Healthfirst डायरेक्टरी के डॉक्टरों को फ़ोन करें।</strong> अगर 6 हफ़्तों में अपॉइंटमेंट नहीं मिलती — या कोई फ़ोन नहीं उठाता, या आपकी भाषा नहीं बोलते — तो आपका अपना बीमा आपकी पहुँच रोक रहा है, और नियामकों को यह सुनना चाहिए। हमारा टूल आपके असली अनुभव को लगभग 3 मिनट में व्यक्तिगत पत्रों में बदल देता है।</span>
    </p>
    <a class="cta-inline" href="belaray/advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click')">
     <span class="en">📣 Make Your Voice Heard — 3 Minutes</span>
     <span class="es">📣 Haga Oír Su Voz — 3 Minutos</span>
+    <span class="pa">📣 ਆਪਣੀ ਆਵਾਜ਼ ਉਠਾਓ — 3 ਮਿੰਟ</span>
+    <span class="bn">📣 আপনার আওয়াজ তুলুন — ৩ মিনিট</span>
+    <span class="hi">📣 अपनी आवाज़ उठाएँ — 3 मिनट</span>
    </a>
   </div>
 
   <div class="info-card good">
    <div class="info-card-icon">💚</div>
    <h2>
-    <span class="en">We're Not Going Anywhere</span>
-    <span class="es">No Nos Vamos a Ningún Lado</span>
+    <span class="en">You Can Still Be Seen</span>
+    <span class="es">Todavía Puede Atenderse</span>
+    <span class="pa">ਤੁਸੀਂ ਹਾਲੇ ਵੀ ਦਿਖਾ ਸਕਦੇ ਹੋ</span>
+    <span class="bn">আপনি এখনও দেখাতে পারেন</span>
+    <span class="hi">आप अब भी दिखा सकते हैं</span>
    </h2>
    <p>
-    <span class="en">Both offices are open, and we're still seeing our Healthfirst patients — <strong>text or call us</strong> and we'll figure out the best path for your care during this time. We are continuing to press Healthfirst through every channel available.</span>
-    <span class="es">Nuestras dos oficinas están abiertas, y seguimos atendiendo a nuestros pacientes de Healthfirst — <strong>envíenos un texto o llámenos</strong> y encontraremos el mejor camino para su atención durante este tiempo. Seguimos presionando a Healthfirst por todos los canales disponibles.</span>
+    <span class="en"><strong>Text or call us at (516) 822-7546</strong> and we'll find the best path for your care — self-pay pricing, any out-of-network benefits your plan may have, or urgent needs. We didn't leave, and we're not going anywhere.</span>
+    <span class="es"><strong>Envíenos un texto o llámenos al (516) 822-7546</strong> y encontraremos el mejor camino para su atención — precios de pago directo, beneficios fuera de la red que su plan pueda tener, o necesidades urgentes. No nos fuimos, y no nos vamos.</span>
+    <span class="pa"><strong>(516) 822-7546 'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ ਜਾਂ ਫ਼ੋਨ ਕਰੋ</strong> — ਅਸੀਂ ਤੁਹਾਡੇ ਇਲਾਜ ਦਾ ਸਭ ਤੋਂ ਵਧੀਆ ਰਾਹ ਲੱਭਾਂਗੇ — ਸਿੱਧੀ ਅਦਾਇਗੀ ਦੇ ਰੇਟ, ਤੁਹਾਡੇ ਪਲਾਨ ਦੇ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਦੇ ਫ਼ਾਇਦੇ, ਜਾਂ ਫੌਰੀ ਲੋੜਾਂ। ਅਸੀਂ ਨਹੀਂ ਗਏ, ਅਤੇ ਕਿਤੇ ਨਹੀਂ ਜਾ ਰਹੇ।</span>
+    <span class="bn"><strong>(516) 822-7546 নম্বরে মেসেজ বা ফোন করুন</strong> — আমরা আপনার চিকিৎসার সেরা পথ খুঁজব — সরাসরি পেমেন্টের মূল্য, আপনার প্ল্যানের নেটওয়ার্ক-বহির্ভূত সুবিধা, বা জরুরি প্রয়োজন। আমরা যাইনি, কোথাও যাচ্ছিও না।</span>
+    <span class="hi"><strong>(516) 822-7546 पर मैसेज या फ़ोन करें</strong> — हम आपके इलाज का सबसे अच्छा रास्ता खोजेंगे — सीधे भुगतान के रेट, आपके प्लान के नेटवर्क से बाहर के लाभ, या ज़रूरी ज़रूरतें। हम गए नहीं, और कहीं जा भी नहीं रहे।</span>
    </p>
   </div>
  </section>
@@ -339,23 +273,12 @@
  <!-- ===== WHAT TO KNOW ===== -->
  <section class="points-section">
   <h2>
-   <span class="en">What You Should Know</span>
-   <span class="es">Lo Que Debe Saber</span>
+   <span class="en">Good to Know</span>
+   <span class="es">Bueno Saber</span>
+   <span class="pa">ਜਾਣਨ ਵਾਲੀਆਂ ਗੱਲਾਂ</span>
+   <span class="bn">জেনে রাখা ভালো</span>
+   <span class="hi">जानने योग्य बातें</span>
   </h2>
-
-  <div class="point-card">
-   <div class="point-icon">📅</div>
-   <div class="point-content">
-    <h3>
-     <span class="en">Already Our Patient?</span>
-     <span class="es">¿Ya Es Nuestro Paciente?</span>
-    </h3>
-    <p>
-     <span class="en">We want to keep seeing you. <strong>Text or call us at (516) 822-7546</strong> and we'll talk through your options — including self-pay visit pricing and, for some plans, out-of-network paths.</span>
-     <span class="es">Queremos seguir viéndolo. <strong>Envíenos un texto o llámenos al (516) 822-7546</strong> y hablaremos de sus opciones — incluyendo precios de pago directo y, para algunos planes, opciones fuera de la red.</span>
-    </p>
-   </div>
-  </div>
 
   <div class="point-card">
    <div class="point-icon">🔄</div>
@@ -363,24 +286,16 @@
     <h3>
      <span class="en">Your Plan Options</span>
      <span class="es">Sus Opciones de Plan</span>
+     <span class="pa">ਤੁਹਾਡੇ ਪਲਾਨ ਦੇ ਵਿਕਲਪ</span>
+     <span class="bn">আপনার প্ল্যানের বিকল্প</span>
+     <span class="hi">आपके प्लान के विकल्प</span>
     </h3>
     <p>
-     <span class="en">Belaray remains in network with many other plans. If keeping your doctors matters to you, you may be able to switch: Medicaid members can call <a href="tel:18005055678">New York Medicaid Choice at 1-800-505-5678</a> about their options, and Medicare's yearly enrollment runs <strong>October 15 – December 7</strong>. Text us and we'll tell you which plans we accept.</span>
-     <span class="es">Belaray sigue en la red de muchos otros planes. Si mantener a sus médicos es importante para usted, quizás pueda cambiar: los miembros de Medicaid pueden llamar a <a href="tel:18005055678">New York Medicaid Choice al 1-800-505-5678</a> para conocer sus opciones, y la inscripción anual de Medicare es del <strong>15 de octubre al 7 de diciembre</strong>. Escríbanos y le decimos qué planes aceptamos.</span>
-    </p>
-   </div>
-  </div>
-
-  <div class="point-card">
-   <div class="point-icon">📣</div>
-   <div class="point-content">
-    <h3>
-     <span class="en">You Have the Right to Complain</span>
-     <span class="es">Usted Tiene Derecho a Quejarse</span>
-    </h3>
-    <p>
-     <span class="en">If you can't get timely dermatology care in Healthfirst's network, you have the right to file a complaint with New York State — and it makes a real difference. <a href="belaray/advocate.html">Our letter tool</a> does the writing for you and sends it to the right agency for your plan.</span>
-     <span class="es">Si no puede conseguir atención dermatológica a tiempo en la red de Healthfirst, tiene derecho a presentar una queja ante el Estado de Nueva York — y hace una diferencia real. <a href="belaray/advocate.html">Nuestra herramienta de cartas</a> la escribe por usted y la envía a la agencia correcta para su plan.</span>
+     <span class="en">Belaray is in network with many other plans. Medicaid members can ask about switching via <a href="tel:18005055678">New York Medicaid Choice, 1-800-505-5678</a>; Medicare's yearly enrollment is <strong>October 15 – December 7</strong>. Text us and we'll tell you which plans we accept.</span>
+     <span class="es">Belaray está en la red de muchos otros planes. Los miembros de Medicaid pueden preguntar por un cambio en <a href="tel:18005055678">New York Medicaid Choice, 1-800-505-5678</a>; la inscripción anual de Medicare es del <strong>15 de octubre al 7 de diciembre</strong>. Escríbanos y le decimos qué planes aceptamos.</span>
+     <span class="pa">ਬੇਲਾਰੇ ਹੋਰ ਬਹੁਤ ਸਾਰੇ ਪਲਾਨਾਂ ਦੇ ਨੈੱਟਵਰਕ ਵਿੱਚ ਹੈ। Medicaid ਮੈਂਬਰ <a href="tel:18005055678">New York Medicaid Choice, 1-800-505-5678</a> 'ਤੇ ਬਦਲਣ ਬਾਰੇ ਪੁੱਛ ਸਕਦੇ ਹਨ; Medicare ਦੀ ਸਾਲਾਨਾ ਇਨਰੋਲਮੈਂਟ <strong>15 ਅਕਤੂਬਰ – 7 ਦਸੰਬਰ</strong> ਹੈ। ਸੁਨੇਹਾ ਭੇਜੋ, ਅਸੀਂ ਦੱਸਾਂਗੇ ਕਿ ਅਸੀਂ ਕਿਹੜੇ ਪਲਾਨ ਲੈਂਦੇ ਹਾਂ।</span>
+     <span class="bn">বেলারে আরও অনেক প্ল্যানের নেটওয়ার্কে আছে। Medicaid সদস্যরা <a href="tel:18005055678">New York Medicaid Choice, 1-800-505-5678</a> নম্বরে প্ল্যান বদলানোর কথা জিজ্ঞেস করতে পারেন; Medicare-এর বার্ষিক এনরোলমেন্ট <strong>১৫ অক্টোবর – ৭ ডিসেম্বর</strong>। মেসেজ করুন, আমরা জানাব কোন প্ল্যানগুলি নিই।</span>
+     <span class="hi">बेलारे कई अन्य प्लानों के नेटवर्क में है। Medicaid सदस्य <a href="tel:18005055678">New York Medicaid Choice, 1-800-505-5678</a> पर बदलने के बारे में पूछ सकते हैं; Medicare का वार्षिक नामांकन <strong>15 अक्टूबर – 7 दिसंबर</strong> है। मैसेज करें, हम बताएँगे कि हम कौन-से प्लान लेते हैं।</span>
     </p>
    </div>
   </div>
@@ -389,12 +304,18 @@
    <div class="point-icon">🔬</div>
    <div class="point-content">
     <h3>
-     <span class="en">Need Care Almost No One Else Offers?</span>
-     <span class="es">¿Necesita Atención Que Casi Nadie Más Ofrece?</span>
+     <span class="en">Care Almost No One Else Offers</span>
+     <span class="es">Atención Que Casi Nadie Más Ofrece</span>
+     <span class="pa">ਅਜਿਹਾ ਇਲਾਜ ਜੋ ਹੋਰ ਕੋਈ ਨਹੀਂ ਦਿੰਦਾ</span>
+     <span class="bn">এমন সেবা যা প্রায় কেউ দেয় না</span>
+     <span class="hi">ऐसी देखभाल जो लगभग कोई और नहीं देता</span>
     </h3>
     <p>
-     <span class="en">Some of our services are nearly impossible to find elsewhere: <strong>Mohs skin-cancer surgery with same-day oculoplastic (eyelid) reconstruction under one roof</strong>, <strong>phototherapy</strong>, and <strong>specialized hair-loss care</strong>. And we care for you <strong>in your language</strong> — including Spanish, Punjabi, and Bengali. If you rely on any of this, <strong>call or text us at (516) 822-7546</strong> — we'll help you get the care you need, and help you document that your network can't provide it.</span>
-     <span class="es">Algunos de nuestros servicios son casi imposibles de encontrar en otro lugar: <strong>cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día, en un solo lugar</strong>, <strong>fototerapia</strong>, y <strong>tratamiento especializado de pérdida de cabello</strong>. Y lo atendemos <strong>en su idioma</strong> — incluyendo español, punjabi y bengalí. Si usted depende de algo de esto, <strong>llámenos o escríbanos al (516) 822-7546</strong> — le ayudamos a conseguir la atención que necesita, y a documentar que su red no puede proveerla.</span>
+     <span class="en"><strong>Mohs surgery with same-day oculoplastic (eyelid) reconstruction under one roof</strong>, <strong>phototherapy</strong>, <strong>specialized hair-loss care</strong> — and care in your language, including Spanish, Hindi, Punjabi, and Bengali. If you rely on any of this, call or text us; we'll help you get care and document that your network can't provide it.</span>
+     <span class="es"><strong>Cirugía de Mohs con reconstrucción de párpado el mismo día</strong>, <strong>fototerapia</strong>, <strong>tratamiento especializado de pérdida de cabello</strong> — y atención en su idioma, incluyendo español, hindi, punjabi y bengalí. Si depende de algo de esto, llámenos o escríbanos; le ayudamos a conseguir atención y a documentar que su red no puede proveerla.</span>
+     <span class="pa"><strong>ਉਸੇ ਦਿਨ ਪਲਕ ਦੀ ਮੁਰੰਮਤ ਨਾਲ Mohs ਸਰਜਰੀ, ਇੱਕੋ ਥਾਂ</strong>, <strong>ਫੋਟੋਥੈਰੇਪੀ</strong>, <strong>ਵਾਲ ਝੜਨ ਦਾ ਖ਼ਾਸ ਇਲਾਜ</strong> — ਅਤੇ ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਦੇਖਭਾਲ: ਸਪੈਨਿਸ਼, ਹਿੰਦੀ, ਪੰਜਾਬੀ ਅਤੇ ਬੰਗਾਲੀ। ਜੇ ਤੁਹਾਨੂੰ ਇਨ੍ਹਾਂ ਦੀ ਲੋੜ ਹੈ, ਫ਼ੋਨ ਕਰੋ ਜਾਂ ਸੁਨੇਹਾ ਭੇਜੋ; ਅਸੀਂ ਮਦਦ ਕਰਾਂਗੇ।</span>
+     <span class="bn"><strong>একই দিনে চোখের পাতার পুনর্গঠনসহ Mohs সার্জারি, এক ছাদের নিচে</strong>, <strong>ফটোথেরাপি</strong>, <strong>চুল পড়ার বিশেষ চিকিৎসা</strong> — এবং আপনার ভাষায় সেবা: স্প্যানিশ, হিন্দি, পাঞ্জাবি ও বাংলা। এগুলোর কোনোটির উপর নির্ভরশীল হলে ফোন বা মেসেজ করুন; আমরা সাহায্য করব।</span>
+     <span class="hi"><strong>उसी दिन पलक के पुनर्निर्माण के साथ Mohs सर्जरी, एक ही छत के नीचे</strong>, <strong>फोटोथेरेपी</strong>, <strong>बाल झड़ने का विशेष इलाज</strong> — और आपकी भाषा में देखभाल: स्पैनिश, हिन्दी, पंजाबी और बांग्ला। अगर आपको इनमें से कुछ चाहिए, फ़ोन या मैसेज करें; हम मदद करेंगे।</span>
     </p>
    </div>
   </div>
@@ -403,80 +324,19 @@
    <div class="point-icon">💬</div>
    <div class="point-content">
     <h3>
-     <span class="en">Have Questions?</span>
-     <span class="es">¿Tiene Preguntas?</span>
+     <span class="en">Questions?</span>
+     <span class="es">¿Preguntas?</span>
+     <span class="pa">ਸਵਾਲ?</span>
+     <span class="bn">প্রশ্ন?</span>
+     <span class="hi">सवाल?</span>
     </h3>
     <p>
-     <span class="en">We are here for you. <strong>Text us at (516) 822-7546</strong> and we'll help.</span>
-     <span class="es">Estamos aquí para usted. <strong>Escríbanos al (516) 822-7546</strong> y le ayudamos.</span>
+     <span class="en">We're here. <strong>Text us at (516) 822-7546</strong> and we'll help.</span>
+     <span class="es">Estamos aquí. <strong>Escríbanos al (516) 822-7546</strong> y le ayudamos.</span>
+     <span class="pa">ਅਸੀਂ ਇੱਥੇ ਹਾਂ। <strong>(516) 822-7546 'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ</strong>, ਅਸੀਂ ਮਦਦ ਕਰਾਂਗੇ।</span>
+     <span class="bn">আমরা আছি। <strong>(516) 822-7546 নম্বরে মেসেজ করুন</strong>, আমরা সাহায্য করব।</span>
+     <span class="hi">हम यहाँ हैं। <strong>(516) 822-7546 पर मैसेज करें</strong>, हम मदद करेंगे।</span>
     </p>
-   </div>
-  </div>
- </section>
-
- <!-- ===== TIMELINE ===== -->
- <section class="expect-section">
-  <div class="expect-inner">
-   <h2>
-    <span class="en">How We Got Here</span>
-    <span class="es">Cómo Llegamos Aquí</span>
-   </h2>
-   <p class="expect-sub">
-    <span class="en">The honest picture — and where your voice fits in.</span>
-    <span class="es">La imagen honesta — y dónde entra su voz.</span>
-   </p>
-   <div class="timeline">
-    <div class="timeline-item">
-     <div class="timeline-dot">✔</div>
-     <div class="timeline-content">
-      <div class="timeline-date">
-       <span class="en">2006 — May 2026</span>
-       <span class="es">2006 — Mayo 2026</span>
-      </div>
-      <h3>
-       <span class="en">20 Years Together</span>
-       <span class="es">20 Años Juntos</span>
-      </h3>
-      <p>
-       <span class="en">Belaray cared for thousands of Healthfirst members from the day we opened. In May 2026, a contract change on Healthfirst's side ended our network participation.</span>
-       <span class="es">Belaray atendió a miles de miembros de Healthfirst desde el día que abrimos. En mayo de 2026, un cambio de contrato del lado de Healthfirst terminó nuestra participación en la red.</span>
-      </p>
-     </div>
-    </div>
-    <div class="timeline-item">
-     <div class="timeline-dot amber">✖</div>
-     <div class="timeline-content">
-      <div class="timeline-date amber">
-       <span class="en">August 2026</span>
-       <span class="es">Agosto 2026</span>
-      </div>
-      <h3>
-       <span class="en">Healthfirst Said No — For Now</span>
-       <span class="es">Healthfirst Dijo No — Por Ahora</span>
-      </h3>
-      <p>
-       <span class="en">Our credentialing was submitted months in advance, and after 20 years of excellent partnership we expected to be welcomed back. Instead, Healthfirst declined — citing its "current network needs." Translation: they've decided their members already have enough access to dermatologists without us. If your phone calls say otherwise, they've decided wrong — at your expense.</span>
-       <span class="es">Nuestra acreditación fue enviada con meses de anticipación, y después de 20 años de excelente colaboración esperábamos ser aceptados de vuelta. En cambio, Healthfirst dijo que no — citando las "necesidades actuales de su red." Traducción: decidieron que sus miembros ya tienen suficiente acceso a dermatólogos sin nosotros. Si sus llamadas telefónicas dicen lo contrario, decidieron mal — a costa suya.</span>
-      </p>
-     </div>
-    </div>
-    <div class="timeline-item">
-     <div class="timeline-dot green">📣</div>
-     <div class="timeline-content">
-      <div class="timeline-date green">
-       <span class="en">Now — Your Voice</span>
-       <span class="es">Ahora — Su Voz</span>
-      </div>
-      <h3>
-       <span class="en">Patients Can Change the Outcome</span>
-       <span class="es">Los Pacientes Pueden Cambiar el Resultado</span>
-      </h3>
-      <p>
-       <span class="en">Insurance networks respond to member pressure and state oversight. When members tell their representatives and regulators that they can't get the care they need, decisions get revisited. <a href="belaray/advocate.html">It takes 3 minutes →</a></span>
-       <span class="es">Las redes de seguros responden a la presión de los miembros y a la supervisión del estado. Cuando los miembros les dicen a sus representantes y reguladores que no pueden conseguir la atención que necesitan, las decisiones se reconsideran. <a href="belaray/advocate.html">Toma 3 minutos →</a></span>
-      </p>
-     </div>
-    </div>
    </div>
   </div>
  </section>
@@ -486,65 +346,60 @@
   <h2>
    <span class="en">Common Questions</span>
    <span class="es">Preguntas Frecuentes</span>
+   <span class="pa">ਆਮ ਸਵਾਲ</span>
+   <span class="bn">সাধারণ প্রশ্ন</span>
+   <span class="hi">आम सवाल</span>
   </h2>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Will Belaray ever take my Healthfirst again?</span><span class="es">¿Belaray va a aceptar mi Healthfirst otra vez algún día?</span></span>
+    <span><span class="en">Will Belaray ever take my Healthfirst again?</span><span class="es">¿Belaray aceptará mi Healthfirst otra vez?</span><span class="pa">ਕੀ ਬੇਲਾਰੇ ਮੇਰਾ Healthfirst ਦੁਬਾਰਾ ਲਵੇਗਾ?</span><span class="bn">বেলারে কি আবার আমার Healthfirst নেবে?</span><span class="hi">क्या बेलारे मेरा Healthfirst फिर लेगा?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>We are doing everything we can.</strong> We applied to rejoin, asked Healthfirst leadership to reconsider, and we're continuing to press through every available channel. Healthfirst has said no "at this time" — but decisions like this get revisited, especially when members speak up. <a href="belaray/advocate.html">Here's how to add your voice.</a></span>
-    <span class="es"><strong>Estamos haciendo todo lo posible.</strong> Solicitamos volver, le pedimos a los líderes de Healthfirst que reconsideraran, y seguimos presionando por todos los canales disponibles. Healthfirst dijo que no "por ahora" — pero decisiones como esta se reconsideran, especialmente cuando los miembros alzan la voz. <a href="belaray/advocate.html">Así puede sumar su voz.</a></span>
+    <span class="en"><strong>We're doing everything we can</strong> — and decisions like this get revisited, especially when members speak up. <a href="belaray/advocate.html">Add your voice — 3 minutes.</a></span>
+    <span class="es"><strong>Estamos haciendo todo lo posible</strong> — y decisiones como esta se reconsideran, especialmente cuando los miembros alzan la voz. <a href="belaray/advocate.html">Sume su voz — 3 minutos.</a></span>
+    <span class="pa"><strong>ਅਸੀਂ ਹਰ ਕੋਸ਼ਿਸ਼ ਕਰ ਰਹੇ ਹਾਂ</strong> — ਅਤੇ ਅਜਿਹੇ ਫ਼ੈਸਲੇ ਦੁਬਾਰਾ ਵਿਚਾਰੇ ਜਾਂਦੇ ਹਨ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਮੈਂਬਰ ਆਵਾਜ਼ ਉਠਾਉਂਦੇ ਹਨ। <a href="belaray/advocate.html">ਆਪਣੀ ਆਵਾਜ਼ ਜੋੜੋ — 3 ਮਿੰਟ।</a></span>
+    <span class="bn"><strong>আমরা সব রকম চেষ্টা করছি</strong> — আর এমন সিদ্ধান্ত পুনর্বিবেচিত হয়, বিশেষ করে সদস্যরা আওয়াজ তুললে। <a href="belaray/advocate.html">আপনার আওয়াজ যোগ করুন — ৩ মিনিট।</a></span>
+    <span class="hi"><strong>हम हर कोशिश कर रहे हैं</strong> — और ऐसे फ़ैसले फिर से विचारे जाते हैं, ख़ासकर जब सदस्य आवाज़ उठाते हैं। <a href="belaray/advocate.html">अपनी आवाज़ जोड़ें — 3 मिनट।</a></span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Can I still be seen at Belaray?</span><span class="es">¿Todavía puedo atenderme en Belaray?</span></span>
+    <span><span class="en">Can I still be seen at Belaray?</span><span class="es">¿Todavía puedo atenderme en Belaray?</span><span class="pa">ਕੀ ਮੈਂ ਹਾਲੇ ਵੀ ਬੇਲਾਰੇ ਵਿੱਚ ਦਿਖਾ ਸਕਦਾ/ਦੀ ਹਾਂ?</span><span class="bn">আমি কি এখনও বেলারে-তে দেখাতে পারি?</span><span class="hi">क्या मैं अब भी बेलारे में दिखा सकता/सकती हूँ?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>Yes.</strong> Healthfirst won't cover us in network right now, but you can still be seen. Text us at <a href="sms:5168227546">(516) 822-7546</a> — we'll go over self-pay pricing and any out-of-network options your specific plan may have.</span>
-    <span class="es"><strong>Sí.</strong> Healthfirst no nos cubre dentro de la red ahora, pero todavía puede atenderse. Escríbanos al <a href="sms:5168227546">(516) 822-7546</a> — le explicamos los precios de pago directo y cualquier opción fuera de la red que su plan pueda tener.</span>
+    <span class="en"><strong>Yes.</strong> Text us at <a href="sms:5168227546">(516) 822-7546</a> — we'll go over self-pay pricing and any out-of-network options your plan may have. New patients are welcome too.</span>
+    <span class="es"><strong>Sí.</strong> Escríbanos al <a href="sms:5168227546">(516) 822-7546</a> — le explicamos los precios de pago directo y las opciones fuera de la red de su plan. Pacientes nuevos también son bienvenidos.</span>
+    <span class="pa"><strong>ਹਾਂ।</strong> <a href="sms:5168227546">(516) 822-7546</a> 'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ — ਅਸੀਂ ਸਿੱਧੀ ਅਦਾਇਗੀ ਦੇ ਰੇਟ ਅਤੇ ਤੁਹਾਡੇ ਪਲਾਨ ਦੇ ਵਿਕਲਪ ਦੱਸਾਂਗੇ। ਨਵੇਂ ਮਰੀਜ਼ਾਂ ਦਾ ਵੀ ਸੁਆਗਤ ਹੈ।</span>
+    <span class="bn"><strong>হ্যাঁ।</strong> <a href="sms:5168227546">(516) 822-7546</a> নম্বরে মেসেজ করুন — সরাসরি পেমেন্টের মূল্য ও আপনার প্ল্যানের বিকল্পগুলি জানাব। নতুন রোগীরাও স্বাগত।</span>
+    <span class="hi"><strong>हाँ।</strong> <a href="sms:5168227546">(516) 822-7546</a> पर मैसेज करें — हम सीधे भुगतान के रेट और आपके प्लान के विकल्प बताएँगे। नए मरीज़ों का भी स्वागत है।</span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Should I change my insurance plan?</span><span class="es">¿Debo cambiar mi plan de seguro?</span></span>
+    <span><span class="en">Does complaining to the State actually do anything?</span><span class="es">¿Quejarse ante el Estado sirve de algo?</span><span class="pa">ਕੀ ਰਾਜ ਕੋਲ ਸ਼ਿਕਾਇਤ ਕਰਨ ਦਾ ਕੋਈ ਫ਼ਾਇਦਾ ਹੈ?</span><span class="bn">রাজ্যের কাছে অভিযোগ করে কি লাভ হয়?</span><span class="hi">क्या राज्य से शिकायत करने का कोई फ़ायदा है?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en">That's your choice, and it depends on your situation. Belaray is in network with many other plans. Medicaid members can call <a href="tel:18005055678">New York Medicaid Choice (1-800-505-5678)</a> to ask about switching; Medicare members can switch during open enrollment (October 15 – December 7). Text us first and we'll tell you which plans we accept so you can decide.</span>
-    <span class="es">Esa es su decisión, y depende de su situación. Belaray está en la red de muchos otros planes. Los miembros de Medicaid pueden llamar a <a href="tel:18005055678">New York Medicaid Choice (1-800-505-5678)</a> para preguntar sobre un cambio; los miembros de Medicare pueden cambiar durante la inscripción abierta (15 de octubre – 7 de diciembre). Escríbanos primero y le decimos qué planes aceptamos para que pueda decidir.</span>
+    <span class="en"><strong>Yes.</strong> Plans are legally required to maintain adequate networks, and the State investigates member reports of waits beyond the 4–6 week standard, inaccurate directories, and language barriers. Your real experience is evidence regulators can act on. <a href="belaray/advocate.html">File in 3 minutes.</a></span>
+    <span class="es"><strong>Sí.</strong> Los planes están legalmente obligados a mantener redes adecuadas, y el Estado investiga los reportes de esperas mayores al estándar de 4–6 semanas, directorios inexactos y barreras de idioma. Su experiencia real es evidencia. <a href="belaray/advocate.html">Presente su queja en 3 minutos.</a></span>
+    <span class="pa"><strong>ਹਾਂ।</strong> ਪਲਾਨਾਂ ਲਈ ਕਾਨੂੰਨੀ ਤੌਰ 'ਤੇ ਉਚਿਤ ਨੈੱਟਵਰਕ ਰੱਖਣਾ ਲਾਜ਼ਮੀ ਹੈ, ਅਤੇ ਰਾਜ 4–6 ਹਫ਼ਤਿਆਂ ਦੇ ਮਿਆਰ ਤੋਂ ਵੱਧ ਉਡੀਕ, ਗ਼ਲਤ ਡਾਇਰੈਕਟਰੀਆਂ ਅਤੇ ਭਾਸ਼ਾ ਦੀਆਂ ਰੁਕਾਵਟਾਂ ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਤੁਹਾਡਾ ਅਸਲ ਤਜਰਬਾ ਸਬੂਤ ਹੈ। <a href="belaray/advocate.html">3 ਮਿੰਟਾਂ ਵਿੱਚ ਸ਼ਿਕਾਇਤ ਕਰੋ।</a></span>
+    <span class="bn"><strong>হ্যাঁ।</strong> প্ল্যানগুলি আইনত পর্যাপ্ত নেটওয়ার্ক রাখতে বাধ্য, এবং রাজ্য ৪–৬ সপ্তাহের মানের বেশি অপেক্ষা, ভুল ডিরেক্টরি ও ভাষার বাধার রিপোর্ট তদন্ত করে। আপনার বাস্তব অভিজ্ঞতাই প্রমাণ। <a href="belaray/advocate.html">৩ মিনিটে অভিযোগ করুন।</a></span>
+    <span class="hi"><strong>हाँ।</strong> प्लानों के लिए क़ानूनन पर्याप्त नेटवर्क रखना ज़रूरी है, और राज्य 4–6 हफ़्तों के मानक से ज़्यादा इंतज़ार, ग़लत डायरेक्टरी और भाषा की बाधाओं की जाँच करता है। आपका असली अनुभव ही सबूत है। <a href="belaray/advocate.html">3 मिनट में शिकायत करें।</a></span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Does complaining to the State actually do anything?</span><span class="es">¿Quejarse ante el Estado realmente sirve de algo?</span></span>
+    <span><span class="en">Should I change my insurance plan?</span><span class="es">¿Debo cambiar mi plan?</span><span class="pa">ਕੀ ਮੈਨੂੰ ਆਪਣਾ ਪਲਾਨ ਬਦਲਣਾ ਚਾਹੀਦਾ ਹੈ?</span><span class="bn">আমার কি প্ল্যান বদলানো উচিত?</span><span class="hi">क्या मुझे अपना प्लान बदलना चाहिए?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>Yes.</strong> New York requires insurance plans to have enough doctors — it's called "network adequacy." When members report that they can't get timely appointments, the State investigates, and plans are pushed to fix their networks. Your real experience is evidence regulators can act on. <a href="belaray/advocate.html">File in 3 minutes.</a></span>
-    <span class="es"><strong>Sí.</strong> Nueva York requiere que los planes de seguro tengan suficientes médicos — se llama "adecuación de la red." Cuando los miembros reportan que no pueden conseguir citas a tiempo, el Estado investiga, y los planes son presionados a arreglar sus redes. Su experiencia real es evidencia sobre la cual los reguladores pueden actuar. <a href="belaray/advocate.html">Presente su queja en 3 minutos.</a></span>
-   </p></div>
-  </div>
-  <div class="faq-item">
-   <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">I'm new — can I still come in?</span><span class="es">Soy nuevo — ¿puedo venir?</span></span>
-    <span class="faq-arrow">▼</span>
-   </button>
-   <div class="faq-a"><p>
-    <span class="en">Yes! New patients with Healthfirst would pay out of pocket for now. Text us and we'll tell you what to expect.</span>
-    <span class="es">¡Sí! Pacientes nuevos con Healthfirst pagarían de su bolsillo por ahora. Escríbanos y le decimos qué esperar.</span>
-   </p></div>
-  </div>
-  <div class="faq-item">
-   <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Why did this happen?</span><span class="es">¿Por qué pasó esto?</span></span>
-    <span class="faq-arrow">▼</span>
-   </button>
-   <div class="faq-a"><p>
-    <span class="en">Not because of quality — after 20 years together, Healthfirst knows our record. Our credentialing was submitted months in advance and we expected to be accepted. Healthfirst declined anyway, citing its "current network needs" — a business decision that assumes you already have adequate access to dermatology care without us, meaning a specialist appointment within about 6 weeks. Many of our patients' phone calls say otherwise. When an insurer's business decision restricts its own members' access to care, that's exactly what the State's complaint process is for.</span>
-    <span class="es">No fue por calidad — después de 20 años juntos, Healthfirst conoce nuestro récord. Nuestra acreditación fue enviada con meses de anticipación y esperábamos ser aceptados. Healthfirst dijo que no de todos modos, citando las "necesidades actuales de su red" — una decisión de negocios que asume que usted ya tiene acceso adecuado a la dermatología sin nosotros, es decir, una cita con un especialista dentro de unas 6 semanas. Las llamadas de muchos de nuestros pacientes dicen lo contrario. Cuando la decisión de negocios de una aseguradora restringe el acceso de sus propios miembros a la atención, para eso existe exactamente el proceso de quejas del Estado.</span>
+    <span class="en">That's your choice. Belaray is in network with many other plans — text us first and we'll tell you which ones we accept, so you can decide with full information (see "Your Plan Options" above for who to call).</span>
+    <span class="es">Es su decisión. Belaray está en la red de muchos otros planes — escríbanos primero y le decimos cuáles aceptamos, para que decida con información completa (vea "Sus Opciones de Plan" arriba).</span>
+    <span class="pa">ਇਹ ਤੁਹਾਡਾ ਫ਼ੈਸਲਾ ਹੈ। ਬੇਲਾਰੇ ਹੋਰ ਬਹੁਤ ਸਾਰੇ ਪਲਾਨਾਂ ਵਿੱਚ ਹੈ — ਪਹਿਲਾਂ ਸੁਨੇਹਾ ਭੇਜੋ, ਅਸੀਂ ਦੱਸਾਂਗੇ ਕਿ ਅਸੀਂ ਕਿਹੜੇ ਲੈਂਦੇ ਹਾਂ, ਤਾਂ ਜੋ ਤੁਸੀਂ ਪੂਰੀ ਜਾਣਕਾਰੀ ਨਾਲ ਫ਼ੈਸਲਾ ਕਰ ਸਕੋ।</span>
+    <span class="bn">এটা আপনার সিদ্ধান্ত। বেলারে আরও অনেক প্ল্যানে আছে — আগে মেসেজ করুন, আমরা জানাব কোনগুলি নিই, যাতে আপনি পূর্ণ তথ্য নিয়ে সিদ্ধান্ত নিতে পারেন।</span>
+    <span class="hi">यह आपका फ़ैसला है। बेलारे कई अन्य प्लानों में है — पहले मैसेज करें, हम बताएँगे कि हम कौन-से लेते हैं, ताकि आप पूरी जानकारी के साथ फ़ैसला कर सकें।</span>
    </p></div>
   </div>
  </section>
@@ -554,15 +409,24 @@
   <h2>
    <span class="en">Text Us — We'll Help</span>
    <span class="es">Escríbanos — Le Ayudamos</span>
+   <span class="pa">ਸੁਨੇਹਾ ਭੇਜੋ — ਅਸੀਂ ਮਦਦ ਕਰਾਂਗੇ</span>
+   <span class="bn">মেসেজ করুন — আমরা সাহায্য করব</span>
+   <span class="hi">मैसेज करें — हम मदद करेंगे</span>
   </h2>
   <p>
    <span class="en">Every patient is different. Text us and we'll talk about what works best for you.</span>
    <span class="es">Cada paciente es diferente. Escríbanos y hablamos de qué funciona mejor para usted.</span>
+   <span class="pa">ਹਰ ਮਰੀਜ਼ ਵੱਖਰਾ ਹੈ। ਸੁਨੇਹਾ ਭੇਜੋ ਅਤੇ ਅਸੀਂ ਗੱਲ ਕਰਾਂਗੇ ਕਿ ਤੁਹਾਡੇ ਲਈ ਕੀ ਸਭ ਤੋਂ ਵਧੀਆ ਹੈ।</span>
+   <span class="bn">প্রতিটি রোগী আলাদা। মেসেজ করুন, আপনার জন্য কী সবচেয়ে ভালো তা নিয়ে কথা বলব।</span>
+   <span class="hi">हर मरीज़ अलग है। मैसेज करें और हम बात करेंगे कि आपके लिए क्या सबसे अच्छा है।</span>
   </p>
-  <a href="sms:5168227546" class="cta-btn" onclick="trackContact('text')">💬 Text Us: (516) 822-7546</a>
+  <a href="sms:5168227546" class="cta-btn" onclick="trackContact('text')">💬 (516) 822-7546</a>
   <div class="call-link">
    <span class="en">or <a href="tel:+15168227546" onclick="trackContact('call')">call (516) 822-7546</a> · <a href="belaray/advocate.html" style="color:#fff;">make your voice heard →</a></span>
    <span class="es">o <a href="tel:+15168227546" onclick="trackContact('call')">llame al (516) 822-7546</a> · <a href="belaray/advocate.html" style="color:#fff;">haga oír su voz →</a></span>
+   <span class="pa">ਜਾਂ <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 'ਤੇ ਫ਼ੋਨ ਕਰੋ</a> · <a href="belaray/advocate.html" style="color:#fff;">ਆਵਾਜ਼ ਉਠਾਓ →</a></span>
+   <span class="bn">বা <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 নম্বরে ফোন করুন</a> · <a href="belaray/advocate.html" style="color:#fff;">আওয়াজ তুলুন →</a></span>
+   <span class="hi">या <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 पर फ़ोन करें</a> · <a href="belaray/advocate.html" style="color:#fff;">आवाज़ उठाएँ →</a></span>
   </div>
  </section>
 
@@ -571,28 +435,34 @@
   <a href="belaray/advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click',{props:{source:'sticky'}})">
    <span class="en">📣 Make Your Voice Heard — 3 Min</span>
    <span class="es">📣 Haga Oír Su Voz — 3 Min</span>
+   <span class="pa">📣 ਆਵਾਜ਼ ਉਠਾਓ — 3 ਮਿੰਟ</span>
+   <span class="bn">📣 আওয়াজ তুলুন — ৩ মিনিট</span>
+   <span class="hi">📣 आवाज़ उठाएँ — 3 मिनट</span>
   </a>
  </div>
 
  <!-- ===== FOOTER ===== -->
  <footer>
   <p>
-   <span class="en">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="belaray/advocate.html">Advocacy letter tool</a></span>
-   <span class="es">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="belaray/advocate.html">Herramienta de cartas</a></span>
+   Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> ·
+   <a href="belaray/advocate.html"><span class="en" style="display:inline;">Advocacy letter tool</span><span class="es">Herramienta de cartas</span><span class="pa">ਚਿੱਠੀ ਟੂਲ</span><span class="bn">চিঠির টুল</span><span class="hi">पत्र टूल</span></a>
   </p>
  </footer>
 
- <div class="toast-notification" id="toast-notification"></div>
+ <div class="toast-notification" id="toast-notification" style="position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:16px 28px;border-radius:12px;font-size:1rem;font-weight:600;z-index:100000;box-shadow:0 8px 32px rgba(0,0,0,0.35);transition:bottom 0.4s cubic-bezier(0.22,1,0.36,1);text-align:center;max-width:90vw;border:2px solid var(--teal);"></div>
 
  <script>
   // ===== LANGUAGE =====
   function setLang(lang) {
-    document.body.classList.toggle('spanish', lang === 'es');
-    document.getElementById('btn-en').classList.toggle('active', lang !== 'es');
-    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.body.classList.remove('lang-es', 'lang-pa', 'lang-bn', 'lang-hi');
+    if (lang !== 'en') document.body.classList.add('lang-' + lang);
+    ['en','es','pa','bn','hi'].forEach(function(l) {
+      document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+    });
   }
   (function() {
-    if (new URLSearchParams(window.location.search).get('lang') === 'es') setLang('es');
+    var q = new URLSearchParams(window.location.search).get('lang');
+    if (q && ['es','pa','bn','hi'].indexOf(q) !== -1) setLang(q);
   })();
 
   // ===== FAQ =====
@@ -603,14 +473,13 @@
     var t = document.getElementById('toast-notification');
     if (!t) return;
     t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(function() { t.classList.remove('show'); }, 3000);
+    t.style.bottom = '30px';
+    setTimeout(function() { t.style.bottom = '-80px'; }, 3000);
   }
 
   function trackContact(type) {
     if (typeof plausible !== 'undefined') plausible('contact', { props: { method: type } });
-    if (type === 'call' || type.includes('call')) showToast('Calling Belaray…');
-    else showToast('Opening text message…');
+    showToast(type === 'call' ? 'Calling Belaray…' : 'Opening text message…');
     return true;
   }
 

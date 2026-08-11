@@ -9,93 +9,73 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --teal: #5B8FA8;
-    --teal-dark: #4a7a91;
-    --teal-light: #e8f2f7;
-    --teal-bg: #f4f9fb;
-    --dark: #1f2937;
-    --gray: #6B7280;
-    --light: #F9FAFB;
-    --white: #ffffff;
-    --green: #16A34A;
-    --green-light: #F0FDF4;
-    --amber: #D97706;
+    --teal: #5B8FA8; --teal-dark: #4a7a91; --teal-light: #e8f2f7; --teal-bg: #f4f9fb;
+    --dark: #1f2937; --gray: #6B7280; --light: #F9FAFB; --white: #ffffff;
+    --green: #16A34A; --amber: #D97706;
   }
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    color: var(--dark);
-    background: var(--white);
-    overflow-x: hidden;
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, 'Noto Sans Gurmukhi', 'Noto Sans Bengali', 'Noto Sans Devanagari', sans-serif;
+    color: var(--dark); background: var(--white); overflow-x: hidden; line-height: 1.6;
   }
 
-  /* ===== LANGUAGE TOGGLE ===== */
+  /* ===== LANGUAGE TOGGLE (5 languages) ===== */
   .lang-toggle {
-    position: fixed; top: 12px; right: 12px; z-index: 1001;
-    display: flex; gap: 4px;
-    background: rgba(91,143,168,0.95);
-    border-radius: 8px; padding: 4px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    position: fixed; top: 10px; right: 10px; z-index: 1001;
+    display: flex; gap: 3px; flex-wrap: wrap; justify-content: flex-end;
+    background: rgba(91,143,168,0.95); border-radius: 8px; padding: 4px;
+    backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0,0,0,0.1); max-width: 94vw;
   }
   .lang-btn {
-    padding: 8px 14px; border: none; border-radius: 6px;
-    font-weight: 700; font-size: 13px; cursor: pointer;
-    transition: all 0.2s; background: transparent; color: #fff; min-height: 44px;
+    padding: 6px 10px; border: none; border-radius: 6px;
+    font-weight: 700; font-size: 12px; cursor: pointer;
+    transition: all 0.2s; background: transparent; color: #fff; min-height: 38px;
+    font-family: inherit;
   }
   .lang-btn.active { background: #fff; color: var(--teal); }
-  .es { display: none; }
-  body.spanish .en { display: none; }
-  body.spanish .es { display: block; }
-  body.spanish span.es, body.spanish a.es { display: inline; }
+
+  .es, .pa, .bn, .hi { display: none; }
+  body.lang-es .en, body.lang-es .pa, body.lang-es .bn, body.lang-es .hi { display: none; }
+  body.lang-pa .en, body.lang-pa .es, body.lang-pa .bn, body.lang-pa .hi { display: none; }
+  body.lang-bn .en, body.lang-bn .es, body.lang-bn .pa, body.lang-bn .hi { display: none; }
+  body.lang-hi .en, body.lang-hi .es, body.lang-hi .pa, body.lang-hi .bn { display: none; }
+  body.lang-es .es, body.lang-pa .pa, body.lang-bn .bn, body.lang-hi .hi { display: block; }
+  body.lang-es span.es, body.lang-es a.es, body.lang-pa span.pa, body.lang-pa a.pa,
+  body.lang-bn span.bn, body.lang-bn a.bn, body.lang-hi span.hi, body.lang-hi a.hi { display: inline; }
 
   /* ===== HERO ===== */
   .hero {
     background: linear-gradient(135deg, var(--teal-bg) 0%, var(--white) 100%);
-    padding: 28px 20px 32px;
-    text-align: center;
-    border-bottom: 3px solid var(--teal);
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--teal); color: #fff;
-    padding: 8px 20px; border-radius: 24px;
-    font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
-    text-transform: uppercase; margin-bottom: 18px;
+    padding: 58px 20px 26px; text-align: center; border-bottom: 3px solid var(--teal);
   }
   .hero h1 {
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 800; line-height: 1.2; margin-bottom: 12px;
-    max-width: 680px; margin-left: auto; margin-right: auto;
+    font-size: clamp(22px, 4.6vw, 32px); font-weight: 800; line-height: 1.25;
+    margin-bottom: 10px; max-width: 680px; margin-left: auto; margin-right: auto;
   }
   .hero-sub {
-    font-size: clamp(15px, 2.5vw, 17px);
-    color: var(--gray); max-width: 600px;
+    font-size: clamp(14px, 2.4vw, 16px); color: var(--gray); max-width: 600px;
     margin: 0 auto; line-height: 1.7;
   }
-  .hero-sub a { color: var(--teal-dark); font-weight: 700; }
 
-  /* ===== FORM ===== */
-  .form-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+  /* ===== WIZARD ===== */
+  .form-wrap { max-width: 720px; margin: 0 auto; padding: 14px 20px 60px; }
+  .progress-wrap {
+    position: sticky; top: 0; z-index: 900; background: var(--white);
+    padding: 12px 0 10px; margin-bottom: 8px;
+  }
+  .progress-label { font-size: 12px; font-weight: 800; color: var(--teal-dark); margin-bottom: 6px; text-align: center; letter-spacing: 0.3px; }
+  .progress-track { height: 8px; background: #e5e7eb; border-radius: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--teal); border-radius: 6px; transition: width 0.35s ease; width: 16%; }
+
+  .wiz-step { display: none; }
+  .wiz-step.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
   .form-card {
-    background: var(--white);
-    border: 2px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 24px 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: var(--white); border: 2px solid #e5e7eb; border-radius: 16px;
+    padding: 24px 22px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  .form-card h2 {
-    font-size: 18px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .step-num {
-    background: var(--teal); color: #fff;
-    width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 800;
-  }
-  .form-card .hint { font-size: 13px; color: var(--gray); margin-bottom: 14px; }
+  .form-card h2 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .form-card .hint { font-size: 13px; color: var(--gray); margin-bottom: 14px; line-height: 1.6; }
   .field { margin-bottom: 14px; }
   .field label.f-label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   .field input[type="text"], .field select, .field textarea {
@@ -116,18 +96,33 @@
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
 
-  .privacy-note {
-    background: var(--light); border-radius: 12px; padding: 14px 16px;
-    font-size: 13px; color: var(--gray); margin-bottom: 18px; line-height: 1.6;
+  .more-toggle {
+    background: none; border: none; color: var(--teal-dark); font-weight: 800;
+    font-size: 14px; cursor: pointer; padding: 8px 0; font-family: inherit;
   }
+  #care-more { display: none; }
+
+  .privacy-note {
+    background: var(--light); border-radius: 12px; padding: 12px 16px;
+    font-size: 12.5px; color: var(--gray); margin-bottom: 12px; line-height: 1.6;
+  }
+
+  .wiz-nav { display: flex; gap: 10px; justify-content: space-between; margin-top: 6px; }
+  .wiz-btn {
+    padding: 13px 26px; border-radius: 24px; border: none; cursor: pointer;
+    font-size: 15px; font-weight: 800; font-family: inherit; min-height: 46px;
+    transition: filter 0.2s, transform 0.2s;
+  }
+  .wiz-btn:hover { filter: brightness(0.94); transform: translateY(-1px); }
+  .wiz-back { background: var(--teal-light); color: var(--teal-dark); }
+  .wiz-next { background: var(--teal); color: #fff; margin-left: auto; box-shadow: 0 3px 14px rgba(91,143,168,0.35); }
 
   .generate-btn {
     display: block; width: 100%;
     background: var(--teal); color: #fff; border: none; cursor: pointer;
-    padding: 16px; border-radius: 28px;
-    font-size: 18px; font-weight: 800; font-family: inherit;
-    box-shadow: 0 4px 20px rgba(91,143,168,0.4);
-    transition: transform 0.2s, filter 0.2s;
+    padding: 16px; border-radius: 28px; font-size: 17px; font-weight: 800; font-family: inherit;
+    box-shadow: 0 4px 20px rgba(91,143,168,0.4); transition: transform 0.2s, filter 0.2s;
+    margin-top: 8px;
   }
   .generate-btn:hover { filter: brightness(0.94); transform: translateY(-1px); }
   .generate-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
@@ -143,8 +138,7 @@
   .letter-card textarea {
     width: 100%; min-height: 320px; padding: 14px;
     border: 2px solid #e5e7eb; border-radius: 10px;
-    font-family: inherit; font-size: 14px; line-height: 1.7; color: var(--dark);
-    resize: vertical;
+    font-family: inherit; font-size: 14px; line-height: 1.7; color: var(--dark); resize: vertical;
   }
   .letter-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
   .act-btn {
@@ -166,7 +160,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ===== TOAST ===== */
   .toast-notification {
     position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%);
     background: #1a1a2e; color: #fff; padding: 16px 28px; border-radius: 12px;
@@ -178,8 +171,7 @@
   .toast-notification.show { bottom: 30px; }
 
   footer {
-    background: var(--dark); color: #9CA3AF;
-    text-align: center; padding: 28px 20px;
+    background: var(--dark); color: #9CA3AF; text-align: center; padding: 28px 20px;
     font-size: 13px; line-height: 1.8;
   }
   footer a { color: var(--teal); text-decoration: none; }
@@ -195,276 +187,313 @@
  <div class="lang-toggle">
   <button class="lang-btn active" onclick="setLang('en')" id="btn-en">English</button>
   <button class="lang-btn" onclick="setLang('es')" id="btn-es">Español</button>
+  <button class="lang-btn" onclick="setLang('pa')" id="btn-pa">ਪੰਜਾਬੀ</button>
+  <button class="lang-btn" onclick="setLang('bn')" id="btn-bn">বাংলা</button>
+  <button class="lang-btn" onclick="setLang('hi')" id="btn-hi">हिन्दी</button>
  </div>
 
  <section class="hero">
-  <div class="hero-badge">
-   <span class="en">Patient Advocacy</span>
-   <span class="es">Apoyo del Paciente</span>
-  </div>
   <h1>
    <span class="en">Your Voice Can Bring Belaray Back In Network</span>
    <span class="es">Su Voz Puede Ayudar a que Belaray Vuelva a la Red</span>
+   <span class="pa">ਤੁਹਾਡੀ ਆਵਾਜ਼ ਬੇਲਾਰੇ ਨੂੰ ਨੈੱਟਵਰਕ ਵਿੱਚ ਵਾਪਸ ਲਿਆ ਸਕਦੀ ਹੈ</span>
+   <span class="bn">আপনার আওয়াজ বেলারে-কে নেটওয়ার্কে ফিরিয়ে আনতে পারে</span>
+   <span class="hi">आपकी आवाज़ बेलारे को नेटवर्क में वापस ला सकती है</span>
   </h1>
   <p class="hero-sub">
-   <span class="en">Healthfirst has declined to bring Belaray Dermatology back into its network — but members and voters have real power. Answer a few quick questions below and we'll draft a personal letter for you to review, edit, and send. It takes about 3 minutes.</span>
-   <span class="es">Healthfirst decidió no aceptar a Belaray Dermatology de vuelta en su red — pero los miembros y votantes tienen poder real. Conteste unas preguntas rápidas y prepararemos una carta personal que usted puede revisar, editar y enviar. Toma unos 3 minutos.</span>
+   <span class="en">Answer a few quick questions — we'll draft personal letters to your state legislators and your plan's regulator. You review, edit, and send. About 3 minutes.</span>
+   <span class="es">Conteste unas preguntas rápidas — prepararemos cartas personales a sus legisladores estatales y al regulador de su plan. Usted revisa, edita y envía. Unos 3 minutos.</span>
+   <span class="pa">ਕੁਝ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓ — ਅਸੀਂ ਤੁਹਾਡੇ ਰਾਜ ਵਿਧਾਇਕਾਂ ਅਤੇ ਪਲਾਨ ਦੇ ਰੈਗੂਲੇਟਰ ਲਈ ਨਿੱਜੀ ਚਿੱਠੀਆਂ ਤਿਆਰ ਕਰਾਂਗੇ। ਤੁਸੀਂ ਵੇਖੋ, ਬਦਲੋ ਅਤੇ ਭੇਜੋ। ਲਗਭਗ 3 ਮਿੰਟ।</span>
+   <span class="bn">কয়েকটি প্রশ্নের উত্তর দিন — আমরা আপনার রাজ্য আইনপ্রণেতা ও প্ল্যানের নিয়ন্ত্রকের জন্য ব্যক্তিগত চিঠি তৈরি করব। আপনি দেখবেন, সম্পাদনা করবেন, পাঠাবেন। প্রায় ৩ মিনিট।</span>
+   <span class="hi">कुछ सवालों के जवाब दें — हम आपके राज्य विधायकों और आपके प्लान के नियामक के लिए व्यक्तिगत पत्र तैयार करेंगे। आप देखें, बदलें और भेजें। लगभग 3 मिनट।</span>
   </p>
  </section>
 
  <div class="form-wrap">
 
-  <div class="privacy-note">
-   <span class="en"><strong>Your privacy:</strong> Your answers are used only to draft your letter — they are not stored on this website. Health questions are optional; skip anything you'd rather not share, and don't include your date of birth, member ID, or private medical details you wouldn't want in a letter. With your permission, your checkbox answers (never your name or written words) may be counted in anonymous combined statistics. The letter is written in English, since that's the language these offices work in. Nothing is sent unless you choose to send it.</span>
-   <span class="es"><strong>Su privacidad:</strong> Sus respuestas se usan solamente para preparar su carta — no se guardan en este sitio. Las preguntas de salud son opcionales; omita lo que prefiera no compartir, y no incluya su fecha de nacimiento, número de miembro, ni detalles médicos privados que no quiera en una carta. Con su permiso, sus respuestas marcadas (nunca su nombre ni sus palabras escritas) pueden contarse en estadísticas anónimas combinadas. La carta se escribe en inglés, porque es el idioma de estas oficinas. Nada se envía a menos que usted decida enviarlo.</span>
+  <div class="progress-wrap" id="progress-wrap">
+   <div class="progress-label" id="progress-label">Step 1 of 6</div>
+   <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
 
-  <!-- STEP 1: ABOUT YOU -->
-  <div class="form-card">
-   <h2><span class="step-num">1</span> <span class="en">About you</span><span class="es">Sobre usted</span></h2>
-   <p class="hint">
-    <span class="en">Your name and town make the letter real — legislators listen to constituents.</span>
-    <span class="es">Su nombre y su pueblo hacen la carta real — los legisladores escuchan a sus votantes.</span>
-   </p>
-   <div class="two-col">
-    <div class="field">
-     <label class="f-label" for="f-name"><span class="en">Your name</span><span class="es">Su nombre</span></label>
-     <input type="text" id="f-name" autocomplete="name">
+  <!-- ======== STEP 1: ABOUT YOU ======== -->
+  <div class="wiz-step active" id="step-1">
+   <div class="form-card">
+    <h2><span class="en">About you</span><span class="es">Sobre usted</span><span class="pa">ਤੁਹਾਡੇ ਬਾਰੇ</span><span class="bn">আপনার সম্পর্কে</span><span class="hi">आपके बारे में</span></h2>
+    <p class="hint">
+     <span class="en">Your name and town make the letter real — legislators listen to their own constituents.</span>
+     <span class="es">Su nombre y su pueblo hacen la carta real — los legisladores escuchan a sus votantes.</span>
+     <span class="pa">ਤੁਹਾਡਾ ਨਾਮ ਅਤੇ ਸ਼ਹਿਰ ਚਿੱਠੀ ਨੂੰ ਅਸਲੀ ਬਣਾਉਂਦੇ ਹਨ — ਵਿਧਾਇਕ ਆਪਣੇ ਵੋਟਰਾਂ ਦੀ ਗੱਲ ਸੁਣਦੇ ਹਨ।</span>
+     <span class="bn">আপনার নাম ও শহর চিঠিটিকে বাস্তব করে — আইনপ্রণেতারা নিজের ভোটারদের কথা শোনেন।</span>
+     <span class="hi">आपका नाम और शहर पत्र को असली बनाते हैं — विधायक अपने मतदाताओं की सुनते हैं।</span>
+    </p>
+    <div class="two-col">
+     <div class="field">
+      <label class="f-label" for="f-name"><span class="en">Your name</span><span class="es">Su nombre</span><span class="pa">ਤੁਹਾਡਾ ਨਾਮ</span><span class="bn">আপনার নাম</span><span class="hi">आपका नाम</span></label>
+      <input type="text" id="f-name" autocomplete="name">
+     </div>
+     <div class="field">
+      <label class="f-label" for="f-town"><span class="en">Where do you live?</span><span class="es">¿Dónde vive?</span><span class="pa">ਤੁਸੀਂ ਕਿੱਥੇ ਰਹਿੰਦੇ ਹੋ?</span><span class="bn">আপনি কোথায় থাকেন?</span><span class="hi">आप कहाँ रहते हैं?</span></label>
+      <select id="f-town">
+       <option value="" data-county="nassau" data-en="Select your town…" data-es="Seleccione su pueblo…" data-pa="ਆਪਣਾ ਸ਼ਹਿਰ ਚੁਣੋ…" data-bn="আপনার শহর বাছুন…" data-hi="अपना शहर चुनें…">Select your town…</option>
+       <optgroup label="Nassau County" data-en="Nassau County" data-es="Condado de Nassau" data-pa="Nassau County" data-bn="Nassau County" data-hi="Nassau County">
+        <option value="Hicksville" data-county="nassau">Hicksville</option>
+        <option value="Levittown" data-county="nassau">Levittown</option>
+        <option value="Bethpage" data-county="nassau">Bethpage</option>
+        <option value="Plainview" data-county="nassau">Plainview</option>
+        <option value="Syosset" data-county="nassau">Syosset</option>
+        <option value="Jericho" data-county="nassau">Jericho</option>
+        <option value="Westbury" data-county="nassau">Westbury</option>
+        <option value="East Meadow" data-county="nassau">East Meadow</option>
+        <option value="Farmingdale" data-county="nassau">Farmingdale</option>
+        <option value="Massapequa" data-county="nassau">Massapequa</option>
+        <option value="another town in Nassau County" data-county="nassau" data-en="Other Nassau town" data-es="Otro pueblo de Nassau" data-pa="Nassau ਦਾ ਹੋਰ ਸ਼ਹਿਰ" data-bn="Nassau-র অন্য শহর" data-hi="Nassau का अन्य शहर">Other Nassau town</option>
+       </optgroup>
+       <optgroup label="Suffolk County" data-en="Suffolk County" data-es="Condado de Suffolk" data-pa="Suffolk County" data-bn="Suffolk County" data-hi="Suffolk County">
+        <option value="Stony Brook" data-county="suffolk">Stony Brook</option>
+        <option value="Setauket / East Setauket" data-county="suffolk">Setauket / East Setauket</option>
+        <option value="Port Jefferson / Port Jefferson Station" data-county="suffolk">Port Jefferson / Port Jeff Station</option>
+        <option value="St. James" data-county="suffolk">St. James</option>
+        <option value="Smithtown" data-county="suffolk">Smithtown</option>
+        <option value="Lake Grove" data-county="suffolk">Lake Grove</option>
+        <option value="Centereach" data-county="suffolk">Centereach</option>
+        <option value="Selden" data-county="suffolk">Selden</option>
+        <option value="Coram" data-county="suffolk">Coram</option>
+        <option value="another town in Suffolk County" data-county="suffolk" data-en="Other Suffolk town" data-es="Otro pueblo de Suffolk" data-pa="Suffolk ਦਾ ਹੋਰ ਸ਼ਹਿਰ" data-bn="Suffolk-এর অন্য শহর" data-hi="Suffolk का अन्य शहर">Other Suffolk town</option>
+       </optgroup>
+       <option value="Long Island" data-county="nassau" data-en="Somewhere else" data-es="Otro lugar" data-pa="ਕਿਤੇ ਹੋਰ" data-bn="অন্য কোথাও" data-hi="कहीं और">Somewhere else</option>
+      </select>
+     </div>
     </div>
     <div class="field">
-     <label class="f-label" for="f-town"><span class="en">Where do you live?</span><span class="es">¿Dónde vive?</span></label>
-     <select id="f-town">
-      <option value="" data-county="nassau" data-en="Select your town…" data-es="Seleccione su pueblo…">Select your town…</option>
-      <optgroup label="Nassau County" data-en="Nassau County" data-es="Condado de Nassau">
-       <option value="Hicksville" data-county="nassau">Hicksville</option>
-       <option value="Levittown" data-county="nassau">Levittown</option>
-       <option value="Bethpage" data-county="nassau">Bethpage</option>
-       <option value="Plainview" data-county="nassau">Plainview</option>
-       <option value="Syosset" data-county="nassau">Syosset</option>
-       <option value="Jericho" data-county="nassau">Jericho</option>
-       <option value="Westbury" data-county="nassau">Westbury</option>
-       <option value="East Meadow" data-county="nassau">East Meadow</option>
-       <option value="Farmingdale" data-county="nassau">Farmingdale</option>
-       <option value="Massapequa" data-county="nassau">Massapequa</option>
-       <option value="another town in Nassau County" data-county="nassau" data-en="Other Nassau town" data-es="Otro pueblo de Nassau">Other Nassau town</option>
-      </optgroup>
-      <optgroup label="Suffolk County" data-en="Suffolk County" data-es="Condado de Suffolk">
-       <option value="Stony Brook" data-county="suffolk">Stony Brook</option>
-       <option value="Setauket / East Setauket" data-county="suffolk">Setauket / East Setauket</option>
-       <option value="Port Jefferson / Port Jefferson Station" data-county="suffolk">Port Jefferson / Port Jeff Station</option>
-       <option value="St. James" data-county="suffolk">St. James</option>
-       <option value="Smithtown" data-county="suffolk">Smithtown</option>
-       <option value="Lake Grove" data-county="suffolk">Lake Grove</option>
-       <option value="Centereach" data-county="suffolk">Centereach</option>
-       <option value="Selden" data-county="suffolk">Selden</option>
-       <option value="Coram" data-county="suffolk">Coram</option>
-       <option value="another town in Suffolk County" data-county="suffolk" data-en="Other Suffolk town" data-es="Otro pueblo de Suffolk">Other Suffolk town</option>
-      </optgroup>
-      <option value="Long Island" data-county="nassau" data-en="Somewhere else" data-es="Otro lugar">Somewhere else</option>
+     <label class="f-label" for="f-plan"><span class="en">Which Healthfirst plan do you have?</span><span class="es">¿Qué plan de Healthfirst tiene?</span><span class="pa">ਤੁਹਾਡੇ ਕੋਲ ਕਿਹੜਾ Healthfirst ਪਲਾਨ ਹੈ?</span><span class="bn">আপনার কোন Healthfirst প্ল্যান আছে?</span><span class="hi">आपके पास कौन-सा Healthfirst प्लान है?</span></label>
+     <select id="f-plan">
+      <option value="medicaid" data-en="Medicaid Managed Care (including HARP)" data-es="Medicaid Managed Care (incluye HARP)" data-pa="Medicaid Managed Care (HARP ਸਮੇਤ)" data-bn="Medicaid Managed Care (HARP সহ)" data-hi="Medicaid Managed Care (HARP सहित)">Medicaid Managed Care (including HARP)</option>
+      <option value="essential" data-en="Essential Plan" data-es="Essential Plan (Plan Esencial)" data-pa="Essential Plan" data-bn="Essential Plan" data-hi="Essential Plan">Essential Plan</option>
+      <option value="chp" data-en="Child Health Plus (my child's plan)" data-es="Child Health Plus (el plan de mi hijo/a)" data-pa="Child Health Plus (ਮੇਰੇ ਬੱਚੇ ਦਾ ਪਲਾਨ)" data-bn="Child Health Plus (আমার সন্তানের প্ল্যান)" data-hi="Child Health Plus (मेरे बच्चे का प्लान)">Child Health Plus (my child's plan)</option>
+      <option value="medicare" data-en="Medicare plan through Healthfirst" data-es="Plan de Medicare con Healthfirst" data-pa="Healthfirst ਰਾਹੀਂ Medicare ਪਲਾਨ" data-bn="Healthfirst-এর মাধ্যমে Medicare প্ল্যান" data-hi="Healthfirst के ज़रिए Medicare प्लान">Medicare plan through Healthfirst</option>
+      <option value="commercial" data-en="Plan through my job or the NY marketplace" data-es="Plan por mi trabajo o el mercado de NY" data-pa="ਨੌਕਰੀ ਜਾਂ NY ਮਾਰਕੀਟਪਲੇਸ ਰਾਹੀਂ ਪਲਾਨ" data-bn="চাকরি বা NY মার্কেটপ্লেসের মাধ্যমে প্ল্যান" data-hi="नौकरी या NY मार्केटप्लेस के ज़रिए प्लान">Plan through my job or the NY marketplace</option>
+      <option value="notsure" data-en="Not sure" data-es="No estoy seguro/a" data-pa="ਪੱਕਾ ਨਹੀਂ ਪਤਾ" data-bn="নিশ্চিত নই" data-hi="पक्का नहीं पता">Not sure</option>
      </select>
     </div>
    </div>
-   <div class="field">
-    <label class="f-label" for="f-plan"><span class="en">Which Healthfirst plan do you have?</span><span class="es">¿Qué plan de Healthfirst tiene?</span></label>
-    <select id="f-plan">
-     <option value="medicaid" data-en="Medicaid Managed Care (including HARP)" data-es="Medicaid Managed Care (incluye HARP)">Medicaid Managed Care (including HARP)</option>
-     <option value="essential" data-en="Essential Plan" data-es="Essential Plan (Plan Esencial)">Essential Plan</option>
-     <option value="chp" data-en="Child Health Plus (my child's plan)" data-es="Child Health Plus (el plan de mi hijo/a)">Child Health Plus (my child's plan)</option>
-     <option value="medicare" data-en="Medicare plan through Healthfirst" data-es="Plan de Medicare con Healthfirst">Medicare plan through Healthfirst</option>
-     <option value="commercial" data-en="Plan through my job or the NY marketplace" data-es="Plan por mi trabajo o el mercado de NY">Plan through my job or the NY marketplace</option>
-     <option value="notsure" data-en="Not sure" data-es="No estoy seguro/a">Not sure</option>
-    </select>
-   </div>
+   <div class="wiz-nav"><button class="wiz-btn wiz-next" onclick="goStep(2)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button></div>
   </div>
 
-  <!-- STEP 2: YOUR HISTORY -->
-  <div class="form-card">
-   <h2><span class="step-num">2</span> <span class="en">Your history with Belaray</span><span class="es">Su historia con Belaray</span></h2>
-   <div class="two-col">
-    <div class="field">
-     <label class="f-label" for="f-years"><span class="en">How long have you been a patient?</span><span class="es">¿Cuánto tiempo lleva como paciente?</span></label>
-     <select id="f-years">
-      <option value="" data-en="Select…" data-es="Seleccione…">Select…</option>
-      <option value="less than 1 year" data-en="Less than 1 year" data-es="Menos de 1 año">Less than 1 year</option>
-      <option value="1-5 years" data-en="1–5 years" data-es="1–5 años">1–5 years</option>
-      <option value="5-10 years" data-en="5–10 years" data-es="5–10 años">5–10 years</option>
-      <option value="10-20 years" data-en="10–20 years" data-es="10–20 años">10–20 years</option>
-      <option value="more than 20 years - since the practice opened" data-en="20+ years — since they opened" data-es="Más de 20 años — desde que abrieron">20+ years — since they opened</option>
-     </select>
+  <!-- ======== STEP 2: YOUR HISTORY ======== -->
+  <div class="wiz-step" id="step-2">
+   <div class="form-card">
+    <h2><span class="en">Your history with Belaray</span><span class="es">Su historia con Belaray</span><span class="pa">ਬੇਲਾਰੇ ਨਾਲ ਤੁਹਾਡਾ ਇਤਿਹਾਸ</span><span class="bn">বেলারের সাথে আপনার ইতিহাস</span><span class="hi">बेलारे के साथ आपका इतिहास</span></h2>
+    <div class="two-col">
+     <div class="field">
+      <label class="f-label" for="f-years"><span class="en">How long have you been a patient?</span><span class="es">¿Cuánto tiempo lleva como paciente?</span><span class="pa">ਤੁਸੀਂ ਕਿੰਨੇ ਸਮੇਂ ਤੋਂ ਮਰੀਜ਼ ਹੋ?</span><span class="bn">কতদিন ধরে রোগী?</span><span class="hi">आप कितने समय से मरीज़ हैं?</span></label>
+      <select id="f-years">
+       <option value="" data-en="Select…" data-es="Seleccione…" data-pa="ਚੁਣੋ…" data-bn="বাছুন…" data-hi="चुनें…">Select…</option>
+       <option value="less than 1 year" data-en="Less than 1 year" data-es="Menos de 1 año" data-pa="1 ਸਾਲ ਤੋਂ ਘੱਟ" data-bn="১ বছরের কম" data-hi="1 साल से कम">Less than 1 year</option>
+       <option value="1-5 years" data-en="1–5 years" data-es="1–5 años" data-pa="1–5 ਸਾਲ" data-bn="১–৫ বছর" data-hi="1–5 साल">1–5 years</option>
+       <option value="5-10 years" data-en="5–10 years" data-es="5–10 años" data-pa="5–10 ਸਾਲ" data-bn="৫–১০ বছর" data-hi="5–10 साल">5–10 years</option>
+       <option value="10-20 years" data-en="10–20 years" data-es="10–20 años" data-pa="10–20 ਸਾਲ" data-bn="১০–২০ বছর" data-hi="10–20 साल">10–20 years</option>
+       <option value="more than 20 years - since the practice opened" data-en="20+ years — since they opened" data-es="Más de 20 años" data-pa="20+ ਸਾਲ" data-bn="২০+ বছর" data-hi="20+ साल">20+ years — since they opened</option>
+      </select>
+     </div>
+     <div class="field">
+      <label class="f-label" for="f-found"><span class="en">How did you find Belaray?</span><span class="es">¿Cómo encontró a Belaray?</span><span class="pa">ਬੇਲਾਰੇ ਨੂੰ ਕਿਵੇਂ ਲੱਭਿਆ?</span><span class="bn">বেলারে-কে কীভাবে পেলেন?</span><span class="hi">बेलारे को कैसे खोजा?</span></label>
+      <select id="f-found">
+       <option value="" data-en="Select…" data-es="Seleccione…" data-pa="ਚੁਣੋ…" data-bn="বাছুন…" data-hi="चुनें…">Select…</option>
+       <option value="referred by my primary care doctor" data-en="My doctor referred me" data-es="Mi médico me refirió" data-pa="ਮੇਰੇ ਡਾਕਟਰ ਨੇ ਭੇਜਿਆ" data-bn="আমার ডাক্তার পাঠিয়েছেন" data-hi="मेरे डॉक्टर ने भेजा">My doctor referred me</option>
+       <option value="recommended by family or friends" data-en="Family or friends" data-es="Familia o amigos" data-pa="ਪਰਿਵਾਰ ਜਾਂ ਦੋਸਤ" data-bn="পরিবার বা বন্ধুরা" data-hi="परिवार या दोस्त">Family or friends</option>
+       <option value="through my insurance directory" data-en="My insurance directory" data-es="El directorio de mi seguro" data-pa="ਬੀਮੇ ਦੀ ਡਾਇਰੈਕਟਰੀ" data-bn="বীমার ডিরেক্টরি" data-hi="बीमा डायरेक्टरी">My insurance directory</option>
+       <option value="online reviews" data-en="Online reviews" data-es="Reseñas en línea" data-pa="ਆਨਲਾਈਨ ਰਿਵਿਊ" data-bn="অনলাইন রিভিউ" data-hi="ऑनलाइन रिव्यू">Online reviews</option>
+       <option value="my family has gone there for years" data-en="My family has gone for years" data-es="Mi familia va desde hace años" data-pa="ਪਰਿਵਾਰ ਸਾਲਾਂ ਤੋਂ ਜਾਂਦਾ ਹੈ" data-bn="পরিবার বহু বছর ধরে যায়" data-hi="परिवार सालों से जाता है">My family has gone for years</option>
+      </select>
+     </div>
     </div>
     <div class="field">
-     <label class="f-label" for="f-found"><span class="en">How did you find Belaray?</span><span class="es">¿Cómo encontró a Belaray?</span></label>
-     <select id="f-found">
-      <option value="" data-en="Select…" data-es="Seleccione…">Select…</option>
-      <option value="referred by my primary care doctor" data-en="My doctor referred me" data-es="Mi médico me refirió">My doctor referred me</option>
-      <option value="recommended by family or friends" data-en="Family or friends" data-es="Familia o amigos">Family or friends</option>
-      <option value="through my insurance directory" data-en="My insurance directory" data-es="El directorio de mi seguro">My insurance directory</option>
-      <option value="online reviews" data-en="Online reviews" data-es="Reseñas en línea">Online reviews</option>
-      <option value="my family has gone there for years" data-en="My family has gone for years" data-es="Mi familia va desde hace años">My family has gone for years</option>
+     <label class="f-label"><span class="en">Who gets care at Belaray? (check all)</span><span class="es">¿Quiénes se atienden en Belaray? (marque todos)</span><span class="pa">ਬੇਲਾਰੇ ਵਿੱਚ ਕੌਣ-ਕੌਣ ਇਲਾਜ ਕਰਵਾਉਂਦਾ ਹੈ?</span><span class="bn">বেলারে-তে কারা চিকিৎসা নেন?</span><span class="hi">बेलारे में कौन-कौन इलाज कराता है?</span></label>
+     <div id="grp-family">
+      <label class="check-row"><input type="checkbox" value="me"><span class="txt"><span class="en">Me</span><span class="es">Yo</span><span class="pa">ਮੈਂ</span><span class="bn">আমি</span><span class="hi">मैं</span></span></label>
+      <label class="check-row"><input type="checkbox" value="my spouse or partner"><span class="txt"><span class="en">My spouse / partner</span><span class="es">Mi esposo/a o pareja</span><span class="pa">ਮੇਰਾ ਜੀਵਨਸਾਥੀ</span><span class="bn">আমার স্বামী/স্ত্রী</span><span class="hi">मेरे पति/पत्नी</span></span></label>
+      <label class="check-row"><input type="checkbox" value="my children"><span class="txt"><span class="en">My children</span><span class="es">Mis hijos</span><span class="pa">ਮੇਰੇ ਬੱਚੇ</span><span class="bn">আমার সন্তানেরা</span><span class="hi">मेरे बच्चे</span></span></label>
+      <label class="check-row"><input type="checkbox" value="my parents"><span class="txt"><span class="en">My parents</span><span class="es">Mis padres</span><span class="pa">ਮੇਰੇ ਮਾਤਾ-ਪਿਤਾ</span><span class="bn">আমার বাবা-মা</span><span class="hi">मेरे माता-पिता</span></span></label>
+      <label class="check-row"><input type="checkbox" value="three generations of my family"><span class="txt"><span class="en">Three generations of my family</span><span class="es">Tres generaciones de mi familia</span><span class="pa">ਪਰਿਵਾਰ ਦੀਆਂ ਤਿੰਨ ਪੀੜ੍ਹੀਆਂ</span><span class="bn">পরিবারের তিন প্রজন্ম</span><span class="hi">परिवार की तीन पीढ़ियाँ</span></span></label>
+     </div>
+    </div>
+   </div>
+   <div class="wiz-nav">
+    <button class="wiz-btn wiz-back" onclick="goStep(1)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(3)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+   </div>
+  </div>
+
+  <!-- ======== STEP 3: WHAT LOSING BELARAY MEANS ======== -->
+  <div class="wiz-step" id="step-3">
+   <div class="form-card">
+    <h2><span class="en">What losing Belaray would mean for you</span><span class="es">Qué significaría perder a Belaray</span><span class="pa">ਬੇਲਾਰੇ ਨੂੰ ਗੁਆਉਣ ਦਾ ਕੀ ਮਤਲਬ ਹੋਵੇਗਾ</span><span class="bn">বেলারে হারানোর অর্থ কী হবে</span><span class="hi">बेलारे को खोने का आपके लिए क्या मतलब होगा</span></h2>
+    <p class="hint"><span class="en">Check everything that's true for you.</span><span class="es">Marque todo lo que sea cierto.</span><span class="pa">ਜੋ ਸੱਚ ਹੈ, ਉਹ ਚੁਣੋ।</span><span class="bn">যা সত্য, টিক দিন।</span><span class="hi">जो सच है, उसे चुनें।</span></p>
+    <div id="grp-meaning">
+     <label class="check-row"><input type="checkbox" value="I would lose the doctor who knows me and my medical history"><span class="txt"><span class="en">I'd lose the doctor who knows me and my history</span><span class="es">Perdería al médico que me conoce y conoce mi historia</span><span class="pa">ਮੈਂ ਉਹ ਡਾਕਟਰ ਗੁਆ ਦਿਆਂਗਾ/ਗੀ ਜੋ ਮੈਨੂੰ ਅਤੇ ਮੇਰਾ ਇਤਿਹਾਸ ਜਾਣਦਾ ਹੈ</span><span class="bn">যে ডাক্তার আমাকে ও আমার ইতিহাস জানেন, তাঁকে হারাব</span><span class="hi">वह डॉक्टर खो दूँगा/दूँगी जो मुझे और मेरा इतिहास जानता है</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I would have to travel much farther and face long waits to be seen somewhere new"><span class="txt"><span class="en">I'd have to travel farther and face long waits somewhere new</span><span class="es">Tendría que viajar más lejos y esperar mucho en un lugar nuevo</span><span class="pa">ਨਵੀਂ ਥਾਂ ਲਈ ਦੂਰ ਜਾਣਾ ਪਵੇਗਾ ਅਤੇ ਲੰਮੀ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ</span><span class="bn">নতুন জায়গায় দূরে যেতে হবে ও দীর্ঘ অপেক্ষা করতে হবে</span><span class="hi">नई जगह के लिए दूर जाना पड़ेगा और लंबा इंतज़ार करना पड़ेगा</span></span></label>
+     <label class="check-row"><input type="checkbox" value="It would be a hardship for an elderly or disabled member of my family who is also a patient"><span class="txt"><span class="en">It would be a hardship for an elderly or disabled family member who's also a patient</span><span class="es">Sería una dificultad para un familiar mayor o discapacitado que también es paciente</span><span class="pa">ਬਜ਼ੁਰਗ ਜਾਂ ਅਪਾਹਜ ਪਰਿਵਾਰਕ ਮੈਂਬਰ ਲਈ ਵੱਡੀ ਮੁਸ਼ਕਲ ਹੋਵੇਗੀ</span><span class="bn">বয়স্ক বা প্রতিবন্ধী পরিবারের সদস্যের জন্য কষ্টকর হবে</span><span class="hi">बुज़ुर्ग या विकलांग पारिवारिक सदस्य के लिए बड़ी कठिनाई होगी</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I cannot afford to pay for visits out of pocket, so my plan's decision effectively ends this doctor-patient relationship"><span class="txt"><span class="en">I can't afford to pay out of pocket — my plan's decision effectively ends this relationship</span><span class="es">No puedo pagar de mi bolsillo — la decisión de mi plan termina esta relación</span><span class="pa">ਮੈਂ ਆਪਣੀ ਜੇਬ ਤੋਂ ਨਹੀਂ ਦੇ ਸਕਦਾ/ਦੀ — ਪਲਾਨ ਦਾ ਫ਼ੈਸਲਾ ਇਹ ਰਿਸ਼ਤਾ ਖ਼ਤਮ ਕਰ ਦਿੰਦਾ ਹੈ</span><span class="bn">পকেট থেকে দেওয়ার সামর্থ্য নেই — প্ল্যানের সিদ্ধান্তই সম্পর্ক শেষ করছে</span><span class="hi">अपनी जेब से नहीं दे सकता/सकती — प्लान का फ़ैसला यह रिश्ता ख़त्म कर देता है</span></span></label>
+     <label class="check-row"><input type="checkbox" value="After years with this practice I am comfortable with them for sensitive exams and procedures, and starting over with a stranger is not the same"><span class="txt"><span class="en">I trust this practice with sensitive exams — starting over with a stranger isn't the same</span><span class="es">Confío en ellos para exámenes delicados — empezar con un desconocido no es lo mismo</span><span class="pa">ਨਾਜ਼ੁਕ ਜਾਂਚਾਂ ਲਈ ਭਰੋਸਾ ਹੈ — ਅਜਨਬੀ ਨਾਲ ਨਵੇਂ ਸਿਰਿਓਂ ਸ਼ੁਰੂ ਕਰਨਾ ਇੱਕੋ ਜਿਹਾ ਨਹੀਂ</span><span class="bn">স্পর্শকাতর পরীক্ষায় আস্থা আছে — অচেনা কারো সাথে নতুন শুরু এক নয়</span><span class="hi">संवेदनशील जाँच के लिए भरोसा है — अजनबी के साथ नई शुरुआत वैसी नहीं</span></span></label>
+    </div>
+   </div>
+   <div class="wiz-nav">
+    <button class="wiz-btn wiz-back" onclick="goStep(2)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(4)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+   </div>
+  </div>
+
+  <!-- ======== STEP 4: THE 6-WEEK TEST ======== -->
+  <div class="wiz-step" id="step-4">
+   <div class="form-card">
+    <h2><span class="en">Have you tried finding another dermatologist?</span><span class="es">¿Ha intentado encontrar otro dermatólogo?</span><span class="pa">ਕੀ ਤੁਸੀਂ ਹੋਰ ਚਮੜੀ ਦਾ ਡਾਕਟਰ ਲੱਭਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ?</span><span class="bn">অন্য চর্মরোগ বিশেষজ্ঞ খোঁজার চেষ্টা করেছেন?</span><span class="hi">क्या आपने दूसरा त्वचा डॉक्टर खोजने की कोशिश की?</span></h2>
+    <p class="hint">
+     <span class="en"><strong>This step matters most.</strong> New York's standard: a specialist appointment within about <strong>4–6 weeks</strong>. By refusing to restore Belaray, Healthfirst is claiming its network already meets that. Call the dermatologists in your directory and see — if you can't get in within 6 weeks, that's exactly the evidence regulators act on. Only report what really happened.</span>
+     <span class="es"><strong>Este paso es el más importante.</strong> El estándar de Nueva York: cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Al rechazar a Belaray, Healthfirst afirma que su red ya cumple eso. Llame a los dermatólogos de su directorio — si no consigue cita dentro de 6 semanas, esa es exactamente la evidencia sobre la que actúan los reguladores. Reporte solo lo que realmente pasó.</span>
+     <span class="pa"><strong>ਇਹ ਕਦਮ ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਹੈ।</strong> ਨਿਊਯਾਰਕ ਦਾ ਮਿਆਰ: ਲਗਭਗ <strong>4–6 ਹਫ਼ਤਿਆਂ</strong> ਵਿੱਚ ਸਪੈਸ਼ਲਿਸਟ ਦੀ ਮੁਲਾਕਾਤ। ਬੇਲਾਰੇ ਨੂੰ ਠੁਕਰਾ ਕੇ Healthfirst ਦਾਅਵਾ ਕਰ ਰਿਹਾ ਹੈ ਕਿ ਉਸਦਾ ਨੈੱਟਵਰਕ ਇਹ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਆਪਣੀ ਡਾਇਰੈਕਟਰੀ ਦੇ ਡਾਕਟਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰੋ — ਜੇ 6 ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਮੁਲਾਕਾਤ ਨਹੀਂ ਮਿਲਦੀ, ਇਹੀ ਸਬੂਤ ਹੈ ਜਿਸ 'ਤੇ ਰੈਗੂਲੇਟਰ ਕਾਰਵਾਈ ਕਰਦੇ ਹਨ। ਸਿਰਫ਼ ਸੱਚ ਦੱਸੋ।</span>
+     <span class="bn"><strong>এই ধাপটি সবচেয়ে গুরুত্বপূর্ণ।</strong> নিউ ইয়র্কের মান: প্রায় <strong>৪–৬ সপ্তাহের</strong> মধ্যে বিশেষজ্ঞের অ্যাপয়েন্টমেন্ট। বেলারে-কে প্রত্যাখ্যান করে Healthfirst দাবি করছে তাদের নেটওয়ার্ক এই মান পূরণ করে। আপনার ডিরেক্টরির ডাক্তারদের ফোন করুন — ৬ সপ্তাহের মধ্যে অ্যাপয়েন্টমেন্ট না পেলে, সেটাই নিয়ন্ত্রকদের কাছে প্রমাণ। শুধু সত্যিটা জানান।</span>
+     <span class="hi"><strong>यह क़दम सबसे ज़रूरी है।</strong> न्यूयॉर्क का मानक: लगभग <strong>4–6 हफ़्तों</strong> में विशेषज्ञ की अपॉइंटमेंट। बेलारे को ठुकराकर Healthfirst दावा कर रहा है कि उसका नेटवर्क यह पूरा करता है। अपनी डायरेक्टरी के डॉक्टरों को फ़ोन करें — अगर 6 हफ़्तों में अपॉइंटमेंट नहीं मिलती, यही वह सबूत है जिस पर नियामक कार्रवाई करते हैं। सिर्फ़ वही बताएँ जो सच में हुआ।</span>
+    </p>
+    <div id="grp-access">
+     <label class="check-row"><input type="checkbox" value="I called other in-network dermatologists and could not get a timely appointment"><span class="txt"><span class="en">I called other in-network dermatologists and couldn't get a timely appointment</span><span class="es">Llamé a otros dermatólogos de la red y no conseguí cita pronto</span><span class="pa">ਨੈੱਟਵਰਕ ਦੇ ਹੋਰ ਡਾਕਟਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕੀਤਾ, ਸਮੇਂ ਸਿਰ ਮੁਲਾਕਾਤ ਨਹੀਂ ਮਿਲੀ</span><span class="bn">নেটওয়ার্কের অন্য ডাক্তারদের ফোন করেছি, সময়মতো অ্যাপয়েন্টমেন্ট পাইনি</span><span class="hi">नेटवर्क के दूसरे डॉक्टरों को फ़ोन किया, समय पर अपॉइंटमेंट नहीं मिली</span></span></label>
+     <label class="check-row"><input type="checkbox" value="When I call other offices, often no one picks up the phone or the hold times are very long"><span class="txt"><span class="en">No one picks up — or the hold times are way too long</span><span class="es">Nadie contesta — o la espera en línea es demasiado larga</span><span class="pa">ਕੋਈ ਫ਼ੋਨ ਨਹੀਂ ਚੁੱਕਦਾ — ਜਾਂ ਹੋਲਡ ਬਹੁਤ ਲੰਮਾ ਹੈ</span><span class="bn">কেউ ফোন ধরে না — বা হোল্ডে অনেকক্ষণ রাখে</span><span class="hi">कोई फ़ोन नहीं उठाता — या होल्ड बहुत लंबा है</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Other offices do not return my calls or messages"><span class="txt"><span class="en">My calls and messages don't get returned</span><span class="es">No devuelven mis llamadas ni mensajes</span><span class="pa">ਮੇਰੀਆਂ ਕਾਲਾਂ ਦਾ ਜਵਾਬ ਨਹੀਂ ਆਉਂਦਾ</span><span class="bn">কল-মেসেজের উত্তর আসে না</span><span class="hi">मेरी कॉल और मैसेज का जवाब नहीं आता</span></span></label>
+     <label class="check-row"><input type="checkbox" value="The other offices I called have no staff who speak my language, so I cannot understand them or be understood"><span class="txt"><span class="en">They don't speak my language — I can't understand or be understood</span><span class="es">No hablan mi idioma — no puedo entender ni hacerme entender</span><span class="pa">ਉਹ ਮੇਰੀ ਭਾਸ਼ਾ ਨਹੀਂ ਬੋਲਦੇ — ਨਾ ਸਮਝ ਸਕਦਾ/ਦੀ, ਨਾ ਸਮਝਾ ਸਕਦਾ/ਦੀ</span><span class="bn">তারা আমার ভাষা বলে না — বুঝতেও পারি না, বোঝাতেও পারি না</span><span class="hi">वे मेरी भाषा नहीं बोलते — न समझ सकता/सकती हूँ, न समझा सकता/सकती हूँ</span></span></label>
+     <label class="check-row"><input type="checkbox" value="The offices I did reach did not seem to care whether I ever got seen"><span class="txt"><span class="en">The offices I reached didn't seem to care whether I ever got seen</span><span class="es">A las oficinas no parecía importarles si alguna vez me atendían</span><span class="pa">ਜਿਨ੍ਹਾਂ ਨਾਲ ਗੱਲ ਹੋਈ, ਉਨ੍ਹਾਂ ਨੂੰ ਪਰਵਾਹ ਨਹੀਂ ਸੀ ਕਿ ਮੈਨੂੰ ਕਦੇ ਦੇਖਿਆ ਜਾਵੇਗਾ ਜਾਂ ਨਹੀਂ</span><span class="bn">যাদের পেয়েছি, আমি ডাক্তার দেখাতে পারব কি না তা নিয়ে তাদের মাথাব্যথা ছিল না</span><span class="hi">जिनसे बात हुई, उन्हें परवाह नहीं थी कि मुझे कभी देखा भी जाएगा या नहीं</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Doctors listed in the Healthfirst directory were not actually accepting new patients or not actually in network"><span class="txt"><span class="en">Directory doctors weren't actually taking patients (or weren't really in network)</span><span class="es">Médicos del directorio no aceptaban pacientes (o no estaban en la red)</span><span class="pa">ਡਾਇਰੈਕਟਰੀ ਦੇ ਡਾਕਟਰ ਅਸਲ ਵਿੱਚ ਮਰੀਜ਼ ਨਹੀਂ ਲੈ ਰਹੇ ਸਨ (ਜਾਂ ਨੈੱਟਵਰਕ ਵਿੱਚ ਨਹੀਂ ਸਨ)</span><span class="bn">ডিরেক্টরির ডাক্তাররা আসলে রোগী নিচ্ছিলেন না (বা নেটওয়ার্কে ছিলেন না)</span><span class="hi">डायरेक्टरी के डॉक्टर असल में मरीज़ नहीं ले रहे थे (या नेटवर्क में नहीं थे)</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I could not find any in-network office that offers the specific service I need (such as Mohs surgery, phototherapy, or Mohs with same-day oculoplastic reconstruction)"><span class="txt"><span class="en">I couldn't find the specific service I need (Mohs, phototherapy, same-day eyelid reconstruction…)</span><span class="es">No encontré el servicio específico que necesito (Mohs, fototerapia, reconstrucción de párpado…)</span><span class="pa">ਮੈਨੂੰ ਲੋੜੀਂਦੀ ਖ਼ਾਸ ਸੇਵਾ ਨਹੀਂ ਮਿਲੀ (Mohs, ਫੋਟੋਥੈਰੇਪੀ, ਪਲਕ ਦੀ ਮੁਰੰਮਤ…)</span><span class="bn">আমার প্রয়োজনীয় নির্দিষ্ট সেবা পাইনি (Mohs, ফটোথেরাপি, চোখের পাতার পুনর্গঠন…)</span><span class="hi">मुझे ज़रूरी खास सेवा नहीं मिली (Mohs, फोटोथेरेपी, पलक का पुनर्निर्माण…)</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Traveling farther would be a real hardship for me because I do not drive or rely on rides or public transportation"><span class="txt"><span class="en">Traveling farther is a real hardship — I don't drive / rely on rides or transit</span><span class="es">Viajar más lejos es una dificultad — no manejo / dependo de otros</span><span class="pa">ਦੂਰ ਜਾਣਾ ਬਹੁਤ ਔਖਾ ਹੈ — ਮੈਂ ਗੱਡੀ ਨਹੀਂ ਚਲਾਉਂਦਾ/ਦੀ</span><span class="bn">দূরে যাওয়া কষ্টকর — গাড়ি চালাই না / অন্যের উপর নির্ভরশীল</span><span class="hi">दूर जाना बहुत कठिन है — मैं गाड़ी नहीं चलाता/चलाती</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I have not tried yet"><span class="txt"><span class="en">I haven't tried yet</span><span class="es">Todavía no he buscado</span><span class="pa">ਹਾਲੇ ਕੋਸ਼ਿਸ਼ ਨਹੀਂ ਕੀਤੀ</span><span class="bn">এখনও চেষ্টা করিনি</span><span class="hi">अभी कोशिश नहीं की</span></span></label>
+    </div>
+    <div id="access-detail" style="display:none;">
+     <div class="field" style="margin-top:10px;">
+      <label class="f-label" for="f-calls"><span class="en">How many in-network offices have you called?</span><span class="es">¿A cuántas oficinas llamó?</span><span class="pa">ਕਿੰਨੇ ਦਫ਼ਤਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕੀਤਾ?</span><span class="bn">কতগুলো অফিসে ফোন করেছেন?</span><span class="hi">कितने दफ़्तरों को फ़ोन किया?</span></label>
+      <select id="f-calls">
+       <option value="" data-en="None yet" data-es="Ninguna todavía" data-pa="ਹਾਲੇ ਕੋਈ ਨਹੀਂ" data-bn="এখনও একটিও না" data-hi="अभी कोई नहीं">None yet</option>
+       <option value="one or two offices" data-en="1–2 offices" data-es="1–2 oficinas" data-pa="1–2 ਦਫ਼ਤਰ" data-bn="১–২টি" data-hi="1–2 दफ़्तर">1–2 offices</option>
+       <option value="three to five offices" data-en="3–5 offices" data-es="3–5 oficinas" data-pa="3–5 ਦਫ਼ਤਰ" data-bn="৩–৫টি" data-hi="3–5 दफ़्तर">3–5 offices</option>
+       <option value="six or more offices" data-en="6 or more offices" data-es="6 o más" data-pa="6 ਜਾਂ ਵੱਧ" data-bn="৬ বা বেশি" data-hi="6 या अधिक">6 or more offices</option>
+      </select>
+     </div>
+     <div class="two-col" style="margin-top:10px;">
+      <div class="field">
+       <label class="f-label" for="f-wait"><span class="en">How long was the wait you were quoted?</span><span class="es">¿Cuánto era la espera?</span><span class="pa">ਉਡੀਕ ਕਿੰਨੀ ਸੀ?</span><span class="bn">অপেক্ষা কতদিনের ছিল?</span><span class="hi">इंतज़ार कितना था?</span></label>
+       <select id="f-wait">
+        <option value="" data-en="Didn't call / not sure" data-es="No llamé / no sé" data-pa="ਫ਼ੋਨ ਨਹੀਂ ਕੀਤਾ" data-bn="ফোন করিনি" data-hi="फ़ोन नहीं किया">Didn't call / not sure</option>
+        <option value="a few weeks" data-en="A few weeks" data-es="Unas semanas" data-pa="ਕੁਝ ਹਫ਼ਤੇ" data-bn="কয়েক সপ্তাহ" data-hi="कुछ हफ़्ते">A few weeks</option>
+        <option value="about a month" data-en="About a month" data-es="Como un mes" data-pa="ਲਗਭਗ ਇੱਕ ਮਹੀਨਾ" data-bn="প্রায় এক মাস" data-hi="लगभग एक महीना">About a month</option>
+        <option value="one to two months" data-en="1–2 months" data-es="1–2 meses" data-pa="1–2 ਮਹੀਨੇ" data-bn="১–২ মাস" data-hi="1–2 महीने">1–2 months</option>
+        <option value="two to three months" data-en="2–3 months" data-es="2–3 meses" data-pa="2–3 ਮਹੀਨੇ" data-bn="২–৩ মাস" data-hi="2–3 महीने">2–3 months</option>
+        <option value="more than three months" data-en="More than 3 months" data-es="Más de 3 meses" data-pa="3 ਮਹੀਨਿਆਂ ਤੋਂ ਵੱਧ" data-bn="৩ মাসের বেশি" data-hi="3 महीने से ज़्यादा">More than 3 months</option>
+        <option value="I could not get an appointment at all" data-en="Couldn't get one at all" data-es="No conseguí cita" data-pa="ਬਿਲਕੁਲ ਨਹੀਂ ਮਿਲੀ" data-bn="একেবারেই পাইনি" data-hi="बिल्कुल नहीं मिली">Couldn't get one at all</option>
+       </select>
+      </div>
+      <div class="field">
+       <label class="f-label" for="f-distance"><span class="en">How far is the nearest in-network option?</span><span class="es">¿Qué tan lejos queda la más cercana?</span><span class="pa">ਸਭ ਤੋਂ ਨੇੜਲਾ ਕਿੰਨੀ ਦੂਰ ਹੈ?</span><span class="bn">নিকটতমটি কত দূরে?</span><span class="hi">सबसे नज़दीकी कितनी दूर है?</span></label>
+       <select id="f-distance">
+        <option value="" data-en="Not sure / didn't check" data-es="No sé" data-pa="ਪਤਾ ਨਹੀਂ" data-bn="জানি না" data-hi="पता नहीं">Not sure / didn't check</option>
+        <option value="under 15 minutes" data-en="Under 15 minutes away" data-es="Menos de 15 min" data-pa="15 ਮਿੰਟ ਤੋਂ ਘੱਟ" data-bn="১৫ মিনিটের কম" data-hi="15 मिनट से कम">Under 15 minutes away</option>
+        <option value="15 to 30 minutes" data-en="15–30 minutes away" data-es="15–30 min" data-pa="15–30 ਮਿੰਟ" data-bn="১৫–৩০ মিনিট" data-hi="15–30 मिनट">15–30 minutes away</option>
+        <option value="30 to 45 minutes" data-en="30–45 minutes away" data-es="30–45 min" data-pa="30–45 ਮਿੰਟ" data-bn="৩০–৪৫ মিনিট" data-hi="30–45 मिनट">30–45 minutes away</option>
+        <option value="45 minutes to an hour" data-en="45–60 minutes away" data-es="45–60 min" data-pa="45–60 ਮਿੰਟ" data-bn="৪৫–৬০ মিনিট" data-hi="45–60 मिनट">45–60 minutes away</option>
+        <option value="more than an hour" data-en="Over an hour away" data-es="Más de una hora" data-pa="ਘੰਟੇ ਤੋਂ ਵੱਧ" data-bn="এক ঘণ্টার বেশি" data-hi="एक घंटे से ज़्यादा">Over an hour away</option>
+       </select>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="wiz-nav">
+    <button class="wiz-btn wiz-back" onclick="goStep(3)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(5)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+   </div>
+  </div>
+
+  <!-- ======== STEP 5: YOUR CARE ======== -->
+  <div class="wiz-step" id="step-5">
+   <div class="form-card">
+    <h2><span class="en">Your care at Belaray</span><span class="es">Su atención en Belaray</span><span class="pa">ਬੇਲਾਰੇ ਵਿੱਚ ਤੁਹਾਡਾ ਇਲਾਜ</span><span class="bn">বেলারে-তে আপনার চিকিৎসা</span><span class="hi">बेलारे में आपका इलाज</span></h2>
+    <p class="hint"><span class="en">Check any that apply — most patients only check one or two.</span><span class="es">Marque lo que aplique — la mayoría marca solo una o dos.</span><span class="pa">ਜੋ ਲਾਗੂ ਹੋਵੇ ਚੁਣੋ — ਬਹੁਤੇ ਮਰੀਜ਼ ਇੱਕ-ਦੋ ਹੀ ਚੁਣਦੇ ਹਨ।</span><span class="bn">যা প্রযোজ্য টিক দিন — বেশিরভাগ রোগী এক-দুটিই দেন।</span><span class="hi">जो लागू हो चुनें — ज़्यादातर मरीज़ एक-दो ही चुनते हैं।</span></p>
+    <div id="grp-care">
+     <label class="check-row"><input type="checkbox" value="I have been treated for skin cancer at Belaray"><span class="txt"><span class="en">I've been treated for skin cancer there</span><span class="es">Me han tratado cáncer de piel allí</span><span class="pa">ਉੱਥੇ ਮੇਰਾ ਚਮੜੀ ਦੇ ਕੈਂਸਰ ਦਾ ਇਲਾਜ ਹੋਇਆ</span><span class="bn">সেখানে আমার ত্বকের ক্যানসারের চিকিৎসা হয়েছে</span><span class="hi">वहाँ मेरा त्वचा कैंसर का इलाज हुआ</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I get regular skin cancer screenings at Belaray, and I am under ongoing surveillance for melanoma or atypical moles - my doctor knows exactly where my prior spots and biopsies were"><span class="txt"><span class="en">I get regular screenings / melanoma or mole surveillance — my doctor knows where every prior spot was</span><span class="es">Me hacen chequeos regulares / vigilancia de melanoma — mi médico sabe dónde estaba cada mancha</span><span class="pa">ਨਿਯਮਿਤ ਜਾਂਚ / melanoma ਦੀ ਨਿਗਰਾਨੀ — ਡਾਕਟਰ ਨੂੰ ਹਰ ਪੁਰਾਣੇ ਨਿਸ਼ਾਨ ਦਾ ਪਤਾ ਹੈ</span><span class="bn">নিয়মিত পরীক্ষা / মেলানোমা নজরদারি — ডাক্তার জানেন প্রতিটি আগের দাগ কোথায় ছিল</span><span class="hi">नियमित जाँच / मेलेनोमा निगरानी — डॉक्टर जानते हैं हर पुराना निशान कहाँ था</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I had Mohs surgery at Belaray"><span class="txt"><span class="en">I had Mohs surgery at Belaray</span><span class="es">Me hicieron cirugía de Mohs</span><span class="pa">ਮੇਰੀ Mohs ਸਰਜਰੀ ਹੋਈ</span><span class="bn">আমার Mohs সার্জারি হয়েছে</span><span class="hi">मेरी Mohs सर्जरी हुई</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Belaray manages an ongoing skin condition or complex treatment for me that needs regular follow-up (such as psoriasis, eczema, or a biologic medication)"><span class="txt"><span class="en">They manage an ongoing condition for me (psoriasis, eczema, a biologic medication…)</span><span class="es">Manejan una condición continua (psoriasis, eczema, un biológico…)</span><span class="pa">ਉਹ ਮੇਰੀ ਲਗਾਤਾਰ ਬਿਮਾਰੀ ਸੰਭਾਲਦੇ ਹਨ (psoriasis, eczema, ਬਾਇਓਲੋਜਿਕ…)</span><span class="bn">তারা আমার চলমান রোগ দেখেন (সোরিয়াসিস, একজিমা, বায়োলজিক…)</span><span class="hi">वे मेरी चल रही बीमारी संभालते हैं (सोरायसिस, एक्ज़िमा, बायोलॉजिक…)</span></span></label>
+     <label class="check-row"><input type="checkbox" value="My Belaray dermatologist coordinates my care with my other doctors (such as my primary care doctor, oncologist, or rheumatologist)"><span class="txt"><span class="en">They coordinate my care with my other doctors</span><span class="es">Coordinan mi atención con mis otros médicos</span><span class="pa">ਉਹ ਮੇਰੇ ਦੂਜੇ ਡਾਕਟਰਾਂ ਨਾਲ ਤਾਲਮੇਲ ਕਰਦੇ ਹਨ</span><span class="bn">তারা আমার অন্য ডাক্তারদের সাথে সমন্বয় করেন</span><span class="hi">वे मेरे दूसरे डॉक्टरों के साथ तालमेल करते हैं</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Belaray saw me quickly and helped me avoid an emergency room visit"><span class="txt"><span class="en">They saw me quickly and helped me avoid an ER visit</span><span class="es">Me atendieron rápido y evité emergencias</span><span class="pa">ਜਲਦੀ ਦੇਖਿਆ ਅਤੇ ਐਮਰਜੈਂਸੀ ਰੂਮ ਤੋਂ ਬਚਾਇਆ</span><span class="bn">দ্রুত দেখেছে, ইমার্জেন্সি রুম এড়াতে পেরেছি</span><span class="hi">जल्दी देखा और इमरजेंसी रूम जाने से बचाया</span></span></label>
+    </div>
+    <button class="more-toggle" type="button" onclick="toggleMore()" id="more-btn"><span class="en" style="display:inline;">+ More situations (eyelid surgery, phototherapy, hair loss, 24/7 line…)</span><span class="es">+ Más situaciones (cirugía de párpado, fototerapia…)</span><span class="pa">+ ਹੋਰ ਹਾਲਾਤ (ਪਲਕ ਦੀ ਸਰਜਰੀ, ਫੋਟੋਥੈਰੇਪੀ…)</span><span class="bn">+ আরও পরিস্থিতি (চোখের পাতার সার্জারি, ফটোথেরাপি…)</span><span class="hi">+ और स्थितियाँ (पलक की सर्जरी, फोटोथेरेपी…)</span></button>
+    <div id="care-more">
+     <label class="check-row"><input type="checkbox" value="I had Mohs skin cancer surgery with same-day oculoplastic (eyelid) reconstruction, done together in one visit under one roof at Belaray"><span class="txt"><span class="en">I had Mohs with same-day oculoplastic (eyelid) reconstruction — one visit, under one roof</span><span class="es">Mohs con reconstrucción de párpado el mismo día — una visita</span><span class="pa">Mohs ਅਤੇ ਉਸੇ ਦਿਨ ਪਲਕ ਦੀ ਮੁਰੰਮਤ — ਇੱਕੋ ਵਿਜ਼ਿਟ</span><span class="bn">Mohs এবং একই দিনে চোখের পাতার পুনর্গঠন — এক ভিজিটে</span><span class="hi">Mohs और उसी दिन पलक का पुनर्निर्माण — एक ही विज़िट</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist"><span class="txt"><span class="en">I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist</span><span class="es">También veo a la Dra. Rachel Ellis, especialista oculoplástica</span><span class="pa">ਮੈਂ ਡਾ. ਰੇਚਲ ਐਲਿਸ ਨੂੰ ਵੀ ਦਿਖਾਉਂਦਾ/ਦੀ ਹਾਂ</span><span class="bn">আমি ডা. রেচেল এলিস-কেও দেখাই</span><span class="hi">मैं डॉ. रेचल एलिस को भी दिखाता/दिखाती हूँ</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I receive phototherapy (medical light treatment) at Belaray, which very few offices still offer"><span class="txt"><span class="en">I receive phototherapy there — very few offices still offer it</span><span class="es">Recibo fototerapia allí — muy pocas oficinas la ofrecen</span><span class="pa">ਮੈਂ ਉੱਥੇ ਫੋਟੋਥੈਰੇਪੀ ਲੈਂਦਾ/ਦੀ ਹਾਂ — ਬਹੁਤ ਘੱਟ ਦਫ਼ਤਰ ਦਿੰਦੇ ਹਨ</span><span class="bn">আমি সেখানে ফটোথেরাপি নিই — খুব কম অফিসে আছে</span><span class="hi">मैं वहाँ फोटोथेरेपी लेता/लेती हूँ — बहुत कम दफ़्तर देते हैं</span></span></label>
+     <label class="check-row"><input type="checkbox" value="Belaray treats my hair loss"><span class="txt"><span class="en">Belaray treats my hair loss</span><span class="es">Belaray trata mi pérdida de cabello</span><span class="pa">ਬੇਲਾਰੇ ਮੇਰੇ ਵਾਲ ਝੜਨ ਦਾ ਇਲਾਜ ਕਰਦਾ ਹੈ</span><span class="bn">বেলারে আমার চুল পড়ার চিকিৎসা করে</span><span class="hi">बेलारे मेरे बाल झड़ने का इलाज करता है</span></span></label>
+     <label class="check-row"><input type="checkbox" value="I have used Belaray's 24/7 physician-answered phone line"><span class="txt"><span class="en">I've used their 24/7 line where a physician answers</span><span class="es">He usado su línea 24/7 donde contesta un médico</span><span class="pa">24/7 ਲਾਈਨ ਵਰਤੀ ਹੈ ਜਿੱਥੇ ਡਾਕਟਰ ਜਵਾਬ ਦਿੰਦਾ ਹੈ</span><span class="bn">২৪/৭ লাইন ব্যবহার করেছি যেখানে ডাক্তার উত্তর দেন</span><span class="hi">24/7 लाइन इस्तेमाल की है जहाँ डॉक्टर जवाब देता है</span></span></label>
+    </div>
+    <div class="field" style="margin-top:12px;">
+     <label class="f-label" for="f-language"><span class="en">Do you receive care at Belaray in a language other than English?</span><span class="es">¿Recibe atención en otro idioma?</span><span class="pa">ਕੀ ਤੁਸੀਂ ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਇਲਾਵਾ ਹੋਰ ਭਾਸ਼ਾ ਵਿੱਚ ਇਲਾਜ ਕਰਵਾਉਂਦੇ ਹੋ?</span><span class="bn">ইংরেজি ছাড়া অন্য ভাষায় চিকিৎসা নেন?</span><span class="hi">क्या आप अंग्रेज़ी के अलावा किसी और भाषा में इलाज कराते हैं?</span></label>
+     <select id="f-language">
+      <option value="" data-en="No / English is fine" data-es="No / inglés está bien" data-pa="ਨਹੀਂ / ਅੰਗਰੇਜ਼ੀ ਠੀਕ ਹੈ" data-bn="না / ইংরেজিই ঠিক" data-hi="नहीं / अंग्रेज़ी ठीक है">No / English is fine</option>
+      <option value="Spanish" data-en="Yes — Spanish" data-es="Sí — español" data-pa="ਹਾਂ — ਸਪੈਨਿਸ਼" data-bn="হ্যাঁ — স্প্যানিশ" data-hi="हाँ — स्पैनिश">Yes — Spanish</option>
+      <option value="Punjabi" data-en="Yes — Punjabi" data-es="Sí — punjabi" data-pa="ਹਾਂ — ਪੰਜਾਬੀ" data-bn="হ্যাঁ — পাঞ্জাবি" data-hi="हाँ — पंजाबी">Yes — Punjabi</option>
+      <option value="Bengali" data-en="Yes — Bengali" data-es="Sí — bengalí" data-pa="ਹਾਂ — ਬੰਗਾਲੀ" data-bn="হ্যাঁ — বাংলা" data-hi="हाँ — बांग्ला">Yes — Bengali</option>
+      <option value="Hindi" data-en="Yes — Hindi" data-es="Sí — hindi" data-pa="ਹਾਂ — ਹਿੰਦੀ" data-bn="হ্যাঁ — হিন্দি" data-hi="हाँ — हिन्दी">Yes — Hindi</option>
+      <option value="another language" data-en="Yes — another language" data-es="Sí — otro idioma" data-pa="ਹਾਂ — ਹੋਰ ਭਾਸ਼ਾ" data-bn="হ্যাঁ — অন্য ভাষা" data-hi="हाँ — कोई और भाषा">Yes — another language</option>
      </select>
     </div>
    </div>
-  </div>
-
-  <!-- STEP 3: WHAT LOSING BELARAY MEANS -->
-  <div class="form-card">
-   <h2><span class="step-num">3</span> <span class="en">What losing Belaray would mean for you</span><span class="es">Qué significaría perder a Belaray</span></h2>
-   <p class="hint"><span class="en">Check everything that's true for you.</span><span class="es">Marque todo lo que sea cierto para usted.</span></p>
-   <div id="grp-meaning">
-    <label class="check-row"><input type="checkbox" value="I would lose the doctor who knows me and my medical history"><span class="txt"><span class="en">I'd lose the doctor who knows me and my history</span><span class="es">Perdería al médico que me conoce y conoce mi historia</span></span></label>
-    <label class="check-row"><input type="checkbox" value="My ongoing treatment or skin cancer monitoring would be interrupted"><span class="txt"><span class="en">My ongoing treatment or skin-cancer monitoring would be interrupted</span><span class="es">Mi tratamiento o vigilancia de cáncer de piel sería interrumpido</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I would have to travel much farther for dermatology care"><span class="txt"><span class="en">I'd have to travel much farther for care</span><span class="es">Tendría que viajar mucho más lejos para recibir atención</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I would face long waits to be seen somewhere new"><span class="txt"><span class="en">I'd face long waits to be seen somewhere new</span><span class="es">Tendría que esperar mucho para que me atiendan en otro lugar</span></span></label>
-    <label class="check-row"><input type="checkbox" value="It would be a hardship for an elderly or disabled member of my family who is also a patient"><span class="txt"><span class="en">It would be a hardship for an elderly or disabled family member who's also a patient</span><span class="es">Sería una dificultad para un familiar mayor o discapacitado que también es paciente</span></span></label>
-    <label class="check-row"><input type="checkbox" value="My whole family goes to Belaray and we would all lose our dermatologist"><span class="txt"><span class="en">My whole family goes to Belaray</span><span class="es">Toda mi familia va a Belaray</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I cannot afford to pay for visits out of pocket, so my plan's decision effectively ends this doctor-patient relationship"><span class="txt"><span class="en">I can't afford to pay out of pocket — my plan's decision effectively ends this relationship</span><span class="es">No puedo pagar de mi bolsillo — la decisión de mi plan efectivamente termina esta relación</span></span></label>
-    <label class="check-row"><input type="checkbox" value="After years with this practice I am comfortable with them for sensitive exams and procedures, and starting over with a stranger is not the same"><span class="txt"><span class="en">I trust this practice with sensitive exams and procedures — starting over with a stranger isn't the same</span><span class="es">Confío en esta práctica para exámenes y procedimientos delicados — empezar de nuevo con un desconocido no es lo mismo</span></span></label>
-   </div>
-   <div class="field" style="margin-top:12px;">
-    <label class="f-label"><span class="en">Who gets care at Belaray? (check all that apply)</span><span class="es">¿Quiénes se atienden en Belaray? (marque todos)</span></label>
-    <div id="grp-family">
-     <label class="check-row"><input type="checkbox" value="me"><span class="txt"><span class="en">Me</span><span class="es">Yo</span></span></label>
-     <label class="check-row"><input type="checkbox" value="my spouse or partner"><span class="txt"><span class="en">My spouse / partner</span><span class="es">Mi esposo/a o pareja</span></span></label>
-     <label class="check-row"><input type="checkbox" value="my children"><span class="txt"><span class="en">My children</span><span class="es">Mis hijos</span></span></label>
-     <label class="check-row"><input type="checkbox" value="my parents"><span class="txt"><span class="en">My parents</span><span class="es">Mis padres</span></span></label>
-     <label class="check-row"><input type="checkbox" value="three generations of my family"><span class="txt"><span class="en">Three generations of my family</span><span class="es">Tres generaciones de mi familia</span></span></label>
-    </div>
+   <div class="wiz-nav">
+    <button class="wiz-btn wiz-back" onclick="goStep(4)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(6)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
    </div>
   </div>
 
-  <!-- STEP 4: ACCESS PROBLEMS -->
-  <div class="form-card">
-   <h2><span class="step-num">4</span> <span class="en">Have you tried finding another dermatologist?</span><span class="es">¿Ha intentado encontrar otro dermatólogo?</span></h2>
-   <p class="hint">
-    <span class="en"><strong>This part matters most — here's why.</strong> By refusing to bring Belaray back, Healthfirst is effectively saying its network already has enough dermatologists to see you on time. New York's standard is a specialist appointment within about <strong>4–6 weeks</strong>. So try it: call the dermatologists in your Healthfirst directory. If you can't actually get an appointment within 6 weeks, Healthfirst's claim doesn't hold up — and that's exactly the evidence regulators act on. Only report what really happened.</span>
-    <span class="es"><strong>Esta parte es la más importante — y aquí está el porqué.</strong> Al negarse a aceptar a Belaray de vuelta, Healthfirst está diciendo en efecto que su red ya tiene suficientes dermatólogos para atenderlo a tiempo. El estándar de Nueva York es una cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Así que pruébelo: llame a los dermatólogos del directorio de Healthfirst. Si en realidad no puede conseguir una cita dentro de 6 semanas, la afirmación de Healthfirst no se sostiene — y esa es exactamente la evidencia sobre la que actúan los reguladores. Reporte solamente lo que realmente pasó.</span>
-   </p>
-   <div id="grp-access">
-    <label class="check-row"><input type="checkbox" value="I called other in-network dermatologists and could not get a timely appointment"><span class="txt"><span class="en">I called other in-network dermatologists and couldn't get a timely appointment</span><span class="es">Llamé a otros dermatólogos de la red y no pude conseguir una cita pronto</span></span></label>
-    <label class="check-row"><input type="checkbox" value="The nearest in-network dermatologist is far from my home or hard to reach"><span class="txt"><span class="en">The nearest in-network dermatologist is far away or hard to get to</span><span class="es">El dermatólogo más cercano de la red está lejos o es difícil llegar</span></span></label>
-    <label class="check-row"><input type="checkbox" value="Doctors listed in the Healthfirst directory were not actually accepting new patients or not actually in network"><span class="txt"><span class="en">Doctors in the Healthfirst directory weren't actually taking patients (or weren't really in network)</span><span class="es">Médicos en el directorio de Healthfirst no estaban aceptando pacientes (o realmente no estaban en la red)</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I could not find an in-network Mohs skin cancer surgeon"><span class="txt"><span class="en">I couldn't find an in-network Mohs skin-cancer surgeon</span><span class="es">No pude encontrar un cirujano de Mohs (cáncer de piel) en la red</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I could not find any in-network office that offers the specific service I need (such as phototherapy, or Mohs surgery with same-day oculoplastic reconstruction)"><span class="txt"><span class="en">I couldn't find any in-network office offering the specific service I need (like phototherapy, or Mohs with same-day eyelid reconstruction)</span><span class="es">No encontré ninguna oficina en la red que ofrezca el servicio específico que necesito (como fototerapia, o Mohs con reconstrucción de párpado el mismo día)</span></span></label>
-    <label class="check-row"><input type="checkbox" value="Traveling farther would be a real hardship for me because I do not drive or rely on rides or public transportation"><span class="txt"><span class="en">Traveling farther is a real hardship for me — I don't drive / rely on rides or public transit</span><span class="es">Viajar más lejos es una verdadera dificultad — no manejo / dependo de otros o del transporte público</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I have not tried yet"><span class="txt"><span class="en">I haven't tried yet</span><span class="es">Todavía no he buscado</span></span></label>
-   </div>
-   <div id="access-detail" style="display:none;">
-   <div class="field" style="margin-top:10px;">
-    <label class="f-label" for="f-calls"><span class="en">How many in-network offices have you called?</span><span class="es">¿A cuántas oficinas de la red ha llamado?</span></label>
-    <select id="f-calls">
-     <option value="" data-en="None yet" data-es="Ninguna todavía">None yet</option>
-     <option value="one or two offices" data-en="1–2 offices" data-es="1–2 oficinas">1–2 offices</option>
-     <option value="three to five offices" data-en="3–5 offices" data-es="3–5 oficinas">3–5 offices</option>
-     <option value="six or more offices" data-en="6 or more offices" data-es="6 o más oficinas">6 or more offices</option>
-    </select>
-   </div>
-   <div class="two-col" style="margin-top:10px;">
+  <!-- ======== STEP 6: OWN WORDS + CONSENT ======== -->
+  <div class="wiz-step" id="step-6">
+   <div class="form-card">
+    <h2><span class="en">In your own words (optional)</span><span class="es">En sus propias palabras (opcional)</span><span class="pa">ਤੁਹਾਡੇ ਆਪਣੇ ਸ਼ਬਦਾਂ ਵਿੱਚ (ਵਿਕਲਪਿਕ)</span><span class="bn">নিজের ভাষায় (ঐচ্ছিক)</span><span class="hi">आपके अपने शब्दों में (वैकल्पिक)</span></h2>
+    <p class="hint"><span class="en">What concerns you most about losing this practice? Any language is fine — your letter still comes out in English. No need to name staff — "my doctor" is perfect.</span><span class="es">¿Qué le preocupa más? Cualquier idioma está bien — su carta saldrá en inglés. No hace falta nombrar al personal.</span><span class="pa">ਤੁਹਾਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਚਿੰਤਾ ਕੀ ਹੈ? ਕੋਈ ਵੀ ਭਾਸ਼ਾ ਚੱਲੇਗੀ — ਚਿੱਠੀ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਬਣੇਗੀ। ਸਟਾਫ਼ ਦਾ ਨਾਮ ਲੈਣ ਦੀ ਲੋੜ ਨਹੀਂ।</span><span class="bn">আপনার সবচেয়ে বড় দুশ্চিন্তা কী? যেকোনো ভাষা চলবে — চিঠি ইংরেজিতে হবে। কর্মীদের নাম দরকার নেই।</span><span class="hi">आपको सबसे ज़्यादा चिंता क्या है? कोई भी भाषा चलेगी — पत्र अंग्रेज़ी में बनेगा। स्टाफ़ का नाम लेने की ज़रूरत नहीं।</span></p>
     <div class="field">
-     <label class="f-label" for="f-wait"><span class="en">If you called around — how long was the wait?</span><span class="es">Si llamó a otros — ¿cuánto era la espera?</span></label>
-     <select id="f-wait">
-      <option value="" data-en="Didn't call / not sure" data-es="No llamé / no sé">Didn't call / not sure</option>
-      <option value="a few weeks" data-en="A few weeks" data-es="Unas semanas">A few weeks</option>
-      <option value="about a month" data-en="About a month" data-es="Como un mes">About a month</option>
-      <option value="one to two months" data-en="1–2 months" data-es="1–2 meses">1–2 months</option>
-      <option value="two to three months" data-en="2–3 months" data-es="2–3 meses">2–3 months</option>
-      <option value="more than three months" data-en="More than 3 months" data-es="Más de 3 meses">More than 3 months</option>
-      <option value="I could not get an appointment at all" data-en="Couldn't get one at all" data-es="No conseguí cita">Couldn't get one at all</option>
-     </select>
-    </div>
-    <div class="field">
-     <label class="f-label" for="f-distance"><span class="en">How far is the nearest in-network option?</span><span class="es">¿Qué tan lejos queda la opción más cercana en la red?</span></label>
-     <select id="f-distance">
-      <option value="" data-en="Not sure / didn't check" data-es="No sé / no busqué">Not sure / didn't check</option>
-      <option value="under 15 minutes" data-en="Under 15 minutes away" data-es="A menos de 15 minutos">Under 15 minutes away</option>
-      <option value="15 to 30 minutes" data-en="15–30 minutes away" data-es="A 15–30 minutos">15–30 minutes away</option>
-      <option value="30 to 45 minutes" data-en="30–45 minutes away" data-es="A 30–45 minutos">30–45 minutes away</option>
-      <option value="45 minutes to an hour" data-en="45–60 minutes away" data-es="A 45–60 minutos">45–60 minutes away</option>
-      <option value="more than an hour" data-en="Over an hour away" data-es="A más de una hora">Over an hour away</option>
-     </select>
+     <textarea id="f-ownwords" maxlength="700"></textarea>
     </div>
    </div>
-   </div><!-- /access-detail -->
-  </div>
-
-  <!-- STEP 5: YOUR CARE -->
-  <div class="form-card">
-   <h2><span class="step-num">5</span> <span class="en">Your care at Belaray</span><span class="es">Su atención en Belaray</span></h2>
-   <p class="hint"><span class="en">Check any that apply to you or your family.</span><span class="es">Marque lo que aplique a usted o su familia.</span></p>
-   <div id="grp-care">
-    <label class="check-row"><input type="checkbox" value="I have been treated for skin cancer at Belaray"><span class="txt"><span class="en">I've been treated for skin cancer at Belaray</span><span class="es">Me han tratado cáncer de piel en Belaray</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I get regular skin cancer screenings at Belaray"><span class="txt"><span class="en">I get regular skin-cancer screenings there</span><span class="es">Me hacen chequeos regulares de cáncer de piel allí</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I had Mohs surgery at Belaray"><span class="txt"><span class="en">I had Mohs surgery at Belaray</span><span class="es">Me hicieron cirugía de Mohs en Belaray</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I had Mohs skin cancer surgery with same-day oculoplastic (eyelid) reconstruction, done together in one visit under one roof at Belaray"><span class="txt"><span class="en">I had Mohs surgery with same-day oculoplastic (eyelid) reconstruction — all in one visit, under one roof</span><span class="es">Me hicieron cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día — todo en una visita, en un solo lugar</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I receive phototherapy (medical light treatment) at Belaray, which very few offices still offer"><span class="txt"><span class="en">I receive phototherapy (light treatment) there — very few offices still offer this</span><span class="es">Recibo fototerapia (tratamiento de luz) allí — muy pocas oficinas todavía la ofrecen</span></span></label>
-    <label class="check-row"><input type="checkbox" value="Belaray treats my hair loss"><span class="txt"><span class="en">Belaray treats my hair loss</span><span class="es">Belaray trata mi pérdida de cabello</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist"><span class="txt"><span class="en">I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist</span><span class="es">También veo a la Dra. Rachel Ellis, su especialista oculoplástica (párpados)</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I am on an ongoing or complex treatment (such as a biologic medication) managed by Belaray"><span class="txt"><span class="en">Belaray manages an ongoing or complex treatment for me (like a biologic medication)</span><span class="es">Belaray maneja un tratamiento continuo o complejo para mí (como un medicamento biológico)</span></span></label>
-    <label class="check-row"><input type="checkbox" value="Belaray manages a chronic skin condition for me that needs ongoing follow-up (such as psoriasis or eczema)"><span class="txt"><span class="en">They manage a chronic skin condition for me (like psoriasis or eczema) that needs ongoing follow-up</span><span class="es">Manejan una condición crónica de la piel (como psoriasis o eczema) que necesita seguimiento continuo</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I am under ongoing surveillance for melanoma or atypical moles, and my doctor knows exactly where my prior spots and biopsies were"><span class="txt"><span class="en">I'm under ongoing melanoma / atypical-mole surveillance — my doctor knows exactly where my prior spots were</span><span class="es">Estoy bajo vigilancia continua de melanoma / lunares atípicos — mi médico sabe exactamente dónde estaban mis manchas anteriores</span></span></label>
-    <label class="check-row"><input type="checkbox" value="My Belaray dermatologist coordinates my care with my other doctors (such as my primary care doctor, oncologist, rheumatologist, allergist, or surgeon)"><span class="txt"><span class="en">They coordinate my care with my other doctors (primary care, oncologist, rheumatologist, etc.)</span><span class="es">Coordinan mi atención con mis otros médicos (médico de cabecera, oncólogo, reumatólogo, etc.)</span></span></label>
-    <label class="check-row"><input type="checkbox" value="I have used Belaray's 24/7 physician-answered phone line"><span class="txt"><span class="en">I've used their 24/7 phone line where a physician answers</span><span class="es">He usado su línea 24/7 donde contesta un médico</span></span></label>
-    <label class="check-row"><input type="checkbox" value="Belaray saw me quickly and helped me avoid an emergency room visit"><span class="txt"><span class="en">Belaray saw me quickly and helped me avoid an ER visit</span><span class="es">Belaray me atendió rápido y me ayudó a evitar una visita a la sala de emergencias</span></span></label>
+   <div class="privacy-note">
+    <span class="en"><strong>Your privacy:</strong> answers are used only to draft your letters — nothing is stored on this site, and nothing is sent unless you send it. Don't include your date of birth or member ID.</span>
+    <span class="es"><strong>Su privacidad:</strong> las respuestas solo se usan para las cartas — nada se guarda, y nada se envía sin usted. No incluya fecha de nacimiento ni número de miembro.</span>
+    <span class="pa"><strong>ਪਰਦੇਦਾਰੀ:</strong> ਜਵਾਬ ਸਿਰਫ਼ ਚਿੱਠੀਆਂ ਲਈ ਵਰਤੇ ਜਾਂਦੇ ਹਨ — ਕੁਝ ਵੀ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾਂਦਾ, ਤੁਹਾਡੇ ਬਿਨਾਂ ਕੁਝ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ। ਜਨਮ ਤਾਰੀਖ਼ ਜਾਂ ਮੈਂਬਰ ID ਨਾ ਲਿਖੋ।</span>
+    <span class="bn"><strong>গোপনীয়তা:</strong> উত্তরগুলি শুধু চিঠির জন্য — কিছুই সংরক্ষিত হয় না, আপনি না পাঠালে কিছু যায় না। জন্মতারিখ বা মেম্বার আইডি লিখবেন না।</span>
+    <span class="hi"><strong>गोपनीयता:</strong> जवाब सिर्फ़ पत्रों के लिए — कुछ भी सहेजा नहीं जाता, आपके बिना कुछ नहीं भेजा जाता। जन्मतिथि या मेंबर ID न लिखें।</span>
    </div>
-   <div class="field" style="margin-top:10px;">
-    <label class="f-label" for="f-language"><span class="en">Do you receive care at Belaray in a language other than English?</span><span class="es">¿Recibe atención en Belaray en un idioma que no sea inglés?</span></label>
-    <select id="f-language">
-     <option value="" data-en="No / English is fine" data-es="No / inglés está bien">No / English is fine</option>
-     <option value="Spanish" data-en="Yes — Spanish" data-es="Sí — español">Yes — Spanish</option>
-     <option value="Punjabi" data-en="Yes — Punjabi" data-es="Sí — punjabi">Yes — Punjabi</option>
-     <option value="Bengali" data-en="Yes — Bengali" data-es="Sí — bengalí">Yes — Bengali</option>
-     <option value="another language" data-en="Yes — another language" data-es="Sí — otro idioma">Yes — another language</option>
-    </select>
+   <div class="form-card" style="border-color: var(--teal);">
+    <label class="check-row"><input type="checkbox" id="consent-review"><span class="txt"><span class="en"><strong>I understand</strong> the letters will be generated from my answers, and I will review and edit them before deciding whether to send them. They are my words, sent by me.</span><span class="es"><strong>Entiendo</strong> que las cartas se generarán de mis respuestas, y las revisaré antes de decidir enviarlas. Son mis palabras, enviadas por mí.</span><span class="pa"><strong>ਮੈਂ ਸਮਝਦਾ/ਦੀ ਹਾਂ</strong> ਕਿ ਚਿੱਠੀਆਂ ਮੇਰੇ ਜਵਾਬਾਂ ਤੋਂ ਬਣਨਗੀਆਂ, ਅਤੇ ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ ਮੈਂ ਵੇਖਾਂਗਾ/ਗੀ। ਇਹ ਮੇਰੇ ਸ਼ਬਦ ਹਨ।</span><span class="bn"><strong>আমি বুঝি</strong> চিঠিগুলি আমার উত্তর থেকে তৈরি হবে, পাঠানোর আগে আমি দেখে নেব। এগুলি আমার কথা।</span><span class="hi"><strong>मैं समझता/समझती हूँ</strong> कि पत्र मेरे जवाबों से बनेंगे, और भेजने से पहले मैं देखूँगा/देखूँगी। ये मेरे शब्द हैं।</span></span></label>
+    <label class="check-row checked"><input type="checkbox" id="consent-stats" checked><span class="txt"><span class="en">My answers — <strong>never my name</strong> — may be counted in combined statistics about patient access.</span><span class="es">Mis respuestas — <strong>nunca mi nombre</strong> — pueden contarse en estadísticas combinadas.</span><span class="pa">ਮੇਰੇ ਜਵਾਬ — <strong>ਕਦੇ ਵੀ ਨਾਮ ਨਹੀਂ</strong> — ਸਾਂਝੇ ਅੰਕੜਿਆਂ ਵਿੱਚ ਗਿਣੇ ਜਾ ਸਕਦੇ ਹਨ।</span><span class="bn">আমার উত্তর — <strong>কখনোই নাম নয়</strong> — সম্মিলিত পরিসংখ্যানে গণনা হতে পারে।</span><span class="hi">मेरे जवाब — <strong>कभी भी मेरा नाम नहीं</strong> — सामूहिक आँकड़ों में गिने जा सकते हैं।</span></span></label>
+   </div>
+   <button class="generate-btn" id="generate" onclick="generate()">✍️ <span class="en" style="display:inline;">Write My Letters</span><span class="es">Escribir Mis Cartas</span><span class="pa">ਮੇਰੀਆਂ ਚਿੱਠੀਆਂ ਲਿਖੋ</span><span class="bn">আমার চিঠি লিখুন</span><span class="hi">मेरे पत्र लिखें</span></button>
+   <div class="wiz-nav" style="margin-top:10px;">
+    <button class="wiz-btn wiz-back" onclick="goStep(5)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
    </div>
   </div>
-
-  <!-- SPECIALIZED SERVICES CALLOUT -->
-  <div class="form-card" style="border-color: var(--amber); background: #FFFBEB;">
-   <h2 style="display:block;">🔬 <span class="en" style="display:inline;">Need care almost no one else offers?</span><span class="es" style="display:inline;">¿Necesita atención que casi nadie más ofrece?</span></h2>
-   <p style="font-size:14px; color:#374151; line-height:1.7; margin-top:8px;">
-    <span class="en">Some services at Belaray are nearly impossible to find elsewhere in network: <strong>Mohs surgery with same-day oculoplastic (eyelid) reconstruction under one roof</strong>, <strong>phototherapy</strong>, and <strong>specialized hair-loss care</strong>. If you need one of these, check it above — a network that can't provide the <em>specific</em> service a member needs is exactly what regulators call a network adequacy gap. And <strong><a href="sms:5168227546" style="color:var(--teal-dark);">text</a> or <a href="tel:+15168227546" style="color:var(--teal-dark);">call us at (516) 822-7546</a></strong> — we'll help you get the care you need in the meantime.</span>
-    <span class="es">Algunos servicios de Belaray son casi imposibles de encontrar en la red: <strong>cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día, en un solo lugar</strong>, <strong>fototerapia</strong>, y <strong>tratamiento especializado de pérdida de cabello</strong>. Si necesita uno de estos, márquelo arriba — una red que no puede proveer el servicio <em>específico</em> que un miembro necesita es exactamente lo que los reguladores llaman una brecha de adecuación de red. Y <strong><a href="sms:5168227546" style="color:var(--teal-dark);">escríbanos</a> o <a href="tel:+15168227546" style="color:var(--teal-dark);">llámenos al (516) 822-7546</a></strong> — le ayudamos a conseguir la atención que necesita mientras tanto.</span>
-   </p>
-  </div>
-
-  <!-- STEP 6: OWN WORDS -->
-  <div class="form-card">
-   <h2><span class="step-num">6</span> <span class="en">In your own words (optional)</span><span class="es">En sus propias palabras (opcional)</span></h2>
-   <p class="hint"><span class="en">What concerns you most about losing this practice? A sentence or two in any language is perfect — your letter will still come out in English. No need to mention staff by name — "my doctor" or "the Belaray team" is perfect.</span><span class="es">¿Qué es lo que más le preocupa de perder esta práctica? Una o dos frases en cualquier idioma está perfecto — su carta saldrá en inglés. No hace falta nombrar al personal — "mi médico" o "el equipo de Belaray" está perfecto.</span></p>
-   <div class="field">
-    <textarea id="f-ownwords" maxlength="700"></textarea>
-   </div>
-  </div>
-
-  <!-- CONSENT -->
-  <div class="form-card" style="border-color: var(--teal);">
-   <label class="check-row"><input type="checkbox" id="consent-review"><span class="txt"><span class="en"><strong>I understand</strong> that the letters below will be generated from my answers, and that I will review and edit them before deciding whether to send them. They are my words, sent by me.</span><span class="es"><strong>Entiendo</strong> que las cartas se generarán a partir de mis respuestas, y que las revisaré y editaré antes de decidir si las envío. Son mis palabras, enviadas por mí.</span></span></label>
-   <label class="check-row checked"><input type="checkbox" id="consent-stats" checked><span class="txt"><span class="en">My answers — <strong>never my name</strong> — may be counted in combined statistics about patient access (for example, "63% of patients couldn't get a timely appointment elsewhere").</span><span class="es">Mis respuestas — <strong>nunca mi nombre</strong> — pueden contarse en estadísticas combinadas sobre el acceso de los pacientes (por ejemplo, "63% de los pacientes no pudieron conseguir una cita a tiempo").</span></span></label>
-  </div>
-
-  <button class="generate-btn" id="generate" onclick="generate()">
-   <span class="en">✍️ Write My Letters</span>
-   <span class="es">✍️ Escribir Mis Cartas</span>
-  </button>
 
   <!-- RESULTS -->
   <div id="results" style="display:none;">
-   <label class="check-row checked" style="margin-top:22px;"><input type="checkbox" id="cc-practice" checked><span class="txt"><span class="en">CC Belaray (jeff@belaray.com) on my emails so the practice knows my letters were sent</span><span class="es">Enviar copia (CC) a Belaray (jeff@belaray.com) para que la práctica sepa que mis cartas fueron enviadas</span></span></label>
+   <label class="check-row checked" style="margin-top:22px;"><input type="checkbox" id="cc-practice" checked><span class="txt"><span class="en">CC Belaray (jeff@belaray.com) so the practice knows my letters were sent</span><span class="es">Enviar copia (CC) a Belaray (jeff@belaray.com)</span><span class="pa">Belaray (jeff@belaray.com) ਨੂੰ CC ਕਰੋ</span><span class="bn">Belaray (jeff@belaray.com)-কে CC করুন</span><span class="hi">Belaray (jeff@belaray.com) को CC करें</span></span></label>
+
    <div class="letter-card" id="card-assembly">
-    <h3><span class="en">📬 Letter 1: To your NY State legislators</span><span class="es">📬 Carta 1: A sus legisladores estatales de NY</span></h3>
+    <h3><span class="en">📬 Letter 1: To your NY State legislators</span><span class="es">📬 Carta 1: A sus legisladores estatales</span><span class="pa">📬 ਚਿੱਠੀ 1: ਤੁਹਾਡੇ ਰਾਜ ਵਿਧਾਇਕਾਂ ਨੂੰ</span><span class="bn">📬 চিঠি ১: আপনার রাজ্য আইনপ্রণেতাদের কাছে</span><span class="hi">📬 पत्र 1: आपके राज्य विधायकों को</span></h3>
     <p class="to-line" id="assembly-toline"></p>
     <textarea id="txt-assembly"></textarea>
     <div class="letter-actions">
-     <button class="act-btn act-secondary" onclick="copyLetter('txt-assembly')"><span class="en">📋 Copy Letter</span><span class="es">📋 Copiar Carta</span></button>
+     <button class="act-btn act-secondary" onclick="copyLetter('txt-assembly')">📋 <span class="en" style="display:inline;">Copy</span><span class="es">Copiar</span><span class="pa">ਕਾਪੀ</span><span class="bn">কপি</span><span class="hi">कॉपी</span></button>
      <a class="act-btn act-primary" id="mail-assembly" href="#" onclick="return openMail('assembly')">✉️ <span id="mail-assembly-label"></span></a>
      <a class="act-btn act-primary" id="mail-senate" href="#" onclick="return openMail('senate')">✉️ <span id="mail-senate-label"></span></a>
-     <button class="act-btn act-secondary" onclick="printLetter('txt-assembly')"><span class="en">🖨️ Print</span><span class="es">🖨️ Imprimir</span></button>
-     <button class="act-btn act-secondary" onclick="markSent('assembly')"><span class="en">✅ I sent it!</span><span class="es">✅ ¡La envié!</span></button>
+     <button class="act-btn act-secondary" onclick="printLetter('txt-assembly')">🖨️ <span class="en" style="display:inline;">Print</span><span class="es">Imprimir</span><span class="pa">ਪ੍ਰਿੰਟ</span><span class="bn">প্রিন্ট</span><span class="hi">प्रिंट</span></button>
+     <button class="act-btn act-secondary" onclick="markSent('assembly')">✅ <span class="en" style="display:inline;">I sent it!</span><span class="es">¡La envié!</span><span class="pa">ਭੇਜ ਦਿੱਤੀ!</span><span class="bn">পাঠিয়েছি!</span><span class="hi">भेज दिया!</span></button>
     </div>
     <p class="send-note" id="assembly-note"></p>
    </div>
 
    <div class="letter-card" id="card-regulator">
-    <h3><span class="en">🏛️ Letter 2: To the agency that regulates your plan</span><span class="es">🏛️ Carta 2: A la agencia que regula su plan</span></h3>
+    <h3><span class="en">🏛️ Letter 2: To the agency that regulates your plan</span><span class="es">🏛️ Carta 2: A la agencia que regula su plan</span><span class="pa">🏛️ ਚਿੱਠੀ 2: ਤੁਹਾਡੇ ਪਲਾਨ ਦੀ ਨਿਗਰਾਨੀ ਕਰਨ ਵਾਲੀ ਏਜੰਸੀ ਨੂੰ</span><span class="bn">🏛️ চিঠি ২: আপনার প্ল্যান নিয়ন্ত্রণকারী সংস্থার কাছে</span><span class="hi">🏛️ पत्र 2: आपके प्लान की निगरानी करने वाली एजेंसी को</span></h3>
     <p class="to-line" id="regulator-toline"></p>
     <textarea id="txt-regulator"></textarea>
     <div class="letter-actions" id="regulator-actions"></div>
@@ -476,34 +505,85 @@
 
  <footer>
   <p>
-   <span class="en">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="healthfirst.html">Healthfirst updates</a></span>
-   <span class="es">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="healthfirst.html">Noticias de Healthfirst</a></span>
+   Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> ·
+   <a href="healthfirst.html"><span class="en" style="display:inline;">Healthfirst updates</span><span class="es">Noticias de Healthfirst</span><span class="pa">Healthfirst ਖ਼ਬਰਾਂ</span><span class="bn">Healthfirst আপডেট</span><span class="hi">Healthfirst अपडेट</span></a>
   </p>
  </footer>
 
  <div class="toast-notification" id="toast-notification"></div>
 
  <script>
-  // Letter-API endpoint (Vercel serverless function in the Invest project;
-  // see advocacy-vercel/SETUP.md). If unreachable, the page automatically
-  // falls back to the built-in template letters.
+  // Letter-API endpoint (Vercel serverless function). Falls back to template letters if unreachable.
   const WORKER_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/letter";
 
   // ===== LANGUAGE =====
+  var LANG = 'en';
+  var STR = {
+    stepOf: { en: 'Step {N} of 6', es: 'Paso {N} de 6', pa: 'ਕਦਮ {N} / 6', bn: 'ধাপ {N} / ৬', hi: 'चरण {N} / 6' },
+    consentFirst: { en: 'Please check the consent box first.', es: 'Por favor marque la casilla de consentimiento primero.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਹਿਮਤੀ ਵਾਲਾ ਖ਼ਾਨਾ ਚੁਣੋ।', bn: 'অনুগ্রহ করে আগে সম্মতির ঘরে টিক দিন।', hi: 'कृपया पहले सहमति वाला बॉक्स चुनें।' },
+    writing: { en: 'Writing your letters…', es: 'Escribiendo sus cartas…', pa: 'ਚਿੱਠੀਆਂ ਲਿਖੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ…', bn: 'চিঠি লেখা হচ্ছে…', hi: 'आपके पत्र लिखे जा रहे हैं…' },
+    writingLong: { en: 'Still writing — a personal letter takes a few extra seconds…', es: 'Todavía escribiendo — unos segundos más…', pa: 'ਹਾਲੇ ਲਿਖ ਰਹੇ ਹਾਂ — ਕੁਝ ਸਕਿੰਟ ਹੋਰ…', bn: 'এখনও লেখা হচ্ছে — আরও কয়েক সেকেন্ড…', hi: 'अभी लिख रहे हैं — कुछ सेकंड और…' },
+    rewrite: { en: '✍️ Rewrite My Letters', es: '✍️ Escribir Otra Vez', pa: '✍️ ਦੁਬਾਰਾ ਲਿਖੋ', bn: '✍️ আবার লিখুন', hi: '✍️ फिर से लिखें' },
+    copied: { en: 'Letter copied!', es: '¡Carta copiada!', pa: 'ਚਿੱਠੀ ਕਾਪੀ ਹੋ ਗਈ!', bn: 'চিঠি কপি হয়েছে!', hi: 'पत्र कॉपी हो गया!' },
+    openingEmail: { en: 'Opening your email… (letter is also copied)', es: 'Abriendo su correo… (la carta está copiada)', pa: 'ਈਮੇਲ ਖੁੱਲ੍ਹ ਰਹੀ ਹੈ… (ਚਿੱਠੀ ਕਾਪੀ ਹੈ)', bn: 'ইমেইল খুলছে… (চিঠি কপি আছে)', hi: 'ईमेल खुल रहा है… (पत्र कॉपी है)' },
+    thanks: { en: 'Thank you for speaking up! 💙', es: '¡Gracias por alzar su voz! 💙', pa: 'ਆਵਾਜ਼ ਉਠਾਉਣ ਲਈ ਧੰਨਵਾਦ! 💙', bn: 'আওয়াজ তোলার জন্য ধন্যবাদ! 💙', hi: 'आवाज़ उठाने के लिए धन्यवाद! 💙' },
+    copyBtn: { en: '📋 Copy', es: '📋 Copiar', pa: '📋 ਕਾਪੀ', bn: '📋 কপি', hi: '📋 कॉपी' },
+    printBtn: { en: '🖨️ Print', es: '🖨️ Imprimir', pa: '🖨️ ਪ੍ਰਿੰਟ', bn: '🖨️ প্রিন্ট', hi: '🖨️ प्रिंट' },
+    sentBtn: { en: '✅ I sent it!', es: '✅ ¡La envié!', pa: '✅ ਭੇਜ ਦਿੱਤੀ!', bn: '✅ পাঠিয়েছি!', hi: '✅ भेज दिया!' },
+    openEmail: { en: '✉️ Open Email', es: '✉️ Abrir Correo', pa: '✉️ ਈਮੇਲ ਖੋਲ੍ਹੋ', bn: '✉️ ইমেইল খুলুন', hi: '✉️ ईमेल खोलें' },
+    openPortal: { en: '🌐 Open Complaint Portal', es: '🌐 Abrir Portal de Quejas', pa: '🌐 ਸ਼ਿਕਾਇਤ ਪੋਰਟਲ', bn: '🌐 অভিযোগ পোর্টাল', hi: '🌐 शिकायत पोर्टल' },
+    openMedicare: { en: '🌐 Medicare Complaint Form', es: '🌐 Formulario de Medicare', pa: '🌐 Medicare ਫਾਰਮ', bn: '🌐 Medicare ফর্ম', hi: '🌐 Medicare फ़ॉर्म' },
+    emailTo: { en: 'Email ', es: 'Enviar a ', pa: 'ਈਮੇਲ: ', bn: 'ইমেইল: ', hi: 'ईमेल: ' },
+    dohNote: { en: 'You can also call the State\'s managed care complaint line: <a href="tel:18002068125">1-800-206-8125</a>.', es: 'También puede llamar a la línea de quejas del Estado: <a href="tel:18002068125">1-800-206-8125</a>.', pa: 'ਰਾਜ ਦੀ ਸ਼ਿਕਾਇਤ ਲਾਈਨ: <a href="tel:18002068125">1-800-206-8125</a>।', bn: 'রাজ্যের অভিযোগ লাইন: <a href="tel:18002068125">1-800-206-8125</a>।', hi: 'राज्य की शिकायत लाइन: <a href="tel:18002068125">1-800-206-8125</a>।' },
+    dfsNote: { en: 'DFS takes complaints through its online portal — copy your letter and paste it into the form. Or call <a href="tel:18003423736">(800) 342-3736</a>.', es: 'DFS recibe quejas por su portal — copie su carta y péguela en el formulario. O llame al <a href="tel:18003423736">(800) 342-3736</a>.', pa: 'DFS ਪੋਰਟਲ ਰਾਹੀਂ ਸ਼ਿਕਾਇਤਾਂ ਲੈਂਦਾ ਹੈ — ਚਿੱਠੀ ਕਾਪੀ ਕਰਕੇ ਫਾਰਮ ਵਿੱਚ ਪਾਓ। ਜਾਂ <a href="tel:18003423736">(800) 342-3736</a>।', bn: 'DFS পোর্টালের মাধ্যমে অভিযোগ নেয় — চিঠি কপি করে ফর্মে দিন। বা <a href="tel:18003423736">(800) 342-3736</a>।', hi: 'DFS पोर्टल से शिकायतें लेता है — पत्र कॉपी करके फ़ॉर्म में डालें। या <a href="tel:18003423736">(800) 342-3736</a>।' },
+    medicareNote: { en: 'Copy your letter into Medicare\'s complaint form, or call <a href="tel:18006334227">1-800-MEDICARE</a>. Network complaints can trigger Medicare to review the plan.', es: 'Copie su carta en el formulario de Medicare, o llame al <a href="tel:18006334227">1-800-MEDICARE</a>.', pa: 'ਚਿੱਠੀ Medicare ਦੇ ਫਾਰਮ ਵਿੱਚ ਪਾਓ, ਜਾਂ <a href="tel:18006334227">1-800-MEDICARE</a> \'ਤੇ ਫ਼ੋਨ ਕਰੋ।', bn: 'চিঠি Medicare-এর ফর্মে দিন, বা <a href="tel:18006334227">1-800-MEDICARE</a> নম্বরে ফোন করুন।', hi: 'पत्र Medicare के फ़ॉर्म में डालें, या <a href="tel:18006334227">1-800-MEDICARE</a> पर फ़ोन करें।' },
+    notSure: { en: '<br>Not sure which plan you have? Text us at <a href="sms:5168227546">(516) 822-7546</a>.', es: '<br>¿No sabe su plan? Envíenos un texto al <a href="sms:5168227546">(516) 822-7546</a>.', pa: '<br>ਪਲਾਨ ਪੱਕਾ ਨਹੀਂ? <a href="sms:5168227546">(516) 822-7546</a> \'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ।', bn: '<br>প্ল্যান নিশ্চিত নন? <a href="sms:5168227546">(516) 822-7546</a> নম্বরে মেসেজ করুন।', hi: '<br>प्लान पक्का नहीं? <a href="sms:5168227546">(516) 822-7546</a> पर मैसेज करें।' },
+    assemblyNote: { en: 'Based on your town, this letter goes to <strong>{A}</strong> and <strong>{S}</strong> — sending to both doubles your impact (the greeting adjusts automatically). Not your representatives? Find yours: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>. If the email opens empty, just paste (it\'s already copied).', es: 'Según su pueblo, esta carta va a <strong>{A}</strong> y <strong>{S}</strong> — enviarla a los dos duplica su impacto (el saludo se ajusta automáticamente). Si el correo se abre vacío, pegue la carta.', pa: 'ਤੁਹਾਡੇ ਸ਼ਹਿਰ ਦੇ ਆਧਾਰ \'ਤੇ, ਇਹ ਚਿੱਠੀ <strong>{A}</strong> ਅਤੇ <strong>{S}</strong> ਨੂੰ ਜਾਂਦੀ ਹੈ — ਦੋਵਾਂ ਨੂੰ ਭੇਜਣ ਨਾਲ ਅਸਰ ਦੁੱਗਣਾ (ਸੰਬੋਧਨ ਆਪਣੇ ਆਪ ਬਦਲਦਾ ਹੈ)। ਈਮੇਲ ਖ਼ਾਲੀ ਖੁੱਲ੍ਹੇ ਤਾਂ ਪੇਸਟ ਕਰੋ।', bn: 'আপনার শহরের ভিত্তিতে চিঠি যাবে <strong>{A}</strong> ও <strong>{S}</strong>-এর কাছে — দুজনকে পাঠালে প্রভাব দ্বিগুণ (সম্বোধন নিজেই বদলায়)। ইমেইল খালি খুললে পেস্ট করুন।', hi: 'आपके शहर के आधार पर, यह पत्र <strong>{A}</strong> और <strong>{S}</strong> को जाता है — दोनों को भेजने से असर दुगना (संबोधन अपने आप बदलता है)। ईमेल खाली खुले तो पेस्ट करें।' }
+  };
+  function t(key) { return (STR[key] && (STR[key][LANG] || STR[key].en)) || ''; }
+
   function setLang(lang) {
-    document.body.classList.toggle('spanish', lang === 'es');
-    document.getElementById('btn-en').classList.toggle('active', lang !== 'es');
-    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    LANG = lang;
+    document.body.classList.remove('lang-es', 'lang-pa', 'lang-bn', 'lang-hi');
+    if (lang !== 'en') document.body.classList.add('lang-' + lang);
+    ['en','es','pa','bn','hi'].forEach(function(l) {
+      document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+    });
     document.querySelectorAll('option[data-en]').forEach(function(o) {
-      o.textContent = lang === 'es' ? o.dataset.es : o.dataset.en;
+      o.textContent = o.dataset[lang] || o.dataset.en;
     });
     document.querySelectorAll('optgroup[data-en]').forEach(function(g) {
-      g.label = lang === 'es' ? g.dataset.es : g.dataset.en;
+      g.label = g.dataset[lang] || g.dataset.en;
     });
+    updateProgress();
   }
   (function() {
-    if (new URLSearchParams(window.location.search).get('lang') === 'es') setLang('es');
+    var q = new URLSearchParams(window.location.search).get('lang');
+    if (q && ['es','pa','bn','hi'].indexOf(q) !== -1) setLang(q);
   })();
+
+  // ===== WIZARD =====
+  var step = 1, TOTAL = 6;
+  function goStep(n) {
+    step = n;
+    for (var i = 1; i <= TOTAL; i++) {
+      document.getElementById('step-' + i).classList.toggle('active', i === n);
+    }
+    updateProgress();
+    document.getElementById('progress-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (typeof plausible !== 'undefined') plausible('wizard_step', { props: { step: String(n) } });
+  }
+  function updateProgress() {
+    document.getElementById('progress-label').textContent = t('stepOf').replace('{N}', String(step));
+    document.getElementById('progress-fill').style.width = Math.round(step / TOTAL * 100) + '%';
+  }
+  updateProgress();
+
+  function toggleMore() {
+    var m = document.getElementById('care-more');
+    var open = m.style.display === 'block';
+    m.style.display = open ? 'none' : 'block';
+  }
 
   // checkbox visual state
   document.querySelectorAll('.check-row input').forEach(function(cb) {
@@ -512,8 +592,7 @@
     });
   });
 
-  // Conditional branching: only show the wait/distance/calls questions once the
-  // patient indicates they've actually tried to find a replacement.
+  // Conditional branching for access details
   document.querySelectorAll('#grp-access input').forEach(function(cb) {
     cb.addEventListener('change', function() {
       var tried = Array.prototype.some.call(
@@ -525,10 +604,10 @@
   });
 
   function showToast(msg) {
-    var t = document.getElementById('toast-notification');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(function() { t.classList.remove('show'); }, 3000);
+    var el = document.getElementById('toast-notification');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 3000);
   }
 
   function checkedValues(groupId) {
@@ -539,36 +618,14 @@
   }
 
   // Legislator routing by county — verified August 2026.
-  // Nassau (Hicksville area): Assemblyman Jake Blumencranz (AD-15) + Senator Steve Rhoads (SD-5).
-  // Suffolk (Stony Brook area): Assemblywoman Rebecca Kassay (AD-4) + Senator Anthony Palumbo (SD-1).
   const REPS = {
     nassau: {
-      assembly: {
-        name: "Assemblyman Jake Blumencranz",
-        salutation: "Assemblyman Blumencranz",
-        email: "blumencranzj@nyassembly.gov",
-        district: "15th Assembly District"
-      },
-      senate: {
-        name: "Senator Steve Rhoads",
-        salutation: "Senator Rhoads",
-        email: "rhoads@nysenate.gov",
-        district: "5th Senate District"
-      }
+      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District" },
+      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District" }
     },
     suffolk: {
-      assembly: {
-        name: "Assemblywoman Rebecca Kassay",
-        salutation: "Assemblywoman Kassay",
-        email: "kassayr@nyassembly.gov",
-        district: "4th Assembly District"
-      },
-      senate: {
-        name: "Senator Anthony Palumbo",
-        salutation: "Senator Palumbo",
-        email: "palumbo@nysenate.gov",
-        district: "1st Senate District"
-      }
+      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District" },
+      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District" }
     }
   };
   var currentReps = REPS.nassau;
@@ -618,7 +675,7 @@
       familyMembers: checkedValues('grp-family'),
       accessProblems: checkedValues('grp-access').filter(function(v){ return v !== 'I have not tried yet'; }),
       accessDetails: accessDetails,
-      careAtBelaray: checkedValues('grp-care'),
+      careAtBelaray: checkedValues('grp-care').concat(checkedValues('care-more')),
       language: document.getElementById('f-language').value,
       extras: [],
       ownWords: document.getElementById('f-ownwords').value.trim()
@@ -628,19 +685,18 @@
   async function generate() {
     var btn = document.getElementById('generate');
     var answers = collectAnswers();
-    var es = document.body.classList.contains('spanish');
 
     if (!document.getElementById('consent-review').checked) {
-      showToast(es
-        ? 'Por favor marque la casilla de consentimiento primero.'
-        : 'Please check the consent box first.');
-      document.getElementById('consent-review').closest('.form-card').scrollIntoView({ behavior: 'smooth' });
+      showToast(t('consentFirst'));
       return;
     }
     if (document.getElementById('consent-stats').checked) sendStats(answers);
 
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>' + (es ? 'Escribiendo sus cartas…' : 'Writing your letters…');
+    btn.innerHTML = '<span class="spinner"></span>' + t('writing');
+    var slowTimer = setTimeout(function() {
+      btn.innerHTML = '<span class="spinner"></span>' + t('writingLong');
+    }, 12000);
     if (typeof plausible !== 'undefined') plausible('generate_letter', { props: { plan: answers.planKey } });
 
     var letters = null;
@@ -657,7 +713,11 @@
         }
       } catch (e) { /* fall through to template */ }
     }
+    clearTimeout(slowTimer);
     if (!letters) letters = templateLetters(answers);
+    if (letters.usage && typeof plausible !== 'undefined') {
+      plausible('letter_cost', { props: { cost_usd: String(letters.usage.estimated_cost_usd), output_tokens: String(letters.usage.output_tokens) } });
+    }
 
     document.getElementById('txt-assembly').value = letters.assembly_letter;
     document.getElementById('txt-regulator').value = letters.regulator_letter;
@@ -665,28 +725,20 @@
     setupRegulatorCard(answers);
     document.getElementById('results').style.display = 'block';
     btn.disabled = false;
-    btn.innerHTML = es ? '✍️ Escribir Mis Cartas Otra Vez' : '✍️ Rewrite My Letters';
+    btn.innerHTML = t('rewrite');
     document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
   }
 
   function setupAssemblyCard(answers) {
-    var es = document.body.classList.contains('spanish');
     var a = currentReps.assembly, s = currentReps.senate;
     document.getElementById('assembly-toline').textContent =
       'To: ' + a.name + ' <' + a.email + '> (' + a.district + ')  ·  ' + s.name + ' <' + s.email + '> (' + s.district + ')';
-    document.getElementById('mail-assembly-label').textContent = es
-      ? 'Enviar a ' + a.salutation.replace('Assemblyman', 'Asambleísta').replace('Assemblywoman', 'Asambleísta').replace('Senator', 'Senador')
-      : 'Email ' + a.salutation;
-    document.getElementById('mail-senate-label').textContent = es
-      ? 'Enviar a ' + s.salutation.replace('Senator', 'Senador/a')
-      : 'Email ' + s.salutation;
-    document.getElementById('assembly-note').innerHTML = (es
-      ? 'Basado en su pueblo, esta carta va a <strong>' + a.name + '</strong> y a <strong>' + s.name + '</strong> — enviarla a los dos duplica su impacto (el saludo se ajusta automáticamente). ¿No son sus representantes? Busque los suyos: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Asamblea</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senado</a>. Si el correo se abre vacío, simplemente pegue la carta (ya está copiada).'
-      : 'Based on your town, this letter goes to <strong>' + a.name + '</strong> and <strong>' + s.name + '</strong> — sending to both doubles your impact (the greeting adjusts automatically). Not your representatives? Find yours: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>. If the email opens empty, just paste the letter (it\'s already copied).');
+    document.getElementById('mail-assembly-label').textContent = t('emailTo') + a.salutation;
+    document.getElementById('mail-senate-label').textContent = t('emailTo') + s.salutation;
+    document.getElementById('assembly-note').innerHTML = t('assemblyNote').replace('{A}', a.name).replace('{S}', s.name);
   }
 
   function setupRegulatorCard(answers) {
-    var es = document.body.classList.contains('spanish');
     var toline = document.getElementById('regulator-toline');
     var actions = document.getElementById('regulator-actions');
     var note = document.getElementById('regulator-note');
@@ -695,7 +747,7 @@
 
     var copyBtn = document.createElement('button');
     copyBtn.className = 'act-btn act-secondary';
-    copyBtn.textContent = es ? '📋 Copiar Carta' : '📋 Copy Letter';
+    copyBtn.textContent = t('copyBtn');
     copyBtn.onclick = function() { copyLetter('txt-regulator'); };
     actions.appendChild(copyBtn);
 
@@ -704,12 +756,10 @@
       var mailBtn = document.createElement('a');
       mailBtn.className = 'act-btn act-primary';
       mailBtn.href = '#';
-      mailBtn.textContent = es ? '✉️ Abrir Correo' : '✉️ Open Email';
+      mailBtn.textContent = t('openEmail');
       mailBtn.onclick = function() { return openMail('doh'); };
       actions.appendChild(mailBtn);
-      note.innerHTML = es
-        ? 'También puede llamar a la línea de quejas del Estado: <a href="tel:18002068125">1-800-206-8125</a>.'
-        : 'You can also call the State\'s managed care complaint line: <a href="tel:18002068125">1-800-206-8125</a>.';
+      note.innerHTML = t('dohNote');
     } else if (channel === 'dfs') {
       toline.textContent = 'To: New York State Department of Financial Services (online complaint portal)';
       var dfsBtn = document.createElement('a');
@@ -717,11 +767,9 @@
       dfsBtn.href = 'https://www.dfs.ny.gov/complaint';
       dfsBtn.target = '_blank';
       dfsBtn.rel = 'noopener';
-      dfsBtn.textContent = es ? '🌐 Abrir Portal de Quejas' : '🌐 Open Complaint Portal';
+      dfsBtn.textContent = t('openPortal');
       actions.appendChild(dfsBtn);
-      note.innerHTML = es
-        ? 'DFS recibe quejas por su portal en línea — copie su carta y péguela en el formulario. O llame al <a href="tel:18003423736">(800) 342-3736</a>.'
-        : 'DFS takes complaints through its online portal — copy your letter and paste it into the form. Or call <a href="tel:18003423736">(800) 342-3736</a>.';
+      note.innerHTML = t('dfsNote');
     } else if (channel === 'medicare') {
       toline.textContent = 'To: Medicare (CMS complaint form)';
       var medBtn = document.createElement('a');
@@ -729,34 +777,27 @@
       medBtn.href = 'https://www.medicare.gov/my/medicare-complaint';
       medBtn.target = '_blank';
       medBtn.rel = 'noopener';
-      medBtn.textContent = es ? '🌐 Abrir Formulario de Medicare' : '🌐 Open Medicare Complaint Form';
+      medBtn.textContent = t('openMedicare');
       actions.appendChild(medBtn);
-      note.innerHTML = es
-        ? 'Copie su carta y péguela en el formulario de queja de Medicare, o llame al <a href="tel:18006334227">1-800-MEDICARE (1-800-633-4227)</a>. Las quejas sobre falta de especialistas en la red pueden llevar a que Medicare revise la red del plan.'
-        : 'Copy your letter and paste it into Medicare\'s complaint form, or call <a href="tel:18006334227">1-800-MEDICARE (1-800-633-4227)</a>. Complaints about not having enough in-network specialists can trigger Medicare to review the plan\'s network.';
+      note.innerHTML = t('medicareNote');
     }
+
     var printBtn = document.createElement('button');
     printBtn.className = 'act-btn act-secondary';
-    printBtn.textContent = es ? '🖨️ Imprimir' : '🖨️ Print';
+    printBtn.textContent = t('printBtn');
     printBtn.onclick = function() { printLetter('txt-regulator'); };
     actions.appendChild(printBtn);
 
     var sentBtn = document.createElement('button');
     sentBtn.className = 'act-btn act-secondary';
-    sentBtn.textContent = es ? '✅ ¡La envié!' : '✅ I sent it!';
+    sentBtn.textContent = t('sentBtn');
     sentBtn.onclick = function() { markSent('regulator'); };
     actions.appendChild(sentBtn);
 
-    if (answers.planKey === 'notsure') {
-      note.innerHTML += es
-        ? '<br>¿No está seguro de su tipo de plan? Envíenos un texto al <a href="sms:5168227546">(516) 822-7546</a> y le ayudamos.'
-        : '<br>Not sure which plan you have? Text us at <a href="sms:5168227546">(516) 822-7546</a> and we\'ll help you figure it out.';
-    }
+    if (answers.planKey === 'notsure') note.innerHTML += t('notSure');
   }
 
-  // Anonymous aggregate stats — sent to Plausible as event properties.
-  // Never includes the patient's name or free-text answers. Readable in the
-  // Plausible dashboard as percentage breakdowns per property.
+  // Anonymous aggregate stats — never includes name or free-text.
   function sendStats(a) {
     if (typeof plausible === 'undefined') return;
     var has = function(list, frag) {
@@ -773,7 +814,7 @@
       three_generations: has(a.familyMembers, 'three generations'),
       skin_cancer_care: has(a.careAtBelaray, 'skin cancer'),
       surveillance: has(a.careAtBelaray, 'surveillance'),
-      chronic_or_biologic: (has(a.careAtBelaray, 'chronic') === 'yes' || has(a.careAtBelaray, 'biologic') === 'yes') ? 'yes' : 'no',
+      chronic_or_biologic: has(a.careAtBelaray, 'ongoing skin condition'),
       coordinates_care: has(a.careAtBelaray, 'coordinates'),
       avoided_er: has(a.careAtBelaray, 'emergency room'),
       directory_inaccurate: has(a.accessProblems, 'directory'),
@@ -785,7 +826,11 @@
       phototherapy: has(a.careAtBelaray, 'phototherapy'),
       hair_loss: has(a.careAtBelaray, 'hair loss'),
       mohs_recon_same_day: has(a.careAtBelaray, 'oculoplastic (eyelid) reconstruction'),
-      service_unavailable: has(a.accessProblems, 'specific service')
+      service_unavailable: has(a.accessProblems, 'specific service'),
+      phone_unanswered: has(a.accessProblems, 'no one picks up'),
+      calls_not_returned: has(a.accessProblems, 'return my calls'),
+      no_language_staff: has(a.accessProblems, 'speak my language'),
+      felt_dismissed: has(a.accessProblems, 'seem to care')
     }});
   }
 
@@ -801,22 +846,19 @@
   }
 
   function markSent(which) {
-    var es = document.body.classList.contains('spanish');
     if (typeof plausible !== 'undefined') plausible('letter_sent', { props: { which: which } });
-    showToast(es ? '¡Gracias por alzar su voz! 💙' : 'Thank you for speaking up! 💙');
+    showToast(t('thanks'));
   }
 
   function copyLetter(id) {
     var txt = document.getElementById(id);
     navigator.clipboard.writeText(txt.value).then(function() {
-      var es = document.body.classList.contains('spanish');
-      showToast(es ? '¡Carta copiada!' : 'Letter copied!');
+      showToast(t('copied'));
       if (typeof plausible !== 'undefined') plausible('copy_letter', { props: { which: id } });
     });
   }
 
   function openMail(which) {
-    var es = document.body.classList.contains('spanish');
     var to, subject, body;
     if (which === 'assembly') {
       to = currentReps.assembly.email;
@@ -825,7 +867,6 @@
     } else if (which === 'senate') {
       to = currentReps.senate.email;
       subject = 'Constituent request: Healthfirst network access to Belaray Dermatology';
-      // Same letter, salutation swapped for the Senator
       body = document.getElementById('txt-assembly').value
         .replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
     } else {
@@ -833,16 +874,15 @@
       subject = 'Network adequacy complaint - Healthfirst - dermatology access';
       body = document.getElementById('txt-regulator').value;
     }
-    // Copy as backup in case the mail client truncates the body
     navigator.clipboard.writeText(body).catch(function(){});
     if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: which } });
     var cc = document.getElementById('cc-practice').checked ? 'cc=' + encodeURIComponent('jeff@belaray.com') + '&' : '';
     window.location.href = 'mailto:' + to + '?' + cc + 'subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    showToast(es ? 'Abriendo su correo… (la carta también está copiada)' : 'Opening your email… (letter is also copied)');
+    showToast(t('openingEmail'));
     return false;
   }
 
-  // ===== TEMPLATE FALLBACK (no AI) =====
+  // ===== TEMPLATE FALLBACK (no AI; letters are always in English) =====
   function templateLetters(a) {
     var sig = '\n\nSincerely,\n' + (a.name || '') + (a.town ? '\n' + a.town + ', NY' : '');
     var years = a.yearsPatient ? 'I have been a patient of Belaray Dermatology for ' + a.yearsPatient + '. ' : 'I am a patient of Belaray Dermatology. ';
@@ -850,7 +890,7 @@
 
     var fam = '';
     if (a.familyMembers.length > 1 || (a.familyMembers.length === 1 && a.familyMembers[0] !== 'me')) {
-      fam = 'This practice cares for ' + a.familyMembers.join(', ').replace('me', 'me') + ' — losing it disrupts our family\'s medical home, not just one appointment. ';
+      fam = 'This practice cares for ' + a.familyMembers.join(', ') + ' — losing it disrupts our family\'s medical home, not just one appointment. ';
     }
 
     var careBits = [];
