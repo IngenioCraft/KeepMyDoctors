@@ -4,7 +4,7 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Healthfirst Coverage Update | Belaray Dermatology</title>
- <meta name="description" content="Important update for Healthfirst patients at Belaray Dermatology regarding a temporary out-of-network period.">
+ <meta name="description" content="Important update for Healthfirst patients at Belaray Dermatology: Healthfirst has declined to restore network access — here's what it means and how you can help.">
  <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,6 +19,8 @@
     --white: #ffffff;
     --green: #16A34A;
     --green-light: #F0FDF4;
+    --amber: #D97706;
+    --amber-light: #FFFBEB;
   }
   body {
     font-family: 'Inter', -apple-system, sans-serif;
@@ -80,12 +82,12 @@
   }
   .hero-sub {
     font-size: clamp(15px, 2.5vw, 17px);
-    color: var(--gray); max-width: 540px;
+    color: var(--gray); max-width: 560px;
     margin: 0 auto; line-height: 1.7;
   }
 
   /* ===== INFO CARDS ===== */
-  .info-section { padding: 40px 20px 48px; max-width: 760px; margin: 0 auto; }
+  .info-section { padding: 40px 20px 24px; max-width: 760px; margin: 0 auto; }
   .info-card {
     background: var(--white);
     border: 2px solid #e5e7eb;
@@ -96,18 +98,26 @@
   }
   .info-card.highlight { border-color: var(--teal); background: var(--teal-bg); }
   .info-card.good { border-color: var(--green); background: var(--green-light); }
+  .info-card.action { border-color: var(--amber); background: var(--amber-light); }
   .info-card-icon { font-size: 28px; margin-bottom: 12px; }
   .info-card h2 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
   .info-card p { font-size: 15px; color: #374151; line-height: 1.7; margin-bottom: 10px; }
   .info-card p:last-child { margin-bottom: 0; }
   .info-card strong { color: var(--dark); }
+  .cta-inline {
+    display: inline-block; background: var(--teal); color: #fff;
+    padding: 13px 28px; border-radius: 24px;
+    font-size: 16px; font-weight: 800; text-decoration: none;
+    margin-top: 6px; transition: transform 0.2s, filter 0.2s;
+  }
+  .cta-inline:hover { transform: translateY(-1px); filter: brightness(0.94); }
 
   /* ===== WHAT TO KNOW SECTION ===== */
   .points-section { padding: 0 20px 48px; max-width: 760px; margin: 0 auto; }
   .points-section h2 {
     font-size: clamp(20px, 4vw, 26px);
     font-weight: 800; color: var(--dark);
-    text-align: center; margin-bottom: 28px;
+    text-align: center; margin: 24px 0 28px;
   }
   .point-card {
     display: flex; gap: 18px; align-items: flex-start;
@@ -123,6 +133,7 @@
   }
   .point-content h3 { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
   .point-content p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+  .point-content a { color: var(--teal-dark); font-weight: 700; }
 
   /* ===== TIMELINE ===== */
   .expect-section { background: var(--light); padding: 48px 20px; }
@@ -152,6 +163,7 @@
   .timeline-dot.green { background: var(--green); box-shadow: 0 2px 8px rgba(22,163,74,0.3); }
   .timeline-content h3 { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
   .timeline-content p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .timeline-content a { color: var(--teal-dark); font-weight: 700; }
   .timeline-date {
     font-size: 12px; font-weight: 700; color: var(--teal);
     text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
@@ -173,8 +185,9 @@
   .faq-arrow { font-size: 18px; color: var(--teal); transition: transform 0.2s; min-width: 24px; text-align: center; }
   .faq-item.open .faq-arrow { transform: rotate(180deg); }
   .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-  .faq-item.open .faq-a { padding: 0 20px 18px; max-height: 300px; }
+  .faq-item.open .faq-a { padding: 0 20px 18px; max-height: 400px; }
   .faq-a p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+  .faq-a a { color: var(--teal-dark); font-weight: 700; }
 
   /* ===== CONTACT BANNER ===== */
   .contact-banner { background: var(--teal); color: #fff; padding: 40px 20px; text-align: center; }
@@ -267,8 +280,8 @@
    <span class="es">Seguimos Aquí Para Usted</span>
   </h1>
   <p class="hero-sub">
-   <span class="en">Your Healthfirst insurance is changing, but we are not going anywhere. This page tells you what you need to know.</span>
-   <span class="es">Su seguro Healthfirst está cambiando, pero nosotros no nos vamos. Esta página le dice lo que necesita saber.</span>
+   <span class="en">After 20 years and thousands of patients in our care, Healthfirst has refused to let Belaray back into its network — a business decision that restricts <em>your</em> access to <em>your</em> doctors. We're not giving up, and your voice matters. Here's what you need to know, and how you can push back.</span>
+   <span class="es">Después de 20 años y miles de pacientes bajo nuestro cuidado, Healthfirst se negó a aceptar a Belaray de vuelta en su red — una decisión de negocios que restringe <em>su</em> acceso a <em>sus</em> médicos. No nos rendimos, y su voz importa. Aquí está lo que necesita saber, y cómo puede reclamar.</span>
   </p>
  </section>
 
@@ -281,27 +294,44 @@
     <span class="es">Qué Está Pasando</span>
    </h2>
    <p>
-    <span class="en">After <strong>May 15, 2026</strong>, Healthfirst and Belaray will not have a contract for a short time. We are working on a new one right now.</span>
-    <span class="es">Después del <strong>15 de mayo de 2026</strong>, Healthfirst y Belaray no tendrán contrato por un corto tiempo. Estamos trabajando en uno nuevo ahora mismo.</span>
+    <span class="en">Belaray proudly cared for Healthfirst members for <strong>20 years — since 2006</strong>. In May 2026, a contract change on Healthfirst's side put us out of network. We submitted our credentialing right away and fully expected to be welcomed back — two decades of partnership, an excellent record the entire time, and thousands of your neighbors in our care.</span>
+    <span class="es">Belaray atendió con orgullo a miembros de Healthfirst por <strong>20 años — desde 2006</strong>. En mayo de 2026, un cambio de contrato del lado de Healthfirst nos dejó fuera de la red. Enviamos nuestra acreditación de inmediato y esperábamos plenamente ser aceptados de vuelta — dos décadas de colaboración, un récord excelente todo ese tiempo, y miles de sus vecinos bajo nuestro cuidado.</span>
    </p>
    <p>
-    <span class="en">If your visit is <strong>before May 15</strong>, nothing changes. You are covered.</span>
-    <span class="es">Si su cita es <strong>antes del 15 de mayo</strong>, nada cambia. Está cubierto.</span>
+    <span class="en">Instead, in August 2026 <strong>Healthfirst declined our application</strong>, citing its "current network needs." Not quality. Not our record. A business decision — made for you, without you.</span>
+    <span class="es">En cambio, en agosto de 2026 <strong>Healthfirst rechazó nuestra solicitud</strong>, citando las "necesidades actuales de su red." No fue por calidad. No fue por nuestro récord. Fue una decisión de negocios — tomada por usted, sin usted.</span>
    </p>
   </div>
-  <div class="info-card good">
-   <div class="info-card-icon">✅</div>
+
+  <div class="info-card action">
+   <div class="info-card-icon">📣</div>
    <h2>
-    <span class="en">This Won't Last Long</span>
-    <span class="es">Esto No Va a Durar Mucho</span>
+    <span class="en">What "Network Needs" Really Means for You</span>
+    <span class="es">Qué Significan Realmente las "Necesidades de la Red" Para Usted</span>
    </h2>
    <p>
-    <span class="en">We plan to be <strong>back with Healthfirst in about 4 months</strong>. We will update this page as soon as it's done.</span>
-    <span class="es">Planeamos estar <strong>de vuelta con Healthfirst en unos 4 meses</strong>. Vamos a actualizar esta página en cuanto esté listo.</span>
+    <span class="en">By turning us away, Healthfirst is telling New York State that its network already has plenty of dermatologists — that <strong>you can get a specialist appointment within about 6 weeks</strong>, any time you need one. That is the access standard their network is supposed to meet.</span>
+    <span class="es">Al rechazarnos, Healthfirst le está diciendo al Estado de Nueva York que su red ya tiene suficientes dermatólogos — que <strong>usted puede conseguir una cita con un especialista dentro de unas 6 semanas</strong>, cuando la necesite. Ese es el estándar de acceso que su red debe cumplir.</span>
    </p>
    <p>
-    <span class="en"><strong>You do not need to change your plan.</strong> Just hang tight — we'll get through this together.</span>
-    <span class="es"><strong>No necesita cambiar su plan.</strong> Solo espere un poco — vamos a salir de esto juntos.</span>
+    <span class="en">Is that your experience? Call the dermatologists in their directory and see. If you're being quoted months, or told "not accepting new patients," then this isn't Belaray losing a contract — <strong>it's your own insurer restricting your access to care</strong>, while telling the State everything is fine. You have the right to push back, and regulators listen when members speak up. We built a tool that writes your <strong>personal letters in about 3 minutes</strong> — to your state legislators and to the agency that oversees your plan.</span>
+    <span class="es">¿Esa es su experiencia? Llame a los dermatólogos de su directorio y compruébelo. Si le ofrecen citas en meses, o le dicen "no aceptamos pacientes nuevos," entonces esto no es Belaray perdiendo un contrato — <strong>es su propia aseguradora restringiendo su acceso a la atención</strong>, mientras le dice al Estado que todo está bien. Usted tiene el derecho de reclamar, y los reguladores escuchan cuando los miembros alzan la voz. Creamos una herramienta que escribe sus <strong>cartas personales en unos 3 minutos</strong> — a sus legisladores estatales y a la agencia que supervisa su plan.</span>
+   </p>
+   <a class="cta-inline" href="advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click')">
+    <span class="en">📣 Make Your Voice Heard — 3 Minutes</span>
+    <span class="es">📣 Haga Oír Su Voz — 3 Minutos</span>
+   </a>
+  </div>
+
+  <div class="info-card good">
+   <div class="info-card-icon">💚</div>
+   <h2>
+    <span class="en">We're Not Going Anywhere</span>
+    <span class="es">No Nos Vamos a Ningún Lado</span>
+   </h2>
+   <p>
+    <span class="en">Both offices are open, and we're still seeing our Healthfirst patients — <strong>text or call us</strong> and we'll figure out the best path for your care during this time. We are continuing to press Healthfirst through every channel available.</span>
+    <span class="es">Nuestras dos oficinas están abiertas, y seguimos atendiendo a nuestros pacientes de Healthfirst — <strong>envíenos un texto o llámenos</strong> y encontraremos el mejor camino para su atención durante este tiempo. Seguimos presionando a Healthfirst por todos los canales disponibles.</span>
    </p>
   </div>
  </section>
@@ -321,22 +351,50 @@
      <span class="es">¿Ya Es Nuestro Paciente?</span>
     </h3>
     <p>
-     <span class="en">We want to keep seeing you. <strong>Text or call us</strong> and we will talk about how to take care of you during this short break.</span>
-     <span class="es">Queremos seguir viéndolo. <strong>Envíenos un texto o llámenos</strong> y hablaremos de cómo cuidarlo durante esta pausa corta.</span>
+     <span class="en">We want to keep seeing you. <strong>Text or call us at (516) 822-7546</strong> and we'll talk through your options — including self-pay visit pricing and, for some plans, out-of-network paths.</span>
+     <span class="es">Queremos seguir viéndolo. <strong>Envíenos un texto o llámenos al (516) 822-7546</strong> y hablaremos de sus opciones — incluyendo precios de pago directo y, para algunos planes, opciones fuera de la red.</span>
     </p>
    </div>
   </div>
 
   <div class="point-card">
-   <div class="point-icon">🆕</div>
+   <div class="point-icon">🔄</div>
    <div class="point-content">
     <h3>
-     <span class="en">New Patient?</span>
-     <span class="es">¿Paciente Nuevo?</span>
+     <span class="en">Your Plan Options</span>
+     <span class="es">Sus Opciones de Plan</span>
     </h3>
     <p>
-     <span class="en">We can still see you. During this time, new patients with Healthfirst would pay out of pocket. <strong>Text us</strong> and we can tell you more.</span>
-     <span class="es">Todavía podemos atenderlo. Durante este tiempo, pacientes nuevos con Healthfirst pagarían de su bolsillo. <strong>Escríbanos</strong> y le damos más detalles.</span>
+     <span class="en">Belaray remains in network with many other plans. If keeping your doctors matters to you, you may be able to switch: Medicaid members can call <a href="tel:18005055678">New York Medicaid Choice at 1-800-505-5678</a> about their options, and Medicare's yearly enrollment runs <strong>October 15 – December 7</strong>. Text us and we'll tell you which plans we accept.</span>
+     <span class="es">Belaray sigue en la red de muchos otros planes. Si mantener a sus médicos es importante para usted, quizás pueda cambiar: los miembros de Medicaid pueden llamar a <a href="tel:18005055678">New York Medicaid Choice al 1-800-505-5678</a> para conocer sus opciones, y la inscripción anual de Medicare es del <strong>15 de octubre al 7 de diciembre</strong>. Escríbanos y le decimos qué planes aceptamos.</span>
+    </p>
+   </div>
+  </div>
+
+  <div class="point-card">
+   <div class="point-icon">📣</div>
+   <div class="point-content">
+    <h3>
+     <span class="en">You Have the Right to Complain</span>
+     <span class="es">Usted Tiene Derecho a Quejarse</span>
+    </h3>
+    <p>
+     <span class="en">If you can't get timely dermatology care in Healthfirst's network, you have the right to file a complaint with New York State — and it makes a real difference. <a href="advocate.html">Our letter tool</a> does the writing for you and sends it to the right agency for your plan.</span>
+     <span class="es">Si no puede conseguir atención dermatológica a tiempo en la red de Healthfirst, tiene derecho a presentar una queja ante el Estado de Nueva York — y hace una diferencia real. <a href="advocate.html">Nuestra herramienta de cartas</a> la escribe por usted y la envía a la agencia correcta para su plan.</span>
+    </p>
+   </div>
+  </div>
+
+  <div class="point-card">
+   <div class="point-icon">🔬</div>
+   <div class="point-content">
+    <h3>
+     <span class="en">Need Care Almost No One Else Offers?</span>
+     <span class="es">¿Necesita Atención Que Casi Nadie Más Ofrece?</span>
+    </h3>
+    <p>
+     <span class="en">Some of our services are nearly impossible to find elsewhere: <strong>Mohs skin-cancer surgery with same-day oculoplastic (eyelid) reconstruction under one roof</strong>, <strong>phototherapy</strong>, and <strong>specialized hair-loss care</strong>. And we care for you <strong>in your language</strong> — including Spanish, Punjabi, and Bengali. If you rely on any of this, <strong>call or text us at (516) 822-7546</strong> — we'll help you get the care you need, and help you document that your network can't provide it.</span>
+     <span class="es">Algunos de nuestros servicios son casi imposibles de encontrar en otro lugar: <strong>cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día, en un solo lugar</strong>, <strong>fototerapia</strong>, y <strong>tratamiento especializado de pérdida de cabello</strong>. Y lo atendemos <strong>en su idioma</strong> — incluyendo español, punjabi y bengalí. Si usted depende de algo de esto, <strong>llámenos o escríbanos al (516) 822-7546</strong> — le ayudamos a conseguir la atención que necesita, y a documentar que su red no puede proveerla.</span>
     </p>
    </div>
   </div>
@@ -360,62 +418,62 @@
  <section class="expect-section">
   <div class="expect-inner">
    <h2>
-    <span class="en">Here's the Plan</span>
-    <span class="es">Este Es el Plan</span>
+    <span class="en">How We Got Here</span>
+    <span class="es">Cómo Llegamos Aquí</span>
    </h2>
    <p class="expect-sub">
-    <span class="en">A quick look at what's coming.</span>
-    <span class="es">Un vistazo rápido de lo que viene.</span>
+    <span class="en">The honest picture — and where your voice fits in.</span>
+    <span class="es">La imagen honesta — y dónde entra su voz.</span>
    </p>
    <div class="timeline">
     <div class="timeline-item">
      <div class="timeline-dot">✔</div>
      <div class="timeline-content">
       <div class="timeline-date">
-       <span class="en">Now — May 14, 2026</span>
-       <span class="es">Ahora — 14 de Mayo, 2026</span>
+       <span class="en">2006 — May 2026</span>
+       <span class="es">2006 — Mayo 2026</span>
       </div>
       <h3>
-       <span class="en">You're All Set</span>
-       <span class="es">Todo Está Bien</span>
+       <span class="en">20 Years Together</span>
+       <span class="es">20 Años Juntos</span>
       </h3>
       <p>
-       <span class="en">Any visit before May 15 is covered. Nothing changes.</span>
-       <span class="es">Cualquier cita antes del 15 de mayo está cubierta. Nada cambia.</span>
+       <span class="en">Belaray cared for thousands of Healthfirst members from the day we opened. In May 2026, a contract change on Healthfirst's side ended our network participation.</span>
+       <span class="es">Belaray atendió a miles de miembros de Healthfirst desde el día que abrimos. En mayo de 2026, un cambio de contrato del lado de Healthfirst terminó nuestra participación en la red.</span>
       </p>
      </div>
     </div>
     <div class="timeline-item">
-     <div class="timeline-dot amber">⏳</div>
+     <div class="timeline-dot amber">✖</div>
      <div class="timeline-content">
       <div class="timeline-date amber">
-       <span class="en">May 15 — About 4 Months</span>
-       <span class="es">15 de Mayo — Unos 4 Meses</span>
+       <span class="en">August 2026</span>
+       <span class="es">Agosto 2026</span>
       </div>
       <h3>
-       <span class="en">Short Break</span>
-       <span class="es">Pausa Corta</span>
+       <span class="en">Healthfirst Said No — For Now</span>
+       <span class="es">Healthfirst Dijo No — Por Ahora</span>
       </h3>
       <p>
-       <span class="en">We don't have a Healthfirst contract during this time, but we still want to see you. Text us and we'll figure it out together.</span>
-       <span class="es">No tenemos contrato con Healthfirst durante este tiempo, pero aún queremos verlo. Escríbanos y lo resolvemos juntos.</span>
+       <span class="en">Our credentialing was submitted months in advance, and after 20 years of excellent partnership we expected to be welcomed back. Instead, Healthfirst declined — citing its "current network needs." Translation: they've decided their members already have enough access to dermatologists without us. If your phone calls say otherwise, they've decided wrong — at your expense.</span>
+       <span class="es">Nuestra acreditación fue enviada con meses de anticipación, y después de 20 años de excelente colaboración esperábamos ser aceptados de vuelta. En cambio, Healthfirst dijo que no — citando las "necesidades actuales de su red." Traducción: decidieron que sus miembros ya tienen suficiente acceso a dermatólogos sin nosotros. Si sus llamadas telefónicas dicen lo contrario, decidieron mal — a costa suya.</span>
       </p>
      </div>
     </div>
     <div class="timeline-item">
-     <div class="timeline-dot green">✔</div>
+     <div class="timeline-dot green">📣</div>
      <div class="timeline-content">
       <div class="timeline-date green">
-       <span class="en">Late Summer 2026</span>
-       <span class="es">Finales del Verano 2026</span>
+       <span class="en">Now — Your Voice</span>
+       <span class="es">Ahora — Su Voz</span>
       </div>
       <h3>
-       <span class="en">Back to Normal</span>
-       <span class="es">Todo Vuelve a la Normalidad</span>
+       <span class="en">Patients Can Change the Outcome</span>
+       <span class="es">Los Pacientes Pueden Cambiar el Resultado</span>
       </h3>
       <p>
-       <span class="en">We expect to have a new contract with Healthfirst by then. Your insurance will work here like before. We'll update this page as soon as it's done.</span>
-       <span class="es">Esperamos tener un nuevo contrato con Healthfirst para entonces. Su seguro funcionará aquí como antes. Actualizaremos esta página en cuanto esté listo.</span>
+       <span class="en">Insurance networks respond to member pressure and state oversight. When members tell their representatives and regulators that they can't get the care they need, decisions get revisited. <a href="advocate.html">It takes 3 minutes →</a></span>
+       <span class="es">Las redes de seguros responden a la presión de los miembros y a la supervisión del estado. Cuando los miembros les dicen a sus representantes y reguladores que no pueden conseguir la atención que necesitan, las decisiones se reconsideran. <a href="advocate.html">Toma 3 minutos →</a></span>
       </p>
      </div>
     </div>
@@ -431,52 +489,62 @@
   </h2>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Will Belaray take my Healthfirst again?</span><span class="es">¿Belaray va a aceptar mi Healthfirst otra vez?</span></span>
+    <span><span class="en">Will Belaray ever take my Healthfirst again?</span><span class="es">¿Belaray va a aceptar mi Healthfirst otra vez algún día?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>Yes.</strong> We are working on a new contract right now. We expect it to be done in about 4 months.</span>
-    <span class="es"><strong>Sí.</strong> Estamos trabajando en un nuevo contrato ahora mismo. Esperamos que esté listo en unos 4 meses.</span>
+    <span class="en"><strong>We are doing everything we can.</strong> We applied to rejoin, asked Healthfirst leadership to reconsider, and we're continuing to press through every available channel. Healthfirst has said no "at this time" — but decisions like this get revisited, especially when members speak up. <a href="advocate.html">Here's how to add your voice.</a></span>
+    <span class="es"><strong>Estamos haciendo todo lo posible.</strong> Solicitamos volver, le pedimos a los líderes de Healthfirst que reconsideraran, y seguimos presionando por todos los canales disponibles. Healthfirst dijo que no "por ahora" — pero decisiones como esta se reconsideran, especialmente cuando los miembros alzan la voz. <a href="advocate.html">Así puede sumar su voz.</a></span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Do I need to change my plan?</span><span class="es">¿Necesito cambiar mi plan?</span></span>
+    <span><span class="en">Can I still be seen at Belaray?</span><span class="es">¿Todavía puedo atenderme en Belaray?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>No.</strong> You do not need to change your plan. This break is short and we expect to be back with Healthfirst soon. If you're worried, text us and we'll talk.</span>
-    <span class="es"><strong>No.</strong> No necesita cambiar su plan. Esta pausa es corta y esperamos estar de vuelta con Healthfirst pronto. Si le preocupa, escríbanos y hablamos.</span>
+    <span class="en"><strong>Yes.</strong> Healthfirst won't cover us in network right now, but you can still be seen. Text us at <a href="sms:5168227546">(516) 822-7546</a> — we'll go over self-pay pricing and any out-of-network options your specific plan may have.</span>
+    <span class="es"><strong>Sí.</strong> Healthfirst no nos cubre dentro de la red ahora, pero todavía puede atenderse. Escríbanos al <a href="sms:5168227546">(516) 822-7546</a> — le explicamos los precios de pago directo y cualquier opción fuera de la red que su plan pueda tener.</span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Should I cancel my appointment?</span><span class="es">¿Debo cancelar mi cita?</span></span>
+    <span><span class="en">Should I change my insurance plan?</span><span class="es">¿Debo cambiar mi plan de seguro?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>No — please don't.</strong> If your visit is before May 15, you're covered. If it's after May 15, text us and we'll work it out. We don't want to lose you as a patient.</span>
-    <span class="es"><strong>No — por favor no la cancele.</strong> Si su cita es antes del 15 de mayo, está cubierto. Si es después del 15 de mayo, escríbanos y lo resolvemos. No queremos perderlo como paciente.</span>
+    <span class="en">That's your choice, and it depends on your situation. Belaray is in network with many other plans. Medicaid members can call <a href="tel:18005055678">New York Medicaid Choice (1-800-505-5678)</a> to ask about switching; Medicare members can switch during open enrollment (October 15 – December 7). Text us first and we'll tell you which plans we accept so you can decide.</span>
+    <span class="es">Esa es su decisión, y depende de su situación. Belaray está en la red de muchos otros planes. Los miembros de Medicaid pueden llamar a <a href="tel:18005055678">New York Medicaid Choice (1-800-505-5678)</a> para preguntar sobre un cambio; los miembros de Medicare pueden cambiar durante la inscripción abierta (15 de octubre – 7 de diciembre). Escríbanos primero y le decimos qué planes aceptamos para que pueda decidir.</span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">I'm new here — can I still come in?</span><span class="es">Soy nuevo aquí — ¿puedo venir?</span></span>
+    <span><span class="en">Does complaining to the State actually do anything?</span><span class="es">¿Quejarse ante el Estado realmente sirve de algo?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en">Yes! New patients with Healthfirst would pay out of pocket during this time. Text us and we'll tell you what to expect.</span>
-    <span class="es">¡Sí! Pacientes nuevos con Healthfirst pagarían de su bolsillo durante este tiempo. Escríbanos y le decimos qué esperar.</span>
+    <span class="en"><strong>Yes.</strong> New York requires insurance plans to have enough doctors — it's called "network adequacy." When members report that they can't get timely appointments, the State investigates, and plans are pushed to fix their networks. Your real experience is evidence regulators can act on. <a href="advocate.html">File in 3 minutes.</a></span>
+    <span class="es"><strong>Sí.</strong> Nueva York requiere que los planes de seguro tengan suficientes médicos — se llama "adecuación de la red." Cuando los miembros reportan que no pueden conseguir citas a tiempo, el Estado investiga, y los planes son presionados a arreglar sus redes. Su experiencia real es evidencia sobre la cual los reguladores pueden actuar. <a href="advocate.html">Presente su queja en 3 minutos.</a></span>
    </p></div>
   </div>
   <div class="faq-item">
    <button class="faq-q" onclick="toggleFaq(this)">
-    <span><span class="en">Why is this happening?</span><span class="es">¿Por qué está pasando esto?</span></span>
+    <span><span class="en">I'm new — can I still come in?</span><span class="es">Soy nuevo — ¿puedo venir?</span></span>
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en">Insurance companies and doctors' offices sign contracts. Sometimes a contract ends before a new one is ready. That's what's happening here. We're fixing it as fast as we can.</span>
-    <span class="es">Las compañías de seguro y los consultorios firman contratos. A veces un contrato termina antes de que el nuevo esté listo. Eso es lo que está pasando. Lo estamos arreglando lo más rápido posible.</span>
+    <span class="en">Yes! New patients with Healthfirst would pay out of pocket for now. Text us and we'll tell you what to expect.</span>
+    <span class="es">¡Sí! Pacientes nuevos con Healthfirst pagarían de su bolsillo por ahora. Escríbanos y le decimos qué esperar.</span>
+   </p></div>
+  </div>
+  <div class="faq-item">
+   <button class="faq-q" onclick="toggleFaq(this)">
+    <span><span class="en">Why did this happen?</span><span class="es">¿Por qué pasó esto?</span></span>
+    <span class="faq-arrow">▼</span>
+   </button>
+   <div class="faq-a"><p>
+    <span class="en">Not because of quality — after 20 years together, Healthfirst knows our record. Our credentialing was submitted months in advance and we expected to be accepted. Healthfirst declined anyway, citing its "current network needs" — a business decision that assumes you already have adequate access to dermatology care without us, meaning a specialist appointment within about 6 weeks. Many of our patients' phone calls say otherwise. When an insurer's business decision restricts its own members' access to care, that's exactly what the State's complaint process is for.</span>
+    <span class="es">No fue por calidad — después de 20 años juntos, Healthfirst conoce nuestro récord. Nuestra acreditación fue enviada con meses de anticipación y esperábamos ser aceptados. Healthfirst dijo que no de todos modos, citando las "necesidades actuales de su red" — una decisión de negocios que asume que usted ya tiene acceso adecuado a la dermatología sin nosotros, es decir, una cita con un especialista dentro de unas 6 semanas. Las llamadas de muchos de nuestros pacientes dicen lo contrario. Cuando la decisión de negocios de una aseguradora restringe el acceso de sus propios miembros a la atención, para eso existe exactamente el proceso de quejas del Estado.</span>
    </p></div>
   </div>
  </section>
@@ -493,24 +561,24 @@
   </p>
   <a href="sms:5168227546" class="cta-btn" onclick="trackContact('text')">💬 Text Us: (516) 822-7546</a>
   <div class="call-link">
-   <span class="en">or <a href="tel:+15168227546" onclick="trackContact('call')">call (516) 822-7546</a></span>
-   <span class="es">o <a href="tel:+15168227546" onclick="trackContact('call')">llame al (516) 822-7546</a></span>
+   <span class="en">or <a href="tel:+15168227546" onclick="trackContact('call')">call (516) 822-7546</a> · <a href="advocate.html" style="color:#fff;">make your voice heard →</a></span>
+   <span class="es">o <a href="tel:+15168227546" onclick="trackContact('call')">llame al (516) 822-7546</a> · <a href="advocate.html" style="color:#fff;">haga oír su voz →</a></span>
   </div>
  </section>
 
  <!-- ===== STICKY CTA ===== -->
  <div class="sticky-cta" id="sticky-cta">
-  <a href="sms:5168227546" onclick="trackContact('text-sticky')">
-   <span class="en">💬 Text Us — We'll Help</span>
-   <span class="es">💬 Escríbanos — Le Ayudamos</span>
+  <a href="advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click',{props:{source:'sticky'}})">
+   <span class="en">📣 Make Your Voice Heard — 3 Min</span>
+   <span class="es">📣 Haga Oír Su Voz — 3 Min</span>
   </a>
  </div>
 
  <!-- ===== FOOTER ===== -->
  <footer>
   <p>
-   <span class="en">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a></span>
-   <span class="es">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a></span>
+   <span class="en">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="advocate.html">Advocacy letter tool</a></span>
+   <span class="es">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="advocate.html">Herramienta de cartas</a></span>
   </p>
  </footer>
 

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="robots" content="noindex, nofollow">
+ <title>Advocacy Campaign Stats | Belaray (Staff)</title>
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --teal:#5B8FA8; --teal-dark:#4a7a91; --dark:#1f2937; --gray:#6B7280; --light:#F9FAFB; }
+  body { font-family:'Inter',-apple-system,sans-serif; color:var(--dark); background:var(--light); line-height:1.6; padding:24px 16px 60px; }
+  .wrap { max-width:860px; margin:0 auto; }
+  h1 { font-size:24px; font-weight:800; margin-bottom:4px; }
+  .sub { color:var(--gray); font-size:14px; margin-bottom:20px; }
+  .setup { background:#fff; border:2px solid #e5e7eb; border-radius:14px; padding:20px; margin-bottom:20px; }
+  .setup label { display:block; font-size:13px; font-weight:700; margin:10px 0 4px; }
+  .setup input { width:100%; padding:10px; border:2px solid #e5e7eb; border-radius:8px; font-family:inherit; font-size:14px; }
+  .setup button { margin-top:14px; background:var(--teal); color:#fff; border:none; padding:12px 28px; border-radius:22px; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; }
+  .setup .hint { font-size:12px; color:var(--gray); margin-top:8px; line-height:1.5; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:20px; }
+  .kpi { background:#fff; border:2px solid var(--teal); border-radius:14px; padding:18px; text-align:center; }
+  .kpi .num { font-size:34px; font-weight:800; color:var(--teal-dark); }
+  .kpi .lbl { font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.5px; }
+  .section { background:#fff; border:2px solid #e5e7eb; border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .section h2 { font-size:15px; font-weight:800; margin-bottom:12px; }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:7px; font-size:13px; }
+  .bar-label { min-width:220px; max-width:220px; color:#374151; }
+  .bar-track { flex:1; background:#eef1f4; border-radius:6px; height:20px; position:relative; overflow:hidden; }
+  .bar-fill { background:var(--teal); height:100%; border-radius:6px; min-width:2px; }
+  .bar-val { min-width:76px; text-align:right; font-weight:700; color:var(--teal-dark); }
+  .yes-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:8px; }
+  .yes-item { display:flex; justify-content:space-between; align-items:center; background:var(--light); border-radius:10px; padding:10px 14px; font-size:13px; }
+  .yes-item .pct { font-weight:800; font-size:17px; color:var(--teal-dark); }
+  .err { background:#FEF2F2; border:2px solid #DC2626; border-radius:12px; padding:14px 16px; color:#7F1D1D; font-size:14px; margin-bottom:16px; display:none; }
+  .note { font-size:12px; color:var(--gray); margin-top:18px; line-height:1.6; }
+  @media (max-width:560px){ .bar-label{min-width:130px;max-width:130px;font-size:12px;} }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>📊 Advocacy Campaign — Staff Dashboard</h1>
+  <p class="sub">Anonymous aggregate answers from the patient letter tool. No names are ever collected.</p>
+
+  <div class="setup" id="setup">
+   <strong>Connect to your stats endpoint</strong>
+   <label for="cfg-url">Stats endpoint URL</label>
+   <input type="text" id="cfg-url" value="https://invest-beta-six.vercel.app/api/savemydoctors/stats" placeholder="https://invest-beta-six.vercel.app/api/savemydoctors/stats">
+   <label for="cfg-key">Passphrase</label>
+   <input type="password" id="cfg-key" placeholder="STATS_PASS value from Vercel">
+   <button onclick="loadStats(true)">Load Stats</button>
+   <p class="hint">Setup: see <code>advocacy-vercel/SETUP.md</code> — the endpoint needs PLAUSIBLE_API_KEY, PLAUSIBLE_SITE_ID and STATS_PASS configured in Vercel. Your entries are remembered on this device only.</p>
+  </div>
+
+  <div class="err" id="err"></div>
+  <div id="dash" style="display:none;">
+   <div class="kpis">
+    <div class="kpi"><div class="num" id="k-surveys">–</div><div class="lbl">Surveys completed</div></div>
+    <div class="kpi"><div class="num" id="k-generated">–</div><div class="lbl">Letters generated</div></div>
+    <div class="kpi"><div class="num" id="k-sent">–</div><div class="lbl">"I sent it" clicks</div></div>
+   </div>
+
+   <div class="section">
+    <h2>🔑 Key network-adequacy findings (% of responding patients)</h2>
+    <div class="yes-grid" id="yes-grid"></div>
+   </div>
+
+   <div id="cat-sections"></div>
+
+   <p class="note" id="note"></p>
+  </div>
+ </div>
+
+ <script>
+  var YES_PROPS = [
+   ["could_not_get_timely_appt", "Couldn't get a timely appointment elsewhere"],
+   ["directory_inaccurate", "Hit an inaccurate directory listing"],
+   ["service_unavailable", "Specific service unavailable in network"],
+   ["surveillance", "Under melanoma / mole surveillance"],
+   ["skin_cancer_care", "Treated for skin cancer at Belaray"],
+   ["chronic_or_biologic", "Chronic condition or biologic managed"],
+   ["coordinates_care", "Care coordinated with other doctors"],
+   ["family_beyond_self", "Another family member is a patient"],
+   ["three_generations", "Three generations in the practice"],
+   ["avoided_er", "Avoided an ER visit via Belaray"],
+   ["transport_hardship", "Travel is a hardship (no car / transit)"],
+   ["cannot_afford_oop", "Can't afford out-of-pocket care"],
+   ["other_language", "Receives care in another language"],
+   ["phototherapy", "Receives phototherapy"],
+   ["hair_loss", "Hair-loss care at Belaray"],
+   ["mohs_recon_same_day", "Same-day Mohs + oculoplastic recon"]
+  ];
+  var CAT_PROPS = [
+   ["plan", "Plan type"],
+   ["county", "County"],
+   ["years_patient", "Years as a patient"],
+   ["offices_called", "In-network offices called"],
+   ["wait_quoted", "Earliest appointment quoted elsewhere"],
+   ["distance", "Distance to nearest in-network option"]
+  ];
+
+  (function init() {
+   var u = localStorage.getItem('belaray_stats_url'), k = localStorage.getItem('belaray_stats_key');
+   if (u) document.getElementById('cfg-url').value = u;
+   if (k) document.getElementById('cfg-key').value = k;
+   if (u && k) loadStats(false);
+  })();
+
+  async function loadStats(save) {
+   var url = document.getElementById('cfg-url').value.trim();
+   var key = document.getElementById('cfg-key').value.trim();
+   var err = document.getElementById('err');
+   err.style.display = 'none';
+   if (!url || !key) { showErr('Enter the endpoint URL and passphrase.'); return; }
+   if (save) { localStorage.setItem('belaray_stats_url', url); localStorage.setItem('belaray_stats_key', key); }
+   try {
+    var resp = await fetch(url + '?key=' + encodeURIComponent(key));
+    if (resp.status === 401) { showErr('Wrong passphrase.'); return; }
+    if (!resp.ok) { showErr('Endpoint error (' + resp.status + '). Check the Vercel function logs and that PLAUSIBLE_API_KEY is set.'); return; }
+    render(await resp.json());
+   } catch (e) {
+    showErr('Could not reach the endpoint. Check the URL.');
+   }
+  }
+
+  function showErr(msg) {
+   var err = document.getElementById('err');
+   err.textContent = msg;
+   err.style.display = 'block';
+  }
+
+  function count(breakdown, matchFn) {
+   return (breakdown || []).reduce(function(sum, row) {
+    return sum + (matchFn(row.value) ? row.count : 0);
+   }, 0);
+  }
+
+  function render(data) {
+   document.getElementById('dash').style.display = 'block';
+   document.getElementById('k-surveys').textContent = data.surveys;
+   document.getElementById('k-generated').textContent = data.lettersGenerated;
+   document.getElementById('k-sent').textContent = data.lettersSent;
+   document.getElementById('note').textContent =
+    'Counting anonymous survey submissions since ' + data.since + '. Percentages are of all surveys where patients opted into statistics; a patient who generates letters twice is counted twice. Source: Plausible custom events.';
+
+   var total = data.surveys || 0;
+   var yesGrid = document.getElementById('yes-grid');
+   yesGrid.innerHTML = '';
+   YES_PROPS.forEach(function(p) {
+    var yes = count(data.breakdowns[p[0]], function(v){ return v === 'yes'; });
+    var pct = total ? Math.round(100 * yes / total) : 0;
+    var div = document.createElement('div');
+    div.className = 'yes-item';
+    div.innerHTML = '<span>' + p[1] + '</span><span class="pct">' + pct + '%<span style="font-size:11px;color:#6B7280;font-weight:600;"> (' + yes + ')</span></span>';
+    yesGrid.appendChild(div);
+   });
+
+   var cats = document.getElementById('cat-sections');
+   cats.innerHTML = '';
+   CAT_PROPS.forEach(function(p) {
+    var rows = (data.breakdowns[p[0]] || []).slice().sort(function(a,b){ return b.count - a.count; });
+    if (!rows.length) return;
+    var max = rows[0].count;
+    var sec = document.createElement('div');
+    sec.className = 'section';
+    var h = document.createElement('h2');
+    h.textContent = p[1];
+    sec.appendChild(h);
+    rows.forEach(function(r) {
+     var pct = total ? Math.round(100 * r.count / total) : 0;
+     var row = document.createElement('div');
+     row.className = 'bar-row';
+     row.innerHTML = '<div class="bar-label">' + escapeHtml(r.value) + '</div>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + (max ? Math.round(100*r.count/max) : 0) + '%"></div></div>' +
+      '<div class="bar-val">' + pct + '% (' + r.count + ')</div>';
+     sec.appendChild(row);
+    });
+    cats.appendChild(sec);
+   });
+  }
+
+  function escapeHtml(s) {
+   var d = document.createElement('div');
+   d.textContent = String(s);
+   return d.innerHTML;
+  }
+ </script>
+</body>
+</html>

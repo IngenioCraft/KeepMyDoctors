@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Make Your Voice Heard | Belaray Dermatology & Healthfirst</title>
+ <meta name="description" content="Help Belaray Dermatology get back in network with Healthfirst. Answer a few questions and we'll draft a personal letter you can send in minutes.">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #5B8FA8;
+    --teal-dark: #4a7a91;
+    --teal-light: #e8f2f7;
+    --teal-bg: #f4f9fb;
+    --dark: #1f2937;
+    --gray: #6B7280;
+    --light: #F9FAFB;
+    --white: #ffffff;
+    --green: #16A34A;
+    --green-light: #F0FDF4;
+    --amber: #D97706;
+  }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ===== LANGUAGE TOGGLE ===== */
+  .lang-toggle {
+    position: fixed; top: 12px; right: 12px; z-index: 1001;
+    display: flex; gap: 4px;
+    background: rgba(91,143,168,0.95);
+    border-radius: 8px; padding: 4px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  }
+  .lang-btn {
+    padding: 8px 14px; border: none; border-radius: 6px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    transition: all 0.2s; background: transparent; color: #fff; min-height: 44px;
+  }
+  .lang-btn.active { background: #fff; color: var(--teal); }
+  .es { display: none; }
+  body.spanish .en { display: none; }
+  body.spanish .es { display: block; }
+  body.spanish span.es, body.spanish a.es { display: inline; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--teal-bg) 0%, var(--white) 100%);
+    padding: 28px 20px 32px;
+    text-align: center;
+    border-bottom: 3px solid var(--teal);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal); color: #fff;
+    padding: 8px 20px; border-radius: 24px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 800; line-height: 1.2; margin-bottom: 12px;
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 17px);
+    color: var(--gray); max-width: 600px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .hero-sub a { color: var(--teal-dark); font-weight: 700; }
+
+  /* ===== FORM ===== */
+  .form-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+  .form-card {
+    background: var(--white);
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .form-card h2 {
+    font-size: 18px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .step-num {
+    background: var(--teal); color: #fff;
+    width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+  }
+  .form-card .hint { font-size: 13px; color: var(--gray); margin-bottom: 14px; }
+  .field { margin-bottom: 14px; }
+  .field label.f-label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .field input[type="text"], .field select, .field textarea {
+    width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 10px;
+    font-family: inherit; font-size: 15px; color: var(--dark); background: #fff;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--teal); }
+  .field textarea { min-height: 96px; resize: vertical; }
+  .check-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; border: 2px solid #eef1f4; border-radius: 10px;
+    margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .check-row:hover { border-color: var(--teal); }
+  .check-row.checked { border-color: var(--teal); background: var(--teal-bg); }
+  .check-row input { margin-top: 4px; min-width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer; }
+  .check-row span.txt { font-size: 14px; line-height: 1.5; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+  .privacy-note {
+    background: var(--light); border-radius: 12px; padding: 14px 16px;
+    font-size: 13px; color: var(--gray); margin-bottom: 18px; line-height: 1.6;
+  }
+
+  .generate-btn {
+    display: block; width: 100%;
+    background: var(--teal); color: #fff; border: none; cursor: pointer;
+    padding: 16px; border-radius: 28px;
+    font-size: 18px; font-weight: 800; font-family: inherit;
+    box-shadow: 0 4px 20px rgba(91,143,168,0.4);
+    transition: transform 0.2s, filter 0.2s;
+  }
+  .generate-btn:hover { filter: brightness(0.94); transform: translateY(-1px); }
+  .generate-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+  /* ===== RESULTS ===== */
+  .letter-card {
+    background: var(--white); border: 2px solid var(--teal);
+    border-radius: 16px; padding: 22px; margin-top: 22px;
+    box-shadow: 0 4px 16px rgba(91,143,168,0.15);
+  }
+  .letter-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .letter-card .to-line { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+  .letter-card textarea {
+    width: 100%; min-height: 320px; padding: 14px;
+    border: 2px solid #e5e7eb; border-radius: 10px;
+    font-family: inherit; font-size: 14px; line-height: 1.7; color: var(--dark);
+    resize: vertical;
+  }
+  .letter-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .act-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 24px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 800; font-family: inherit;
+    text-decoration: none; min-height: 44px; transition: filter 0.2s, transform 0.2s;
+  }
+  .act-btn:hover { filter: brightness(0.94); transform: translateY(-1px); }
+  .act-primary { background: var(--teal); color: #fff; }
+  .act-secondary { background: var(--teal-light); color: var(--teal-dark); }
+  .send-note { font-size: 13px; color: var(--gray); margin-top: 10px; line-height: 1.6; }
+  .send-note a { color: var(--teal-dark); font-weight: 700; }
+
+  .spinner {
+    display: inline-block; width: 18px; height: 18px;
+    border: 3px solid rgba(255,255,255,0.4); border-top-color: #fff;
+    border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: -4px; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== TOAST ===== */
+  .toast-notification {
+    position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%);
+    background: #1a1a2e; color: #fff; padding: 16px 28px; border-radius: 12px;
+    font-size: 1rem; font-weight: 600; z-index: 100000;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    transition: bottom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    text-align: center; max-width: 90vw; border: 2px solid var(--teal);
+  }
+  .toast-notification.show { bottom: 30px; }
+
+  footer {
+    background: var(--dark); color: #9CA3AF;
+    text-align: center; padding: 28px 20px;
+    font-size: 13px; line-height: 1.8;
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+ </style>
+ <script async src="https://plausible.io/js/pa-WhrBFEXMP6NUSZvRqGXVV.js"></script>
+ <script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+ </script>
+</head>
+<body>
+
+ <div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')" id="btn-en">English</button>
+  <button class="lang-btn" onclick="setLang('es')" id="btn-es">Español</button>
+ </div>
+
+ <section class="hero">
+  <div class="hero-badge">
+   <span class="en">Patient Advocacy</span>
+   <span class="es">Apoyo del Paciente</span>
+  </div>
+  <h1>
+   <span class="en">Your Voice Can Bring Belaray Back In Network</span>
+   <span class="es">Su Voz Puede Ayudar a que Belaray Vuelva a la Red</span>
+  </h1>
+  <p class="hero-sub">
+   <span class="en">Healthfirst has declined to bring Belaray Dermatology back into its network — but members and voters have real power. Answer a few quick questions below and we'll draft a personal letter for you to review, edit, and send. It takes about 3 minutes.</span>
+   <span class="es">Healthfirst decidió no aceptar a Belaray Dermatology de vuelta en su red — pero los miembros y votantes tienen poder real. Conteste unas preguntas rápidas y prepararemos una carta personal que usted puede revisar, editar y enviar. Toma unos 3 minutos.</span>
+  </p>
+ </section>
+
+ <div class="form-wrap">
+
+  <div class="privacy-note">
+   <span class="en"><strong>Your privacy:</strong> Your answers are used only to draft your letter — they are not stored on this website. Health questions are optional; skip anything you'd rather not share, and don't include your date of birth, member ID, or private medical details you wouldn't want in a letter. With your permission, your checkbox answers (never your name or written words) may be counted in anonymous combined statistics. The letter is written in English, since that's the language these offices work in. Nothing is sent unless you choose to send it.</span>
+   <span class="es"><strong>Su privacidad:</strong> Sus respuestas se usan solamente para preparar su carta — no se guardan en este sitio. Las preguntas de salud son opcionales; omita lo que prefiera no compartir, y no incluya su fecha de nacimiento, número de miembro, ni detalles médicos privados que no quiera en una carta. Con su permiso, sus respuestas marcadas (nunca su nombre ni sus palabras escritas) pueden contarse en estadísticas anónimas combinadas. La carta se escribe en inglés, porque es el idioma de estas oficinas. Nada se envía a menos que usted decida enviarlo.</span>
+  </div>
+
+  <!-- STEP 1: ABOUT YOU -->
+  <div class="form-card">
+   <h2><span class="step-num">1</span> <span class="en">About you</span><span class="es">Sobre usted</span></h2>
+   <p class="hint">
+    <span class="en">Your name and town make the letter real — legislators listen to constituents.</span>
+    <span class="es">Su nombre y su pueblo hacen la carta real — los legisladores escuchan a sus votantes.</span>
+   </p>
+   <div class="two-col">
+    <div class="field">
+     <label class="f-label" for="f-name"><span class="en">Your name</span><span class="es">Su nombre</span></label>
+     <input type="text" id="f-name" autocomplete="name">
+    </div>
+    <div class="field">
+     <label class="f-label" for="f-town"><span class="en">Where do you live?</span><span class="es">¿Dónde vive?</span></label>
+     <select id="f-town">
+      <option value="" data-county="nassau" data-en="Select your town…" data-es="Seleccione su pueblo…">Select your town…</option>
+      <optgroup label="Nassau County" data-en="Nassau County" data-es="Condado de Nassau">
+       <option value="Hicksville" data-county="nassau">Hicksville</option>
+       <option value="Levittown" data-county="nassau">Levittown</option>
+       <option value="Bethpage" data-county="nassau">Bethpage</option>
+       <option value="Plainview" data-county="nassau">Plainview</option>
+       <option value="Syosset" data-county="nassau">Syosset</option>
+       <option value="Jericho" data-county="nassau">Jericho</option>
+       <option value="Westbury" data-county="nassau">Westbury</option>
+       <option value="East Meadow" data-county="nassau">East Meadow</option>
+       <option value="Farmingdale" data-county="nassau">Farmingdale</option>
+       <option value="Massapequa" data-county="nassau">Massapequa</option>
+       <option value="another town in Nassau County" data-county="nassau" data-en="Other Nassau town" data-es="Otro pueblo de Nassau">Other Nassau town</option>
+      </optgroup>
+      <optgroup label="Suffolk County" data-en="Suffolk County" data-es="Condado de Suffolk">
+       <option value="Stony Brook" data-county="suffolk">Stony Brook</option>
+       <option value="Setauket / East Setauket" data-county="suffolk">Setauket / East Setauket</option>
+       <option value="Port Jefferson / Port Jefferson Station" data-county="suffolk">Port Jefferson / Port Jeff Station</option>
+       <option value="St. James" data-county="suffolk">St. James</option>
+       <option value="Smithtown" data-county="suffolk">Smithtown</option>
+       <option value="Lake Grove" data-county="suffolk">Lake Grove</option>
+       <option value="Centereach" data-county="suffolk">Centereach</option>
+       <option value="Selden" data-county="suffolk">Selden</option>
+       <option value="Coram" data-county="suffolk">Coram</option>
+       <option value="another town in Suffolk County" data-county="suffolk" data-en="Other Suffolk town" data-es="Otro pueblo de Suffolk">Other Suffolk town</option>
+      </optgroup>
+      <option value="Long Island" data-county="nassau" data-en="Somewhere else" data-es="Otro lugar">Somewhere else</option>
+     </select>
+    </div>
+   </div>
+   <div class="field">
+    <label class="f-label" for="f-plan"><span class="en">Which Healthfirst plan do you have?</span><span class="es">¿Qué plan de Healthfirst tiene?</span></label>
+    <select id="f-plan">
+     <option value="medicaid" data-en="Medicaid Managed Care (including HARP)" data-es="Medicaid Managed Care (incluye HARP)">Medicaid Managed Care (including HARP)</option>
+     <option value="essential" data-en="Essential Plan" data-es="Essential Plan (Plan Esencial)">Essential Plan</option>
+     <option value="chp" data-en="Child Health Plus (my child's plan)" data-es="Child Health Plus (el plan de mi hijo/a)">Child Health Plus (my child's plan)</option>
+     <option value="medicare" data-en="Medicare plan through Healthfirst" data-es="Plan de Medicare con Healthfirst">Medicare plan through Healthfirst</option>
+     <option value="commercial" data-en="Plan through my job or the NY marketplace" data-es="Plan por mi trabajo o el mercado de NY">Plan through my job or the NY marketplace</option>
+     <option value="notsure" data-en="Not sure" data-es="No estoy seguro/a">Not sure</option>
+    </select>
+   </div>
+  </div>
+
+  <!-- STEP 2: YOUR HISTORY -->
+  <div class="form-card">
+   <h2><span class="step-num">2</span> <span class="en">Your history with Belaray</span><span class="es">Su historia con Belaray</span></h2>
+   <div class="two-col">
+    <div class="field">
+     <label class="f-label" for="f-years"><span class="en">How long have you been a patient?</span><span class="es">¿Cuánto tiempo lleva como paciente?</span></label>
+     <select id="f-years">
+      <option value="" data-en="Select…" data-es="Seleccione…">Select…</option>
+      <option value="less than 1 year" data-en="Less than 1 year" data-es="Menos de 1 año">Less than 1 year</option>
+      <option value="1-5 years" data-en="1–5 years" data-es="1–5 años">1–5 years</option>
+      <option value="5-10 years" data-en="5–10 years" data-es="5–10 años">5–10 years</option>
+      <option value="10-20 years" data-en="10–20 years" data-es="10–20 años">10–20 years</option>
+      <option value="more than 20 years - since the practice opened" data-en="20+ years — since they opened" data-es="Más de 20 años — desde que abrieron">20+ years — since they opened</option>
+     </select>
+    </div>
+    <div class="field">
+     <label class="f-label" for="f-found"><span class="en">How did you find Belaray?</span><span class="es">¿Cómo encontró a Belaray?</span></label>
+     <select id="f-found">
+      <option value="" data-en="Select…" data-es="Seleccione…">Select…</option>
+      <option value="referred by my primary care doctor" data-en="My doctor referred me" data-es="Mi médico me refirió">My doctor referred me</option>
+      <option value="recommended by family or friends" data-en="Family or friends" data-es="Familia o amigos">Family or friends</option>
+      <option value="through my insurance directory" data-en="My insurance directory" data-es="El directorio de mi seguro">My insurance directory</option>
+      <option value="online reviews" data-en="Online reviews" data-es="Reseñas en línea">Online reviews</option>
+      <option value="my family has gone there for years" data-en="My family has gone for years" data-es="Mi familia va desde hace años">My family has gone for years</option>
+     </select>
+    </div>
+   </div>
+  </div>
+
+  <!-- STEP 3: WHAT LOSING BELARAY MEANS -->
+  <div class="form-card">
+   <h2><span class="step-num">3</span> <span class="en">What losing Belaray would mean for you</span><span class="es">Qué significaría perder a Belaray</span></h2>
+   <p class="hint"><span class="en">Check everything that's true for you.</span><span class="es">Marque todo lo que sea cierto para usted.</span></p>
+   <div id="grp-meaning">
+    <label class="check-row"><input type="checkbox" value="I would lose the doctor who knows me and my medical history"><span class="txt"><span class="en">I'd lose the doctor who knows me and my history</span><span class="es">Perdería al médico que me conoce y conoce mi historia</span></span></label>
+    <label class="check-row"><input type="checkbox" value="My ongoing treatment or skin cancer monitoring would be interrupted"><span class="txt"><span class="en">My ongoing treatment or skin-cancer monitoring would be interrupted</span><span class="es">Mi tratamiento o vigilancia de cáncer de piel sería interrumpido</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I would have to travel much farther for dermatology care"><span class="txt"><span class="en">I'd have to travel much farther for care</span><span class="es">Tendría que viajar mucho más lejos para recibir atención</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I would face long waits to be seen somewhere new"><span class="txt"><span class="en">I'd face long waits to be seen somewhere new</span><span class="es">Tendría que esperar mucho para que me atiendan en otro lugar</span></span></label>
+    <label class="check-row"><input type="checkbox" value="It would be a hardship for an elderly or disabled member of my family who is also a patient"><span class="txt"><span class="en">It would be a hardship for an elderly or disabled family member who's also a patient</span><span class="es">Sería una dificultad para un familiar mayor o discapacitado que también es paciente</span></span></label>
+    <label class="check-row"><input type="checkbox" value="My whole family goes to Belaray and we would all lose our dermatologist"><span class="txt"><span class="en">My whole family goes to Belaray</span><span class="es">Toda mi familia va a Belaray</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I cannot afford to pay for visits out of pocket, so my plan's decision effectively ends this doctor-patient relationship"><span class="txt"><span class="en">I can't afford to pay out of pocket — my plan's decision effectively ends this relationship</span><span class="es">No puedo pagar de mi bolsillo — la decisión de mi plan efectivamente termina esta relación</span></span></label>
+    <label class="check-row"><input type="checkbox" value="After years with this practice I am comfortable with them for sensitive exams and procedures, and starting over with a stranger is not the same"><span class="txt"><span class="en">I trust this practice with sensitive exams and procedures — starting over with a stranger isn't the same</span><span class="es">Confío en esta práctica para exámenes y procedimientos delicados — empezar de nuevo con un desconocido no es lo mismo</span></span></label>
+   </div>
+   <div class="field" style="margin-top:12px;">
+    <label class="f-label"><span class="en">Who gets care at Belaray? (check all that apply)</span><span class="es">¿Quiénes se atienden en Belaray? (marque todos)</span></label>
+    <div id="grp-family">
+     <label class="check-row"><input type="checkbox" value="me"><span class="txt"><span class="en">Me</span><span class="es">Yo</span></span></label>
+     <label class="check-row"><input type="checkbox" value="my spouse or partner"><span class="txt"><span class="en">My spouse / partner</span><span class="es">Mi esposo/a o pareja</span></span></label>
+     <label class="check-row"><input type="checkbox" value="my children"><span class="txt"><span class="en">My children</span><span class="es">Mis hijos</span></span></label>
+     <label class="check-row"><input type="checkbox" value="my parents"><span class="txt"><span class="en">My parents</span><span class="es">Mis padres</span></span></label>
+     <label class="check-row"><input type="checkbox" value="three generations of my family"><span class="txt"><span class="en">Three generations of my family</span><span class="es">Tres generaciones de mi familia</span></span></label>
+    </div>
+   </div>
+  </div>
+
+  <!-- STEP 4: ACCESS PROBLEMS -->
+  <div class="form-card">
+   <h2><span class="step-num">4</span> <span class="en">Have you tried finding another dermatologist?</span><span class="es">¿Ha intentado encontrar otro dermatólogo?</span></h2>
+   <p class="hint">
+    <span class="en"><strong>This part matters most — here's why.</strong> By refusing to bring Belaray back, Healthfirst is effectively saying its network already has enough dermatologists to see you on time. New York's standard is a specialist appointment within about <strong>4–6 weeks</strong>. So try it: call the dermatologists in your Healthfirst directory. If you can't actually get an appointment within 6 weeks, Healthfirst's claim doesn't hold up — and that's exactly the evidence regulators act on. Only report what really happened.</span>
+    <span class="es"><strong>Esta parte es la más importante — y aquí está el porqué.</strong> Al negarse a aceptar a Belaray de vuelta, Healthfirst está diciendo en efecto que su red ya tiene suficientes dermatólogos para atenderlo a tiempo. El estándar de Nueva York es una cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Así que pruébelo: llame a los dermatólogos del directorio de Healthfirst. Si en realidad no puede conseguir una cita dentro de 6 semanas, la afirmación de Healthfirst no se sostiene — y esa es exactamente la evidencia sobre la que actúan los reguladores. Reporte solamente lo que realmente pasó.</span>
+   </p>
+   <div id="grp-access">
+    <label class="check-row"><input type="checkbox" value="I called other in-network dermatologists and could not get a timely appointment"><span class="txt"><span class="en">I called other in-network dermatologists and couldn't get a timely appointment</span><span class="es">Llamé a otros dermatólogos de la red y no pude conseguir una cita pronto</span></span></label>
+    <label class="check-row"><input type="checkbox" value="The nearest in-network dermatologist is far from my home or hard to reach"><span class="txt"><span class="en">The nearest in-network dermatologist is far away or hard to get to</span><span class="es">El dermatólogo más cercano de la red está lejos o es difícil llegar</span></span></label>
+    <label class="check-row"><input type="checkbox" value="Doctors listed in the Healthfirst directory were not actually accepting new patients or not actually in network"><span class="txt"><span class="en">Doctors in the Healthfirst directory weren't actually taking patients (or weren't really in network)</span><span class="es">Médicos en el directorio de Healthfirst no estaban aceptando pacientes (o realmente no estaban en la red)</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I could not find an in-network Mohs skin cancer surgeon"><span class="txt"><span class="en">I couldn't find an in-network Mohs skin-cancer surgeon</span><span class="es">No pude encontrar un cirujano de Mohs (cáncer de piel) en la red</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I could not find any in-network office that offers the specific service I need (such as phototherapy, or Mohs surgery with same-day oculoplastic reconstruction)"><span class="txt"><span class="en">I couldn't find any in-network office offering the specific service I need (like phototherapy, or Mohs with same-day eyelid reconstruction)</span><span class="es">No encontré ninguna oficina en la red que ofrezca el servicio específico que necesito (como fototerapia, o Mohs con reconstrucción de párpado el mismo día)</span></span></label>
+    <label class="check-row"><input type="checkbox" value="Traveling farther would be a real hardship for me because I do not drive or rely on rides or public transportation"><span class="txt"><span class="en">Traveling farther is a real hardship for me — I don't drive / rely on rides or public transit</span><span class="es">Viajar más lejos es una verdadera dificultad — no manejo / dependo de otros o del transporte público</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I have not tried yet"><span class="txt"><span class="en">I haven't tried yet</span><span class="es">Todavía no he buscado</span></span></label>
+   </div>
+   <div id="access-detail" style="display:none;">
+   <div class="field" style="margin-top:10px;">
+    <label class="f-label" for="f-calls"><span class="en">How many in-network offices have you called?</span><span class="es">¿A cuántas oficinas de la red ha llamado?</span></label>
+    <select id="f-calls">
+     <option value="" data-en="None yet" data-es="Ninguna todavía">None yet</option>
+     <option value="one or two offices" data-en="1–2 offices" data-es="1–2 oficinas">1–2 offices</option>
+     <option value="three to five offices" data-en="3–5 offices" data-es="3–5 oficinas">3–5 offices</option>
+     <option value="six or more offices" data-en="6 or more offices" data-es="6 o más oficinas">6 or more offices</option>
+    </select>
+   </div>
+   <div class="two-col" style="margin-top:10px;">
+    <div class="field">
+     <label class="f-label" for="f-wait"><span class="en">If you called around — how long was the wait?</span><span class="es">Si llamó a otros — ¿cuánto era la espera?</span></label>
+     <select id="f-wait">
+      <option value="" data-en="Didn't call / not sure" data-es="No llamé / no sé">Didn't call / not sure</option>
+      <option value="a few weeks" data-en="A few weeks" data-es="Unas semanas">A few weeks</option>
+      <option value="about a month" data-en="About a month" data-es="Como un mes">About a month</option>
+      <option value="one to two months" data-en="1–2 months" data-es="1–2 meses">1–2 months</option>
+      <option value="two to three months" data-en="2–3 months" data-es="2–3 meses">2–3 months</option>
+      <option value="more than three months" data-en="More than 3 months" data-es="Más de 3 meses">More than 3 months</option>
+      <option value="I could not get an appointment at all" data-en="Couldn't get one at all" data-es="No conseguí cita">Couldn't get one at all</option>
+     </select>
+    </div>
+    <div class="field">
+     <label class="f-label" for="f-distance"><span class="en">How far is the nearest in-network option?</span><span class="es">¿Qué tan lejos queda la opción más cercana en la red?</span></label>
+     <select id="f-distance">
+      <option value="" data-en="Not sure / didn't check" data-es="No sé / no busqué">Not sure / didn't check</option>
+      <option value="under 15 minutes" data-en="Under 15 minutes away" data-es="A menos de 15 minutos">Under 15 minutes away</option>
+      <option value="15 to 30 minutes" data-en="15–30 minutes away" data-es="A 15–30 minutos">15–30 minutes away</option>
+      <option value="30 to 45 minutes" data-en="30–45 minutes away" data-es="A 30–45 minutos">30–45 minutes away</option>
+      <option value="45 minutes to an hour" data-en="45–60 minutes away" data-es="A 45–60 minutos">45–60 minutes away</option>
+      <option value="more than an hour" data-en="Over an hour away" data-es="A más de una hora">Over an hour away</option>
+     </select>
+    </div>
+   </div>
+   </div><!-- /access-detail -->
+  </div>
+
+  <!-- STEP 5: YOUR CARE -->
+  <div class="form-card">
+   <h2><span class="step-num">5</span> <span class="en">Your care at Belaray</span><span class="es">Su atención en Belaray</span></h2>
+   <p class="hint"><span class="en">Check any that apply to you or your family.</span><span class="es">Marque lo que aplique a usted o su familia.</span></p>
+   <div id="grp-care">
+    <label class="check-row"><input type="checkbox" value="I have been treated for skin cancer at Belaray"><span class="txt"><span class="en">I've been treated for skin cancer at Belaray</span><span class="es">Me han tratado cáncer de piel en Belaray</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I get regular skin cancer screenings at Belaray"><span class="txt"><span class="en">I get regular skin-cancer screenings there</span><span class="es">Me hacen chequeos regulares de cáncer de piel allí</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I had Mohs surgery at Belaray"><span class="txt"><span class="en">I had Mohs surgery at Belaray</span><span class="es">Me hicieron cirugía de Mohs en Belaray</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I had Mohs skin cancer surgery with same-day oculoplastic (eyelid) reconstruction, done together in one visit under one roof at Belaray"><span class="txt"><span class="en">I had Mohs surgery with same-day oculoplastic (eyelid) reconstruction — all in one visit, under one roof</span><span class="es">Me hicieron cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día — todo en una visita, en un solo lugar</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I receive phototherapy (medical light treatment) at Belaray, which very few offices still offer"><span class="txt"><span class="en">I receive phototherapy (light treatment) there — very few offices still offer this</span><span class="es">Recibo fototerapia (tratamiento de luz) allí — muy pocas oficinas todavía la ofrecen</span></span></label>
+    <label class="check-row"><input type="checkbox" value="Belaray treats my hair loss"><span class="txt"><span class="en">Belaray treats my hair loss</span><span class="es">Belaray trata mi pérdida de cabello</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist"><span class="txt"><span class="en">I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist</span><span class="es">También veo a la Dra. Rachel Ellis, su especialista oculoplástica (párpados)</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I am on an ongoing or complex treatment (such as a biologic medication) managed by Belaray"><span class="txt"><span class="en">Belaray manages an ongoing or complex treatment for me (like a biologic medication)</span><span class="es">Belaray maneja un tratamiento continuo o complejo para mí (como un medicamento biológico)</span></span></label>
+    <label class="check-row"><input type="checkbox" value="Belaray manages a chronic skin condition for me that needs ongoing follow-up (such as psoriasis or eczema)"><span class="txt"><span class="en">They manage a chronic skin condition for me (like psoriasis or eczema) that needs ongoing follow-up</span><span class="es">Manejan una condición crónica de la piel (como psoriasis o eczema) que necesita seguimiento continuo</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I am under ongoing surveillance for melanoma or atypical moles, and my doctor knows exactly where my prior spots and biopsies were"><span class="txt"><span class="en">I'm under ongoing melanoma / atypical-mole surveillance — my doctor knows exactly where my prior spots were</span><span class="es">Estoy bajo vigilancia continua de melanoma / lunares atípicos — mi médico sabe exactamente dónde estaban mis manchas anteriores</span></span></label>
+    <label class="check-row"><input type="checkbox" value="My Belaray dermatologist coordinates my care with my other doctors (such as my primary care doctor, oncologist, rheumatologist, allergist, or surgeon)"><span class="txt"><span class="en">They coordinate my care with my other doctors (primary care, oncologist, rheumatologist, etc.)</span><span class="es">Coordinan mi atención con mis otros médicos (médico de cabecera, oncólogo, reumatólogo, etc.)</span></span></label>
+    <label class="check-row"><input type="checkbox" value="I have used Belaray's 24/7 physician-answered phone line"><span class="txt"><span class="en">I've used their 24/7 phone line where a physician answers</span><span class="es">He usado su línea 24/7 donde contesta un médico</span></span></label>
+    <label class="check-row"><input type="checkbox" value="Belaray saw me quickly and helped me avoid an emergency room visit"><span class="txt"><span class="en">Belaray saw me quickly and helped me avoid an ER visit</span><span class="es">Belaray me atendió rápido y me ayudó a evitar una visita a la sala de emergencias</span></span></label>
+   </div>
+   <div class="field" style="margin-top:10px;">
+    <label class="f-label" for="f-language"><span class="en">Do you receive care at Belaray in a language other than English?</span><span class="es">¿Recibe atención en Belaray en un idioma que no sea inglés?</span></label>
+    <select id="f-language">
+     <option value="" data-en="No / English is fine" data-es="No / inglés está bien">No / English is fine</option>
+     <option value="Spanish" data-en="Yes — Spanish" data-es="Sí — español">Yes — Spanish</option>
+     <option value="Punjabi" data-en="Yes — Punjabi" data-es="Sí — punjabi">Yes — Punjabi</option>
+     <option value="Bengali" data-en="Yes — Bengali" data-es="Sí — bengalí">Yes — Bengali</option>
+     <option value="another language" data-en="Yes — another language" data-es="Sí — otro idioma">Yes — another language</option>
+    </select>
+   </div>
+  </div>
+
+  <!-- SPECIALIZED SERVICES CALLOUT -->
+  <div class="form-card" style="border-color: var(--amber); background: #FFFBEB;">
+   <h2 style="display:block;">🔬 <span class="en" style="display:inline;">Need care almost no one else offers?</span><span class="es" style="display:inline;">¿Necesita atención que casi nadie más ofrece?</span></h2>
+   <p style="font-size:14px; color:#374151; line-height:1.7; margin-top:8px;">
+    <span class="en">Some services at Belaray are nearly impossible to find elsewhere in network: <strong>Mohs surgery with same-day oculoplastic (eyelid) reconstruction under one roof</strong>, <strong>phototherapy</strong>, and <strong>specialized hair-loss care</strong>. If you need one of these, check it above — a network that can't provide the <em>specific</em> service a member needs is exactly what regulators call a network adequacy gap. And <strong><a href="sms:5168227546" style="color:var(--teal-dark);">text</a> or <a href="tel:+15168227546" style="color:var(--teal-dark);">call us at (516) 822-7546</a></strong> — we'll help you get the care you need in the meantime.</span>
+    <span class="es">Algunos servicios de Belaray son casi imposibles de encontrar en la red: <strong>cirugía de Mohs con reconstrucción oculoplástica (párpado) el mismo día, en un solo lugar</strong>, <strong>fototerapia</strong>, y <strong>tratamiento especializado de pérdida de cabello</strong>. Si necesita uno de estos, márquelo arriba — una red que no puede proveer el servicio <em>específico</em> que un miembro necesita es exactamente lo que los reguladores llaman una brecha de adecuación de red. Y <strong><a href="sms:5168227546" style="color:var(--teal-dark);">escríbanos</a> o <a href="tel:+15168227546" style="color:var(--teal-dark);">llámenos al (516) 822-7546</a></strong> — le ayudamos a conseguir la atención que necesita mientras tanto.</span>
+   </p>
+  </div>
+
+  <!-- STEP 6: OWN WORDS -->
+  <div class="form-card">
+   <h2><span class="step-num">6</span> <span class="en">In your own words (optional)</span><span class="es">En sus propias palabras (opcional)</span></h2>
+   <p class="hint"><span class="en">What concerns you most about losing this practice? A sentence or two in any language is perfect — your letter will still come out in English. No need to mention staff by name — "my doctor" or "the Belaray team" is perfect.</span><span class="es">¿Qué es lo que más le preocupa de perder esta práctica? Una o dos frases en cualquier idioma está perfecto — su carta saldrá en inglés. No hace falta nombrar al personal — "mi médico" o "el equipo de Belaray" está perfecto.</span></p>
+   <div class="field">
+    <textarea id="f-ownwords" maxlength="700"></textarea>
+   </div>
+  </div>
+
+  <!-- CONSENT -->
+  <div class="form-card" style="border-color: var(--teal);">
+   <label class="check-row"><input type="checkbox" id="consent-review"><span class="txt"><span class="en"><strong>I understand</strong> that the letters below will be generated from my answers, and that I will review and edit them before deciding whether to send them. They are my words, sent by me.</span><span class="es"><strong>Entiendo</strong> que las cartas se generarán a partir de mis respuestas, y que las revisaré y editaré antes de decidir si las envío. Son mis palabras, enviadas por mí.</span></span></label>
+   <label class="check-row checked"><input type="checkbox" id="consent-stats" checked><span class="txt"><span class="en">My answers — <strong>never my name</strong> — may be counted in combined statistics about patient access (for example, "63% of patients couldn't get a timely appointment elsewhere").</span><span class="es">Mis respuestas — <strong>nunca mi nombre</strong> — pueden contarse en estadísticas combinadas sobre el acceso de los pacientes (por ejemplo, "63% de los pacientes no pudieron conseguir una cita a tiempo").</span></span></label>
+  </div>
+
+  <button class="generate-btn" id="generate" onclick="generate()">
+   <span class="en">✍️ Write My Letters</span>
+   <span class="es">✍️ Escribir Mis Cartas</span>
+  </button>
+
+  <!-- RESULTS -->
+  <div id="results" style="display:none;">
+   <label class="check-row checked" style="margin-top:22px;"><input type="checkbox" id="cc-practice" checked><span class="txt"><span class="en">CC Belaray (jeff@belaray.com) on my emails so the practice knows my letters were sent</span><span class="es">Enviar copia (CC) a Belaray (jeff@belaray.com) para que la práctica sepa que mis cartas fueron enviadas</span></span></label>
+   <div class="letter-card" id="card-assembly">
+    <h3><span class="en">📬 Letter 1: To your NY State legislators</span><span class="es">📬 Carta 1: A sus legisladores estatales de NY</span></h3>
+    <p class="to-line" id="assembly-toline"></p>
+    <textarea id="txt-assembly"></textarea>
+    <div class="letter-actions">
+     <button class="act-btn act-secondary" onclick="copyLetter('txt-assembly')"><span class="en">📋 Copy Letter</span><span class="es">📋 Copiar Carta</span></button>
+     <a class="act-btn act-primary" id="mail-assembly" href="#" onclick="return openMail('assembly')">✉️ <span id="mail-assembly-label"></span></a>
+     <a class="act-btn act-primary" id="mail-senate" href="#" onclick="return openMail('senate')">✉️ <span id="mail-senate-label"></span></a>
+     <button class="act-btn act-secondary" onclick="printLetter('txt-assembly')"><span class="en">🖨️ Print</span><span class="es">🖨️ Imprimir</span></button>
+     <button class="act-btn act-secondary" onclick="markSent('assembly')"><span class="en">✅ I sent it!</span><span class="es">✅ ¡La envié!</span></button>
+    </div>
+    <p class="send-note" id="assembly-note"></p>
+   </div>
+
+   <div class="letter-card" id="card-regulator">
+    <h3><span class="en">🏛️ Letter 2: To the agency that regulates your plan</span><span class="es">🏛️ Carta 2: A la agencia que regula su plan</span></h3>
+    <p class="to-line" id="regulator-toline"></p>
+    <textarea id="txt-regulator"></textarea>
+    <div class="letter-actions" id="regulator-actions"></div>
+    <p class="send-note" id="regulator-note"></p>
+   </div>
+  </div>
+
+ </div>
+
+ <footer>
+  <p>
+   <span class="en">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="healthfirst.html">Healthfirst updates</a></span>
+   <span class="es">Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> · <a href="healthfirst.html">Noticias de Healthfirst</a></span>
+  </p>
+ </footer>
+
+ <div class="toast-notification" id="toast-notification"></div>
+
+ <script>
+  // Letter-API endpoint (Vercel serverless function in the Invest project;
+  // see advocacy-vercel/SETUP.md). If unreachable, the page automatically
+  // falls back to the built-in template letters.
+  const WORKER_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/letter";
+
+  // ===== LANGUAGE =====
+  function setLang(lang) {
+    document.body.classList.toggle('spanish', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang !== 'es');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.querySelectorAll('option[data-en]').forEach(function(o) {
+      o.textContent = lang === 'es' ? o.dataset.es : o.dataset.en;
+    });
+    document.querySelectorAll('optgroup[data-en]').forEach(function(g) {
+      g.label = lang === 'es' ? g.dataset.es : g.dataset.en;
+    });
+  }
+  (function() {
+    if (new URLSearchParams(window.location.search).get('lang') === 'es') setLang('es');
+  })();
+
+  // checkbox visual state
+  document.querySelectorAll('.check-row input').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      cb.closest('.check-row').classList.toggle('checked', cb.checked);
+    });
+  });
+
+  // Conditional branching: only show the wait/distance/calls questions once the
+  // patient indicates they've actually tried to find a replacement.
+  document.querySelectorAll('#grp-access input').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var tried = Array.prototype.some.call(
+        document.querySelectorAll('#grp-access input:checked'),
+        function(c) { return c.value !== 'I have not tried yet'; }
+      );
+      document.getElementById('access-detail').style.display = tried ? 'block' : 'none';
+    });
+  });
+
+  function showToast(msg) {
+    var t = document.getElementById('toast-notification');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+  }
+
+  function checkedValues(groupId) {
+    return Array.prototype.map.call(
+      document.querySelectorAll('#' + groupId + ' input:checked'),
+      function(cb) { return cb.value; }
+    );
+  }
+
+  // Legislator routing by county — verified August 2026.
+  // Nassau (Hicksville area): Assemblyman Jake Blumencranz (AD-15) + Senator Steve Rhoads (SD-5).
+  // Suffolk (Stony Brook area): Assemblywoman Rebecca Kassay (AD-4) + Senator Anthony Palumbo (SD-1).
+  const REPS = {
+    nassau: {
+      assembly: {
+        name: "Assemblyman Jake Blumencranz",
+        salutation: "Assemblyman Blumencranz",
+        email: "blumencranzj@nyassembly.gov",
+        district: "15th Assembly District"
+      },
+      senate: {
+        name: "Senator Steve Rhoads",
+        salutation: "Senator Rhoads",
+        email: "rhoads@nysenate.gov",
+        district: "5th Senate District"
+      }
+    },
+    suffolk: {
+      assembly: {
+        name: "Assemblywoman Rebecca Kassay",
+        salutation: "Assemblywoman Kassay",
+        email: "kassayr@nyassembly.gov",
+        district: "4th Assembly District"
+      },
+      senate: {
+        name: "Senator Anthony Palumbo",
+        salutation: "Senator Palumbo",
+        email: "palumbo@nysenate.gov",
+        district: "1st Senate District"
+      }
+    }
+  };
+  var currentReps = REPS.nassau;
+
+  const PLAN_INFO = {
+    medicaid:  { label: "Healthfirst Medicaid Managed Care", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
+    essential: { label: "Healthfirst Essential Plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
+    chp:       { label: "Healthfirst Child Health Plus", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
+    medicare:  { label: "a Healthfirst Medicare plan", regulator: "Medicare (the Centers for Medicare & Medicaid Services)", channel: "medicare" },
+    commercial:{ label: "a Healthfirst commercial plan", regulator: "the New York State Department of Financial Services", channel: "dfs" },
+    notsure:   { label: "a Healthfirst plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" }
+  };
+
+  function collectAnswers() {
+    var plan = document.getElementById('f-plan').value;
+    var info = PLAN_INFO[plan];
+
+    var townSel = document.getElementById('f-town');
+    var townOpt = townSel.options[townSel.selectedIndex];
+    var county = (townOpt && townOpt.dataset.county) || 'nassau';
+    currentReps = REPS[county] || REPS.nassau;
+
+    var wait = document.getElementById('f-wait').value;
+    var distance = document.getElementById('f-distance').value;
+    var calls = document.getElementById('f-calls').value;
+    var detailBits = [];
+    if (calls) detailBits.push('I called ' + calls + ' listed in the Healthfirst directory');
+    if (wait) detailBits.push('the earliest appointment I could get elsewhere was ' + wait + ' out');
+    if (distance) detailBits.push('the nearest in-network option I found is ' + distance + ' from my home');
+    var accessDetails = detailBits.join(', and ');
+    var waitExceedsStandard = ['two to three months', 'more than three months', 'I could not get an appointment at all'].indexOf(wait) !== -1;
+
+    return {
+      name: document.getElementById('f-name').value.trim(),
+      town: townSel.value,
+      county: county,
+      assemblyRep: currentReps.assembly.name,
+      assemblyRepSalutation: currentReps.assembly.salutation,
+      stateSenator: currentReps.senate.name,
+      waitExceedsStandard: waitExceedsStandard,
+      planType: info.label,
+      planKey: plan,
+      regulatorRecipient: info.regulator,
+      yearsPatient: document.getElementById('f-years').value,
+      howFound: document.getElementById('f-found').value,
+      whatLosingMeans: checkedValues('grp-meaning'),
+      familyMembers: checkedValues('grp-family'),
+      accessProblems: checkedValues('grp-access').filter(function(v){ return v !== 'I have not tried yet'; }),
+      accessDetails: accessDetails,
+      careAtBelaray: checkedValues('grp-care'),
+      language: document.getElementById('f-language').value,
+      extras: [],
+      ownWords: document.getElementById('f-ownwords').value.trim()
+    };
+  }
+
+  async function generate() {
+    var btn = document.getElementById('generate');
+    var answers = collectAnswers();
+    var es = document.body.classList.contains('spanish');
+
+    if (!document.getElementById('consent-review').checked) {
+      showToast(es
+        ? 'Por favor marque la casilla de consentimiento primero.'
+        : 'Please check the consent box first.');
+      document.getElementById('consent-review').closest('.form-card').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (document.getElementById('consent-stats').checked) sendStats(answers);
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>' + (es ? 'Escribiendo sus cartas…' : 'Writing your letters…');
+    if (typeof plausible !== 'undefined') plausible('generate_letter', { props: { plan: answers.planKey } });
+
+    var letters = null;
+    if (WORKER_URL) {
+      try {
+        var resp = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answers: answers })
+        });
+        if (resp.ok) {
+          var data = await resp.json();
+          if (data.assembly_letter && data.regulator_letter) letters = data;
+        }
+      } catch (e) { /* fall through to template */ }
+    }
+    if (!letters) letters = templateLetters(answers);
+
+    document.getElementById('txt-assembly').value = letters.assembly_letter;
+    document.getElementById('txt-regulator').value = letters.regulator_letter;
+    setupAssemblyCard(answers);
+    setupRegulatorCard(answers);
+    document.getElementById('results').style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = es ? '✍️ Escribir Mis Cartas Otra Vez' : '✍️ Rewrite My Letters';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function setupAssemblyCard(answers) {
+    var es = document.body.classList.contains('spanish');
+    var a = currentReps.assembly, s = currentReps.senate;
+    document.getElementById('assembly-toline').textContent =
+      'To: ' + a.name + ' <' + a.email + '> (' + a.district + ')  ·  ' + s.name + ' <' + s.email + '> (' + s.district + ')';
+    document.getElementById('mail-assembly-label').textContent = es
+      ? 'Enviar a ' + a.salutation.replace('Assemblyman', 'Asambleísta').replace('Assemblywoman', 'Asambleísta').replace('Senator', 'Senador')
+      : 'Email ' + a.salutation;
+    document.getElementById('mail-senate-label').textContent = es
+      ? 'Enviar a ' + s.salutation.replace('Senator', 'Senador/a')
+      : 'Email ' + s.salutation;
+    document.getElementById('assembly-note').innerHTML = (es
+      ? 'Basado en su pueblo, esta carta va a <strong>' + a.name + '</strong> y a <strong>' + s.name + '</strong> — enviarla a los dos duplica su impacto (el saludo se ajusta automáticamente). ¿No son sus representantes? Busque los suyos: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Asamblea</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senado</a>. Si el correo se abre vacío, simplemente pegue la carta (ya está copiada).'
+      : 'Based on your town, this letter goes to <strong>' + a.name + '</strong> and <strong>' + s.name + '</strong> — sending to both doubles your impact (the greeting adjusts automatically). Not your representatives? Find yours: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>. If the email opens empty, just paste the letter (it\'s already copied).');
+  }
+
+  function setupRegulatorCard(answers) {
+    var es = document.body.classList.contains('spanish');
+    var toline = document.getElementById('regulator-toline');
+    var actions = document.getElementById('regulator-actions');
+    var note = document.getElementById('regulator-note');
+    var channel = PLAN_INFO[answers.planKey].channel;
+    actions.innerHTML = '';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'act-btn act-secondary';
+    copyBtn.textContent = es ? '📋 Copiar Carta' : '📋 Copy Letter';
+    copyBtn.onclick = function() { copyLetter('txt-regulator'); };
+    actions.appendChild(copyBtn);
+
+    if (channel === 'doh') {
+      toline.textContent = 'To: NYS Dept. of Health Managed Care Complaint Unit <managedcarecomplaint@health.ny.gov>';
+      var mailBtn = document.createElement('a');
+      mailBtn.className = 'act-btn act-primary';
+      mailBtn.href = '#';
+      mailBtn.textContent = es ? '✉️ Abrir Correo' : '✉️ Open Email';
+      mailBtn.onclick = function() { return openMail('doh'); };
+      actions.appendChild(mailBtn);
+      note.innerHTML = es
+        ? 'También puede llamar a la línea de quejas del Estado: <a href="tel:18002068125">1-800-206-8125</a>.'
+        : 'You can also call the State\'s managed care complaint line: <a href="tel:18002068125">1-800-206-8125</a>.';
+    } else if (channel === 'dfs') {
+      toline.textContent = 'To: New York State Department of Financial Services (online complaint portal)';
+      var dfsBtn = document.createElement('a');
+      dfsBtn.className = 'act-btn act-primary';
+      dfsBtn.href = 'https://www.dfs.ny.gov/complaint';
+      dfsBtn.target = '_blank';
+      dfsBtn.rel = 'noopener';
+      dfsBtn.textContent = es ? '🌐 Abrir Portal de Quejas' : '🌐 Open Complaint Portal';
+      actions.appendChild(dfsBtn);
+      note.innerHTML = es
+        ? 'DFS recibe quejas por su portal en línea — copie su carta y péguela en el formulario. O llame al <a href="tel:18003423736">(800) 342-3736</a>.'
+        : 'DFS takes complaints through its online portal — copy your letter and paste it into the form. Or call <a href="tel:18003423736">(800) 342-3736</a>.';
+    } else if (channel === 'medicare') {
+      toline.textContent = 'To: Medicare (CMS complaint form)';
+      var medBtn = document.createElement('a');
+      medBtn.className = 'act-btn act-primary';
+      medBtn.href = 'https://www.medicare.gov/my/medicare-complaint';
+      medBtn.target = '_blank';
+      medBtn.rel = 'noopener';
+      medBtn.textContent = es ? '🌐 Abrir Formulario de Medicare' : '🌐 Open Medicare Complaint Form';
+      actions.appendChild(medBtn);
+      note.innerHTML = es
+        ? 'Copie su carta y péguela en el formulario de queja de Medicare, o llame al <a href="tel:18006334227">1-800-MEDICARE (1-800-633-4227)</a>. Las quejas sobre falta de especialistas en la red pueden llevar a que Medicare revise la red del plan.'
+        : 'Copy your letter and paste it into Medicare\'s complaint form, or call <a href="tel:18006334227">1-800-MEDICARE (1-800-633-4227)</a>. Complaints about not having enough in-network specialists can trigger Medicare to review the plan\'s network.';
+    }
+    var printBtn = document.createElement('button');
+    printBtn.className = 'act-btn act-secondary';
+    printBtn.textContent = es ? '🖨️ Imprimir' : '🖨️ Print';
+    printBtn.onclick = function() { printLetter('txt-regulator'); };
+    actions.appendChild(printBtn);
+
+    var sentBtn = document.createElement('button');
+    sentBtn.className = 'act-btn act-secondary';
+    sentBtn.textContent = es ? '✅ ¡La envié!' : '✅ I sent it!';
+    sentBtn.onclick = function() { markSent('regulator'); };
+    actions.appendChild(sentBtn);
+
+    if (answers.planKey === 'notsure') {
+      note.innerHTML += es
+        ? '<br>¿No está seguro de su tipo de plan? Envíenos un texto al <a href="sms:5168227546">(516) 822-7546</a> y le ayudamos.'
+        : '<br>Not sure which plan you have? Text us at <a href="sms:5168227546">(516) 822-7546</a> and we\'ll help you figure it out.';
+    }
+  }
+
+  // Anonymous aggregate stats — sent to Plausible as event properties.
+  // Never includes the patient's name or free-text answers. Readable in the
+  // Plausible dashboard as percentage breakdowns per property.
+  function sendStats(a) {
+    if (typeof plausible === 'undefined') return;
+    var has = function(list, frag) {
+      return list.some(function(v) { return v.toLowerCase().indexOf(frag) !== -1; }) ? 'yes' : 'no';
+    };
+    plausible('survey_stats', { props: {
+      plan: a.planKey,
+      county: a.county,
+      years_patient: a.yearsPatient || 'not answered',
+      offices_called: document.getElementById('f-calls').value || 'none yet',
+      wait_quoted: document.getElementById('f-wait').value || 'not answered',
+      distance: document.getElementById('f-distance').value || 'not answered',
+      family_beyond_self: (a.familyMembers.filter(function(m){ return m !== 'me'; }).length > 0) ? 'yes' : 'no',
+      three_generations: has(a.familyMembers, 'three generations'),
+      skin_cancer_care: has(a.careAtBelaray, 'skin cancer'),
+      surveillance: has(a.careAtBelaray, 'surveillance'),
+      chronic_or_biologic: (has(a.careAtBelaray, 'chronic') === 'yes' || has(a.careAtBelaray, 'biologic') === 'yes') ? 'yes' : 'no',
+      coordinates_care: has(a.careAtBelaray, 'coordinates'),
+      avoided_er: has(a.careAtBelaray, 'emergency room'),
+      directory_inaccurate: has(a.accessProblems, 'directory'),
+      could_not_get_timely_appt: has(a.accessProblems, 'timely appointment'),
+      transport_hardship: has(a.accessProblems, 'do not drive'),
+      cannot_afford_oop: has(a.whatLosingMeans, 'afford'),
+      other_language: a.language ? 'yes' : 'no',
+      care_language: a.language || 'english',
+      phototherapy: has(a.careAtBelaray, 'phototherapy'),
+      hair_loss: has(a.careAtBelaray, 'hair loss'),
+      mohs_recon_same_day: has(a.careAtBelaray, 'oculoplastic (eyelid) reconstruction'),
+      service_unavailable: has(a.accessProblems, 'specific service')
+    }});
+  }
+
+  function printLetter(id) {
+    var text = document.getElementById(id).value;
+    var w = window.open('', '_blank');
+    w.document.write('<html><head><title>Letter</title><style>body{font-family:Georgia,serif;font-size:13pt;line-height:1.7;max-width:7in;margin:0.7in auto;white-space:pre-wrap;}</style></head><body></body></html>');
+    w.document.body.textContent = text;
+    w.document.close();
+    w.focus();
+    w.print();
+    if (typeof plausible !== 'undefined') plausible('print_letter', { props: { which: id } });
+  }
+
+  function markSent(which) {
+    var es = document.body.classList.contains('spanish');
+    if (typeof plausible !== 'undefined') plausible('letter_sent', { props: { which: which } });
+    showToast(es ? '¡Gracias por alzar su voz! 💙' : 'Thank you for speaking up! 💙');
+  }
+
+  function copyLetter(id) {
+    var txt = document.getElementById(id);
+    navigator.clipboard.writeText(txt.value).then(function() {
+      var es = document.body.classList.contains('spanish');
+      showToast(es ? '¡Carta copiada!' : 'Letter copied!');
+      if (typeof plausible !== 'undefined') plausible('copy_letter', { props: { which: id } });
+    });
+  }
+
+  function openMail(which) {
+    var es = document.body.classList.contains('spanish');
+    var to, subject, body;
+    if (which === 'assembly') {
+      to = currentReps.assembly.email;
+      subject = 'Constituent request: Healthfirst network access to Belaray Dermatology';
+      body = document.getElementById('txt-assembly').value;
+    } else if (which === 'senate') {
+      to = currentReps.senate.email;
+      subject = 'Constituent request: Healthfirst network access to Belaray Dermatology';
+      // Same letter, salutation swapped for the Senator
+      body = document.getElementById('txt-assembly').value
+        .replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
+    } else {
+      to = 'managedcarecomplaint@health.ny.gov';
+      subject = 'Network adequacy complaint - Healthfirst - dermatology access';
+      body = document.getElementById('txt-regulator').value;
+    }
+    // Copy as backup in case the mail client truncates the body
+    navigator.clipboard.writeText(body).catch(function(){});
+    if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: which } });
+    var cc = document.getElementById('cc-practice').checked ? 'cc=' + encodeURIComponent('jeff@belaray.com') + '&' : '';
+    window.location.href = 'mailto:' + to + '?' + cc + 'subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    showToast(es ? 'Abriendo su correo… (la carta también está copiada)' : 'Opening your email… (letter is also copied)');
+    return false;
+  }
+
+  // ===== TEMPLATE FALLBACK (no AI) =====
+  function templateLetters(a) {
+    var sig = '\n\nSincerely,\n' + (a.name || '') + (a.town ? '\n' + a.town + ', NY' : '');
+    var years = a.yearsPatient ? 'I have been a patient of Belaray Dermatology for ' + a.yearsPatient + '. ' : 'I am a patient of Belaray Dermatology. ';
+    var found = a.howFound ? 'I first came to them ' + (a.howFound.indexOf('referred') === 0 ? 'after being ' + a.howFound : 'because I was ' + a.howFound) + '. ' : '';
+
+    var fam = '';
+    if (a.familyMembers.length > 1 || (a.familyMembers.length === 1 && a.familyMembers[0] !== 'me')) {
+      fam = 'This practice cares for ' + a.familyMembers.join(', ').replace('me', 'me') + ' — losing it disrupts our family\'s medical home, not just one appointment. ';
+    }
+
+    var careBits = [];
+    a.careAtBelaray.forEach(function(c) { careBits.push(c.charAt(0).toLowerCase() + c.slice(1)); });
+    var care = careBits.length ? 'This is not a doctor I picked last month — this is the practice that knows my history: ' + careBits.join('; ') + '. ' : '';
+
+    var lang = a.language ? 'Belaray also provides my care in ' + a.language + ', which is very hard to find elsewhere. ' : '';
+
+    var meaning = a.whatLosingMeans.length
+      ? 'Losing access to Belaray is not a small thing for me. ' + a.whatLosingMeans.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. '
+      : '';
+
+    var access = a.accessProblems.length
+      ? 'I have tried to find alternatives, and my real experience is this: ' + a.accessProblems.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. '
+      : '';
+    if (a.accessDetails) access += 'Specifically: ' + a.accessDetails + '. ';
+    if (a.waitExceedsStandard) {
+      access += 'I understand New York\'s managed-care standards generally expect a specialist appointment to be available within four to six weeks. By declining to restore this practice, Healthfirst is asserting that its network already provides timely access — but my own experience shows the network is not meeting the state\'s own standard. ';
+    }
+
+    var notMyChoice = 'I want to be clear: I did not leave my doctor, and my doctor did not leave me. The practice is open, local, and willing to keep participating in my plan — Healthfirst\'s decision is the only thing ending this relationship. ';
+
+    var own = a.ownWords ? '\n\n' + a.ownWords : '';
+
+    var assembly =
+      'Dear ' + (a.assemblyRepSalutation || 'Assemblyman Blumencranz') + ',\n\n' +
+      'I am your constituent' + (a.town ? ' in ' + a.town : '') + ', and I am writing about my health insurance, ' + a.planType + '. ' +
+      years + found + fam + care + lang + '\n\n' +
+      'In May 2026, Healthfirst\'s contract covering Belaray Dermatology ended, and this August Healthfirst declined the practice\'s application to rejoin the network — even though Belaray had participated since 2006. ' +
+      notMyChoice + meaning + access + '\n\n' +
+      'I am asking your office to do three things: contact Healthfirst about this decision; raise the issue with the New York State Department of Health; and examine whether Healthfirst\'s dermatology network is genuinely adequate for members in our community — and to ask that Belaray Dermatology be restored to the network so patients like me can continue established care.' +
+      own + sig;
+
+    var regulator =
+      'Dear ' + (a.regulatorRecipient.charAt(0).toUpperCase() + a.regulatorRecipient.slice(1)).replace(/^The /, '') + ',\n\n' +
+      'I am a member of ' + a.planType + (a.town ? ', living in ' + a.town + ', NY' : '') + ', and I am filing this complaint about access to dermatology care in my plan\'s network. ' +
+      years + fam + care + lang + '\n\n' +
+      'Healthfirst ended its network relationship with Belaray Dermatology (Hicksville and Stony Brook, NY) in May 2026 and has declined to restore it, leaving me without in-network access to my established dermatologist. ' +
+      notMyChoice + meaning + access + '\n\n' +
+      'I ask that you review whether Healthfirst\'s dermatology network provides genuinely equivalent, timely, and geographically accessible care for members in Nassau and Suffolk County, and that Belaray Dermatology be restored to the network so patients like me can continue our care.' +
+      own + sig;
+
+    return { assembly_letter: assembly, regulator_letter: regulator };
+  }
+ </script>
+
+</body>
+</html>
