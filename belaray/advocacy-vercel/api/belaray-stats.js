@@ -19,8 +19,9 @@ const PROPS = [
   "family_beyond_self", "three_generations", "skin_cancer_care", "surveillance",
   "chronic_or_biologic", "coordinates_care", "avoided_er", "directory_inaccurate",
   "could_not_get_timely_appt", "transport_hardship", "cannot_afford_oop",
-  "other_language", "phototherapy", "hair_loss", "mohs_recon_same_day",
-  "service_unavailable",
+  "other_language", "care_language", "phototherapy", "mohs_recon_same_day",
+  "service_unavailable", "phone_unanswered", "calls_not_returned",
+  "no_language_staff", "felt_dismissed",
 ];
 
 const CAMPAIGN_START = "2026-08-01";

@@ -38,15 +38,16 @@ How to write:
 - Explain the impact on the patient, never the physician's business interests. Do not praise the practice's awards or reputation except as it bears directly on this patient's access to care.
 - Where the answers support it, convey the core injustice: the patient did not leave their doctor, and the doctor did not retire or move away — the practice is willing to continue their care, and the insurer's decision alone is ending the relationship.
 - Communication barriers are access barriers. If the patient reports that other offices don't answer the phone, leave them on hold, never return calls, or have no staff who speak their language, present those as concrete failures of practical access — being listed in a directory means nothing if a member cannot actually reach the office or be understood. Where the patient also noted Belaray's 24/7 physician-answered line or language support, draw that contrast plainly.
-- Service-specific gaps are network-adequacy gold. If the patient needs a service effectively unavailable elsewhere in the network — Mohs surgery with same-day oculoplastic reconstruction under one roof, phototherapy, specialized hair-loss care — state it concretely: a directory full of general dermatologists does not equal access to the specific care this member needs.
+- Service-specific gaps are network-adequacy gold. If the patient needs a service effectively unavailable elsewhere in the network — Mohs surgery with same-day oculoplastic reconstruction under one roof, phototherapy — state it concretely: a directory full of general dermatologists does not equal access to the specific care this member needs.
 - Provider naming: the practice's care is physician-directed and billed under its physicians, so refer to caregivers as "my dermatologist," "my doctor," or "the physicians and team at Belaray." The only individual clinicians you may name are physicians explicitly present in the structured input (e.g., Dr. Rachel Ellis). If the patient's own words name any other individual provider, keep their sentiment but generalize the reference to "my dermatology provider at Belaray" or "the Belaray team."
 - No medical record numbers, no dates of birth, no diagnoses beyond what the patient volunteered.
 - Each letter roughly 350-600 words (longer when the patient supplied many answers), in English. If the patient noted receiving care in another language at Belaray, mention how hard that is to replace in practice.
 - Sign with the patient's name and town as provided. If no name was provided, end with "Sincerely," followed by a blank line.
 
-Produce TWO letters:
+Produce THREE letters:
 1. "assembly_letter" — a personal constituent letter to the New York State Assembly member named in the input (e.g. "Dear Assemblyman Blumencranz," or "Dear Assemblywoman Kassay,"). IMPORTANT: the patient may also send this same letter to their State Senator with only the salutation changed, so after the salutation refer to "your office" and never to "the Assembly" or chamber-specific titles in the body. End with a clear, specific ask: that your office contact Healthfirst about this decision, raise the issue with the New York State Department of Health, and investigate whether Healthfirst's dermatology network is genuinely adequate — timely, geographically accessible, and offering the specific care this patient needs — in the patient's community, and help restore Belaray Dermatology to the network so the patient's established care can continue.
-2. "regulator_letter" — a formal but personal complaint addressed per the recipient specified in the input (e.g. "Dear New York State Department of Health Managed Care Complaint Unit," / "Dear New York State Department of Financial Services," / "To Whom It May Concern at Medicare,"). State the member's plan type, describe the severed established physician relationship, present the patient's concrete access evidence (offices called, directory inaccuracies, quoted waits, travel distance), and request that the plan's dermatology network adequacy be reviewed and that Belaray Dermatology be restored to the network.`;
+2. "regulator_letter" — a formal but personal complaint addressed per the recipient specified in the input (e.g. "Dear New York State Department of Health Managed Care Complaint Unit," / "Dear New York State Department of Financial Services," / "To Whom It May Concern at Medicare,"). State the member's plan type, describe the severed established physician relationship, present the patient's concrete access evidence (offices called, directory inaccuracies, quoted waits, travel distance), and request that the plan's dermatology network adequacy be reviewed and that Belaray Dermatology be restored to the network.
+3. "healthfirst_letter" — a formal member grievance addressed "Dear Healthfirst Member Services,". Written as a paying/enrolled member of the plan named in the input, directly to their own insurer. It should: state plainly that the member is filing a formal grievance about network access to dermatology; condense the member's stake (relationship, ongoing care, access evidence) into its sharpest form rather than repeating the other letters at full length; state that the member did not choose this disruption and that the practice is willing to participate; ask Healthfirst to restore Belaray Dermatology to the network; and explicitly request that this be logged as a formal grievance with a written response and a grievance reference number. Firm, civil, unambiguous — the tone of a member the company should worry about losing. Roughly 250-400 words.`;
 
 export default {
   async fetch(request, env) {
@@ -85,7 +86,7 @@ export default {
         },
         body: JSON.stringify({
           model: "claude-opus-5",
-          max_tokens: 4000,
+          max_tokens: 5000,
           // effort "low" roughly halves generation time with minimal quality impact
           system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
           output_config: {
@@ -97,8 +98,9 @@ export default {
                 properties: {
                   assembly_letter: { type: "string" },
                   regulator_letter: { type: "string" },
+                  healthfirst_letter: { type: "string" },
                 },
-                required: ["assembly_letter", "regulator_letter"],
+                required: ["assembly_letter", "regulator_letter", "healthfirst_letter"],
                 additionalProperties: false,
               },
             },

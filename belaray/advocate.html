@@ -216,8 +216,8 @@
    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
 
-  <!-- ======== STEP 1: ABOUT YOU ======== -->
-  <div class="wiz-step active" id="step-1">
+  <!-- ======== STEP 2: ABOUT YOU ======== -->
+  <div class="wiz-step" id="step-2">
    <div class="form-card">
     <h2><span class="en">About you</span><span class="es">Sobre usted</span><span class="pa">ਤੁਹਾਡੇ ਬਾਰੇ</span><span class="bn">আপনার সম্পর্কে</span><span class="hi">आपके बारे में</span></h2>
     <p class="hint">
@@ -277,11 +277,14 @@
      </select>
     </div>
    </div>
-   <div class="wiz-nav"><button class="wiz-btn wiz-next" onclick="goStep(2)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button></div>
+   <div class="wiz-nav">
+    <button class="wiz-btn wiz-back" onclick="goStep(1)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(3)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+   </div>
   </div>
 
-  <!-- ======== STEP 2: YOUR HISTORY ======== -->
-  <div class="wiz-step" id="step-2">
+  <!-- ======== STEP 3: YOUR HISTORY ======== -->
+  <div class="wiz-step" id="step-3">
    <div class="form-card">
     <h2><span class="en">Your history with Belaray</span><span class="es">Su historia con Belaray</span><span class="pa">ਬੇਲਾਰੇ ਨਾਲ ਤੁਹਾਡਾ ਇਤਿਹਾਸ</span><span class="bn">বেলারের সাথে আপনার ইতিহাস</span><span class="hi">बेलारे के साथ आपका इतिहास</span></h2>
     <div class="two-col">
@@ -320,13 +323,13 @@
     </div>
    </div>
    <div class="wiz-nav">
-    <button class="wiz-btn wiz-back" onclick="goStep(1)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
-    <button class="wiz-btn wiz-next" onclick="goStep(3)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+    <button class="wiz-btn wiz-back" onclick="goStep(2)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(4)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
    </div>
   </div>
 
-  <!-- ======== STEP 3: WHAT LOSING BELARAY MEANS ======== -->
-  <div class="wiz-step" id="step-3">
+  <!-- ======== STEP 4: WHAT LOSING BELARAY MEANS ======== -->
+  <div class="wiz-step" id="step-4">
    <div class="form-card">
     <h2><span class="en">What losing Belaray would mean for you</span><span class="es">Qué significaría perder a Belaray</span><span class="pa">ਬੇਲਾਰੇ ਨੂੰ ਗੁਆਉਣ ਦਾ ਕੀ ਮਤਲਬ ਹੋਵੇਗਾ</span><span class="bn">বেলারে হারানোর অর্থ কী হবে</span><span class="hi">बेलारे को खोने का आपके लिए क्या मतलब होगा</span></h2>
     <p class="hint"><span class="en">Check everything that's true for you.</span><span class="es">Marque todo lo que sea cierto.</span><span class="pa">ਜੋ ਸੱਚ ਹੈ, ਉਹ ਚੁਣੋ।</span><span class="bn">যা সত্য, টিক দিন।</span><span class="hi">जो सच है, उसे चुनें।</span></p>
@@ -339,21 +342,21 @@
     </div>
    </div>
    <div class="wiz-nav">
-    <button class="wiz-btn wiz-back" onclick="goStep(2)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
-    <button class="wiz-btn wiz-next" onclick="goStep(4)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+    <button class="wiz-btn wiz-back" onclick="goStep(3)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(5)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
    </div>
   </div>
 
-  <!-- ======== STEP 4: THE 6-WEEK TEST ======== -->
-  <div class="wiz-step" id="step-4">
+  <!-- ======== STEP 1: THE 4-6 WEEK TEST (the decision-maker) ======== -->
+  <div class="wiz-step active" id="step-1">
    <div class="form-card">
-    <h2><span class="en">Have you tried finding another dermatologist?</span><span class="es">¿Ha intentado encontrar otro dermatólogo?</span><span class="pa">ਕੀ ਤੁਸੀਂ ਹੋਰ ਚਮੜੀ ਦਾ ਡਾਕਟਰ ਲੱਭਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ?</span><span class="bn">অন্য চর্মরোগ বিশেষজ্ঞ খোঁজার চেষ্টা করেছেন?</span><span class="hi">क्या आपने दूसरा त्वचा डॉक्टर खोजने की कोशिश की?</span></h2>
+    <h2><span class="en">The question that decides everything: can you actually get seen?</span><span class="es">La pregunta que lo decide todo: ¿realmente puede conseguir cita?</span><span class="pa">ਉਹ ਸਵਾਲ ਜੋ ਸਭ ਕੁਝ ਤੈਅ ਕਰਦਾ ਹੈ: ਕੀ ਤੁਹਾਨੂੰ ਸੱਚਮੁੱਚ ਮੁਲਾਕਾਤ ਮਿਲਦੀ ਹੈ?</span><span class="bn">যে প্রশ্নটি সব ঠিক করে: আপনি কি সত্যিই ডাক্তার দেখাতে পারছেন?</span><span class="hi">वह सवाल जो सब कुछ तय करता है: क्या आपको सच में अपॉइंटमेंट मिलती है?</span></h2>
     <p class="hint">
-     <span class="en"><strong>This step matters most.</strong> New York's standard: a specialist appointment within about <strong>4–6 weeks</strong>. By refusing to restore Belaray, Healthfirst is claiming its network already meets that. Call the dermatologists in your directory and see — if you can't get in within 6 weeks, that's exactly the evidence regulators act on. Only report what really happened.</span>
-     <span class="es"><strong>Este paso es el más importante.</strong> El estándar de Nueva York: cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Al rechazar a Belaray, Healthfirst afirma que su red ya cumple eso. Llame a los dermatólogos de su directorio — si no consigue cita dentro de 6 semanas, esa es exactamente la evidencia sobre la que actúan los reguladores. Reporte solo lo que realmente pasó.</span>
-     <span class="pa"><strong>ਇਹ ਕਦਮ ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਹੈ।</strong> ਨਿਊਯਾਰਕ ਦਾ ਮਿਆਰ: ਲਗਭਗ <strong>4–6 ਹਫ਼ਤਿਆਂ</strong> ਵਿੱਚ ਸਪੈਸ਼ਲਿਸਟ ਦੀ ਮੁਲਾਕਾਤ। ਬੇਲਾਰੇ ਨੂੰ ਠੁਕਰਾ ਕੇ Healthfirst ਦਾਅਵਾ ਕਰ ਰਿਹਾ ਹੈ ਕਿ ਉਸਦਾ ਨੈੱਟਵਰਕ ਇਹ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਆਪਣੀ ਡਾਇਰੈਕਟਰੀ ਦੇ ਡਾਕਟਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰੋ — ਜੇ 6 ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਮੁਲਾਕਾਤ ਨਹੀਂ ਮਿਲਦੀ, ਇਹੀ ਸਬੂਤ ਹੈ ਜਿਸ 'ਤੇ ਰੈਗੂਲੇਟਰ ਕਾਰਵਾਈ ਕਰਦੇ ਹਨ। ਸਿਰਫ਼ ਸੱਚ ਦੱਸੋ।</span>
-     <span class="bn"><strong>এই ধাপটি সবচেয়ে গুরুত্বপূর্ণ।</strong> নিউ ইয়র্কের মান: প্রায় <strong>৪–৬ সপ্তাহের</strong> মধ্যে বিশেষজ্ঞের অ্যাপয়েন্টমেন্ট। বেলারে-কে প্রত্যাখ্যান করে Healthfirst দাবি করছে তাদের নেটওয়ার্ক এই মান পূরণ করে। আপনার ডিরেক্টরির ডাক্তারদের ফোন করুন — ৬ সপ্তাহের মধ্যে অ্যাপয়েন্টমেন্ট না পেলে, সেটাই নিয়ন্ত্রকদের কাছে প্রমাণ। শুধু সত্যিটা জানান।</span>
-     <span class="hi"><strong>यह क़दम सबसे ज़रूरी है।</strong> न्यूयॉर्क का मानक: लगभग <strong>4–6 हफ़्तों</strong> में विशेषज्ञ की अपॉइंटमेंट। बेलारे को ठुकराकर Healthfirst दावा कर रहा है कि उसका नेटवर्क यह पूरा करता है। अपनी डायरेक्टरी के डॉक्टरों को फ़ोन करें — अगर 6 हफ़्तों में अपॉइंटमेंट नहीं मिलती, यही वह सबूत है जिस पर नियामक कार्रवाई करते हैं। सिर्फ़ वही बताएँ जो सच में हुआ।</span>
+     <span class="en"><strong>This is the number regulators decide on.</strong> New York requires managed-care plans to offer a specialist appointment within about <strong>4–6 weeks</strong>. If members can't actually be seen in that window, the network does not have enough access — and Healthfirst had a willing practice with a 20-year record ready to fix exactly that gap, and said no. So test it: call the dermatologists in your Healthfirst directory as a <strong>new patient</strong> and ask for the first available appointment. Then report exactly what happened — that's the evidence.</span>
+     <span class="es"><strong>Este es el número sobre el que deciden los reguladores.</strong> Nueva York exige que los planes ofrezcan una cita con el especialista dentro de unas <strong>4–6 semanas</strong>. Si los miembros no pueden ser atendidos en ese plazo, la red no tiene suficiente acceso — y Healthfirst tenía una práctica dispuesta, con 20 años de historial, lista para cerrar exactamente esa brecha, y dijo que no. Así que pruébelo: llame a los dermatólogos de su directorio de Healthfirst como <strong>paciente nuevo</strong> y pida la primera cita disponible. Luego reporte exactamente lo que pasó — esa es la evidencia.</span>
+     <span class="pa"><strong>ਇਹੀ ਉਹ ਅੰਕੜਾ ਹੈ ਜਿਸ 'ਤੇ ਰੈਗੂਲੇਟਰ ਫ਼ੈਸਲਾ ਕਰਦੇ ਹਨ।</strong> ਨਿਊਯਾਰਕ ਪਲਾਨਾਂ ਤੋਂ ਮੰਗ ਕਰਦਾ ਹੈ ਕਿ ਲਗਭਗ <strong>4–6 ਹਫ਼ਤਿਆਂ</strong> ਵਿੱਚ ਸਪੈਸ਼ਲਿਸਟ ਦੀ ਮੁਲਾਕਾਤ ਮਿਲੇ। ਜੇ ਮੈਂਬਰ ਇਸ ਸਮੇਂ ਵਿੱਚ ਨਹੀਂ ਦਿਖਾ ਸਕਦੇ, ਤਾਂ ਨੈੱਟਵਰਕ ਵਿੱਚ ਕਾਫ਼ੀ ਪਹੁੰਚ ਨਹੀਂ ਹੈ — ਅਤੇ Healthfirst ਕੋਲ 20 ਸਾਲਾਂ ਦੇ ਰਿਕਾਰਡ ਵਾਲੀ ਤਿਆਰ ਪ੍ਰੈਕਟਿਸ ਸੀ ਜੋ ਇਹੀ ਕਮੀ ਪੂਰੀ ਕਰ ਸਕਦੀ ਸੀ, ਪਰ ਉਨ੍ਹਾਂ ਨੇ ਨਾਂਹ ਕਰ ਦਿੱਤੀ। ਤਾਂ ਅਜ਼ਮਾਓ: ਆਪਣੀ Healthfirst ਡਾਇਰੈਕਟਰੀ ਦੇ ਡਾਕਟਰਾਂ ਨੂੰ <strong>ਨਵੇਂ ਮਰੀਜ਼</strong> ਵਜੋਂ ਫ਼ੋਨ ਕਰੋ ਅਤੇ ਪਹਿਲੀ ਖ਼ਾਲੀ ਮੁਲਾਕਾਤ ਪੁੱਛੋ। ਫਿਰ ਜੋ ਹੋਇਆ ਉਹੀ ਦੱਸੋ — ਇਹੀ ਸਬੂਤ ਹੈ।</span>
+     <span class="bn"><strong>এই সংখ্যাটির ভিত্তিতেই নিয়ন্ত্রকরা সিদ্ধান্ত নেন।</strong> নিউ ইয়র্ক প্ল্যানগুলিকে প্রায় <strong>৪–৬ সপ্তাহের</strong> মধ্যে বিশেষজ্ঞের অ্যাপয়েন্টমেন্ট দিতে বাধ্য করে। সদস্যরা এই সময়ে দেখাতে না পারলে, নেটওয়ার্কে যথেষ্ট অ্যাক্সেস নেই — আর Healthfirst-এর কাছে ২০ বছরের রেকর্ডসহ একটি ইচ্ছুক প্র্যাকটিস ছিল যা ঠিক এই ঘাটতিই পূরণ করত, কিন্তু তারা না বলেছে। তাহলে পরীক্ষা করুন: আপনার Healthfirst ডিরেক্টরির ডাক্তারদের <strong>নতুন রোগী</strong> হিসেবে ফোন করুন এবং প্রথম খালি অ্যাপয়েন্টমেন্ট জিজ্ঞেস করুন। তারপর ঠিক যা ঘটেছে তাই জানান — সেটাই প্রমাণ।</span>
+     <span class="hi"><strong>यही वह आँकड़ा है जिस पर नियामक फ़ैसला करते हैं।</strong> न्यूयॉर्क प्लानों से माँग करता है कि लगभग <strong>4–6 हफ़्तों</strong> में विशेषज्ञ की अपॉइंटमेंट मिले। अगर सदस्य इस अवधि में नहीं दिखा पाते, तो नेटवर्क में पर्याप्त पहुँच नहीं है — और Healthfirst के पास 20 साल के रिकॉर्ड वाली तैयार प्रैक्टिस थी जो ठीक यही कमी पूरी कर सकती थी, पर उन्होंने मना कर दिया। तो परखिए: अपनी Healthfirst डायरेक्टरी के डॉक्टरों को <strong>नए मरीज़</strong> के रूप में फ़ोन करें और पहली उपलब्ध अपॉइंटमेंट पूछें। फिर ठीक वही बताएँ जो हुआ — यही सबूत है।</span>
     </p>
     <div id="grp-access">
      <label class="check-row"><input type="checkbox" value="I called other in-network dermatologists and could not get a timely appointment"><span class="txt"><span class="en">I called other in-network dermatologists and couldn't get a timely appointment</span><span class="es">Llamé a otros dermatólogos de la red y no conseguí cita pronto</span><span class="pa">ਨੈੱਟਵਰਕ ਦੇ ਹੋਰ ਡਾਕਟਰਾਂ ਨੂੰ ਫ਼ੋਨ ਕੀਤਾ, ਸਮੇਂ ਸਿਰ ਮੁਲਾਕਾਤ ਨਹੀਂ ਮਿਲੀ</span><span class="bn">নেটওয়ার্কের অন্য ডাক্তারদের ফোন করেছি, সময়মতো অ্যাপয়েন্টমেন্ট পাইনি</span><span class="hi">नेटवर्क के दूसरे डॉक्टरों को फ़ोन किया, समय पर अपॉइंटमेंट नहीं मिली</span></span></label>
@@ -404,8 +407,7 @@
     </div>
    </div>
    <div class="wiz-nav">
-    <button class="wiz-btn wiz-back" onclick="goStep(3)"><span class="en" style="display:inline;">← Back</span><span class="es">← Atrás</span><span class="pa">← ਪਿੱਛੇ</span><span class="bn">← পেছনে</span><span class="hi">← पीछे</span></button>
-    <button class="wiz-btn wiz-next" onclick="goStep(5)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
+    <button class="wiz-btn wiz-next" onclick="goStep(2)"><span class="en" style="display:inline;">Next →</span><span class="es">Siguiente →</span><span class="pa">ਅੱਗੇ →</span><span class="bn">পরবর্তী →</span><span class="hi">आगे →</span></button>
    </div>
   </div>
 
@@ -422,12 +424,11 @@
      <label class="check-row"><input type="checkbox" value="My Belaray dermatologist coordinates my care with my other doctors (such as my primary care doctor, oncologist, or rheumatologist)"><span class="txt"><span class="en">They coordinate my care with my other doctors</span><span class="es">Coordinan mi atención con mis otros médicos</span><span class="pa">ਉਹ ਮੇਰੇ ਦੂਜੇ ਡਾਕਟਰਾਂ ਨਾਲ ਤਾਲਮੇਲ ਕਰਦੇ ਹਨ</span><span class="bn">তারা আমার অন্য ডাক্তারদের সাথে সমন্বয় করেন</span><span class="hi">वे मेरे दूसरे डॉक्टरों के साथ तालमेल करते हैं</span></span></label>
      <label class="check-row"><input type="checkbox" value="Belaray saw me quickly and helped me avoid an emergency room visit"><span class="txt"><span class="en">They saw me quickly and helped me avoid an ER visit</span><span class="es">Me atendieron rápido y evité emergencias</span><span class="pa">ਜਲਦੀ ਦੇਖਿਆ ਅਤੇ ਐਮਰਜੈਂਸੀ ਰੂਮ ਤੋਂ ਬਚਾਇਆ</span><span class="bn">দ্রুত দেখেছে, ইমার্জেন্সি রুম এড়াতে পেরেছি</span><span class="hi">जल्दी देखा और इमरजेंसी रूम जाने से बचाया</span></span></label>
     </div>
-    <button class="more-toggle" type="button" onclick="toggleMore()" id="more-btn"><span class="en" style="display:inline;">+ More situations (eyelid surgery, phototherapy, hair loss, 24/7 line…)</span><span class="es">+ Más situaciones (cirugía de párpado, fototerapia…)</span><span class="pa">+ ਹੋਰ ਹਾਲਾਤ (ਪਲਕ ਦੀ ਸਰਜਰੀ, ਫੋਟੋਥੈਰੇਪੀ…)</span><span class="bn">+ আরও পরিস্থিতি (চোখের পাতার সার্জারি, ফটোথেরাপি…)</span><span class="hi">+ और स्थितियाँ (पलक की सर्जरी, फोटोथेरेपी…)</span></button>
+    <button class="more-toggle" type="button" onclick="toggleMore()" id="more-btn"><span class="en" style="display:inline;">+ More situations (eyelid surgery, phototherapy, 24/7 line…)</span><span class="es">+ Más situaciones (cirugía de párpado, fototerapia…)</span><span class="pa">+ ਹੋਰ ਹਾਲਾਤ (ਪਲਕ ਦੀ ਸਰਜਰੀ, ਫੋਟੋਥੈਰੇਪੀ…)</span><span class="bn">+ আরও পরিস্থিতি (চোখের পাতার সার্জারি, ফটোথেরাপি…)</span><span class="hi">+ और स्थितियाँ (पलक की सर्जरी, फोटोथेरेपी…)</span></button>
     <div id="care-more">
      <label class="check-row"><input type="checkbox" value="I had Mohs skin cancer surgery with same-day oculoplastic (eyelid) reconstruction, done together in one visit under one roof at Belaray"><span class="txt"><span class="en">I had Mohs with same-day oculoplastic (eyelid) reconstruction — one visit, under one roof</span><span class="es">Mohs con reconstrucción de párpado el mismo día — una visita</span><span class="pa">Mohs ਅਤੇ ਉਸੇ ਦਿਨ ਪਲਕ ਦੀ ਮੁਰੰਮਤ — ਇੱਕੋ ਵਿਜ਼ਿਟ</span><span class="bn">Mohs এবং একই দিনে চোখের পাতার পুনর্গঠন — এক ভিজিটে</span><span class="hi">Mohs और उसी दिन पलक का पुनर्निर्माण — एक ही विज़िट</span></span></label>
      <label class="check-row"><input type="checkbox" value="I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist"><span class="txt"><span class="en">I also see Dr. Rachel Ellis, their oculoplastic (eyelid) specialist</span><span class="es">También veo a la Dra. Rachel Ellis, especialista oculoplástica</span><span class="pa">ਮੈਂ ਡਾ. ਰੇਚਲ ਐਲਿਸ ਨੂੰ ਵੀ ਦਿਖਾਉਂਦਾ/ਦੀ ਹਾਂ</span><span class="bn">আমি ডা. রেচেল এলিস-কেও দেখাই</span><span class="hi">मैं डॉ. रेचल एलिस को भी दिखाता/दिखाती हूँ</span></span></label>
      <label class="check-row"><input type="checkbox" value="I receive phototherapy (medical light treatment) at Belaray, which very few offices still offer"><span class="txt"><span class="en">I receive phototherapy there — very few offices still offer it</span><span class="es">Recibo fototerapia allí — muy pocas oficinas la ofrecen</span><span class="pa">ਮੈਂ ਉੱਥੇ ਫੋਟੋਥੈਰੇਪੀ ਲੈਂਦਾ/ਦੀ ਹਾਂ — ਬਹੁਤ ਘੱਟ ਦਫ਼ਤਰ ਦਿੰਦੇ ਹਨ</span><span class="bn">আমি সেখানে ফটোথেরাপি নিই — খুব কম অফিসে আছে</span><span class="hi">मैं वहाँ फोटोथेरेपी लेता/लेती हूँ — बहुत कम दफ़्तर देते हैं</span></span></label>
-     <label class="check-row"><input type="checkbox" value="Belaray treats my hair loss"><span class="txt"><span class="en">Belaray treats my hair loss</span><span class="es">Belaray trata mi pérdida de cabello</span><span class="pa">ਬੇਲਾਰੇ ਮੇਰੇ ਵਾਲ ਝੜਨ ਦਾ ਇਲਾਜ ਕਰਦਾ ਹੈ</span><span class="bn">বেলারে আমার চুল পড়ার চিকিৎসা করে</span><span class="hi">बेलारे मेरे बाल झड़ने का इलाज करता है</span></span></label>
      <label class="check-row"><input type="checkbox" value="I have used Belaray's 24/7 physician-answered phone line"><span class="txt"><span class="en">I've used their 24/7 line where a physician answers</span><span class="es">He usado su línea 24/7 donde contesta un médico</span><span class="pa">24/7 ਲਾਈਨ ਵਰਤੀ ਹੈ ਜਿੱਥੇ ਡਾਕਟਰ ਜਵਾਬ ਦਿੰਦਾ ਹੈ</span><span class="bn">২৪/৭ লাইন ব্যবহার করেছি যেখানে ডাক্তার উত্তর দেন</span><span class="hi">24/7 लाइन इस्तेमाल की है जहाँ डॉक्टर जवाब देता है</span></span></label>
     </div>
     <div class="field" style="margin-top:12px;">
@@ -499,6 +500,14 @@
     <div class="letter-actions" id="regulator-actions"></div>
     <p class="send-note" id="regulator-note"></p>
    </div>
+
+   <div class="letter-card" id="card-healthfirst">
+    <h3><span class="en">📞 Letter 3: To Healthfirst itself — file a member grievance</span><span class="es">📞 Carta 3: A Healthfirst — presente una queja de miembro</span><span class="pa">📞 ਚਿੱਠੀ 3: ਸਿੱਧਾ Healthfirst ਨੂੰ — ਮੈਂਬਰ ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ</span><span class="bn">📞 চিঠি ৩: সরাসরি Healthfirst-কে — সদস্য অভিযোগ দাখিল করুন</span><span class="hi">📞 पत्र 3: सीधे Healthfirst को — सदस्य शिकायत दर्ज करें</span></h3>
+    <p class="to-line" id="healthfirst-toline"></p>
+    <textarea id="txt-healthfirst"></textarea>
+    <div class="letter-actions" id="healthfirst-actions"></div>
+    <p class="send-note" id="healthfirst-note"></p>
+   </div>
   </div>
 
  </div>
@@ -538,6 +547,8 @@
     dfsNote: { en: 'DFS takes complaints through its online portal — copy your letter and paste it into the form. Or call <a href="tel:18003423736">(800) 342-3736</a>.', es: 'DFS recibe quejas por su portal — copie su carta y péguela en el formulario. O llame al <a href="tel:18003423736">(800) 342-3736</a>.', pa: 'DFS ਪੋਰਟਲ ਰਾਹੀਂ ਸ਼ਿਕਾਇਤਾਂ ਲੈਂਦਾ ਹੈ — ਚਿੱਠੀ ਕਾਪੀ ਕਰਕੇ ਫਾਰਮ ਵਿੱਚ ਪਾਓ। ਜਾਂ <a href="tel:18003423736">(800) 342-3736</a>।', bn: 'DFS পোর্টালের মাধ্যমে অভিযোগ নেয় — চিঠি কপি করে ফর্মে দিন। বা <a href="tel:18003423736">(800) 342-3736</a>।', hi: 'DFS पोर्टल से शिकायतें लेता है — पत्र कॉपी करके फ़ॉर्म में डालें। या <a href="tel:18003423736">(800) 342-3736</a>।' },
     medicareNote: { en: 'Copy your letter into Medicare\'s complaint form, or call <a href="tel:18006334227">1-800-MEDICARE</a>. Network complaints can trigger Medicare to review the plan.', es: 'Copie su carta en el formulario de Medicare, o llame al <a href="tel:18006334227">1-800-MEDICARE</a>.', pa: 'ਚਿੱਠੀ Medicare ਦੇ ਫਾਰਮ ਵਿੱਚ ਪਾਓ, ਜਾਂ <a href="tel:18006334227">1-800-MEDICARE</a> \'ਤੇ ਫ਼ੋਨ ਕਰੋ।', bn: 'চিঠি Medicare-এর ফর্মে দিন, বা <a href="tel:18006334227">1-800-MEDICARE</a> নম্বরে ফোন করুন।', hi: 'पत्र Medicare के फ़ॉर्म में डालें, या <a href="tel:18006334227">1-800-MEDICARE</a> पर फ़ोन करें।' },
     notSure: { en: '<br>Not sure which plan you have? Text us at <a href="sms:5168227546">(516) 822-7546</a>.', es: '<br>¿No sabe su plan? Envíenos un texto al <a href="sms:5168227546">(516) 822-7546</a>.', pa: '<br>ਪਲਾਨ ਪੱਕਾ ਨਹੀਂ? <a href="sms:5168227546">(516) 822-7546</a> \'ਤੇ ਸੁਨੇਹਾ ਭੇਜੋ।', bn: '<br>প্ল্যান নিশ্চিত নন? <a href="sms:5168227546">(516) 822-7546</a> নম্বরে মেসেজ করুন।', hi: '<br>प्लान पक्का नहीं? <a href="sms:5168227546">(516) 822-7546</a> पर मैसेज करें।' },
+    callHf: { en: '📞 Call Healthfirst', es: '📞 Llamar a Healthfirst', pa: '📞 Healthfirst ਨੂੰ ਫ਼ੋਨ ਕਰੋ', bn: '📞 Healthfirst-কে ফোন করুন', hi: '📞 Healthfirst को फ़ोन करें' },
+    hfNote: { en: '<strong>Why this one matters:</strong> Healthfirst must log every member grievance and report grievance counts to New York State — each call or letter becomes a number they answer for. Fastest way: tap Call and say <em>"I want to file a formal grievance about network access. Please log it and give me the reference number."</em> Then read your letter. You can also send it through the secure Message Center at <a href="https://my.healthfirst.org" target="_blank" rel="noopener">my.healthfirst.org</a> (or the app), or mail it to the Member Services address on the back of your member ID card.', es: '<strong>Por qué importa:</strong> Healthfirst debe registrar cada queja de miembro y reportar los totales al Estado de Nueva York — cada llamada o carta se convierte en un número del que deben responder. Lo más rápido: toque Llamar y diga <em>"Quiero presentar una queja formal sobre el acceso a la red. Por favor regístrela y deme el número de referencia."</em> Luego lea su carta. También puede enviarla por el Message Center en <a href="https://my.healthfirst.org" target="_blank" rel="noopener">my.healthfirst.org</a> (o la app), o por correo a la dirección de Member Services en su tarjeta de miembro.', pa: '<strong>ਇਹ ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ:</strong> Healthfirst ਨੂੰ ਹਰ ਮੈਂਬਰ ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰਨੀ ਪੈਂਦੀ ਹੈ ਅਤੇ ਗਿਣਤੀ ਨਿਊਯਾਰਕ ਰਾਜ ਨੂੰ ਦੱਸਣੀ ਪੈਂਦੀ ਹੈ। ਸਭ ਤੋਂ ਤੇਜ਼: Call ਦਬਾਓ ਅਤੇ ਕਹੋ <em>"ਮੈਂ ਨੈੱਟਵਰਕ ਪਹੁੰਚ ਬਾਰੇ ਰਸਮੀ ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰਨੀ ਹੈ। ਇਸਨੂੰ ਦਰਜ ਕਰੋ ਅਤੇ ਮੈਨੂੰ ਰੈਫਰੈਂਸ ਨੰਬਰ ਦਿਓ।"</em> ਫਿਰ ਆਪਣੀ ਚਿੱਠੀ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। ਤੁਸੀਂ ਇਸਨੂੰ <a href="https://my.healthfirst.org" target="_blank" rel="noopener">my.healthfirst.org</a> ਦੇ Message Center ਰਾਹੀਂ ਜਾਂ ਆਪਣੇ ਮੈਂਬਰ ਕਾਰਡ ਦੇ ਪਿੱਛੇ ਦਿੱਤੇ ਪਤੇ \'ਤੇ ਡਾਕ ਰਾਹੀਂ ਵੀ ਭੇਜ ਸਕਦੇ ਹੋ।', bn: '<strong>এটি কেন গুরুত্বপূর্ণ:</strong> Healthfirst-কে প্রতিটি সদস্য অভিযোগ নথিভুক্ত করতে হয় এবং সংখ্যা নিউ ইয়র্ক রাজ্যকে জানাতে হয়। দ্রুততম উপায়: Call চাপুন এবং বলুন <em>"আমি নেটওয়ার্ক অ্যাক্সেস নিয়ে একটি আনুষ্ঠানিক অভিযোগ দায়ের করতে চাই। এটি নথিভুক্ত করুন এবং আমাকে রেফারেন্স নম্বর দিন।"</em> তারপর আপনার চিঠি পড়ে শোনান। এছাড়া <a href="https://my.healthfirst.org" target="_blank" rel="noopener">my.healthfirst.org</a>-এর Message Center দিয়ে বা মেম্বার কার্ডের পেছনের ঠিকানায় ডাকযোগে পাঠাতে পারেন।', hi: '<strong>यह क्यों ज़रूरी है:</strong> Healthfirst को हर सदस्य शिकायत दर्ज करनी होती है और संख्या न्यूयॉर्क राज्य को बतानी होती है। सबसे तेज़: Call दबाएँ और कहें <em>"मैं नेटवर्क पहुँच के बारे में औपचारिक शिकायत दर्ज करना चाहता/चाहती हूँ। इसे दर्ज करें और मुझे रेफरेंस नंबर दें।"</em> फिर अपना पत्र पढ़कर सुनाएँ। आप इसे <a href="https://my.healthfirst.org" target="_blank" rel="noopener">my.healthfirst.org</a> के Message Center से या अपने मेंबर कार्ड के पीछे दिए पते पर डाक से भी भेज सकते हैं।' },
     assemblyNote: { en: 'Based on your town, this letter goes to <strong>{A}</strong> and <strong>{S}</strong> — sending to both doubles your impact (the greeting adjusts automatically). Not your representatives? Find yours: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>. If the email opens empty, just paste (it\'s already copied).', es: 'Según su pueblo, esta carta va a <strong>{A}</strong> y <strong>{S}</strong> — enviarla a los dos duplica su impacto (el saludo se ajusta automáticamente). Si el correo se abre vacío, pegue la carta.', pa: 'ਤੁਹਾਡੇ ਸ਼ਹਿਰ ਦੇ ਆਧਾਰ \'ਤੇ, ਇਹ ਚਿੱਠੀ <strong>{A}</strong> ਅਤੇ <strong>{S}</strong> ਨੂੰ ਜਾਂਦੀ ਹੈ — ਦੋਵਾਂ ਨੂੰ ਭੇਜਣ ਨਾਲ ਅਸਰ ਦੁੱਗਣਾ (ਸੰਬੋਧਨ ਆਪਣੇ ਆਪ ਬਦਲਦਾ ਹੈ)। ਈਮੇਲ ਖ਼ਾਲੀ ਖੁੱਲ੍ਹੇ ਤਾਂ ਪੇਸਟ ਕਰੋ।', bn: 'আপনার শহরের ভিত্তিতে চিঠি যাবে <strong>{A}</strong> ও <strong>{S}</strong>-এর কাছে — দুজনকে পাঠালে প্রভাব দ্বিগুণ (সম্বোধন নিজেই বদলায়)। ইমেইল খালি খুললে পেস্ট করুন।', hi: 'आपके शहर के आधार पर, यह पत्र <strong>{A}</strong> और <strong>{S}</strong> को जाता है — दोनों को भेजने से असर दुगना (संबोधन अपने आप बदलता है)। ईमेल खाली खुले तो पेस्ट करें।' }
   };
   function t(key) { return (STR[key] && (STR[key][LANG] || STR[key].en)) || ''; }
@@ -630,13 +641,15 @@
   };
   var currentReps = REPS.nassau;
 
+  // hfPhone: Healthfirst Member Services by plan, per healthfirst.org/contact (Aug 2026).
+  // The number on the back of the member ID card is always authoritative.
   const PLAN_INFO = {
-    medicaid:  { label: "Healthfirst Medicaid Managed Care", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
-    essential: { label: "Healthfirst Essential Plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
-    chp:       { label: "Healthfirst Child Health Plus", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" },
-    medicare:  { label: "a Healthfirst Medicare plan", regulator: "Medicare (the Centers for Medicare & Medicaid Services)", channel: "medicare" },
-    commercial:{ label: "a Healthfirst commercial plan", regulator: "the New York State Department of Financial Services", channel: "dfs" },
-    notsure:   { label: "a Healthfirst plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh" }
+    medicaid:  { label: "Healthfirst Medicaid Managed Care", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh", hfPhone: "1-844-500-9820" },
+    essential: { label: "Healthfirst Essential Plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh", hfPhone: "1-844-500-9820" },
+    chp:       { label: "Healthfirst Child Health Plus", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh", hfPhone: "1-844-500-9820" },
+    medicare:  { label: "a Healthfirst Medicare plan", regulator: "Medicare (the Centers for Medicare & Medicaid Services)", channel: "medicare", hfPhone: "1-888-250-2220" },
+    commercial:{ label: "a Healthfirst commercial plan", regulator: "the New York State Department of Financial Services", channel: "dfs", hfPhone: "1-855-718-1822" },
+    notsure:   { label: "a Healthfirst plan", regulator: "the New York State Department of Health, Managed Care Complaint Unit", channel: "doh", hfPhone: "1-844-500-9820" }
   };
 
   function collectAnswers() {
@@ -719,14 +732,84 @@
       plausible('letter_cost', { props: { cost_usd: String(letters.usage.estimated_cost_usd), output_tokens: String(letters.usage.output_tokens) } });
     }
 
-    document.getElementById('txt-assembly').value = letters.assembly_letter;
-    document.getElementById('txt-regulator').value = letters.regulator_letter;
+    // If the backend hasn't been updated to produce the grievance letter yet,
+    // fall back to the template version for that one.
+    if (!letters.healthfirst_letter) letters.healthfirst_letter = templateLetters(answers).healthfirst_letter;
+
+    // Prepend a To/Subject header inside each letter so copying grabs everything.
+    // The header is stripped automatically when the email buttons pre-fill the address.
+    var h = letterHeaders(answers);
+    document.getElementById('txt-assembly').value = h.assembly + letters.assembly_letter;
+    document.getElementById('txt-regulator').value = h.regulator + letters.regulator_letter;
+    document.getElementById('txt-healthfirst').value = h.healthfirst + letters.healthfirst_letter;
     setupAssemblyCard(answers);
     setupRegulatorCard(answers);
+    setupHealthfirstCard(answers);
     document.getElementById('results').style.display = 'block';
     btn.disabled = false;
     btn.innerHTML = t('rewrite');
     document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function letterHeaders(answers) {
+    var a = currentReps.assembly, s = currentReps.senate;
+    var channel = PLAN_INFO[answers.planKey].channel;
+    var hfPhone = PLAN_INFO[answers.planKey].hfPhone;
+    var reg;
+    if (channel === 'doh') {
+      reg = 'To: NYS Department of Health, Managed Care Complaint Unit <managedcarecomplaint@health.ny.gov>\nSubject: Network adequacy complaint - Healthfirst - dermatology access\n\n';
+    } else if (channel === 'dfs') {
+      reg = 'Submit at: https://www.dfs.ny.gov/complaint (NYS Department of Financial Services)\nOr call: (800) 342-3736\n\n';
+    } else {
+      reg = 'Submit at: https://www.medicare.gov/my/medicare-complaint\nOr call: 1-800-MEDICARE (1-800-633-4227)\n\n';
+    }
+    return {
+      assembly: 'To: ' + a.name + ' <' + a.email + '>\nAlso send to: ' + s.name + ' <' + s.email + '>\nSubject: Constituent request: Healthfirst network access to Belaray Dermatology\n\n',
+      regulator: reg,
+      healthfirst: 'To: Healthfirst Member Services\nCall: ' + hfPhone + ' (the number on the back of your member ID card is always correct)\nOr: secure Message Center at my.healthfirst.org, or mail to the Member Services address on your ID card\nSubject: Formal grievance - network access to my dermatologist\n\n'
+    };
+  }
+
+  // Remove the To/Subject header block when pre-filling an email
+  function stripHeader(text) {
+    if (text.indexOf('To:') !== 0 && text.indexOf('Submit at:') !== 0) return text;
+    var idx = text.indexOf('\n\n');
+    return idx === -1 ? text : text.slice(idx + 2);
+  }
+
+  function setupHealthfirstCard(answers) {
+    var hfPhone = PLAN_INFO[answers.planKey].hfPhone;
+    document.getElementById('healthfirst-toline').textContent =
+      'To: Healthfirst Member Services · ' + hfPhone;
+    var actions = document.getElementById('healthfirst-actions');
+    actions.innerHTML = '';
+
+    var callBtn = document.createElement('a');
+    callBtn.className = 'act-btn act-primary';
+    callBtn.href = 'tel:' + hfPhone.replace(/[^0-9]/g, '');
+    callBtn.textContent = t('callHf');
+    callBtn.onclick = function() { if (typeof plausible !== 'undefined') plausible('call_healthfirst', { props: { plan: answers.planKey } }); };
+    actions.appendChild(callBtn);
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'act-btn act-secondary';
+    copyBtn.textContent = t('copyBtn');
+    copyBtn.onclick = function() { copyLetter('txt-healthfirst'); };
+    actions.appendChild(copyBtn);
+
+    var printBtn = document.createElement('button');
+    printBtn.className = 'act-btn act-secondary';
+    printBtn.textContent = t('printBtn');
+    printBtn.onclick = function() { printLetter('txt-healthfirst'); };
+    actions.appendChild(printBtn);
+
+    var sentBtn = document.createElement('button');
+    sentBtn.className = 'act-btn act-secondary';
+    sentBtn.textContent = t('sentBtn');
+    sentBtn.onclick = function() { markSent('healthfirst'); };
+    actions.appendChild(sentBtn);
+
+    document.getElementById('healthfirst-note').innerHTML = t('hfNote');
   }
 
   function setupAssemblyCard(answers) {
@@ -824,7 +907,6 @@
       other_language: a.language ? 'yes' : 'no',
       care_language: a.language || 'english',
       phototherapy: has(a.careAtBelaray, 'phototherapy'),
-      hair_loss: has(a.careAtBelaray, 'hair loss'),
       mohs_recon_same_day: has(a.careAtBelaray, 'oculoplastic (eyelid) reconstruction'),
       service_unavailable: has(a.accessProblems, 'specific service'),
       phone_unanswered: has(a.accessProblems, 'no one picks up'),
@@ -863,16 +945,16 @@
     if (which === 'assembly') {
       to = currentReps.assembly.email;
       subject = 'Constituent request: Healthfirst network access to Belaray Dermatology';
-      body = document.getElementById('txt-assembly').value;
+      body = stripHeader(document.getElementById('txt-assembly').value);
     } else if (which === 'senate') {
       to = currentReps.senate.email;
       subject = 'Constituent request: Healthfirst network access to Belaray Dermatology';
-      body = document.getElementById('txt-assembly').value
+      body = stripHeader(document.getElementById('txt-assembly').value)
         .replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
     } else {
       to = 'managedcarecomplaint@health.ny.gov';
       subject = 'Network adequacy complaint - Healthfirst - dermatology access';
-      body = document.getElementById('txt-regulator').value;
+      body = stripHeader(document.getElementById('txt-regulator').value);
     }
     navigator.clipboard.writeText(body).catch(function(){});
     if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: which } });
@@ -933,7 +1015,16 @@
       'I ask that you review whether Healthfirst\'s dermatology network provides genuinely equivalent, timely, and geographically accessible care for members in Nassau and Suffolk County, and that Belaray Dermatology be restored to the network so patients like me can continue our care.' +
       own + sig;
 
-    return { assembly_letter: assembly, regulator_letter: regulator };
+    var healthfirst =
+      'Dear Healthfirst Member Services,\n\n' +
+      'I am a member of ' + a.planType + (a.town ? ', living in ' + a.town + ', NY' : '') + ', and I am writing to file a formal grievance about access to dermatology care in your network. ' +
+      years + fam + care + lang + '\n\n' +
+      'Your contract change in May 2026 ended my access to Belaray Dermatology, and in August 2026 you declined the practice\'s application to rejoin — a practice that participated with Healthfirst since 2006 and is willing to continue. ' +
+      notMyChoice + meaning + access + '\n\n' +
+      'As your member, I am asking Healthfirst to restore Belaray Dermatology to the network so my established care can continue. Please log this as a formal grievance and send me a written response with the grievance reference number.' +
+      own + sig;
+
+    return { assembly_letter: assembly, regulator_letter: regulator, healthfirst_letter: healthfirst };
   }
  </script>
 
