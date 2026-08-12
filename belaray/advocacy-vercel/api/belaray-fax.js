@@ -145,6 +145,15 @@ export default async function handler(req, res) {
 
     const allOk = results.every((r) => r.ok);
     console.log("fax_batch", JSON.stringify({ ip, results }));
+    try {
+      await sheetAppend([
+        new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+        "fax_batch",
+        patientName, patientTown, planType, patientContact, "",
+        JSON.stringify(results).slice(0, 45000),
+        "",
+      ]);
+    } catch (e) { console.error("sheet log failed", e && e.message); }
     return res.status(200).json({ ok: allOk, results });
   }
 
@@ -157,7 +166,73 @@ export default async function handler(req, res) {
   const sent = await sendFax(creds, rec.fax, pdf, "grievance.pdf");
   if (!sent.ok) return res.status(502).json({ error: "fax_failed" });
   console.log("fax_queued", JSON.stringify({ id: sent.id || null }));
+  try {
+    await sheetAppend([
+      new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+      "fax_single_grievance",
+      patientName, patientTown, planType, patientContact, "",
+      JSON.stringify({ id: sent.id || null }).slice(0, 45000),
+      "",
+    ]);
+  } catch (e) { console.error("sheet log failed", e && e.message); }
   return res.status(200).json({ ok: true, id: sent.id || null });
+}
+
+/**
+ * Append one row to the practice's campaign Google Sheet using a service
+ * account (no npm dependencies: hand-rolled RS256 JWT + REST).
+ * Env vars: GSHEET_ID (spreadsheet id), GSA_EMAIL (service account email),
+ * GSA_KEY (service account private key; \n escapes are handled).
+ * Silently no-ops if the env vars aren't configured.
+ */
+async function sheetAppend(row) {
+  const sheetId = process.env.GSHEET_ID;
+  const saEmail = process.env.GSA_EMAIL;
+  let saKey = process.env.GSA_KEY;
+  if (!sheetId || !saEmail || !saKey) return;
+  saKey = saKey.replace(/\\n/g, "\n");
+
+  const { createSign } = await import("node:crypto");
+  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
+  const now = Math.floor(Date.now() / 1000);
+  const unsigned =
+    b64({ alg: "RS256", typ: "JWT" }) + "." +
+    b64({
+      iss: saEmail,
+      scope: "https://www.googleapis.com/auth/spreadsheets",
+      aud: "https://oauth2.googleapis.com/token",
+      iat: now,
+      exp: now + 3600,
+    });
+  const signature = createSign("RSA-SHA256").update(unsigned).sign(saKey).toString("base64url");
+
+  const tokResp = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "content-type": "application/x-www-form-urlencoded" },
+    body:
+      "grant_type=" + encodeURIComponent("urn:ietf:params:oauth:grant-type:jwt-bearer") +
+      "&assertion=" + unsigned + "." + signature,
+  });
+  const tok = await tokResp.json().catch(() => ({}));
+  if (!tok.access_token) {
+    console.error("sheet token error", JSON.stringify(tok).slice(0, 300));
+    return;
+  }
+
+  const appendResp = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(sheetId)}/values/A1:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
+    {
+      method: "POST",
+      headers: {
+        authorization: "Bearer " + tok.access_token,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ values: [row] }),
+    }
+  );
+  if (!appendResp.ok) {
+    console.error("sheet append error", appendResp.status, (await appendResp.text()).slice(0, 300));
+  }
 }
 
 /* ---------- cover pages ---------- */
