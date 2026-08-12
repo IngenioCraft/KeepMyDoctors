@@ -38,6 +38,7 @@ Make every patient's letters different:
 
 Content rules:
 - Use ONLY the facts supplied. Never invent or exaggerate facts, conditions, numbers, dates, or events. If a field was left blank, omit that topic entirely.
+- When in doubt, understate rather than overstate. These letters go to legislators and regulators, and they only work if every line is checkably true. One inflated claim can undercut the whole letter and the patient's credibility.
 - Describing what happened: NEVER say Healthfirst "dropped" the practice, that the practice left, or that it lost its spot over any problem. In plain words: a contract change on Healthfirst's side, between Healthfirst and the larger medical group Belaray was part of, pushed the practice out of the network in May 2026 through no choice of its own. The practice asked to come back right away and expected to be back by August 1. In August, Healthfirst said no and called it a business decision. Patients may naturally quote that: "they told my doctor it was a business decision."
 - Cover every topic this patient answered, but lead with what matters most to this person and let the rest support it, so the letter reads as one person's story rather than a list.
 - Where the patient wrote something in their own words, keep their phrasing (lightly cleaned up; translated to English if needed).
@@ -46,6 +47,8 @@ Content rules:
 - Explain the impact on the patient, never the practice's business interests, awards, or reputation.
 - The unfairness should come through the facts, said simply: the office is still open, it is close by, the patient still wants to go there and the office still wants to see them, and the insurance company's choice is the only thing stopping it. Put it in words that fit this patient's voice.
 - Phone and language problems are concrete: nobody picked up, nobody called back, nobody spoke my language. If the patient noted Belaray's 24/7 doctor-answered line or language support, mention the contrast simply.
+- Directory facts, gated strictly to what THIS patient reported. If they checked Healthfirst's doctor list before picking or renewing the plan, say it plainly, and if they said the listing influenced them, say how much in their own plain words ("Their list said my doctor was covered. That is a big reason I picked Healthfirst."). If the reliance field is absent, do not imply the listing influenced them. If they said the list STILL shows their Belaray doctors as covered and they looked themselves, they should say they looked and what they saw. If a practice-verified directory fact is supplied and the patient did NOT look themselves, phrase it secondhand only: "I am told that as of [date], Healthfirst's own list still showed my doctors as covered." Never present it as their own observation, and never mention a screenshot unless the patient's own words do.
+- Billing problems and delayed care are the most serious facts in the questionnaire. If care was delayed or skipped, especially anything involving a biopsy or skin cancer, LEAD the letter with it. In the "healthfirst_letter", when billing problems were reported alongside directory facts, ask plainly that those visits be re-billed at in-network cost, since Healthfirst's own list said the doctor was covered.
 - If the patient needs a specific service they could not find elsewhere in the plan (Mohs surgery with same-day eyelid reconstruction in one visit, phototherapy), say concretely that they could not find it anywhere else.
 - Provider naming: refer to caregivers as "my dermatologist," "my doctor," or "the doctors at Belaray." The only individual clinicians you may name are physicians explicitly present in the structured input (e.g., Dr. Rachel Ellis). If the patient's own words name any other individual provider, keep their sentiment but generalize the reference.
 - Family members: use exactly the words the patient used ("my spouse," "my children," "my parents"). Never change "spouse" to "wife" or "husband" or otherwise assume anyone's gender or details.
@@ -167,6 +170,7 @@ export default async function handler(req, res) {
         clip(a.email),
         JSON.stringify({
           county: a.county,
+          zip: a.zip,
           years: a.yearsPatient || a.yearsReferring,
           family: a.familyMembers,
           care: a.careAtBelaray,
@@ -174,6 +178,13 @@ export default async function handler(req, res) {
           meaning: a.whatLosingMeans,
           language: a.language,
           details: a.accessDetails,
+          directory: {
+            checked: a.directoryChecked,
+            impact: a.directoryImpact,
+            stillListed: a.directoryStillListed,
+            fees: a.directoryFees,
+            delays: a.directoryDelays,
+          },
           ownWords: a.ownWords,
         }).slice(0, 45000),
         JSON.stringify({
@@ -287,6 +298,7 @@ function buildPrompt(a) {
 
   add("Patient name (for signature)", clip(a.name));
   add("Town / area", clip(a.town));
+  add("ZIP code (append after the town in the signature line, e.g. 'Hicksville, NY 11801')", clip(a.zip));
   add("NY State Assembly member to address in the assembly letter", clip(a.assemblyRep));
   add("Insurance plan type", clip(a.planType));
   add("Regulator letter recipient", clip(a.regulatorRecipient));
@@ -311,6 +323,27 @@ function buildPrompt(a) {
 
   const extras = clipList(a.extras);
   if (extras.length) add("Other true statements they checked", extras.join("; "));
+
+  // Directory (find-a-doctor) facts — each line appears ONLY when the patient
+  // actually reported it, so no letter ever claims reliance or harm the
+  // patient didn't state.
+  add("Before picking or renewing this plan, they checked that their Belaray doctor was covered", clip(a.directoryChecked));
+  add("How much that in-network listing affected their choice of Healthfirst", clip(a.directoryImpact));
+  if (a.directoryStillListed === "yes") {
+    add("They looked at Healthfirst's find-a-doctor list recently, THEMSELVES", "their Belaray doctors are STILL shown as covered; they saw it with their own eyes");
+  } else if (a.directoryStillListed === "no") {
+    add("They looked at Healthfirst's find-a-doctor list recently, THEMSELVES", "their Belaray doctors no longer appear on it");
+  }
+  const dirFees = clipList(a.directoryFees);
+  if (dirFees.length) add("Billing problems since May 2026", dirFees.join("; "));
+  const dirDelays = clipList(a.directoryDelays);
+  if (dirDelays.length) add("Care delayed or skipped because of all this", dirDelays.join("; "));
+  if (process.env.DIRECTORY_LAST_VERIFIED) {
+    add(
+      "Practice-verified directory fact (SECONDHAND for this patient unless they said they looked themselves)",
+      "As of " + process.env.DIRECTORY_LAST_VERIFIED + ", Healthfirst's own online find-a-doctor list still showed Belaray physicians as in-network"
+    );
+  }
 
   add("Anything else, in the patient's own words", clip(a.ownWords));
 

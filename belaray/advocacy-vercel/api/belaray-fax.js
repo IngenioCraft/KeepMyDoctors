@@ -47,7 +47,7 @@ const FAX_RECIPIENTS = {
     kind: "legislator",
   },
   "senate-nassau": {
-    fax: "+15168820636", // Senator Rhoads district office, nysenate.gov
+    fax: "+15167311751", // Senator Rhoads district office, corrected per the practice Aug 2026
     label: "Senator Steve Rhoads, 5th Senate District",
     kind: "legislator",
   },
@@ -109,13 +109,14 @@ export default async function handler(req, res) {
   const patientName = String(b.patientName || "").trim().slice(0, 120);
   const patientTown = String(b.patientTown || "").trim().slice(0, 80);
   const patientContact = String(b.patientContact || "").trim().slice(0, 120);
+  const patientZip = String(b.patientZip || "").trim().slice(0, 10);
   const planType = String(b.planType || "").trim().slice(0, 80);
 
   // A fax with no reply path is easy to dismiss, and every fax leaves the
   // same sending number. Require a per-patient contact for the cover page.
   if (!patientContact) return res.status(400).json({ error: "contact_required" });
 
-  const patient = { patientName, patientTown, patientContact, planType };
+  const patient = { patientName, patientTown, patientContact, patientZip, planType };
   const creds = { projectId, keyId, keySecret };
 
   // ---- Batch mode -----------------------------------------------------
@@ -140,7 +141,7 @@ export default async function handler(req, res) {
       // Sequential on purpose: gentler on the fax API, and per-recipient
       // failures stay isolated.
       const sent = await sendFax(creds, rec.fax, pdf, `${id}.pdf`);
-      results.push({ recipient: id, ok: sent.ok, id: sent.id || null });
+      results.push({ recipient: id, ok: sent.ok, id: sent.id || null, detail: sent.detail });
     }
 
     const allOk = results.every((r) => r.ok);
@@ -241,7 +242,8 @@ function coverFor(rec, p) {
   const date = new Date().toLocaleDateString("en-US", {
     timeZone: "America/New_York", year: "numeric", month: "long", day: "numeric",
   });
-  const from = (p.patientName || "Healthfirst member") + (p.patientTown ? ", " + p.patientTown + ", NY" : "");
+  const from = (p.patientName || "Healthfirst member") +
+    (p.patientTown ? ", " + p.patientTown + ", NY" + (p.patientZip ? " " + p.patientZip : "") : "");
 
   if (rec.kind === "grievance") {
     return [
@@ -255,8 +257,8 @@ function coverFor(rec, p) {
       { t: "Date: " + date },
       { t: "Re: Formal member grievance - access to dermatology care (Belaray Dermatology)" },
       { t: "" },
-      { t: "This fax was sent by the member named above, using an online tool at" },
-      { t: "keepmydoctors.com that lets patients write and send their own letters." },
+      { t: "This fax was sent by the member named above, using an online tool" },
+      { t: "that lets patients write and send their own letters." },
       { t: "Please log this as a formal grievance and provide a written response" },
       { t: "with a grievance reference number." },
       { t: "------------------------------------------------------------------" },
@@ -274,7 +276,7 @@ function coverFor(rec, p) {
     { t: "Re: Healthfirst network access to Belaray Dermatology" },
     { t: "" },
     { t: "This fax was sent by the constituent named above, using an online tool" },
-    { t: "at keepmydoctors.com that lets patients write and send their own letters." },
+    { t: "that lets patients write and send their own letters." },
     { t: "------------------------------------------------------------------" },
   ];
 }
@@ -304,13 +306,16 @@ async function sendFax(creds, destination, pdf, filename) {
     );
     const data = await apiResp.json().catch(() => ({}));
     if (!apiResp.ok) {
-      console.error("Sinch fax error", apiResp.status, JSON.stringify(data).slice(0, 500));
-      return { ok: false };
+      const detail = apiResp.status + " " + JSON.stringify(data).slice(0, 400);
+      console.error("Sinch fax error", detail);
+      // Expose the provider error in the API response only while FAX_TEST_TO
+      // (test mode) is set — never in production responses.
+      return { ok: false, detail: process.env.FAX_TEST_TO ? detail : undefined };
     }
     return { ok: true, id: data.id };
   } catch (e) {
     console.error("fax send error", e && e.message);
-    return { ok: false };
+    return { ok: false, detail: process.env.FAX_TEST_TO ? String(e && e.message) : undefined };
   }
 }
 
