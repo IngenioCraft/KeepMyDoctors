@@ -121,7 +121,7 @@
   <div class="hero-badge">For Referring Physicians & Clinicians</div>
   <h1>Your Referral Pathway to Belaray Is Gone — Your Voice Can Restore It</h1>
   <p class="hero-sub">
-   Healthfirst ended Belaray Dermatology's 20-year network participation in May 2026 and declined the practice's application to rejoin in August, citing "current network needs." If that decision affects your patients and your referrals, the people who decide — legislators, NYS DOH, and Healthfirst network management — need to hear it from clinicians. Answer a few questions and we'll draft three professional letters for your review. About 3 minutes.
+   When Healthfirst terminated its contract with CHS, Belaray Dermatology's 20-year network participation ended in May 2026 through no action of the practice. Belaray immediately reapplied and expected reinstatement by August 1; instead, Healthfirst denied the application in August, citing "current network needs." If that decision affects your patients and your referrals, the people who decide — legislators, NYS DOH, and Healthfirst network management — need to hear it from clinicians. Answer a few questions and we'll draft three professional letters for your review. About 3 minutes.
   </p>
  </section>
 
@@ -142,6 +142,7 @@
     <div class="field">
      <label class="f-label" for="p-cred">Credentials</label>
      <select id="p-cred">
+      <option value="">Select…</option>
       <option value="MD">MD</option>
       <option value="DO">DO</option>
       <option value="NP">NP</option>
@@ -152,6 +153,7 @@
     <div class="field">
      <label class="f-label" for="p-spec">Specialty</label>
      <select id="p-spec">
+      <option value="">Select…</option>
       <option value="family medicine / primary care">Family medicine / primary care</option>
       <option value="dermatology">Dermatology</option>
       <option value="Mohs surgery / dermatologic surgery">Mohs surgery / dermatologic surgery</option>
@@ -176,30 +178,18 @@
      <input type="text" id="p-practice">
     </div>
     <div class="field">
-     <label class="f-label" for="p-town">Practice location</label>
-     <select id="p-town">
-      <option value="" data-county="nassau">Select…</option>
-      <optgroup label="Nassau County">
-       <option value="Hicksville" data-county="nassau">Hicksville</option>
-       <option value="Levittown" data-county="nassau">Levittown</option>
-       <option value="Bethpage" data-county="nassau">Bethpage</option>
-       <option value="Plainview" data-county="nassau">Plainview</option>
-       <option value="Syosset" data-county="nassau">Syosset</option>
-       <option value="Jericho" data-county="nassau">Jericho</option>
-       <option value="Westbury" data-county="nassau">Westbury</option>
-       <option value="East Meadow" data-county="nassau">East Meadow</option>
-       <option value="another town in Nassau County" data-county="nassau">Other Nassau town</option>
-      </optgroup>
-      <optgroup label="Suffolk County">
-       <option value="Stony Brook" data-county="suffolk">Stony Brook</option>
-       <option value="Setauket / East Setauket" data-county="suffolk">Setauket / East Setauket</option>
-       <option value="Port Jefferson" data-county="suffolk">Port Jefferson</option>
-       <option value="Smithtown" data-county="suffolk">Smithtown</option>
-       <option value="another town in Suffolk County" data-county="suffolk">Other Suffolk town</option>
-      </optgroup>
-      <option value="Long Island" data-county="nassau">Somewhere else</option>
+     <label class="f-label" for="p-county">Practice county</label>
+     <select id="p-county">
+      <option value="">Select…</option>
+      <option value="nassau">Nassau County</option>
+      <option value="suffolk">Suffolk County</option>
+      <option value="other">Outside Nassau / Suffolk</option>
      </select>
     </div>
+   </div>
+   <div class="field">
+    <label class="f-label" for="p-towntext">Town (optional)</label>
+    <input type="text" id="p-towntext" placeholder="e.g. Hicksville, Smithtown…">
    </div>
    <div class="field">
     <label class="f-label" for="p-years">How long have you referred patients to Belaray?</label>
@@ -348,18 +338,21 @@
   var currentReps = REPS.nassau;
 
   function collectAnswers() {
-    var townSel = document.getElementById('p-town');
-    var townOpt = townSel.options[townSel.selectedIndex];
-    var county = (townOpt && townOpt.dataset.county) || 'nassau';
-    currentReps = REPS[county] || REPS.nassau;
+    var countySel = document.getElementById('p-county').value;
+    var county = (countySel === 'suffolk') ? 'suffolk' : 'nassau';
+    currentReps = REPS[county];
+    var townText = document.getElementById('p-towntext').value.trim();
+    var townForLetter = townText ||
+      (countySel === 'nassau' ? 'Nassau County' : countySel === 'suffolk' ? 'Suffolk County' : '');
     return {
       role: 'physician',
       name: document.getElementById('p-name').value.trim(),
       credentials: document.getElementById('p-cred').value,
       specialty: document.getElementById('p-spec').value,
       practice: document.getElementById('p-practice').value.trim(),
-      town: townSel.value,
+      town: townForLetter,
       county: county,
+      countyChoice: countySel,
       assemblyRep: currentReps.assembly.name,
       assemblyRepSalutation: currentReps.assembly.salutation,
       yearsReferring: document.getElementById('p-years').value,
@@ -420,7 +413,10 @@
     document.getElementById('mail-assembly-label').textContent = 'Email ' + a.salutation;
     document.getElementById('mail-senate-label').textContent = 'Email ' + s.salutation;
     document.getElementById('assembly-note').innerHTML =
-      'Based on your practice location, this goes to <strong>' + a.name + '</strong> and <strong>' + s.name + '</strong> (the greeting adjusts automatically). Not your district? Find yours: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>.';
+      (answers.countyChoice === 'other' || answers.countyChoice === ''
+        ? '<strong>Note:</strong> since your practice is outside Nassau/Suffolk (or no county was selected), the recipients below are defaults — please look up your own legislators and swap the recipient: '
+        : 'Based on your practice location, this goes to <strong>' + a.name + '</strong> and <strong>' + s.name + '</strong> (the greeting adjusts automatically). Not your district? Find yours: ')
+      + '<a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>.';
 
     document.getElementById('results').style.display = 'block';
     btn.disabled = false;
@@ -494,8 +490,8 @@
       return list.some(function(v) { return v.toLowerCase().indexOf(frag) !== -1; }) ? 'yes' : 'no';
     };
     plausible('physician_stats', { props: {
-      specialty: a.specialty,
-      county: a.county,
+      specialty: a.specialty || 'not answered',
+      county: a.countyChoice || 'not answered',
       years_referring: a.yearsReferring || 'not answered',
       no_comparable_option: has(a.practiceImpact, 'no comparable'),
       waits_beyond_standard: has(a.patientImpact, '4-6 week'),
@@ -514,7 +510,7 @@
       (a.practice ? '\n' + a.practice : '') + (a.town ? '\n' + a.town + ', NY' : '');
     var intro = 'I practice ' + (a.specialty || 'medicine') + (a.town ? ' in ' + a.town + ', NY' : '') +
       (a.yearsReferring ? ', and I have referred patients to Belaray Dermatology for ' + a.yearsReferring + '. ' : '. ');
-    var pat = a.patientImpact.length ? 'Since Healthfirst ended this practice\'s network participation, my patients have been directly affected: ' + a.patientImpact.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. ' : '';
+    var pat = a.patientImpact.length ? 'Since this practice was forced out of the Healthfirst network, my patients have been directly affected: ' + a.patientImpact.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. ' : '';
     var prac = a.practiceImpact.length ? 'From the referring side: ' + a.practiceImpact.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. ' : '';
     var facts = 'Belaray Dermatology participated with Healthfirst from 2006 until a contract change in May 2026, submitted credentialing to rejoin, and was declined in August 2026 — despite remaining open, local, and willing to participate. A directory listing is not a referral pathway; New York\'s managed-care standards generally expect a specialist appointment within 4-6 weeks. ';
     var own = a.ownWords ? '\n\n' + a.ownWords : '';

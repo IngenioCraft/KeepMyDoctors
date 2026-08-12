@@ -1,11 +1,19 @@
 /**
- * Belaray fax-a-grievance — Vercel serverless function
- * ----------------------------------------------------
- * POST { letterText, patientName, patientTown }
+ * Belaray fax advocacy — Vercel serverless function
+ * -------------------------------------------------
+ * Two modes:
  *
- * Renders the member's grievance letter as a simple PDF (no dependencies)
- * and faxes it to Healthfirst's Appeals & Grievances Department via the
- * Sinch Fax API v3. The destination number is hardcoded server-side so
+ * 1) Batch (the one-tap "send my letters" panel):
+ *    POST { recipients: ["assembly-nassau","senate-nassau","healthfirst"],
+ *           letters: { "assembly-nassau": "...", ... },
+ *           patientName, patientTown, patientContact, planType }
+ *
+ * 2) Legacy single grievance (kept for the per-card fax button):
+ *    POST { letterText, patientName, patientTown, patientContact, planType }
+ *
+ * Letters are rendered as simple PDFs (no dependencies) with a cover page
+ * naming the patient and their reply contact, then sent via Sinch Fax API v3.
+ * Destinations are ONLY ever chosen from the server-side whitelist below, so
  * this endpoint can never be used as an open fax relay.
  *
  * Env vars (Vercel → Project → Settings → Environment Variables):
@@ -13,6 +21,8 @@
  *   SINCH_KEEPMYBELARAYDOCTORS_ACCESS_KEY     — Sinch access key ID
  *   SINCH_KEEPMYBELARAYDOCTORS_SECRET         — Sinch access key secret
  *   SINCH_FAX_FROM                            — optional; a Sinch fax number you own, E.164
+ *   FAX_TEST_TO                               — optional; overrides EVERY destination for testing.
+ *                                               DELETE it (and redeploy) to go live.
  */
 
 const ALLOWED_ORIGINS = [
@@ -22,18 +32,43 @@ const ALLOWED_ORIGINS = [
   "http://127.0.0.1:8080",
 ];
 
-// Healthfirst Appeals & Grievances Department fax (per Healthfirst's own
-// AOR form and medicare-coverage page). Never accept a destination from
-// the client. For end-to-end testing, set the env var FAX_TEST_TO to a fax
-// number you control (e.g. the office fax) and every fax goes there instead;
-// DELETE that env var (and redeploy) to go live against Healthfirst.
-const HEALTHFIRST_FAX = "+16463134618";
+// Server-side destination whitelist. Fax numbers verified against each
+// office's official contact page (Aug 2026). A null fax means "known
+// recipient, number not yet confirmed" — requests for it are skipped.
+const FAX_RECIPIENTS = {
+  healthfirst: {
+    fax: "+16463134618", // Appeals & Grievances Dept, per Healthfirst's own forms
+    label: "Healthfirst Appeals and Grievances Department",
+    kind: "grievance",
+  },
+  "assembly-nassau": {
+    fax: "+15169373632", // Assemblyman Blumencranz district office, assembly.state.ny.us
+    label: "Assemblyman Jake Blumencranz, 15th Assembly District",
+    kind: "legislator",
+  },
+  "senate-nassau": {
+    fax: "+15168820636", // Senator Rhoads district office, nysenate.gov
+    label: "Senator Steve Rhoads, 5th Senate District",
+    kind: "legislator",
+  },
+  "assembly-suffolk": {
+    fax: "+16317510280", // Assemblywoman Kassay district office, assembly.state.ny.us
+    label: "Assemblywoman Rebecca Kassay, 4th Assembly District",
+    kind: "legislator",
+  },
+  "senate-suffolk": {
+    fax: null, // TODO: confirm with Senator Palumbo's office (no fax on official page)
+    label: "Senator Anthony Palumbo, 1st Senate District",
+    kind: "legislator",
+  },
+};
 
 const MAX_LETTER_CHARS = 8000;
+const MAX_BATCH = 4;
 
 // Best-effort per-instance rate limit (serverless instances don't share
 // memory, so this is a speed bump, not a wall — fine for this use).
-const RATE_LIMIT = 3;
+const RATE_LIMIT = 3; // requests per window (a batch counts as one)
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 const hits = new Map();
 
@@ -71,72 +106,136 @@ export default async function handler(req, res) {
   if (rateLimited(ip)) return res.status(429).json({ error: "too_many_requests" });
 
   const b = req.body || {};
-  const letterText = String(b.letterText || "").trim().slice(0, MAX_LETTER_CHARS);
   const patientName = String(b.patientName || "").trim().slice(0, 120);
   const patientTown = String(b.patientTown || "").trim().slice(0, 80);
   const patientContact = String(b.patientContact || "").trim().slice(0, 120);
   const planType = String(b.planType || "").trim().slice(0, 80);
-  if (letterText.length < 40) return res.status(400).json({ error: "letter_too_short" });
-  // A grievance with no reply path is easy to dismiss, and every fax leaves
-  // the same sending number. Require a per-patient contact for the cover page.
+
+  // A fax with no reply path is easy to dismiss, and every fax leaves the
+  // same sending number. Require a per-patient contact for the cover page.
   if (!patientContact) return res.status(400).json({ error: "contact_required" });
 
+  const patient = { patientName, patientTown, patientContact, planType };
+  const creds = { projectId, keyId, keySecret };
+
+  // ---- Batch mode -----------------------------------------------------
+  if (Array.isArray(b.recipients)) {
+    const wanted = [...new Set(b.recipients.map(String))].slice(0, MAX_BATCH);
+    const lettersIn = b.letters && typeof b.letters === "object" ? b.letters : {};
+    if (!wanted.length) return res.status(400).json({ error: "no_recipients" });
+
+    const results = [];
+    for (const id of wanted) {
+      const rec = FAX_RECIPIENTS[id];
+      const letter = String(lettersIn[id] || "").trim().slice(0, MAX_LETTER_CHARS);
+      if (!rec || !rec.fax) {
+        results.push({ recipient: id, ok: false, error: "unknown_or_no_fax" });
+        continue;
+      }
+      if (letter.length < 40) {
+        results.push({ recipient: id, ok: false, error: "letter_too_short" });
+        continue;
+      }
+      const pdf = buildPdf(coverFor(rec, patient), letter);
+      // Sequential on purpose: gentler on the fax API, and per-recipient
+      // failures stay isolated.
+      const sent = await sendFax(creds, rec.fax, pdf, `${id}.pdf`);
+      results.push({ recipient: id, ok: sent.ok, id: sent.id || null });
+    }
+
+    const allOk = results.every((r) => r.ok);
+    console.log("fax_batch", JSON.stringify({ ip, results }));
+    return res.status(200).json({ ok: allOk, results });
+  }
+
+  // ---- Legacy single-grievance mode -----------------------------------
+  const letterText = String(b.letterText || "").trim().slice(0, MAX_LETTER_CHARS);
+  if (letterText.length < 40) return res.status(400).json({ error: "letter_too_short" });
+
+  const rec = FAX_RECIPIENTS.healthfirst;
+  const pdf = buildPdf(coverFor(rec, patient), letterText);
+  const sent = await sendFax(creds, rec.fax, pdf, "grievance.pdf");
+  if (!sent.ok) return res.status(502).json({ error: "fax_failed" });
+  console.log("fax_queued", JSON.stringify({ id: sent.id || null }));
+  return res.status(200).json({ ok: true, id: sent.id || null });
+}
+
+/* ---------- cover pages ---------- */
+
+function coverFor(rec, p) {
   const date = new Date().toLocaleDateString("en-US", {
     timeZone: "America/New_York", year: "numeric", month: "long", day: "numeric",
   });
-  const cover = [
-    { t: "FAX - MEMBER GRIEVANCE", b: true },
-    { t: "" },
-    { t: "To: Healthfirst Appeals and Grievances Department" },
-    { t: "Fax: 1-646-313-4618  |  Mail: P.O. Box 5166, New York, NY 10274-5166" },
-    { t: "From: " + (patientName || "Healthfirst member") + (patientTown ? ", " + patientTown + ", NY" : "") },
-    { t: "Reply to this member at: " + patientContact },
-    ...(planType ? [{ t: "Plan: " + planType }] : []),
-    { t: "Date: " + date },
-    { t: "Re: Formal member grievance - access to dermatology care (Belaray Dermatology)" },
-    { t: "" },
-    { t: "This fax was sent by the member named above, using an online tool at" },
-    { t: "keepmydoctors.com that lets patients write and send their own letters." },
-    { t: "Please log this as a formal grievance and provide a written response" },
-    { t: "with a grievance reference number." },
-    { t: "------------------------------------------------------------------" },
-  ];
+  const from = (p.patientName || "Healthfirst member") + (p.patientTown ? ", " + p.patientTown + ", NY" : "");
 
-  const pdf = buildPdf(cover, letterText);
-
-  const destination = process.env.FAX_TEST_TO || HEALTHFIRST_FAX;
-  if (process.env.FAX_TEST_TO) {
-    console.warn("fax TEST MODE: sending to FAX_TEST_TO, not Healthfirst:", destination);
+  if (rec.kind === "grievance") {
+    return [
+      { t: "FAX - MEMBER GRIEVANCE", b: true },
+      { t: "" },
+      { t: "To: " + rec.label },
+      { t: "Fax: 1-646-313-4618  |  Mail: P.O. Box 5166, New York, NY 10274-5166" },
+      { t: "From: " + from },
+      { t: "Reply to this member at: " + p.patientContact },
+      ...(p.planType ? [{ t: "Plan: " + p.planType }] : []),
+      { t: "Date: " + date },
+      { t: "Re: Formal member grievance - access to dermatology care (Belaray Dermatology)" },
+      { t: "" },
+      { t: "This fax was sent by the member named above, using an online tool at" },
+      { t: "keepmydoctors.com that lets patients write and send their own letters." },
+      { t: "Please log this as a formal grievance and provide a written response" },
+      { t: "with a grievance reference number." },
+      { t: "------------------------------------------------------------------" },
+    ];
   }
 
+  return [
+    { t: "FAX - LETTER FROM A CONSTITUENT", b: true },
+    { t: "" },
+    { t: "To: " + rec.label },
+    { t: "From: " + from },
+    { t: "Reply to this constituent at: " + p.patientContact },
+    ...(p.planType ? [{ t: "Health plan: " + p.planType }] : []),
+    { t: "Date: " + date },
+    { t: "Re: Healthfirst network access to Belaray Dermatology" },
+    { t: "" },
+    { t: "This fax was sent by the constituent named above, using an online tool" },
+    { t: "at keepmydoctors.com that lets patients write and send their own letters." },
+    { t: "------------------------------------------------------------------" },
+  ];
+}
+
+/* ---------- Sinch send ---------- */
+
+async function sendFax(creds, destination, pdf, filename) {
+  const to = process.env.FAX_TEST_TO || destination;
+  if (process.env.FAX_TEST_TO) {
+    console.warn("fax TEST MODE: sending to FAX_TEST_TO, not", destination, "->", to);
+  }
   try {
     const form = new FormData();
-    form.append("to", destination);
+    form.append("to", to);
     if (process.env.SINCH_FAX_FROM) form.append("from", process.env.SINCH_FAX_FROM);
-    form.append("file", new Blob([pdf], { type: "application/pdf" }), "grievance.pdf");
+    form.append("file", new Blob([pdf], { type: "application/pdf" }), filename);
 
     const apiResp = await fetch(
-      `https://fax.api.sinch.com/v3/projects/${encodeURIComponent(projectId)}/faxes`,
+      `https://fax.api.sinch.com/v3/projects/${encodeURIComponent(creds.projectId)}/faxes`,
       {
         method: "POST",
         headers: {
-          Authorization: "Basic " + Buffer.from(`${keyId}:${keySecret}`).toString("base64"),
+          Authorization: "Basic " + Buffer.from(`${creds.keyId}:${creds.keySecret}`).toString("base64"),
         },
         body: form,
       }
     );
-
     const data = await apiResp.json().catch(() => ({}));
     if (!apiResp.ok) {
       console.error("Sinch fax error", apiResp.status, JSON.stringify(data).slice(0, 500));
-      return res.status(502).json({ error: "fax_failed" });
+      return { ok: false };
     }
-
-    console.log("fax_queued", JSON.stringify({ id: data.id || null, pages: null }));
-    return res.status(200).json({ ok: true, id: data.id || null });
+    return { ok: true, id: data.id };
   } catch (e) {
-    console.error("fax function error", e && e.message);
-    return res.status(502).json({ error: "fax_failed" });
+    console.error("fax send error", e && e.message);
+    return { ok: false };
   }
 }
 
@@ -153,7 +252,7 @@ function toLatin1(s) {
     .replace(/[“”]/g, '"')
     .replace(/[–—]/g, "-")
     .replace(/…/g, "...")
-    .replace(/ /g, " ")
+    .replace(/ /g, " ")
     .replace(/[^\x0A\x20-\xFF]/g, "?");
 }
 

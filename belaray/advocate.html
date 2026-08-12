@@ -489,6 +489,21 @@
    </div>
    <label class="check-row checked" style="margin-top:14px;"><input type="checkbox" id="cc-practice" checked><span class="txt"><span class="en">Send Belaray a private copy (BCC) so the practice knows my letters went out</span><span class="es">Enviar a Belaray una copia privada (BCC) para que sepan que mis cartas salieron</span><span class="pa">Belaray ਨੂੰ ਨਿੱਜੀ ਕਾਪੀ (BCC) ਭੇਜੋ ਤਾਂ ਜੋ ਪਤਾ ਰਹੇ ਕਿ ਮੇਰੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜੀਆਂ ਗਈਆਂ</span><span class="bn">Belaray-কে একটি ব্যক্তিগত কপি (BCC) পাঠান যাতে তারা জানে আমার চিঠি পাঠানো হয়েছে</span><span class="hi">Belaray को निजी कॉपी (BCC) भेजें ताकि पता रहे कि मेरे पत्र भेजे गए</span></span></label>
 
+   <div class="letter-card" id="card-sendall">
+    <h3 id="sendall-title"></h3>
+    <p class="send-note" id="sendall-desc" style="margin-top:2px;"></p>
+    <div id="sendall-choices" style="margin:10px 0 4px;"></div>
+    <div class="field" style="margin-top:10px;">
+     <label class="f-label" for="f-contact"><span class="en">Your phone or email, so they can reply to you (goes on each fax cover page)</span><span class="es">Su teléfono o correo, para que puedan responderle (va en la portada de cada fax)</span><span class="pa">ਤੁਹਾਡਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ, ਤਾਂ ਜੋ ਉਹ ਤੁਹਾਨੂੰ ਜਵਾਬ ਦੇ ਸਕਣ (ਹਰ ਫੈਕਸ ਦੇ ਕਵਰ ਪੇਜ 'ਤੇ ਜਾਂਦਾ ਹੈ)</span><span class="bn">আপনার ফোন বা ইমেইল, যাতে তারা আপনাকে উত্তর দিতে পারে (প্রতিটি ফ্যাক্স কভার পাতায় যাবে)</span><span class="hi">आपका फ़ोन या ईमेल, ताकि वे आपको जवाब दे सकें (हर फ़ैक्स कवर पेज पर जाता है)</span></label>
+     <input type="text" id="f-contact" placeholder="(516) 555-1234 / name@email.com" autocomplete="tel email">
+    </div>
+    <div class="letter-actions">
+     <button class="act-btn act-primary" id="sendall-btn" onclick="sendAllFaxes()"></button>
+    </div>
+    <p class="send-note" id="sendall-status" style="font-weight:700;"></p>
+    <p class="send-note" id="sendall-note"></p>
+   </div>
+
    <div class="letter-card" id="card-assembly">
     <h3><span class="en">📬 Letter 1: To your NY State legislators</span><span class="es">📬 Carta 1: A sus legisladores estatales</span><span class="pa">📬 ਚਿੱਠੀ 1: ਤੁਹਾਡੇ ਰਾਜ ਵਿਧਾਇਕਾਂ ਨੂੰ</span><span class="bn">📬 চিঠি ১: আপনার রাজ্য আইনপ্রণেতাদের কাছে</span><span class="hi">📬 पत्र 1: आपके राज्य विधायकों को</span></h3>
     <p class="to-line" id="assembly-toline"></p>
@@ -516,10 +531,6 @@
     <h3><span class="en">📞 Letter 3: To Healthfirst itself — file a member grievance</span><span class="es">📞 Carta 3: A Healthfirst — presente una queja de miembro</span><span class="pa">📞 ਚਿੱਠੀ 3: ਸਿੱਧਾ Healthfirst ਨੂੰ — ਮੈਂਬਰ ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ</span><span class="bn">📞 চিঠি ৩: সরাসরি Healthfirst-কে — সদস্য অভিযোগ দাখিল করুন</span><span class="hi">📞 पत्र 3: सीधे Healthfirst को — सदस्य शिकायत दर्ज करें</span></h3>
     <p class="to-line" id="healthfirst-toline"></p>
     <textarea id="txt-healthfirst"></textarea>
-    <div class="field" style="margin-top:10px;">
-     <label class="f-label" for="f-contact"><span class="en">Your phone or email, so Healthfirst can reply to you (goes on the fax cover page)</span><span class="es">Su teléfono o correo, para que Healthfirst pueda responderle (va en la portada del fax)</span><span class="pa">ਤੁਹਾਡਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ, ਤਾਂ ਜੋ Healthfirst ਤੁਹਾਨੂੰ ਜਵਾਬ ਦੇ ਸਕੇ (ਫੈਕਸ ਦੇ ਕਵਰ ਪੇਜ 'ਤੇ ਜਾਂਦਾ ਹੈ)</span><span class="bn">আপনার ফোন বা ইমেইল, যাতে Healthfirst আপনাকে উত্তর দিতে পারে (ফ্যাক্স কভার পাতায় যাবে)</span><span class="hi">आपका फ़ोन या ईमेल, ताकि Healthfirst आपको जवाब दे सके (फ़ैक्स कवर पेज पर जाता है)</span></label>
-     <input type="text" id="f-contact" placeholder="(516) 555-1234 / name@email.com" autocomplete="tel email">
-    </div>
     <div class="letter-actions" id="healthfirst-actions"></div>
     <p class="send-note" id="healthfirst-note"></p>
    </div>
@@ -588,9 +599,21 @@
     faxSending: { en: 'Sending your fax…', es: 'Enviando su fax…', pa: 'ਫੈਕਸ ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ…', bn: 'ফ্যাক্স পাঠানো হচ্ছে…', hi: 'फ़ैक्स भेजा जा रहा है…' },
     faxSent: { en: '📠 Fax sent! Healthfirst must answer a written grievance in writing.', es: '📠 ¡Fax enviado! Healthfirst debe responder por escrito.', pa: '📠 ਫੈਕਸ ਭੇਜ ਦਿੱਤਾ! Healthfirst ਨੂੰ ਲਿਖਤੀ ਜਵਾਬ ਦੇਣਾ ਪਵੇਗਾ।', bn: '📠 ফ্যাক্স পাঠানো হয়েছে! Healthfirst-কে লিখিত উত্তর দিতে হবে।', hi: '📠 फ़ैक्स भेज दिया! Healthfirst को लिखित जवाब देना होगा।' },
     faxFailed: { en: 'The fax could not be sent right now. Please try again in a minute, or use Call or Copy instead.', es: 'No se pudo enviar el fax. Intente de nuevo en un minuto, o use Llamar o Copiar.', pa: 'ਫੈਕਸ ਨਹੀਂ ਭੇਜਿਆ ਜਾ ਸਕਿਆ। ਇੱਕ ਮਿੰਟ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਜਾਂ Call ਜਾਂ Copy ਵਰਤੋ।', bn: 'ফ্যাক্স পাঠানো যায়নি। এক মিনিট পরে আবার চেষ্টা করুন, বা Call বা Copy ব্যবহার করুন।', hi: 'फ़ैक्स नहीं भेजा जा सका। एक मिनट बाद फिर कोशिश करें, या Call या Copy इस्तेमाल करें।' },
-    faxNeedContact: { en: 'Please add your phone or email first, so Healthfirst can reply to you.', es: 'Primero agregue su teléfono o correo, para que Healthfirst pueda responderle.', pa: 'ਪਹਿਲਾਂ ਆਪਣਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ ਲਿਖੋ, ਤਾਂ ਜੋ Healthfirst ਜਵਾਬ ਦੇ ਸਕੇ।', bn: 'আগে আপনার ফোন বা ইমেইল দিন, যাতে Healthfirst উত্তর দিতে পারে।', hi: 'पहले अपना फ़ोन या ईमेल लिखें, ताकि Healthfirst जवाब दे सके।' },
+    faxNeedContact: { en: 'Please add your phone or email first, so they can reply to you.', es: 'Primero agregue su teléfono o correo, para que puedan responderle.', pa: 'ਪਹਿਲਾਂ ਆਪਣਾ ਫ਼ੋਨ ਜਾਂ ਈਮੇਲ ਲਿਖੋ, ਤਾਂ ਜੋ ਉਹ ਜਵਾਬ ਦੇ ਸਕਣ।', bn: 'আগে আপনার ফোন বা ইমেইল দিন, যাতে তারা উত্তর দিতে পারে।', hi: 'पहले अपना फ़ोन या ईमेल लिखें, ताकि वे जवाब दे सकें।' },
+    sendAllTitle: { en: '📠 Send my letters now (one tap)', es: '📠 Enviar mis cartas ahora (un toque)', pa: '📠 ਹੁਣੇ ਮੇਰੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜੋ (ਇੱਕ ਟੈਪ)', bn: '📠 এখনই আমার চিঠি পাঠান (এক ট্যাপ)', hi: '📠 अभी मेरे पत्र भेजें (एक टैप)' },
+    sendAllDesc: { en: 'We will fax each checked letter for you right now, with your name and contact on the cover page. Uncheck anyone you do not want to send to.', es: 'Enviaremos por fax cada carta marcada ahora mismo, con su nombre y contacto en la portada. Desmarque a quien no quiera enviar.', pa: 'ਅਸੀਂ ਹਰ ਚੁਣੀ ਹੋਈ ਚਿੱਠੀ ਹੁਣੇ ਫੈਕਸ ਕਰਾਂਗੇ, ਕਵਰ ਪੇਜ ਉੱਤੇ ਤੁਹਾਡੇ ਨਾਮ ਅਤੇ ਸੰਪਰਕ ਨਾਲ। ਜਿਸਨੂੰ ਨਹੀਂ ਭੇਜਣਾ, ਉਸਨੂੰ ਹਟਾ ਦਿਓ।', bn: 'আমরা প্রতিটি টিক দেওয়া চিঠি এখনই ফ্যাক্স করব, কভার পাতায় আপনার নাম ও যোগাযোগ সহ। যাকে পাঠাতে চান না, টিক তুলে দিন।', hi: 'हम हर चुने हुए पत्र को अभी फ़ैक्स करेंगे, कवर पेज पर आपके नाम और संपर्क के साथ। जिसे नहीं भेजना, उसे अनचेक करें।' },
+    sendAllBtn: { en: '📠 Send checked letters by fax', es: '📠 Enviar por fax las cartas marcadas', pa: '📠 ਚੁਣੀਆਂ ਚਿੱਠੀਆਂ ਫੈਕਸ ਕਰੋ', bn: '📠 টিক দেওয়া চিঠি ফ্যাক্স করুন', hi: '📠 चुने पत्र फ़ैक्स करें' },
+    sendAllConfirm: { en: 'This will fax your letters to everyone checked above right now, with your name on each cover page. If the state letter is checked, your email or the state website will also open so you can finish that one. Send?', es: 'Esto enviará ahora sus cartas por fax a todos los marcados, con su nombre en cada portada. Si la carta al estado está marcada, también se abrirá su correo o el sitio del estado para terminarla. ¿Enviar?', pa: 'ਇਹ ਹੁਣੇ ਸਾਰੇ ਚੁਣੇ ਪ੍ਰਾਪਤਕਰਤਾਵਾਂ ਨੂੰ ਤੁਹਾਡੀਆਂ ਚਿੱਠੀਆਂ ਫੈਕਸ ਕਰੇਗਾ। ਜੇ ਰਾਜ ਵਾਲੀ ਚਿੱਠੀ ਚੁਣੀ ਹੈ, ਤਾਂ ਤੁਹਾਡੀ ਈਮੇਲ ਜਾਂ ਰਾਜ ਦੀ ਵੈੱਬਸਾਈਟ ਵੀ ਖੁੱਲ੍ਹੇਗੀ। ਭੇਜੀਏ?', bn: 'এটি এখনই সব টিক দেওয়া প্রাপকের কাছে আপনার চিঠি ফ্যাক্স করবে। রাজ্যের চিঠি টিক দেওয়া থাকলে আপনার ইমেইল বা রাজ্যের ওয়েবসাইটও খুলবে। পাঠাবেন?', hi: 'यह अभी सभी चुने प्राप्तकर्ताओं को आपके पत्र फ़ैक्स करेगा। राज्य वाला पत्र चुना है तो आपका ईमेल या राज्य की वेबसाइट भी खुलेगी। भेजें?' },
+    sendAllDoneAll: { en: '📠 Faxes sent! Now finish the state letter in the window that just opened.', es: '📠 ¡Faxes enviados! Ahora termine la carta al estado en la ventana que se abrió.', pa: '📠 ਫੈਕਸ ਭੇਜੇ ਗਏ! ਹੁਣ ਖੁੱਲ੍ਹੀ ਵਿੰਡੋ ਵਿੱਚ ਰਾਜ ਵਾਲੀ ਚਿੱਠੀ ਪੂਰੀ ਕਰੋ।', bn: '📠 ফ্যাক্স পাঠানো হয়েছে! এখন যে উইন্ডো খুলেছে সেখানে রাজ্যের চিঠি শেষ করুন।', hi: '📠 फ़ैक्स भेज दिए! अब जो विंडो खुली है उसमें राज्य वाला पत्र पूरा करें।' },
+    regDohRow: { en: 'Email to NYS Dept. of Health (opens your email - you press Send)', es: 'Correo al Depto. de Salud de NY (abre su correo - usted pulsa Enviar)', pa: 'NYS ਸਿਹਤ ਵਿਭਾਗ ਨੂੰ ਈਮੇਲ (ਤੁਹਾਡੀ ਈਮੇਲ ਖੁੱਲ੍ਹੇਗੀ - ਤੁਸੀਂ Send ਦਬਾਓਗੇ)', bn: 'NYS স্বাস্থ্য দপ্তরকে ইমেইল (আপনার ইমেইল খুলবে - আপনি Send চাপবেন)', hi: 'NYS स्वास्थ्य विभाग को ईमेल (आपका ईमेल खुलेगा - आप Send दबाएँगे)' },
+    regPortalRow: { en: 'Open the state complaint portal (your letter will be copied, ready to paste)', es: 'Abrir el portal estatal de quejas (su carta quedará copiada, lista para pegar)', pa: 'ਰਾਜ ਸ਼ਿਕਾਇਤ ਪੋਰਟਲ ਖੋਲ੍ਹੋ (ਤੁਹਾਡੀ ਚਿੱਠੀ ਕਾਪੀ ਹੋ ਜਾਵੇਗੀ)', bn: 'রাজ্য অভিযোগ পোর্টাল খুলুন (আপনার চিঠি কপি হয়ে যাবে)', hi: 'राज्य शिकायत पोर्टल खोलें (आपका पत्र कॉपी हो जाएगा)' },
+    sendAllDone: { en: '📠 All faxes sent! One step left: your letter to the state, below.', es: '📠 ¡Faxes enviados! Falta un paso: su carta al estado, abajo.', pa: '📠 ਸਾਰੇ ਫੈਕਸ ਭੇਜੇ ਗਏ! ਇੱਕ ਕਦਮ ਬਾਕੀ: ਹੇਠਾਂ ਰਾਜ ਨੂੰ ਤੁਹਾਡੀ ਚਿੱਠੀ।', bn: '📠 সব ফ্যাক্স পাঠানো হয়েছে! এক ধাপ বাকি: নিচে রাজ্যের কাছে আপনার চিঠি।', hi: '📠 सभी फ़ैक्स भेज दिए! एक क़दम बाक़ी: नीचे राज्य को आपका पत्र।' },
+    sendAllPartial: { en: 'Some faxes could not be sent. Please try again in a minute, or use the buttons on each letter below.', es: 'Algunos faxes no se enviaron. Intente de nuevo en un minuto o use los botones de cada carta abajo.', pa: 'ਕੁਝ ਫੈਕਸ ਨਹੀਂ ਭੇਜੇ ਜਾ ਸਕੇ। ਇੱਕ ਮਿੰਟ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', bn: 'কিছু ফ্যাক্স পাঠানো যায়নি। এক মিনিট পরে আবার চেষ্টা করুন।', hi: 'कुछ फ़ैक्स नहीं भेजे जा सके। एक मिनट बाद फिर कोशिश करें।' },
+    sendAllNone: { en: 'Please check at least one recipient first.', es: 'Marque al menos un destinatario primero.', pa: 'ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪ੍ਰਾਪਤਕਰਤਾ ਚੁਣੋ।', bn: 'আগে অন্তত একজন প্রাপক টিক দিন।', hi: 'पहले कम से कम एक प्राप्तकर्ता चुनें।' },
+    sendAllAlt: { en: 'Have email? Sending from your own email counts even more - each letter below has an email button.', es: '¿Tiene correo? Enviar desde su propio correo cuenta aún más - cada carta abajo tiene un botón de correo.', pa: 'ਈਮੇਲ ਹੈ? ਆਪਣੀ ਈਮੇਲ ਤੋਂ ਭੇਜਣਾ ਹੋਰ ਵੀ ਵੱਧ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ - ਹਰ ਚਿੱਠੀ ਹੇਠਾਂ ਈਮੇਲ ਬਟਨ ਹੈ।', bn: 'ইমেইল আছে? নিজের ইমেইল থেকে পাঠানো আরও বেশি গণ্য হয় - নিচে প্রতিটি চিঠিতে ইমেইল বোতাম আছে।', hi: 'ईमेल है? अपने ईमेल से भेजना और भी ज़्यादा गिना जाता है - नीचे हर पत्र में ईमेल बटन है।' },
+    faxToLbl: { en: 'Fax to ', es: 'Fax a ', pa: 'ਫੈਕਸ: ', bn: 'ফ্যাক্স: ', hi: 'फ़ैक्स: ' },
     shareBtn: { en: '📲 Share with my family', es: '📲 Compartir con mi familia', pa: '📲 ਆਪਣੇ ਪਰਿਵਾਰ ਨਾਲ ਸਾਂਝਾ ਕਰੋ', bn: '📲 পরিবারের সাথে শেয়ার করুন', hi: '📲 अपने परिवार से साझा करें' },
-    shareText: { en: 'Healthfirst dropped our dermatologist, Belaray, after 20 years. It takes 3 minutes to send letters that can help bring them back:', es: 'Healthfirst dejó fuera a nuestro dermatólogo, Belaray, después de 20 años. Toma 3 minutos enviar cartas que pueden ayudar a traerlos de vuelta:', pa: 'Healthfirst ਨੇ 20 ਸਾਲਾਂ ਬਾਅਦ ਸਾਡੇ ਚਮੜੀ ਦੇ ਡਾਕਟਰ ਬੇਲਾਰੇ ਨੂੰ ਕੱਢ ਦਿੱਤਾ। ਉਨ੍ਹਾਂ ਨੂੰ ਵਾਪਸ ਲਿਆਉਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜਣ ਵਿੱਚ ਸਿਰਫ਼ 3 ਮਿੰਟ ਲੱਗਦੇ ਹਨ:', bn: 'Healthfirst ২০ বছর পর আমাদের চর্মরোগ বিশেষজ্ঞ বেলারে-কে বাদ দিয়েছে। তাদের ফিরিয়ে আনতে সাহায্য করার চিঠি পাঠাতে মাত্র ৩ মিনিট লাগে:', hi: 'Healthfirst ने 20 साल बाद हमारे त्वचा डॉक्टर बेलारे को निकाल दिया। उन्हें वापस लाने में मदद करने वाले पत्र भेजने में सिर्फ़ 3 मिनट लगते हैं:' },
+    shareText: { en: 'A Healthfirst contract change took our dermatologists at Belaray out of network after 20 years, and Healthfirst won\'t let them back in. It takes 3 minutes to send letters that can help bring them back:', es: 'Un cambio de contrato de Healthfirst sacó de la red a nuestro dermatólogo, Belaray, después de 20 años, y Healthfirst no los deja volver. Toma 3 minutos enviar cartas que pueden ayudar a traerlos de vuelta:', pa: 'Healthfirst ਦੇ ਇਕਰਾਰਨਾਮੇ ਦੀ ਤਬਦੀਲੀ ਨੇ 20 ਸਾਲਾਂ ਬਾਅਦ ਸਾਡੇ ਚਮੜੀ ਦੇ ਡਾਕਟਰ ਬੇਲਾਰੇ ਨੂੰ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਕਰ ਦਿੱਤਾ, ਅਤੇ Healthfirst ਉਨ੍ਹਾਂ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਆਉਣ ਦੇ ਰਿਹਾ। ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜਣ ਵਿੱਚ ਸਿਰਫ਼ 3 ਮਿੰਟ ਲੱਗਦੇ ਹਨ:', bn: 'Healthfirst-এর চুক্তি বদলে ২০ বছর পর আমাদের চর্মরোগ বিশেষজ্ঞ বেলারে নেটওয়ার্কের বাইরে চলে গেছে, আর Healthfirst তাদের ফিরতে দিচ্ছে না। সাহায্য করার চিঠি পাঠাতে মাত্র ৩ মিনিট লাগে:', hi: 'Healthfirst के अनुबंध बदलाव ने 20 साल बाद हमारे त्वचा डॉक्टर बेलारे को नेटवर्क से बाहर कर दिया, और Healthfirst उन्हें वापस नहीं आने दे रहा। मदद करने वाले पत्र भेजने में सिर्फ़ 3 मिनट लगते हैं:' },
     shareCopied: { en: 'Link copied — text it to your family!', es: '¡Enlace copiado — envíelo a su familia!', pa: 'ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ — ਆਪਣੇ ਪਰਿਵਾਰ ਨੂੰ ਭੇਜੋ!', bn: 'লিংক কপি হয়েছে — পরিবারকে পাঠান!', hi: 'लिंक कॉपी हो गया — अपने परिवार को भेजें!' },
     nudgeAssembly: { en: '💪 Sent! Next: your regulator letter is ready below.', es: '💪 ¡Enviada! Siguiente: su carta al regulador está lista abajo.', pa: '💪 ਭੇਜੀ ਗਈ! ਅੱਗੇ: ਰੈਗੂਲੇਟਰ ਵਾਲੀ ਚਿੱਠੀ ਹੇਠਾਂ ਤਿਆਰ ਹੈ।', bn: '💪 পাঠানো হয়েছে! এরপর: নিয়ন্ত্রকের চিঠি নিচে প্রস্তুত।', hi: '💪 भेज दिया! अगला: नियामक वाला पत्र नीचे तैयार है।' },
     nudgeRegulator: { en: '💪 One more minute? Call Healthfirst next — a logged grievance counts double.', es: '💪 ¿Un minuto más? Llame a Healthfirst — una queja registrada cuenta doble.', pa: '💪 ਇੱਕ ਮਿੰਟ ਹੋਰ? ਹੁਣ Healthfirst ਨੂੰ ਫ਼ੋਨ ਕਰੋ — ਦਰਜ ਸ਼ਿਕਾਇਤ ਦੁੱਗਣੀ ਗਿਣੀ ਜਾਂਦੀ ਹੈ।', bn: '💪 আর এক মিনিট? এবার Healthfirst-কে ফোন করুন — নথিভুক্ত অভিযোগ দ্বিগুণ গণ্য হয়।', hi: '💪 एक मिनट और? अब Healthfirst को फ़ोन करें — दर्ज शिकायत दुगनी गिनी जाती है।' },
@@ -678,12 +701,14 @@
   // Legislator routing by county — verified August 2026.
   const REPS = {
     nassau: {
-      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District" },
-      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District" }
+      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District", faxable: true },
+      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District", faxable: true }
     },
     suffolk: {
-      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District" },
-      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District" }
+      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District", faxable: true },
+      // faxable false until Palumbo's office confirms a fax number (none on official page);
+      // flip to true here AND fill the number in the server-side whitelist in fax.js.
+      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District", faxable: false }
     }
   };
   var currentReps = REPS.nassau;
@@ -789,6 +814,7 @@
     document.getElementById('txt-assembly').value = h.assembly + letters.assembly_letter;
     document.getElementById('txt-regulator').value = h.regulator + letters.regulator_letter;
     document.getElementById('txt-healthfirst').value = h.healthfirst + letters.healthfirst_letter;
+    setupSendAllCard(answers);
     setupAssemblyCard(answers);
     setupRegulatorCard(answers);
     setupHealthfirstCard(answers);
@@ -806,7 +832,7 @@
     if (channel === 'doh') {
       reg = 'To: NYS Department of Health, Managed Care Complaint Unit <managedcarecomplaint@health.ny.gov>\nSubject: Network adequacy complaint - Healthfirst - dermatology access\n\n';
     } else if (channel === 'dfs') {
-      reg = 'Submit at: https://www.dfs.ny.gov/complaint (NYS Department of Financial Services)\nOr call: (800) 342-3736\n\n';
+      reg = 'Submit at: https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new (NYS Department of Financial Services)\nOr call: (800) 342-3736\n\n';
     } else {
       reg = 'Submit at: https://www.medicare.gov/my/medicare-complaint\nOr call: 1-800-MEDICARE (1-800-633-4227)\n\n';
     }
@@ -914,7 +940,7 @@
       toline.textContent = 'To: New York State Department of Financial Services (online complaint portal)';
       var dfsBtn = document.createElement('a');
       dfsBtn.className = 'act-btn act-primary';
-      dfsBtn.href = 'https://www.dfs.ny.gov/complaint';
+      dfsBtn.href = 'https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new';
       dfsBtn.target = '_blank';
       dfsBtn.rel = 'noopener';
       dfsBtn.textContent = t('openPortal');
@@ -1041,6 +1067,126 @@
     showToast(t('emailSelfToast'));
   }
 
+  // The one-tap panel: fax the checked letters (legislators + Healthfirst)
+  // in one server call. Destinations live in a server-side whitelist; the
+  // page only names recipient ids.
+  function setupSendAllCard(answers) {
+    document.getElementById('sendall-title').textContent = t('sendAllTitle');
+    document.getElementById('sendall-desc').textContent = t('sendAllDesc');
+    document.getElementById('sendall-btn').textContent = t('sendAllBtn');
+    document.getElementById('sendall-note').textContent = t('sendAllAlt');
+    var wrap = document.getElementById('sendall-choices');
+    wrap.innerHTML = '';
+    var opts = [];
+    if (currentReps.assembly.faxable) opts.push({ id: 'assembly-' + answers.county, key: 'assembly', label: t('faxToLbl') + currentReps.assembly.name });
+    if (currentReps.senate.faxable) opts.push({ id: 'senate-' + answers.county, key: 'senate', label: t('faxToLbl') + currentReps.senate.name });
+    opts.push({ id: 'healthfirst', key: 'healthfirst', label: t('faxToLbl') + 'Healthfirst Appeals & Grievances' });
+    var channel = PLAN_INFO[answers.planKey].channel;
+    // Medicare has no one-click action worth taking (phone/form only), so the
+    // panel shows a regulator row only for the DOH and DFS channels.
+    if (channel === 'doh' || channel === 'dfs') {
+      opts.push({ id: 'regulator', key: 'regulator', label: channel === 'doh' ? t('regDohRow') : t('regPortalRow') });
+    }
+    opts.forEach(function(o) {
+      var row = document.createElement('label');
+      row.className = 'check-row checked';
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.checked = true; cb.value = o.id;
+      cb.dataset.key = o.key; cb.className = 'sendall-cb';
+      cb.onchange = function() { row.classList.toggle('checked', cb.checked); };
+      var span = document.createElement('span');
+      span.className = 'txt'; span.textContent = o.label;
+      row.appendChild(cb); row.appendChild(span);
+      wrap.appendChild(row);
+    });
+  }
+
+  async function sendAllFaxes() {
+    var contact = document.getElementById('f-contact').value.trim();
+    if (!contact) {
+      showToast(t('faxNeedContact'));
+      document.getElementById('f-contact').focus();
+      return;
+    }
+    var cbs = Array.prototype.slice.call(document.querySelectorAll('.sendall-cb')).filter(function(c) { return c.checked; });
+    if (!cbs.length) { showToast(t('sendAllNone')); return; }
+    if (!confirm(t('sendAllConfirm'))) return;
+
+    var faxCbs = cbs.filter(function(c) { return c.dataset.key !== 'regulator'; });
+    var regChecked = cbs.some(function(c) { return c.dataset.key === 'regulator'; });
+    var planSel = document.getElementById('f-plan').value;
+    var status = document.getElementById('sendall-status');
+    status.textContent = '';
+
+    // Kick off the fax batch first (keepalive lets it finish even if the
+    // mail app takes over the screen on mobile)...
+    var faxPromise = null;
+    if (faxCbs.length) {
+      var assemblyBody = stripHeader(document.getElementById('txt-assembly').value);
+      var recipients = [], letters = {};
+      faxCbs.forEach(function(c) {
+        recipients.push(c.value);
+        if (c.dataset.key === 'assembly') letters[c.value] = assemblyBody;
+        else if (c.dataset.key === 'senate') letters[c.value] = assemblyBody.replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
+        else letters[c.value] = stripHeader(document.getElementById('txt-healthfirst').value);
+      });
+      faxPromise = fetch(FAX_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          recipients: recipients,
+          letters: letters,
+          patientName: document.getElementById('f-name').value.trim(),
+          patientTown: document.getElementById('f-town').value,
+          patientContact: contact,
+          planType: (PLAN_INFO[planSel] || {}).label || ''
+        })
+      });
+    }
+
+    // ...then open the regulator step in the same click gesture, so the
+    // browser treats the mailto / new tab as user-initiated.
+    if (regChecked) {
+      var channel = PLAN_INFO[planSel].channel;
+      var regBody = stripHeader(document.getElementById('txt-regulator').value);
+      navigator.clipboard.writeText(regBody).catch(function(){});
+      if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: 'sendall-regulator' } });
+      if (channel === 'doh') {
+        var cc = document.getElementById('cc-practice').checked ? 'bcc=' + encodeURIComponent('healthfirst@belaray.com') + '&' : '';
+        window.location.href = 'mailto:managedcarecomplaint@health.ny.gov?' + cc +
+          'subject=' + encodeURIComponent('Network adequacy complaint - Healthfirst - dermatology access') +
+          '&body=' + encodeURIComponent(regBody);
+      } else if (channel === 'dfs') {
+        window.open('https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new', '_blank', 'noopener');
+      }
+    }
+
+    if (!faxPromise) return;
+
+    var btn = document.getElementById('sendall-btn');
+    btn.disabled = true;
+    var old = btn.textContent;
+    btn.textContent = t('faxSending');
+    try {
+      var resp = await faxPromise;
+      var data = null;
+      try { data = await resp.json(); } catch (e2) {}
+      if (!resp.ok) throw new Error('batch_failed');
+      var msg = (data && data.ok) ? (regChecked ? t('sendAllDoneAll') : t('sendAllDone')) : t('sendAllPartial');
+      status.textContent = msg;
+      showToast(msg);
+      if (data && data.ok && !regChecked) document.getElementById('card-regulator').scrollIntoView({ behavior: 'smooth' });
+      if (typeof plausible !== 'undefined') plausible('fax_batch', { props: { count: faxCbs.length, all_ok: String(!!(data && data.ok)) } });
+    } catch (e) {
+      status.textContent = t('faxFailed');
+      showToast(t('faxFailed'));
+      if (typeof plausible !== 'undefined') plausible('fax_failed', { props: { which: 'batch' } });
+    }
+    btn.disabled = false;
+    btn.textContent = old;
+  }
+
   // One-tap written grievance: the server renders the letter as a PDF with a
   // cover page (patient name + reply contact) and faxes it to Healthfirst
   // Appeals & Grievances. Requires a reply contact so every fax is traceable
@@ -1143,7 +1289,7 @@
       'Dear ' + (a.assemblyRepSalutation || 'Assemblyman Blumencranz') + ',\n\n' +
       'I am your constituent' + (a.town ? ' in ' + a.town : '') + ', and I am writing about my health insurance, ' + a.planType + '. ' +
       years + found + fam + care + lang + '\n\n' +
-      'In May 2026, Healthfirst\'s contract covering Belaray Dermatology ended, and this August Healthfirst declined the practice\'s application to rejoin the network, even though Belaray had participated since 2006. ' +
+      'A contract change on Healthfirst\'s side forced Belaray Dermatology out of the network in May 2026. My doctors never chose to leave. They applied right away to come back and expected to be back by August 1, but this August Healthfirst said no and called it a business decision. Belaray had been in the network since 2006. ' +
       notMyChoice + meaning + access + '\n\n' +
       'I am asking your office to contact Healthfirst about this decision, to ask the New York State Department of Health to look into whether Healthfirst really has enough dermatologists that members here can get in to see, and to help get Belaray Dermatology back into the network so patients like me can keep our care.' +
       own + sig;
@@ -1152,7 +1298,7 @@
       'Dear ' + (a.regulatorRecipient.charAt(0).toUpperCase() + a.regulatorRecipient.slice(1)).replace(/^The /, '') + ',\n\n' +
       'I am a member of ' + a.planType + (a.town ? ', living in ' + a.town + ', NY' : '') + ', and I am filing this complaint about access to dermatology care in my plan\'s network. ' +
       years + fam + care + lang + '\n\n' +
-      'Healthfirst ended its network relationship with Belaray Dermatology (Hicksville and Stony Brook, NY) in May 2026 and has declined to restore it, leaving me without in-network access to my established dermatologist. ' +
+      'Belaray Dermatology (Hicksville and Stony Brook, NY) was forced out of the Healthfirst network in May 2026 when Healthfirst ended its contract with the larger medical group Belaray was part of. The practice applied right away to rejoin and expected to be back by August 1, but Healthfirst denied the application in August 2026, calling it a business decision. This has left me without in-network access to my established dermatologist. ' +
       notMyChoice + meaning + access + '\n\n' +
       'I ask that you look into whether Healthfirst\'s dermatology network really gives members in Nassau and Suffolk County care they can get to and be seen for without long waits, and that Belaray Dermatology be restored to the network so patients like me can continue our care.' +
       own + sig;
@@ -1161,7 +1307,7 @@
       'Dear Healthfirst Member Services,\n\n' +
       'I am a member of ' + a.planType + (a.town ? ', living in ' + a.town + ', NY' : '') + ', and I am writing to file a formal grievance about access to dermatology care in your network. ' +
       years + fam + care + lang + '\n\n' +
-      'Your contract change in May 2026 ended my access to Belaray Dermatology, and in August 2026 you declined the practice\'s application to rejoin. This is a practice that participated with Healthfirst since 2006 and is willing to continue. ' +
+      'Your contract change in May 2026 forced Belaray Dermatology out of the network and ended my access to them. The practice never chose to leave. They applied right away to rejoin and expected to be back by August 1, but in August 2026 you denied their application and called it a business decision. This is a practice that participated with Healthfirst since 2006 and is willing to continue. ' +
       notMyChoice + meaning + access + '\n\n' +
       'As your member, I am asking Healthfirst to restore Belaray Dermatology to the network so my established care can continue. Please log this as a formal grievance and send me a written response with the grievance reference number.' +
       own + sig;
