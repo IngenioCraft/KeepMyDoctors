@@ -109,6 +109,8 @@ export default async function handler(req, res) {
   const patientName = String(b.patientName || "").trim().slice(0, 120);
   const patientTown = String(b.patientTown || "").trim().slice(0, 80);
   const patientContact = String(b.patientContact || "").trim().slice(0, 120);
+  const patientPhone = String(b.patientPhone || "").trim().slice(0, 30);
+  const patientEmail = String(b.patientEmail || "").trim().slice(0, 120);
   const patientZip = String(b.patientZip || "").trim().slice(0, 10);
   const planType = String(b.planType || "").trim().slice(0, 80);
 
@@ -116,7 +118,7 @@ export default async function handler(req, res) {
   // same sending number. Require a per-patient contact for the cover page.
   if (!patientContact) return res.status(400).json({ error: "contact_required" });
 
-  const patient = { patientName, patientTown, patientContact, patientZip, planType };
+  const patient = { patientName, patientTown, patientContact, patientPhone, patientEmail, patientZip, planType };
   const creds = { projectId, keyId, keySecret };
 
   // ---- Batch mode -----------------------------------------------------
@@ -238,12 +240,29 @@ async function sheetAppend(row) {
 
 /* ---------- cover pages ---------- */
 
+function fmtPhone(s) {
+  const d = String(s || "").replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
+  return d.length === 10 ? "(" + d.slice(0, 3) + ") " + d.slice(3, 6) + "-" + d.slice(6) : String(s || "");
+}
+
 function coverFor(rec, p) {
   const date = new Date().toLocaleDateString("en-US", {
     timeZone: "America/New_York", year: "numeric", month: "long", day: "numeric",
   });
+  const who = rec.kind === "grievance" ? "member" : "constituent";
   const from = (p.patientName || "Healthfirst member") +
     (p.patientTown ? ", " + p.patientTown + ", NY" + (p.patientZip ? " " + p.patientZip : "") : "");
+
+  // Clearly labeled reply channels, so nobody tries to fax a cell number.
+  const replyLines = [];
+  if (p.patientPhone) replyLines.push({ t: "Cell phone (call or text this " + who + "): " + fmtPhone(p.patientPhone) });
+  if (p.patientEmail) replyLines.push({ t: "Email this " + who + ": " + p.patientEmail });
+  if (!p.patientPhone && !p.patientEmail && p.patientContact) {
+    replyLines.push({ t: "Reply to this " + who + " at: " + p.patientContact });
+  }
+  if (process.env.SINCH_FAX_FROM) {
+    replyLines.push({ t: "Written replies by fax: " + fmtPhone(process.env.SINCH_FAX_FROM) + " (attn: " + (p.patientName || "the " + who + " above") + ")" });
+  }
 
   if (rec.kind === "grievance") {
     return [
@@ -251,8 +270,8 @@ function coverFor(rec, p) {
       { t: "" },
       { t: "To: " + rec.label },
       { t: "Fax: 1-646-313-4618  |  Mail: P.O. Box 5166, New York, NY 10274-5166" },
-      { t: "From: " + from },
-      { t: "Reply to this member at: " + p.patientContact },
+      { t: "From (Healthfirst member): " + from },
+      ...replyLines,
       ...(p.planType ? [{ t: "Plan: " + p.planType }] : []),
       { t: "Date: " + date },
       { t: "Re: Formal member grievance - access to dermatology care (Belaray Dermatology)" },
@@ -269,8 +288,8 @@ function coverFor(rec, p) {
     { t: "FAX - LETTER FROM A CONSTITUENT", b: true },
     { t: "" },
     { t: "To: " + rec.label },
-    { t: "From: " + from },
-    { t: "Reply to this constituent at: " + p.patientContact },
+    { t: "From (your constituent): " + from },
+    ...replyLines,
     ...(p.planType ? [{ t: "Health plan: " + p.planType }] : []),
     { t: "Date: " + date },
     { t: "Re: Healthfirst network access to Belaray Dermatology" },

@@ -241,16 +241,14 @@
       <input type="text" id="f-name" autocomplete="name">
      </div>
      <div class="field">
-      <label class="f-label" for="f-town"><span class="en">Your town</span><span class="es">Su pueblo</span><span class="pa">ਤੁਹਾਡਾ ਸ਼ਹਿਰ</span><span class="bn">আপনার শহর</span><span class="hi">आपका शहर</span></label>
-      <input type="text" id="f-town" placeholder="Hicksville" autocomplete="address-level2">
+      <label class="f-label" for="f-zip"><span class="en">Your ZIP code</span><span class="es">Su código postal</span><span class="pa">ਤੁਹਾਡਾ ZIP ਕੋਡ</span><span class="bn">আপনার ZIP কোড</span><span class="hi">आपका ZIP कोड</span></label>
+      <input type="text" id="f-zip" placeholder="11801" inputmode="numeric" maxlength="5" autocomplete="postal-code" oninput="zipChanged()">
+      <p class="hint" id="zip-town-display" style="margin:6px 0 0; font-weight:700;"></p>
      </div>
     </div>
-    <div class="two-col">
-     <div class="field">
-      <label class="f-label" for="f-zip"><span class="en">Your ZIP code</span><span class="es">Su código postal</span><span class="pa">ਤੁਹਾਡਾ ZIP ਕੋਡ</span><span class="bn">আপনার ZIP কোড</span><span class="hi">आपका ZIP कोड</span></label>
-      <input type="text" id="f-zip" placeholder="11801" inputmode="numeric" maxlength="5" autocomplete="postal-code">
-     </div>
-     <div class="field"></div>
+    <div class="field" id="town-manual-wrap" style="display:none;">
+     <label class="f-label" for="f-town"><span class="en">Your town</span><span class="es">Su pueblo</span><span class="pa">ਤੁਹਾਡਾ ਸ਼ਹਿਰ</span><span class="bn">আপনার শহর</span><span class="hi">आपका शहर</span></label>
+     <input type="text" id="f-town" placeholder="Hicksville" autocomplete="address-level2">
     </div>
     <div class="field">
      <label class="f-label" for="f-plan"><span class="en">Which Healthfirst plan do you have?</span><span class="es">¿Qué plan de Healthfirst tiene?</span><span class="pa">ਤੁਹਾਡੇ ਕੋਲ ਕਿਹੜਾ Healthfirst ਪਲਾਨ ਹੈ?</span><span class="bn">আপনার কোন Healthfirst প্ল্যান আছে?</span><span class="hi">आपके पास कौन-सा Healthfirst प्लान है?</span></label>
@@ -648,6 +646,9 @@
     sendAllNone: { en: 'Please check at least one recipient first.', es: 'Marque al menos un destinatario primero.', pa: 'ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪ੍ਰਾਪਤਕਰਤਾ ਚੁਣੋ।', bn: 'আগে অন্তত একজন প্রাপক টিক দিন।', hi: 'पहले कम से कम एक प्राप्तकर्ता चुनें।' },
     contactNeedOne: { en: 'Please add your cell number or email (at least one) so offices can reply to you.', es: 'Agregue su celular o correo (al menos uno) para que las oficinas puedan responderle.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਸੈੱਲ ਨੰਬਰ ਜਾਂ ਈਮੇਲ (ਘੱਟੋ-ਘੱਟ ਇੱਕ) ਲਿਖੋ ਤਾਂ ਜੋ ਦਫ਼ਤਰ ਜਵਾਬ ਦੇ ਸਕਣ।', bn: 'অনুগ্রহ করে আপনার সেল নম্বর বা ইমেইল (অন্তত একটি) দিন যাতে অফিসগুলো উত্তর দিতে পারে।', hi: 'कृपया अपना सेल नंबर या ईमेल (कम से कम एक) लिखें ताकि कार्यालय जवाब दे सकें।' },
     zipNeed: { en: 'Please enter your 5-digit ZIP code.', es: 'Ingrese su código postal de 5 dígitos.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ 5-ਅੰਕਾਂ ਦਾ ZIP ਕੋਡ ਲਿਖੋ।', bn: 'অনুগ্রহ করে আপনার ৫-সংখ্যার ZIP কোড লিখুন।', hi: 'कृपया अपना 5 अंकों का ZIP कोड लिखें।' },
+    zipNotFound: { en: 'ZIP not found. Please type your town below.', es: 'Código postal no encontrado. Escriba su pueblo abajo.', pa: 'ZIP ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਆਪਣਾ ਸ਼ਹਿਰ ਲਿਖੋ।', bn: 'ZIP পাওয়া যায়নি। নিচে আপনার শহর লিখুন।', hi: 'ZIP नहीं मिला। नीचे अपना शहर लिखें।' },
+    zipOutsideNY: { en: 'this ZIP looks outside New York. Double-check it.', es: 'este código parece fuera de Nueva York. Verifíquelo.', pa: 'ਇਹ ZIP ਨਿਊਯਾਰਕ ਤੋਂ ਬਾਹਰ ਲੱਗਦਾ ਹੈ। ਜਾਂਚ ਲਓ।', bn: 'এই ZIP নিউ ইয়র্কের বাইরে মনে হচ্ছে। যাচাই করুন।', hi: 'यह ZIP न्यूयॉर्क से बाहर लगता है। जाँच लें।' },
+    townNeed: { en: 'Please type your town.', es: 'Escriba su pueblo, por favor.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਸ਼ਹਿਰ ਲਿਖੋ।', bn: 'অনুগ্রহ করে আপনার শহর লিখুন।', hi: 'कृपया अपना शहर लिखें।' },
     sendAllAlt: { en: 'Have email? Sending from your own email counts even more - each letter below has an email button.', es: '¿Tiene correo? Enviar desde su propio correo cuenta aún más - cada carta abajo tiene un botón de correo.', pa: 'ਈਮੇਲ ਹੈ? ਆਪਣੀ ਈਮੇਲ ਤੋਂ ਭੇਜਣਾ ਹੋਰ ਵੀ ਵੱਧ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ - ਹਰ ਚਿੱਠੀ ਹੇਠਾਂ ਈਮੇਲ ਬਟਨ ਹੈ।', bn: 'ইমেইল আছে? নিজের ইমেইল থেকে পাঠানো আরও বেশি গণ্য হয় - নিচে প্রতিটি চিঠিতে ইমেইল বোতাম আছে।', hi: 'ईमेल है? अपने ईमेल से भेजना और भी ज़्यादा गिना जाता है - नीचे हर पत्र में ईमेल बटन है।' },
     faxToLbl: { en: 'Fax to ', es: 'Fax a ', pa: 'ਫੈਕਸ: ', bn: 'ফ্যাক্স: ', hi: 'फ़ैक्स: ' },
     shareBtn: { en: '📲 Share with my family', es: '📲 Compartir con mi familia', pa: '📲 ਆਪਣੇ ਪਰਿਵਾਰ ਨਾਲ ਸਾਂਝਾ ਕਰੋ', bn: '📲 পরিবারের সাথে শেয়ার করুন', hi: '📲 अपने परिवार से साझा करें' },
@@ -681,6 +682,36 @@
     if (q && ['es','pa','bn','hi'].indexOf(q) !== -1) setLang(q);
   })();
 
+  // ZIP → town lookup (zippopotam.us, free USPS place names). On success the
+  // hidden #f-town input is filled, so letters and fax covers work unchanged.
+  // On failure the manual town field appears as a fallback.
+  var zipLookupSeq = 0;
+  function zipChanged() {
+    var zip = document.getElementById('f-zip').value.trim();
+    var display = document.getElementById('zip-town-display');
+    var manualWrap = document.getElementById('town-manual-wrap');
+    if (!/^\d{5}$/.test(zip)) { display.textContent = ''; return; }
+    var seq = ++zipLookupSeq;
+    fetch('https://api.zippopotam.us/us/' + zip)
+      .then(function(r) { if (!r.ok) throw new Error('notfound'); return r.json(); })
+      .then(function(data) {
+        if (seq !== zipLookupSeq) return; // a newer lookup superseded this one
+        var place = data.places && data.places[0];
+        if (!place) throw new Error('notfound');
+        var town = place['place name'];
+        var state = place['state abbreviation'];
+        if (manualWrap.style.display === 'none') {
+          document.getElementById('f-town').value = town;
+        }
+        display.textContent = (state === 'NY' ? '✓ ' + town + ', NY' : '⚠️ ' + town + ', ' + state + ' - ' + t('zipOutsideNY'));
+      })
+      .catch(function() {
+        if (seq !== zipLookupSeq) return;
+        display.textContent = t('zipNotFound');
+        manualWrap.style.display = 'block';
+      });
+  }
+
   // Reply contact collected on the About You step; joined for cover pages.
   function getContact() {
     var phone = document.getElementById('f-phone').value.trim();
@@ -696,6 +727,13 @@
       if (!/^\d{5}$/.test(zipVal)) {
         showToast(t('zipNeed'));
         document.getElementById('f-zip').focus();
+        return;
+      }
+      // Manual town fallback is showing (ZIP lookup failed) but left empty.
+      if (document.getElementById('town-manual-wrap').style.display !== 'none' &&
+          !document.getElementById('f-town').value.trim()) {
+        showToast(t('townNeed'));
+        document.getElementById('f-town').focus();
         return;
       }
       if (!getContact()) {
@@ -786,10 +824,15 @@
 
     var town = document.getElementById('f-town').value.trim();
     var zip = document.getElementById('f-zip').value.trim();
-    // ZIP-based county routing: 117xx-119xx is Suffolk; everything else on
-    // Long Island resolves to Nassau (also the fallback for non-LI ZIPs).
+    // County by ZIP. Nassau and Suffolk interleave in the 117xx band (Jericho
+    // 11753 and Levittown 11756 are Nassau; Huntington 11743 is Suffolk), so
+    // that band uses an explicit Nassau list. 110xx-115xx and 118xx are
+    // Nassau; 119xx is Suffolk; non-LI ZIPs fall back to Nassau.
+    var NASSAU_117XX = [11709, 11710, 11714, 11732, 11735, 11753, 11756, 11758, 11762, 11765, 11771, 11783, 11791, 11793, 11797];
     var zipNum = parseInt(zip, 10);
-    var county = (zipNum >= 11700 && zipNum <= 11999) ? 'suffolk' : 'nassau';
+    var county = 'nassau';
+    if (zipNum >= 11900 && zipNum <= 11999) county = 'suffolk';
+    else if (zipNum >= 11700 && zipNum <= 11799 && NASSAU_117XX.indexOf(zipNum) === -1) county = 'suffolk';
     currentReps = REPS[county] || REPS.nassau;
 
     var wait = document.getElementById('f-wait').value;
@@ -1222,6 +1265,8 @@
           patientName: document.getElementById('f-name').value.trim(),
           patientTown: document.getElementById('f-town').value.trim(),
           patientZip: document.getElementById('f-zip').value.trim(),
+          patientPhone: document.getElementById('f-phone').value.trim(),
+          patientEmail: document.getElementById('f-email').value.trim(),
           patientContact: contact,
           planType: (PLAN_INFO[planSel] || {}).label || ''
         })
@@ -1297,6 +1342,8 @@
           patientName: document.getElementById('f-name').value.trim(),
           patientTown: document.getElementById('f-town').value.trim(),
           patientZip: document.getElementById('f-zip').value.trim(),
+          patientPhone: document.getElementById('f-phone').value.trim(),
+          patientEmail: document.getElementById('f-email').value.trim(),
           patientContact: contact,
           planType: planLabel
         })
