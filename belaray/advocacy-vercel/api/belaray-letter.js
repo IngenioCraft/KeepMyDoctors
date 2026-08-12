@@ -48,6 +48,7 @@ Content rules:
 - Phone and language problems are concrete: nobody picked up, nobody called back, nobody spoke my language. If the patient noted Belaray's 24/7 doctor-answered line or language support, mention the contrast simply.
 - If the patient needs a specific service they could not find elsewhere in the plan (Mohs surgery with same-day eyelid reconstruction in one visit, phototherapy), say concretely that they could not find it anywhere else.
 - Provider naming: refer to caregivers as "my dermatologist," "my doctor," or "the doctors at Belaray." The only individual clinicians you may name are physicians explicitly present in the structured input (e.g., Dr. Rachel Ellis). If the patient's own words name any other individual provider, keep their sentiment but generalize the reference.
+- Family members: use exactly the words the patient used ("my spouse," "my children," "my parents"). Never change "spouse" to "wife" or "husband" or otherwise assume anyone's gender or details.
 - No medical record numbers, no dates of birth, no diagnoses beyond what the patient volunteered.
 - If the patient receives care at Belaray in another language, mention how hard that is to find anywhere else.
 - Sign with the patient's name and town as provided. If no name was provided, end with "Sincerely," followed by a blank line.
@@ -167,6 +168,7 @@ export default async function handler(req, res) {
         JSON.stringify({
           county: a.county,
           years: a.yearsPatient || a.yearsReferring,
+          family: a.familyMembers,
           care: a.careAtBelaray,
           access: a.accessProblems,
           meaning: a.whatLosingMeans,

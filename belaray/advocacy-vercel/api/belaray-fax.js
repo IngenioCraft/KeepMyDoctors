@@ -57,7 +57,7 @@ const FAX_RECIPIENTS = {
     kind: "legislator",
   },
   "senate-suffolk": {
-    fax: null, // TODO: confirm with Senator Palumbo's office (no fax on official page)
+    fax: "+16317272905", // Senator Palumbo district office, confirmed with his office Aug 2026
     label: "Senator Anthony Palumbo, 1st Senate District",
     kind: "legislator",
   },
