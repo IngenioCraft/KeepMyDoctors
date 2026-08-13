@@ -48,18 +48,19 @@ Content rules:
 - The unfairness should come through the facts, said simply: the office is still open, it is close by, the patient still wants to go there and the office still wants to see them, and the insurance company's choice is the only thing stopping it. Put it in words that fit this patient's voice.
 - Phone and language problems are concrete: nobody picked up, nobody called back, nobody spoke my language. If the patient noted Belaray's 24/7 doctor-answered line or language support, mention the contrast simply.
 - Directory facts, gated strictly to the directory statements this patient affirmed; never go beyond them or imply reliance nobody stated. If they said the listing is partly why they picked or kept Healthfirst, or that they would have looked harder at other plans if the directory had been accurate, say it plainly in their voice ("Their list said my doctor was covered. That is part of why I picked Healthfirst."). If they affirmed they recently checked the directory themselves and the doctor still shows as covered, they may describe that as their own observation. Otherwise, if a practice-verified directory fact is supplied, phrase it secondhand only: "I am told that as of [date], Healthfirst's own list still showed my doctors as covered." Never present secondhand as their own observation, and never mention a screenshot unless the patient's own words do.
-- Surprise bills, being told a visit was not covered, and delayed or skipped care are the most serious facts here. If care was put off or skipped, especially a biopsy follow-up or skin cancer care, LEAD the letter with it. In the "healthfirst_letter", when a surprise bill or a coverage denial followed the directory listing, ask plainly that those visits be re-billed at in-network cost, since Healthfirst's own list said the doctor was covered.
+- Surprise bills, being told a visit was not covered, and delayed or skipped care are the most serious facts here. If care was put off or skipped, especially a biopsy follow-up or skin cancer care, LEAD with it.
 - If the patient needs a specific service they could not find elsewhere in the plan (Mohs surgery with same-day eyelid reconstruction in one visit, phototherapy), say concretely that they could not find it anywhere else.
 - Provider naming: refer to caregivers as "my dermatologist," "my doctor," or "the doctors at Belaray." The only individual clinicians you may name are physicians explicitly present in the structured input (e.g., Dr. Rachel Ellis). If the patient's own words name any other individual provider, keep their sentiment but generalize the reference.
 - Family members: use exactly the words the patient used ("my spouse," "my children," "my parents"). Never change "spouse" to "wife" or "husband" or otherwise assume anyone's gender or details.
 - No medical record numbers, no dates of birth, no diagnoses beyond what the patient volunteered.
 - If the patient receives care at Belaray in another language, mention how hard that is to find anywhere else.
-- Sign with the patient's name and town as provided. If no name was provided, end with "Sincerely," followed by a blank line.
+- Do not include any salutation, greeting, sign-off, or signature; those are added separately for each letter.
 
-Produce THREE letters, in English:
-1. "assembly_letter": a personal letter to the New York State Assembly member named in the input (e.g. "Dear Assemblyman Blumencranz," or "Dear Assemblywoman Kassay,"). IMPORTANT: the patient may also send this same letter to their State Senator with only the salutation changed, so after the salutation refer to "your office" and never to "the Assembly" or chamber-specific titles in the body. Length and structure per the STYLE CARD. End with a plain ask: please contact Healthfirst about this decision, ask the New York State Department of Health to look into whether Healthfirst really has enough skin doctors that people here can get in to see, and help get Belaray Dermatology back into the network so the patient can keep their care.
-2. "regulator_letter": a complaint addressed per the recipient specified in the input (e.g. "Dear New York State Department of Health Managed Care Complaint Unit," / "Dear New York State Department of Financial Services," / "To Whom It May Concern at Medicare,"). Same plain voice. State the member's plan type, what happened, and their concrete experience trying to find another dermatologist, then ask them to look into whether Healthfirst has enough dermatology care members can actually get in Nassau and Suffolk County and to have Belaray Dermatology restored to the network. Similar length to the assembly letter.
-3. "healthfirst_letter": a member grievance addressed "Dear Healthfirst Member Services,". Written as an enrolled member of the plan named in the input, directly to their own insurer. Shorter than the others, roughly 150 to 300 words. It should say plainly that the member is filing a formal grievance about access to dermatology care, give their stake in a few sentences, say they did not choose this disruption and the practice is willing to participate, ask Healthfirst to restore Belaray Dermatology to the network, and ask that this be logged as a formal grievance with a written response and a grievance reference number. Firm, civil, plain.`;
+Produce ONE piece of writing, returned as "story", in English. It is the shared body of the patient's letters: their story and the facts, with NO salutation or greeting, NO mention of any reader or office, NO requests or asks, and NO sign-off or signature. The exact same story is inserted into three letters addressed to different offices (the patient's state legislators, the state agency that oversees their plan, and Healthfirst itself), so:
+1. Refer to Healthfirst by name, in the third person, always. Never "you," "your network," or "your list."
+2. Never address a reader ("your office," "the Department," "please...").
+3. No closing requests of any kind; each letter's own ask is added separately after the story.
+4. Length, opening, tone, and paragraphing per the STYLE CARD. Do not open with a greeting or with "I am writing."`;
 
 const PHYSICIAN_PROMPT = `You draft advocacy letters for physicians and clinicians in Nassau and Suffolk County, New York, who refer patients to Belaray Dermatology (Hicksville and Stony Brook). What happened, precisely: Belaray participated with Healthfirst continuously from 2006, most recently through CHS. When Healthfirst terminated its contract with CHS earlier in 2026, Belaray was forced out of network effective May 2026 through no action of its own. Belaray immediately submitted re-credentialing through IPANY and expected reinstatement around August 1, 2026; instead, in August 2026 Healthfirst denied the application as a business decision based on its "current network needs." Never characterize this as Belaray being dropped for cause or choosing to leave. The practice remains open and willing to participate; referring clinicians and their Healthfirst patients have lost a functioning dermatology referral pathway.
 
@@ -100,6 +101,26 @@ export default async function handler(req, res) {
   const prompt = isPhysician ? buildPhysicianPrompt(a) : buildPrompt(a);
   const systemText = isPhysician ? PHYSICIAN_PROMPT : SYSTEM_PROMPT;
 
+  // Physicians still get three full letters; patients get one shared story
+  // that the page assembles into three letters with fixed template parts.
+  const outputSchema = isPhysician
+    ? {
+        type: "object",
+        properties: {
+          assembly_letter: { type: "string" },
+          regulator_letter: { type: "string" },
+          healthfirst_letter: { type: "string" },
+        },
+        required: ["assembly_letter", "regulator_letter", "healthfirst_letter"],
+        additionalProperties: false,
+      }
+    : {
+        type: "object",
+        properties: { story: { type: "string" } },
+        required: ["story"],
+        additionalProperties: false,
+      };
+
   try {
     const apiResp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -121,16 +142,7 @@ export default async function handler(req, res) {
           effort: "low",
           format: {
             type: "json_schema",
-            schema: {
-              type: "object",
-              properties: {
-                assembly_letter: { type: "string" },
-                regulator_letter: { type: "string" },
-                healthfirst_letter: { type: "string" },
-              },
-              required: ["assembly_letter", "regulator_letter", "healthfirst_letter"],
-              additionalProperties: false,
-            },
+            schema: outputSchema,
           },
         },
         messages: [{ role: "user", content: prompt }],
@@ -152,7 +164,7 @@ export default async function handler(req, res) {
 
     // Safety net: strip any dash punctuation the model slipped in despite the
     // prompt ban (em/en dashes and spaced hyphens read as machine-written).
-    for (const k of ["assembly_letter", "regulator_letter", "healthfirst_letter"]) {
+    for (const k of ["assembly_letter", "regulator_letter", "healthfirst_letter", "story"]) {
       if (letters[k]) letters[k] = humanize(letters[k]);
     }
 
@@ -181,11 +193,7 @@ export default async function handler(req, res) {
           directory: a.directoryStatements,
           ownWords: a.ownWords,
         }).slice(0, 45000),
-        JSON.stringify({
-          assembly: letters.assembly_letter,
-          regulator: letters.regulator_letter,
-          healthfirst: letters.healthfirst_letter,
-        }).slice(0, 45000),
+        JSON.stringify(letters).slice(0, 45000),
       ]);
     } catch (e) {
       console.error("sheet log failed", e && e.message);
@@ -290,9 +298,8 @@ function buildPrompt(a) {
     if (val && String(val).trim()) lines.push(`${label}: ${val}`);
   };
 
-  add("Patient name (for signature)", clip(a.name));
+  add("Patient name (context only; do not sign the story)", clip(a.name));
   add("Town / area", clip(a.town));
-  add("ZIP code (append after the town in the signature line, e.g. 'Hicksville, NY 11801')", clip(a.zip));
   add("NY State Assembly member to address in the assembly letter", clip(a.assemblyRep));
   add("Insurance plan type", clip(a.planType));
   add("Regulator letter recipient", clip(a.regulatorRecipient));
@@ -334,7 +341,7 @@ function buildPrompt(a) {
   add("Anything else, in the patient's own words", clip(a.ownWords));
 
   return (
-    "Here are one patient's questionnaire answers. Draft the three letters described in your instructions.\n\n" +
+    "Here are one patient's questionnaire answers. Write the story described in your instructions.\n\n" +
     lines.join("\n") +
     "\n\nSTYLE CARD for this patient (follow exactly, so no two patients' letters look alike):\n" +
     styleCard()
@@ -362,7 +369,7 @@ function styleCard() {
       "warm and personal, a little sad",
       "direct and no-nonsense",
     ]),
-    "Length for the assembly and regulator letters: " + pick([
+    "Story length: " + pick([
       "short, about 150 to 250 words",
       "medium, about 250 to 350 words",
       "fuller, about 350 to 450 words",
