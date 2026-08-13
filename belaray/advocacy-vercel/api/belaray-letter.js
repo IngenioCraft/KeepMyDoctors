@@ -43,11 +43,11 @@ Content rules:
 - Cover every topic this patient answered, but lead with what matters most to this person and let the rest support it, so the letter reads as one person's story rather than a list.
 - Where the patient wrote something in their own words, keep their phrasing (lightly cleaned up; translated to English if needed).
 - Concrete beats general. Use supplied numbers of offices called, quoted waits, and distances plainly and exactly.
-- If the quoted wait was long, state it plainly and let the number speak for itself: "The soonest anyone else could see me was more than three months from now. That is too long when someone is watching you for skin cancer." Do NOT compare the wait to any official standard or rule.
+- If the quoted wait was long, state it plainly and let the number speak for itself: "The soonest anyone else could see me was more than three months from now. That is too long when someone is watching you for skin cancer." Always put the actual wait they selected into the story. If they said they could not get a timely appointment but gave no number, say in plain words that the wait at the other offices they tried was far too long. Do NOT compare the wait to any official standard or rule.
 - Explain the impact on the patient, never the practice's business interests, awards, or reputation.
 - The unfairness should come through the facts, said simply: the office is still open, it is close by, the patient still wants to go there and the office still wants to see them, and the insurance company's choice is the only thing stopping it. Put it in words that fit this patient's voice.
 - Phone and language problems are concrete: nobody picked up, nobody called back, nobody spoke my language. If the patient noted Belaray's 24/7 doctor-answered line or language support, mention the contrast simply.
-- Directory facts, gated strictly to the directory statements this patient affirmed; never go beyond them or imply reliance nobody stated. If they said the listing is partly why they picked or kept Healthfirst, or that they would have looked harder at other plans if the directory had been accurate, say it plainly in their voice ("Their list said my doctor was covered. That is part of why I picked Healthfirst."). If they affirmed they recently checked the directory themselves and the doctor still shows as covered, they may describe that as their own observation. Otherwise, if a practice-verified directory fact is supplied, phrase it secondhand only: "I am told that as of [date], Healthfirst's own list still showed my doctors as covered." Never present secondhand as their own observation, and never mention a screenshot unless the patient's own words do.
+- Directory facts, gated strictly to the directory statements this patient affirmed; never go beyond them or imply reliance nobody stated. If they said the listing is partly why they picked or kept Healthfirst, or that they would have looked harder at other plans if the directory had been accurate, say it plainly in their voice ("Their list said my doctor was covered. That is part of why I picked Healthfirst."). If they affirmed they recently checked the directory themselves and the doctor still shows as covered, they may describe that as their own observation. Otherwise, if a verified directory fact is supplied, state it simply and impersonally, with no source: "As of [date], Healthfirst's own doctor list still shows the Belaray doctors as covered." It is good for the patient to sound honestly confused by the contradiction: "I do not understand how their own list can say covered while I cannot use my plan there. Maybe this is a mix-up and my doctor should be in network." Never attribute the fact to anyone ("I am told," "my doctor's office says"), never present it as something the patient personally looked up unless they affirmed they did, and never mention a screenshot unless the patient's own words do.
 - Surprise bills, being told a visit was not covered, and delayed or skipped care are the most serious facts here. If care was put off or skipped, especially a biopsy follow-up or skin cancer care, LEAD with it.
 - If the patient needs a specific service they could not find elsewhere in the plan (Mohs surgery with same-day eyelid reconstruction in one visit, phototherapy), say concretely that they could not find it anywhere else.
 - Provider naming: refer to caregivers as "my dermatologist," "my doctor," or "the doctors at Belaray." The only individual clinicians you may name are physicians explicitly present in the structured input (e.g., Dr. Rachel Ellis). If the patient's own words name any other individual provider, keep their sentiment but generalize the reference.
@@ -167,6 +167,10 @@ export default async function handler(req, res) {
     for (const k of ["assembly_letter", "regulator_letter", "healthfirst_letter", "story"]) {
       if (letters[k]) letters[k] = humanize(letters[k]);
     }
+
+    // Let the page know whether a verified still-listed directory fact is in
+    // play, so the closing asks can raise the "is this a mix-up?" question.
+    if (!isPhysician) letters.directory_verified = process.env.DIRECTORY_LAST_VERIFIED || null;
 
     // Campaign log: append this submission to the practice's Google Sheet
     // (belaray.com Workspace, covered by the practice's Google BAA).
@@ -333,7 +337,7 @@ function buildPrompt(a) {
   }
   if (process.env.DIRECTORY_LAST_VERIFIED) {
     add(
-      "Practice-verified directory fact (SECONDHAND for this patient unless they affirmed they checked the directory themselves)",
+      "Verified directory fact (state impersonally with no source; the patient may voice honest confusion about it)",
       "As of " + process.env.DIRECTORY_LAST_VERIFIED + ", Healthfirst's own online find-a-doctor list still showed Belaray physicians as in-network"
     );
   }

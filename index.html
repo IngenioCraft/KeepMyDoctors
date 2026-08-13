@@ -32,14 +32,14 @@
   }
   .lang-btn.active { background: #fff; color: var(--teal); }
 
-  .es, .pa, .bn, .hi { display: none; }
-  body.lang-es .en, body.lang-es .pa, body.lang-es .bn, body.lang-es .hi { display: none; }
-  body.lang-pa .en, body.lang-pa .es, body.lang-pa .bn, body.lang-pa .hi { display: none; }
-  body.lang-bn .en, body.lang-bn .es, body.lang-bn .pa, body.lang-bn .hi { display: none; }
-  body.lang-hi .en, body.lang-hi .es, body.lang-hi .pa, body.lang-hi .bn { display: none; }
-  body.lang-es .es, body.lang-pa .pa, body.lang-bn .bn, body.lang-hi .hi { display: block; }
+  .es, .pa, .bn, .hi { display: none !important; }
+  body.lang-es .en, body.lang-es .pa, body.lang-es .bn, body.lang-es .hi { display: none !important; }
+  body.lang-pa .en, body.lang-pa .es, body.lang-pa .bn, body.lang-pa .hi { display: none !important; }
+  body.lang-bn .en, body.lang-bn .es, body.lang-bn .pa, body.lang-bn .hi { display: none !important; }
+  body.lang-hi .en, body.lang-hi .es, body.lang-hi .pa, body.lang-hi .bn { display: none !important; }
+  body.lang-es .es, body.lang-pa .pa, body.lang-bn .bn, body.lang-hi .hi { display: block !important; }
   body.lang-es span.es, body.lang-es a.es, body.lang-pa span.pa, body.lang-pa a.pa,
-  body.lang-bn span.bn, body.lang-bn a.bn, body.lang-hi span.hi, body.lang-hi a.hi { display: inline; }
+  body.lang-bn span.bn, body.lang-bn a.bn, body.lang-hi span.hi, body.lang-hi a.hi { display: inline !important; }
 
   /* ===== HERO ===== */
   .hero {
