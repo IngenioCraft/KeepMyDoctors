@@ -178,6 +178,24 @@
   }
   .toast-notification.show { bottom: 30px; }
 
+  /* ===== TEST MODE BLOCKING MODAL ===== */
+  .testmode-backdrop {
+    position: fixed; inset: 0; background: rgba(17,24,39,0.72);
+    z-index: 200000; display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .testmode-box {
+    background: #fff; border-radius: 18px; max-width: 440px; width: 100%;
+    padding: 28px 26px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    border: 3px solid var(--amber);
+  }
+  .testmode-box .emoji { font-size: 40px; margin-bottom: 10px; }
+  .testmode-box h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+  .testmode-box p { font-size: 15px; color: #374151; line-height: 1.6; margin-bottom: 18px; }
+  .testmode-box button {
+    background: var(--teal); color: #fff; border: none; padding: 12px 28px;
+    border-radius: 24px; font-size: 15px; font-weight: 800; font-family: inherit; cursor: pointer;
+  }
+
   footer {
     background: var(--dark); color: #9CA3AF; text-align: center; padding: 28px 20px;
     font-size: 13px; line-height: 1.8;
@@ -244,6 +262,7 @@
       <label class="f-label" for="f-zip"><span class="en">Your ZIP code</span><span class="es">Su código postal</span><span class="pa">ਤੁਹਾਡਾ ZIP ਕੋਡ</span><span class="bn">আপনার ZIP কোড</span><span class="hi">आपका ZIP कोड</span></label>
       <input type="text" id="f-zip" placeholder="11801" inputmode="numeric" maxlength="5" autocomplete="postal-code" oninput="zipChanged()">
       <p class="hint" id="zip-town-display" style="margin:6px 0 0; font-weight:700;"></p>
+      <p class="hint" id="zip-reps-display" style="margin:2px 0 0;"></p>
      </div>
     </div>
     <div class="field" id="town-manual-wrap" style="display:none;">
@@ -601,12 +620,58 @@
 
  <div class="toast-notification" id="toast-notification"></div>
 
+ <div class="testmode-backdrop" id="testmode-modal">
+  <div class="testmode-box">
+   <div class="emoji">🚧</div>
+   <h3><span class="en" style="display:inline;">Testing Mode</span><span class="es">Modo de Prueba</span><span class="pa">ਟੈਸਟਿੰਗ ਮੋਡ</span><span class="bn">টেস্টিং মোড</span><span class="hi">टेस्टिंग मोड</span></h3>
+   <p>
+    <span class="en" style="display:inline;">This site is being tested and is not live yet. Nothing you do here will send a fax or open a real email to anyone. Thank you for your patience — please check back soon.</span>
+    <span class="es">Este sitio está en pruebas y todavía no está activo. Nada de lo que haga aquí enviará un fax ni abrirá un correo real a nadie. Gracias por su paciencia — vuelva pronto.</span>
+    <span class="pa">ਇਹ ਸਾਈਟ ਟੈਸਟ ਹੋ ਰਹੀ ਹੈ ਅਤੇ ਹਾਲੇ ਲਾਈਵ ਨਹੀਂ ਹੈ। ਇੱਥੇ ਕੁਝ ਵੀ ਕਰਨ ਨਾਲ ਕੋਈ ਫੈਕਸ ਨਹੀਂ ਜਾਵੇਗਾ ਜਾਂ ਕਿਸੇ ਨੂੰ ਅਸਲੀ ਈਮੇਲ ਨਹੀਂ ਖੁੱਲ੍ਹੇਗੀ। ਧੀਰਜ ਲਈ ਧੰਨਵਾਦ — ਜਲਦੀ ਵਾਪਸ ਵੇਖੋ।</span>
+    <span class="bn">এই সাইটটি পরীক্ষা করা হচ্ছে এবং এখনও লাইভ নয়। এখানে যা করবেন তাতে কোনো ফ্যাক্স যাবে না বা কারো কাছে আসল ইমেইল খুলবে না। ধৈর্যের জন্য ধন্যবাদ — শীঘ্রই আবার দেখুন।</span>
+    <span class="hi">यह साइट अभी टेस्ट हो रही है और अभी लाइव नहीं है। यहाँ कुछ भी करने से कोई फ़ैक्स नहीं जाएगा या किसी को असली ईमेल नहीं खुलेगा। धैर्य के लिए धन्यवाद — जल्द ही वापस देखें।</span>
+   </p>
+   <button onclick="closeTestModeModal()">
+    <span class="en" style="display:inline;">OK</span><span class="es">Entendido</span><span class="pa">ਠੀਕ ਹੈ</span><span class="bn">ঠিক আছে</span><span class="hi">ठीक है</span>
+   </button>
+  </div>
+ </div>
+
  <script>
   // Letter-API endpoint (Vercel serverless function). Falls back to template letters if unreachable.
   const WORKER_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/letter";
   // Fax endpoint (same Vercel project). Faxes the grievance letter straight to
   // Healthfirst Appeals & Grievances; destination is fixed server-side.
   const FAX_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/fax";
+
+  // ===== SITE-WIDE TEST MODE =====
+  // While true, EVERY outbound action (fax batch, single grievance fax,
+  // legislator/DOH email, "email it to myself", DFS/Medicare portal) is
+  // blocked client-side before anything happens, with a "Testing Mode"
+  // popup instead. SET TO false BEFORE LAUNCH.
+  //
+  // This is deliberately separate from fax.js's FAX_TEST_TO env var:
+  //   - FAX_TEST_TO redirects real fax sends to a number you own, so you can
+  //     verify actual delivery/formatting. It cannot cover email at all —
+  //     legislator and DOH emails open in the patient's own mail app/Gmail
+  //     tab, so once that compose window opens, sending is entirely in their
+  //     hands and there's no server in the loop to redirect.
+  //   - SITE_TEST_MODE (this flag) is the only way to guarantee NOTHING goes
+  //     out, email included: it stops every send before any compose window
+  //     opens or any fax request fires.
+  // Use FAX_TEST_TO when you want to test real fax delivery to a machine you
+  // control. Use SITE_TEST_MODE when you want zero outbound actions, period.
+  var SITE_TEST_MODE = true;
+
+  function testModeGuard() {
+    if (!SITE_TEST_MODE) return false;
+    document.getElementById('testmode-modal').style.display = 'flex';
+    if (typeof plausible !== 'undefined') plausible('test_mode_blocked');
+    return true;
+  }
+  function closeTestModeModal() {
+    document.getElementById('testmode-modal').style.display = 'none';
+  }
 
   // ===== LANGUAGE =====
   var LANG = 'en';
@@ -655,8 +720,12 @@
     zipNotFound: { en: 'ZIP not found. Please type your town below.', es: 'Código postal no encontrado. Escriba su pueblo abajo.', pa: 'ZIP ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਆਪਣਾ ਸ਼ਹਿਰ ਲਿਖੋ।', bn: 'ZIP পাওয়া যায়নি। নিচে আপনার শহর লিখুন।', hi: 'ZIP नहीं मिला। नीचे अपना शहर लिखें।' },
     zipOutsideNY: { en: 'this ZIP looks outside New York. Double-check it.', es: 'este código parece fuera de Nueva York. Verifíquelo.', pa: 'ਇਹ ZIP ਨਿਊਯਾਰਕ ਤੋਂ ਬਾਹਰ ਲੱਗਦਾ ਹੈ। ਜਾਂਚ ਲਓ।', bn: 'এই ZIP নিউ ইয়র্কের বাইরে মনে হচ্ছে। যাচাই করুন।', hi: 'यह ZIP न्यूयॉर्क से बाहर लगता है। जाँच लें।' },
     townNeed: { en: 'Please type your town.', es: 'Escriba su pueblo, por favor.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਸ਼ਹਿਰ ਲਿਖੋ।', bn: 'অনুগ্রহ করে আপনার শহর লিখুন।', hi: 'कृपया अपना शहर लिखें।' },
+    repsLooking: { en: 'Finding your representatives…', es: 'Buscando sus representantes…', pa: 'ਤੁਹਾਡੇ ਨੁਮਾਇੰਦੇ ਲੱਭੇ ਜਾ ਰਹੇ ਹਨ…', bn: 'আপনার প্রতিনিধি খোঁজা হচ্ছে…', hi: 'आपके प्रतिनिधि खोजे जा रहे हैं…' },
+    repsNotFound: { en: 'We could not automatically find your representatives — you can still send Healthfirst and the state letter, and the legislator letter below has links to look yours up.', es: 'No pudimos encontrar sus representantes automáticamente — aún puede enviar a Healthfirst y la carta al estado, y la carta al legislador abajo tiene enlaces para buscar los suyos.', pa: 'ਅਸੀਂ ਤੁਹਾਡੇ ਨੁਮਾਇੰਦੇ ਆਪਣੇ ਆਪ ਨਹੀਂ ਲੱਭ ਸਕੇ — ਤੁਸੀਂ ਫਿਰ ਵੀ Healthfirst ਅਤੇ ਰਾਜ ਵਾਲੀ ਚਿੱਠੀ ਭੇਜ ਸਕਦੇ ਹੋ, ਅਤੇ ਹੇਠਾਂ ਵਿਧਾਇਕ ਵਾਲੀ ਚਿੱਠੀ ਵਿੱਚ ਆਪਣਾ ਲੱਭਣ ਦੇ ਲਿੰਕ ਹਨ।', bn: 'আমরা আপনার প্রতিনিধি স্বয়ংক্রিয়ভাবে খুঁজে পাইনি — তবু আপনি Healthfirst ও রাজ্যের চিঠি পাঠাতে পারেন, এবং নিচের বিধায়কের চিঠিতে নিজেরটা খোঁজার লিংক আছে।', hi: 'हम आपके प्रतिनिधि अपने आप नहीं खोज सके — फिर भी आप Healthfirst और राज्य वाला पत्र भेज सकते हैं, और नीचे विधायक वाले पत्र में अपना खोजने के लिंक हैं।' },
+    repsWait: { en: 'Still finding your representatives — one more second, then tap Next again.', es: 'Todavía buscando sus representantes — un segundo más, luego toque Siguiente otra vez.', pa: 'ਹਾਲੇ ਨੁਮਾਇੰਦੇ ਲੱਭ ਰਹੇ ਹਾਂ — ਇੱਕ ਪਲ ਹੋਰ, ਫਿਰ Next ਦੁਬਾਰਾ ਦਬਾਓ।', bn: 'এখনও প্রতিনিধি খুঁজছি — আরেকটু, তারপর আবার Next চাপুন।', hi: 'अभी भी प्रतिनिधि खोज रहे हैं — एक पल और, फिर दोबारा Next दबाएँ।' },
     sendAllAlt: { en: 'Have email? Sending from your own email counts even more - each letter below has an email button.', es: '¿Tiene correo? Enviar desde su propio correo cuenta aún más - cada carta abajo tiene un botón de correo.', pa: 'ਈਮੇਲ ਹੈ? ਆਪਣੀ ਈਮੇਲ ਤੋਂ ਭੇਜਣਾ ਹੋਰ ਵੀ ਵੱਧ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ - ਹਰ ਚਿੱਠੀ ਹੇਠਾਂ ਈਮੇਲ ਬਟਨ ਹੈ।', bn: 'ইমেইল আছে? নিজের ইমেইল থেকে পাঠানো আরও বেশি গণ্য হয় - নিচে প্রতিটি চিঠিতে ইমেইল বোতাম আছে।', hi: 'ईमेल है? अपने ईमेल से भेजना और भी ज़्यादा गिना जाता है - नीचे हर पत्र में ईमेल बटन है।' },
     faxToLbl: { en: 'Fax to ', es: 'Fax a ', pa: 'ਫੈਕਸ: ', bn: 'ফ্যাক্স: ', hi: 'फ़ैक्स: ' },
+    findRepNote: { en: 'New York City has many districts, so we can\'t pick your exact representatives automatically. Find yours in a few seconds: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>. Then use Copy above and paste your letter into their contact form or email.', es: 'La ciudad de Nueva York tiene muchos distritos, así que no podemos elegir sus representantes automáticamente. Encuentre los suyos en segundos: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Asamblea</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senado</a>. Luego use Copiar arriba y pegue su carta en su formulario o correo.', pa: 'ਨਿਊਯਾਰਕ ਸ਼ਹਿਰ ਵਿੱਚ ਬਹੁਤ ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ ਹਨ, ਇਸ ਲਈ ਅਸੀਂ ਤੁਹਾਡੇ ਨੁਮਾਇੰਦੇ ਆਪਣੇ ਆਪ ਨਹੀਂ ਚੁਣ ਸਕਦੇ। ਆਪਣੇ ਲੱਭੋ: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>। ਫਿਰ ਉੱਪਰ Copy ਵਰਤ ਕੇ ਆਪਣੀ ਚਿੱਠੀ ਉਨ੍ਹਾਂ ਦੇ ਫਾਰਮ ਜਾਂ ਈਮੇਲ ਵਿੱਚ ਪਾਓ।', bn: 'নিউ ইয়র্ক শহরে অনেক জেলা, তাই আমরা আপনার প্রতিনিধি স্বয়ংক্রিয়ভাবে বাছতে পারি না। নিজেরটা খুঁজুন: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>। তারপর উপরের Copy ব্যবহার করে চিঠি তাদের ফর্ম বা ইমেইলে পেস্ট করুন।', hi: 'न्यूयॉर्क शहर में बहुत सारे ज़िले हैं, इसलिए हम आपके प्रतिनिधि अपने आप नहीं चुन सकते। अपने खोजें: <a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>। फिर ऊपर Copy से पत्र उनके फ़ॉर्म या ईमेल में पेस्ट करें।' },
     shareBtn: { en: '📲 Share with my family', es: '📲 Compartir con mi familia', pa: '📲 ਆਪਣੇ ਪਰਿਵਾਰ ਨਾਲ ਸਾਂਝਾ ਕਰੋ', bn: '📲 পরিবারের সাথে শেয়ার করুন', hi: '📲 अपने परिवार से साझा करें' },
     shareText: { en: 'A Healthfirst contract change took our dermatologists at Belaray out of network after 20 years, and Healthfirst won\'t let them back in. It takes 3 minutes to send letters that can help bring them back:', es: 'Un cambio de contrato de Healthfirst sacó de la red a nuestro dermatólogo, Belaray, después de 20 años, y Healthfirst no los deja volver. Toma 3 minutos enviar cartas que pueden ayudar a traerlos de vuelta:', pa: 'Healthfirst ਦੇ ਇਕਰਾਰਨਾਮੇ ਦੀ ਤਬਦੀਲੀ ਨੇ 20 ਸਾਲਾਂ ਬਾਅਦ ਸਾਡੇ ਚਮੜੀ ਦੇ ਡਾਕਟਰ ਬੇਲਾਰੇ ਨੂੰ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਕਰ ਦਿੱਤਾ, ਅਤੇ Healthfirst ਉਨ੍ਹਾਂ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਆਉਣ ਦੇ ਰਿਹਾ। ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਚਿੱਠੀਆਂ ਭੇਜਣ ਵਿੱਚ ਸਿਰਫ਼ 3 ਮਿੰਟ ਲੱਗਦੇ ਹਨ:', bn: 'Healthfirst-এর চুক্তি বদলে ২০ বছর পর আমাদের চর্মরোগ বিশেষজ্ঞ বেলারে নেটওয়ার্কের বাইরে চলে গেছে, আর Healthfirst তাদের ফিরতে দিচ্ছে না। সাহায্য করার চিঠি পাঠাতে মাত্র ৩ মিনিট লাগে:', hi: 'Healthfirst के अनुबंध बदलाव ने 20 साल बाद हमारे त्वचा डॉक्टर बेलारे को नेटवर्क से बाहर कर दिया, और Healthfirst उन्हें वापस नहीं आने दे रहा। मदद करने वाले पत्र भेजने में सिर्फ़ 3 मिनट लगते हैं:' },
     shareCopied: { en: 'Link copied — text it to your family!', es: '¡Enlace copiado — envíelo a su familia!', pa: 'ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ — ਆਪਣੇ ਪਰਿਵਾਰ ਨੂੰ ਭੇਜੋ!', bn: 'লিংক কপি হয়েছে — পরিবারকে পাঠান!', hi: 'लिंक कॉपी हो गया — अपने परिवार को भेजें!' },
@@ -699,16 +768,105 @@
     if (q && ['es','pa','bn','hi'].indexOf(q) !== -1) setLang(q);
   })();
 
-  // ZIP → town lookup (zippopotam.us, free USPS place names). On success the
-  // hidden #f-town input is filled, so letters and fax covers work unchanged.
-  // On failure the manual town field appears as a fallback.
+  // ===== LIVE REPRESENTATIVE LOOKUP =====
+  // New York State publishes the exact (not ZIP-approximated) boundaries of
+  // every Assembly and Senate district as a public GIS service, with each
+  // district's current member, email, and phone attached. We look this up
+  // live for every patient's ZIP centroid, so EVERY address in the state
+  // gets its real legislators automatically — no hand-built ZIP-to-district
+  // table, and no "go find your own rep" fallback for patients outside a
+  // few hand-mapped neighborhoods.
+  //
+  // Fax numbers are not part of this public data (most offices don't publish
+  // one at all), so those still come from a small, hand-verified table in
+  // fax.js, keyed by the real district number this lookup discovers. A
+  // district we haven't verified a fax for just shows no fax option for that
+  // office — the email button (built from the state's own published email)
+  // still works for every district in New York.
+  var GIS_LAYERS = {
+    assembly: 'https://gisservices.its.ny.gov/arcgis/rest/services/NYS_Assembly_Districts/FeatureServer/0/query',
+    senate: 'https://gisservices.its.ny.gov/arcgis/rest/services/NYS_Senate_Districts/FeatureServer/0/query',
+  };
+
+  function lastNameOf(fullName) {
+    var parts = String(fullName || '').trim().split(/\s+/);
+    return parts.length ? parts[parts.length - 1] : '';
+  }
+  function ordinal(n) {
+    var s = ['th', 'st', 'nd', 'rd'], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function lookupChamber(chamber, lat, lon) {
+    var url = GIS_LAYERS[chamber] +
+      '?geometry=' + lon + ',' + lat + '&geometryType=esriGeometryPoint&inSR=4326' +
+      '&spatialRel=esriSpatialRelIntersects&outFields=DISTRICT,NAME,EMAIL,DIST_PHONE,PHONE&f=json';
+    return fetch(url)
+      .then(function(r) { if (!r.ok) throw new Error('gis_http'); return r.json(); })
+      .then(function(data) {
+        var f = data.features && data.features[0] && data.features[0].attributes;
+        if (!f || !f.DISTRICT) throw new Error('no_district');
+        var titleWord = chamber === 'assembly' ? 'Assembly Member' : 'Senator';
+        return {
+          districtNum: f.DISTRICT,
+          district: ordinal(f.DISTRICT) + ' ' + (chamber === 'assembly' ? 'Assembly' : 'Senate') + ' District',
+          name: titleWord + ' ' + (f.NAME || '').trim(),
+          salutation: titleWord + ' ' + lastNameOf(f.NAME),
+          email: (f.EMAIL || '').trim(),
+          phone: (f.DIST_PHONE || f.PHONE || '').trim(),
+          faxable: false // filled in once we know whether fax.js has a verified number
+        };
+      });
+  }
+
+  // A generic "we couldn't find your reps automatically" entry — same shape
+  // as a resolved one, but with no email/fax, so the existing find-your-rep
+  // UI (already wired wherever .email is empty) takes over.
+  function unresolvedRep(title) {
+    return { districtNum: null, district: '', name: 'your ' + title, salutation: title, email: '', phone: '', faxable: false };
+  }
+
+  // Districts we've hand-verified a fax number for (fax.js owns the actual
+  // numbers; this list only controls whether the fax checkbox is offered).
+  var KNOWN_FAX_ASSEMBLY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 33, 34, 35, 37, 38, 39, 40, 42, 43, 44, 46, 48, 49, 51, 53, 54, 55, 59, 60];
+  var KNOWN_FAX_SENATE = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21];
+
+  var resolvedReps = null;   // {assembly, senate} once lookup resolves, else null
+  var zipRepsPending = false; // true while a lookup is in flight; blocks Next on step 2
+
+  function resolveReps(lat, lon) {
+    return Promise.all([
+      lookupChamber('assembly', lat, lon).catch(function() { return null; }),
+      lookupChamber('senate', lat, lon).catch(function() { return null; }),
+    ]).then(function(res) {
+      var assembly = res[0], senate = res[1];
+      var status = document.getElementById('zip-reps-display');
+      if (assembly && senate) {
+        assembly.faxable = KNOWN_FAX_ASSEMBLY.indexOf(assembly.districtNum) !== -1;
+        senate.faxable = KNOWN_FAX_SENATE.indexOf(senate.districtNum) !== -1;
+        resolvedReps = { assembly: assembly, senate: senate };
+        status.textContent = '✓ ' + assembly.name + ' (' + assembly.district + ') · ' + senate.name + ' (' + senate.district + ')';
+      } else {
+        resolvedReps = null;
+        status.textContent = t('repsNotFound');
+      }
+    });
+  }
+
+  // ZIP → town + representatives lookup. On success the hidden #f-town input
+  // is filled and resolvedReps is populated, so letters, the send panel, and
+  // fax covers all work unchanged downstream. On failure the manual town
+  // field appears, and the find-your-rep fallback covers the legislator card.
   var zipLookupSeq = 0;
   function zipChanged() {
     var zip = document.getElementById('f-zip').value.trim();
     var display = document.getElementById('zip-town-display');
+    var repsDisplay = document.getElementById('zip-reps-display');
     var manualWrap = document.getElementById('town-manual-wrap');
-    if (!/^\d{5}$/.test(zip)) { display.textContent = ''; return; }
+    if (!/^\d{5}$/.test(zip)) { display.textContent = ''; repsDisplay.textContent = ''; resolvedReps = null; zipRepsPending = false; return; }
     var seq = ++zipLookupSeq;
+    zipRepsPending = true;
+    repsDisplay.textContent = t('repsLooking');
     fetch('https://api.zippopotam.us/us/' + zip)
       .then(function(r) { if (!r.ok) throw new Error('notfound'); return r.json(); })
       .then(function(data) {
@@ -721,11 +879,18 @@
           document.getElementById('f-town').value = town;
         }
         display.textContent = (state === 'NY' ? '✓ ' + town + ', NY' : '⚠️ ' + town + ', ' + state + ' - ' + t('zipOutsideNY'));
+        if (state !== 'NY') { resolvedReps = null; repsDisplay.textContent = ''; return; }
+        return resolveReps(place.latitude, place.longitude);
       })
       .catch(function() {
         if (seq !== zipLookupSeq) return;
         display.textContent = t('zipNotFound');
+        repsDisplay.textContent = '';
+        resolvedReps = null;
         manualWrap.style.display = 'block';
+      })
+      .then(function() {
+        if (seq === zipLookupSeq) zipRepsPending = false;
       });
   }
 
@@ -756,6 +921,13 @@
       if (!getContact()) {
         showToast(t('contactNeedOne'));
         document.getElementById('f-phone').focus();
+        return;
+      }
+      // The representative lookup kicked off when the ZIP was typed; give it
+      // a moment to settle rather than letting the patient advance to a
+      // still-blank result.
+      if (zipRepsPending) {
+        showToast(t('repsWait'));
         return;
       }
     }
@@ -811,18 +983,11 @@
     );
   }
 
-  // Legislator routing by county — verified August 2026.
-  const REPS = {
-    nassau: {
-      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District", faxable: true },
-      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District", faxable: true }
-    },
-    suffolk: {
-      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District", faxable: true },
-      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District", faxable: true }
-    }
-  };
-  var currentReps = REPS.nassau;
+  // currentReps is populated live by resolveReps() (see the ZIP lookup above)
+  // from New York State's own district-boundary data — accurate for any
+  // address in the state, not a hand-built table. Starts as the
+  // "not found yet" shape so nothing else has to null-check before step 2.
+  var currentReps = { assembly: unresolvedRep('Assembly Member'), senate: unresolvedRep('Senator') };
 
   // hfPhone: Healthfirst Member Services by plan, per healthfirst.org/contact (Aug 2026).
   // The number on the back of the member ID card is always authoritative.
@@ -841,16 +1006,12 @@
 
     var town = document.getElementById('f-town').value.trim();
     var zip = document.getElementById('f-zip').value.trim();
-    // County by ZIP. Nassau and Suffolk interleave in the 117xx band (Jericho
-    // 11753 and Levittown 11756 are Nassau; Huntington 11743 is Suffolk), so
-    // that band uses an explicit Nassau list. 110xx-115xx and 118xx are
-    // Nassau; 119xx is Suffolk; non-LI ZIPs fall back to Nassau.
-    var NASSAU_117XX = [11709, 11710, 11714, 11732, 11735, 11753, 11756, 11758, 11762, 11765, 11771, 11783, 11791, 11793, 11797];
-    var zipNum = parseInt(zip, 10);
-    var county = 'nassau';
-    if (zipNum >= 11900 && zipNum <= 11999) county = 'suffolk';
-    else if (zipNum >= 11700 && zipNum <= 11799 && NASSAU_117XX.indexOf(zipNum) === -1) county = 'suffolk';
-    currentReps = REPS[county] || REPS.nassau;
+    // currentReps was set live by resolveReps() when the ZIP was entered
+    // (goStep blocks leaving this step until that lookup settles); if it
+    // never resolved (bad ZIP, offline, non-NY address), currentReps is
+    // already the "unresolved" shape and the find-your-rep fallback UI
+    // takes over downstream.
+    if (resolvedReps) currentReps = resolvedReps;
 
     var wait = document.getElementById('f-wait').value;
     var distance = document.getElementById('f-distance').value;
@@ -868,7 +1029,7 @@
       email: document.getElementById('f-email').value.trim(),
       town: town,
       zip: zip,
-      county: county,
+      county: [currentReps.assembly.district, currentReps.senate.district].filter(Boolean).join(' / ') || 'not found',
       assemblyRep: currentReps.assembly.name,
       assemblyRepSalutation: currentReps.assembly.salutation,
       stateSenator: currentReps.senate.name,
@@ -1019,7 +1180,10 @@
     if (a.waitExceedsStandard) access += 'That is much too long to wait. ';
     var dir = (a.directoryStatements && a.directoryStatements.length) ? 'About Healthfirst\'s own doctor list: ' + a.directoryStatements.map(lower).join('; ') + '. ' : '';
     var own = a.ownWords ? '\n\n' + a.ownWords : '';
-    return (years + found + fam + care + lang + '\n\n' + facts + '\n\n' + (meaning + access + dir)).trim() + own;
+    // Paragraph order: who I am -> what happened -> what it costs me ->
+    // the directory contradiction last (the closing ask follows it).
+    var harm = (meaning + access).trim();
+    return (years + found + fam + care + lang + '\n\n' + facts + (harm ? '\n\n' + harm : '') + (dir ? '\n\n' + dir : '')).trim() + own;
   }
 
   function letterHeaders(answers) {
@@ -1035,7 +1199,9 @@
       reg = 'Submit at: https://www.medicare.gov/my/medicare-complaint\nOr call: 1-800-MEDICARE (1-800-633-4227)\n\n';
     }
     return {
-      assembly: 'To: ' + a.name + ' <' + a.email + '>\nAlso send to: ' + s.name + ' <' + s.email + '>\nSubject: Constituent request: Healthfirst network access to Belaray Dermatology\n\n',
+      assembly: a.email
+        ? 'To: ' + a.name + ' <' + a.email + '>\nAlso send to: ' + s.name + ' <' + s.email + '>\nSubject: Constituent request: Healthfirst network access to Belaray Dermatology\n\n'
+        : 'To: your NYS Assembly Member and your NY State Senator\nFind yours: https://nyassembly.gov/mem/search/ | https://www.nysenate.gov/find-my-senator\nSubject: Constituent request: Healthfirst network access to Belaray Dermatology\n\n',
       regulator: reg,
       healthfirst: 'To: Healthfirst Member Services\nCall: ' + hfPhone + ' (the number on the back of your member ID card is always correct)\nFax: 1-646-313-4618 (Appeals and Grievances Department)\nOr: secure Message Center at my.healthfirst.org, or mail to: Healthfirst Appeals and Grievances Department, P.O. Box 5166, New York, NY 10274-5166\nSubject: Formal grievance - network access to my dermatologist\n\n'
     };
@@ -1098,12 +1264,22 @@
 
   function setupAssemblyCard(answers) {
     var a = currentReps.assembly, s = currentReps.senate;
-    document.getElementById('assembly-toline').textContent =
-      'To: ' + a.name + ' <' + a.email + '> (' + a.district + ')  ·  ' + s.name + ' <' + s.email + '> (' + s.district + ')';
-    document.getElementById('mail-assembly-label').textContent = t('emailTo') + a.salutation;
-    document.getElementById('mail-senate-label').textContent = t('emailTo') + s.salutation;
+    // NYC fallback: no single rep can be chosen, so hide the direct email
+    // buttons and point to the official find-your-rep lookups instead.
+    var noDirect = !a.email;
+    document.getElementById('mail-assembly').style.display = noDirect ? 'none' : '';
+    document.getElementById('mail-senate').style.display = noDirect ? 'none' : '';
+    if (noDirect) {
+      document.getElementById('assembly-toline').textContent = 'To: your NYS Assembly Member and your NY State Senator';
+      document.getElementById('assembly-note').innerHTML = t('findRepNote');
+    } else {
+      document.getElementById('assembly-toline').textContent =
+        'To: ' + a.name + ' <' + a.email + '> (' + a.district + ')  ·  ' + s.name + ' <' + s.email + '> (' + s.district + ')';
+      document.getElementById('mail-assembly-label').textContent = t('emailTo') + a.salutation;
+      document.getElementById('mail-senate-label').textContent = t('emailTo') + s.salutation;
+      document.getElementById('assembly-note').innerHTML = t('assemblyNote').replace('{A}', a.name).replace('{S}', s.name);
+    }
     document.getElementById('mail-self-assembly').textContent = t('emailSelfBtn');
-    document.getElementById('assembly-note').innerHTML = t('assemblyNote').replace('{A}', a.name).replace('{S}', s.name);
   }
 
   function setupRegulatorCard(answers) {
@@ -1138,20 +1314,26 @@
       toline.textContent = 'To: New York State Department of Financial Services (online complaint portal)';
       var dfsBtn = document.createElement('a');
       dfsBtn.className = 'act-btn act-primary';
-      dfsBtn.href = 'https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new';
-      dfsBtn.target = '_blank';
-      dfsBtn.rel = 'noopener';
+      dfsBtn.href = '#';
       dfsBtn.textContent = t('openPortal');
+      dfsBtn.onclick = function() {
+        if (testModeGuard()) return false;
+        window.open('https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new', '_blank', 'noopener');
+        return false;
+      };
       actions.appendChild(dfsBtn);
       note.innerHTML = t('dfsNote');
     } else if (channel === 'medicare') {
       toline.textContent = 'To: Medicare (CMS complaint form)';
       var medBtn = document.createElement('a');
       medBtn.className = 'act-btn act-primary';
-      medBtn.href = 'https://www.medicare.gov/my/medicare-complaint';
-      medBtn.target = '_blank';
-      medBtn.rel = 'noopener';
+      medBtn.href = '#';
       medBtn.textContent = t('openMedicare');
+      medBtn.onclick = function() {
+        if (testModeGuard()) return false;
+        window.open('https://www.medicare.gov/my/medicare-complaint', '_blank', 'noopener');
+        return false;
+      };
       actions.appendChild(medBtn);
       note.innerHTML = t('medicareNote');
     }
@@ -1268,6 +1450,7 @@
   // with the letter (including its To/Subject header) in the body and no
   // recipient, so they can send it to their own inbox and finish from home.
   function emailSelf(id, which) {
+    if (testModeGuard()) return;
     var body = document.getElementById(id).value;
     if (typeof plausible !== 'undefined') plausible('email_self', { props: { which: which } });
     openCompose('', 'My letter about Belaray Dermatology (' + which + ') - send when ready', body, true);
@@ -1277,6 +1460,11 @@
   // The one-tap panel: fax the checked letters (legislators + Healthfirst)
   // in one server call. Destinations live in a server-side whitelist; the
   // page only names recipient ids.
+  // Cosmetic label text for each recipient id, sent to the server so fax
+  // cover pages can show the live-looked-up rep name — the server never
+  // trusts this for routing, only for display (see fax.js resolveRecipient).
+  var sendAllLabels = {};
+
   function setupSendAllCard(answers) {
     document.getElementById('sendall-title').textContent = t('sendAllTitle');
     document.getElementById('sendall-desc').textContent = t('sendAllDesc');
@@ -1284,9 +1472,18 @@
     document.getElementById('sendall-note').textContent = t('sendAllAlt');
     var wrap = document.getElementById('sendall-choices');
     wrap.innerHTML = '';
+    sendAllLabels = {};
     var opts = [];
-    if (currentReps.assembly.faxable) opts.push({ id: 'assembly-' + answers.county, key: 'assembly', label: t('faxToLbl') + currentReps.assembly.name });
-    if (currentReps.senate.faxable) opts.push({ id: 'senate-' + answers.county, key: 'senate', label: t('faxToLbl') + currentReps.senate.name });
+    if (currentReps.assembly.faxable) {
+      var aId = 'assembly-' + currentReps.assembly.districtNum;
+      sendAllLabels[aId] = currentReps.assembly.name + ', ' + currentReps.assembly.district;
+      opts.push({ id: aId, key: 'assembly', label: t('faxToLbl') + currentReps.assembly.name });
+    }
+    if (currentReps.senate.faxable) {
+      var sId = 'senate-' + currentReps.senate.districtNum;
+      sendAllLabels[sId] = currentReps.senate.name + ', ' + currentReps.senate.district;
+      opts.push({ id: sId, key: 'senate', label: t('faxToLbl') + currentReps.senate.name });
+    }
     opts.push({ id: 'healthfirst', key: 'healthfirst', label: t('faxToLbl') + 'Healthfirst Appeals & Grievances' });
     var channel = PLAN_INFO[answers.planKey].channel;
     // Medicare has no one-click action worth taking (phone/form only), so the
@@ -1309,6 +1506,7 @@
   }
 
   async function sendAllFaxes() {
+    if (testModeGuard()) return;
     var contact = getContact();
     if (!contact) {
       showToast(t('faxNeedContact'));
@@ -1344,6 +1542,7 @@
         body: JSON.stringify({
           recipients: recipients,
           letters: letters,
+          labels: sendAllLabels,
           patientName: document.getElementById('f-name').value.trim(),
           patientTown: document.getElementById('f-town').value.trim(),
           patientZip: document.getElementById('f-zip').value.trim(),
@@ -1402,6 +1601,7 @@
   // Appeals & Grievances. Requires a reply contact so every fax is traceable
   // to a real, reachable member.
   async function faxHealthfirst(btn) {
+    if (testModeGuard()) return;
     var contact = getContact();
     if (!contact) {
       showToast(t('faxNeedContact'));
@@ -1466,6 +1666,7 @@
   }
 
   function openMail(which) {
+    if (testModeGuard()) return false;
     var to, subject, body;
     if (which === 'assembly') {
       to = currentReps.assembly.email;

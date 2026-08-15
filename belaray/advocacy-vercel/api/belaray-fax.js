@@ -4,9 +4,17 @@
  * Two modes:
  *
  * 1) Batch (the one-tap "send my letters" panel):
- *    POST { recipients: ["assembly-nassau","senate-nassau","healthfirst"],
- *           letters: { "assembly-nassau": "...", ... },
+ *    POST { recipients: ["assembly-15","senate-5","healthfirst"],
+ *           letters: { "assembly-15": "...", ... },
+ *           labels: { "assembly-15": "Assemblyman Jake Blumencranz, 15th Assembly District", ... },
  *           patientName, patientTown, patientContact, planType }
+ *
+ * Legislator recipient ids are "assembly-<district>" / "senate-<district>",
+ * where <district> is the real NY legislative district number the page
+ * discovers live (via NY State's own GIS district-boundary service) from the
+ * patient's ZIP — not a hand-picked region. `labels` is cosmetic text for the
+ * fax cover page only; the fax NUMBER always comes from this file's own
+ * district-keyed tables below, never from the client.
  *
  * 2) Legacy single grievance (kept for the per-card fax button):
  *    POST { letterText, patientName, patientTown, patientContact, planType }
@@ -32,36 +40,115 @@ const ALLOWED_ORIGINS = [
   "http://127.0.0.1:8080",
 ];
 
-// Server-side destination whitelist. Fax numbers verified against each
-// office's official contact page (Aug 2026). A null fax means "known
-// recipient, number not yet confirmed" — requests for it are skipped.
-const FAX_RECIPIENTS = {
-  healthfirst: {
-    fax: "+16463134618", // Appeals & Grievances Dept, per Healthfirst's own forms
-    label: "Healthfirst Appeals and Grievances Department",
-    kind: "grievance",
-  },
-  "assembly-nassau": {
-    fax: "+15169373632", // Assemblyman Blumencranz district office, assembly.state.ny.us
-    label: "Assemblyman Jake Blumencranz, 15th Assembly District",
-    kind: "legislator",
-  },
-  "senate-nassau": {
-    fax: "+15167311751", // Senator Rhoads district office, corrected per the practice Aug 2026
-    label: "Senator Steve Rhoads, 5th Senate District",
-    kind: "legislator",
-  },
-  "assembly-suffolk": {
-    fax: "+16317510280", // Assemblywoman Kassay district office, assembly.state.ny.us
-    label: "Assemblywoman Rebecca Kassay, 4th Assembly District",
-    kind: "legislator",
-  },
-  "senate-suffolk": {
-    fax: "+16317272905", // Senator Palumbo district office, confirmed with his office Aug 2026
-    label: "Senator Anthony Palumbo, 1st Senate District",
-    kind: "legislator",
-  },
+// Healthfirst is the one fixed destination (Appeals & Grievances Dept, per
+// Healthfirst's own forms).
+const HEALTHFIRST_REC = {
+  fax: "+16463134618",
+  label: "Healthfirst Appeals and Grievances Department",
+  kind: "grievance",
 };
+
+// Legislator fax numbers, verified by the practice and keyed by the REAL NY
+// legislative district number — not by ZIP or region nickname. The page now
+// discovers a patient's district live from New York State's own GIS district
+// service (any address in the state, not just hand-mapped neighborhoods),
+// then asks this endpoint to fax "assembly-<district>" / "senate-<district>".
+// A district with no entry here simply has no fax option — add a line here
+// (and nowhere else) once that office's fax number is confirmed.
+// Sourced from each member's own assembly.state.ny.us / nyassembly.gov
+// contact page (district office fax, not the Albany office) unless noted.
+// Districts with no comment marker below have no fax published on their
+// official page as of Aug 2026 — those offices are email/DFS-portal only
+// until a phone call turns up a number.
+const ASSEMBLY_FAX = {
+  1: "+16317252372", // Schiavoni
+  2: "+16317270426", // Giglio
+  3: "+16317321798", // DeStefano
+  4: "+16317510280", // Kassay
+  5: "+16315850310", // Smith
+  6: "+16314353239", // Ramos, called by the practice Aug 2026
+  7: "+16315890487", // Gandolfo
+  8: "+16317243024", // Fitzpatrick
+  9: "+15165414625", // Durso
+  10: "+16314245984", // Stern, called by the practice Aug 2026
+  11: "+16319572998", // O'Pharrow
+  12: "+16312612992", // Brown
+  13: "+15166760071", // Lavine
+  14: "+15164092073", // McDonough
+  15: "+15169373632", // Blumencranz
+  17: "+15167950496", // Mikulin
+  18: "+15165383155", // Burroughs, called by the practice Aug 2026
+  19: "+15165354097", // Ra
+  20: "+15162952498", // A. Brown
+  21: "+15165618223", // Griffin, called by the practice Aug 2026
+  22: "+15165993768", // Solages
+  // 16 (Norber) intentionally has no entry: office says they have no fax —
+  // the practice plans to call back and try again later.
+  23: "+17189459549", // Pheffer Amato
+  24: "+17184543178", // Weprin
+  25: "+17188200414", // Rozic, called by the practice Aug 2026
+  26: "+17183575947", // Braunstein
+  27: "+17189698326", // Berger
+  28: "+17182635688", // Hevesi, called by the practice Aug 2026
+  30: "+17186513027", // Raga
+  33: "+17184647128", // Vanel
+  34: "+17183358254", // González-Rojas
+  35: "+17184573640", // Hooks
+  37: "+17184720648", // Valdez
+  38: "+17188050953", // Rajkumar
+  39: "+17184782371", // Cruz
+  40: "+17189391238", // Kim
+  42: "+17189400154", // Bichotte Hermelyn
+  43: "+17187713276", // Cunningham
+  44: "+17189659378", // R. Carroll
+  46: "+17182665391", // Brook-Krasny
+  48: "+17184365734", // Eichenstein
+  49: "+17182340986", // Chang
+  51: "+17187654186", // Mitaynes
+  53: "+17184431424", // Davila
+  54: "+17183864575", // Dilan
+  55: "+17183421258", // Walker
+  59: "+17182522417", // J. Williams
+  60: "+17182572590", // Lucas
+};
+const SENATE_FAX = {
+  1: "+16317272905", // Palumbo
+  2: "+16313615367", // Mattera
+  3: "+16312891035", // Murray
+  4: "+16313829861", // Martinez
+  5: "+15167311751", // Rhoads
+  6: "+15167477430", // Bynoe
+  7: "+15167470203", // Martins
+  9: "+15167668011", // Canzoneri-Fitzpatrick
+  // 8 (Weik) intentionally has no entry: office confirmed by phone they have
+  // no working fax.
+  10: "+17185233670", // Sanders
+  11: "+17184458398", // Stavisky
+  12: "+17184408368", // Gianaris
+  13: "+17182054145", // Ramos
+  14: "+17184540186", // Comrie, confirmed with the practice Aug 2026
+  15: "+17182960495", // Addabbo
+  16: "+17183573491", // Liu, confirmed with the practice Aug 2026
+  17: "+17182382468", // Chan
+  19: "+17186497661", // Persaud
+  20: "+17182823585", // Myrie
+  21: "+17186296420", // Parker
+};
+
+// Resolves a recipient id to a destination. The fax NUMBER always comes from
+// the tables above (never from the client); `clientLabel` is cosmetic text
+// for the cover page only — worst case a wrong label, never a wrong fax.
+function resolveRecipient(id, clientLabel) {
+  if (id === "healthfirst") return HEALTHFIRST_REC;
+  const m = /^(assembly|senate)-(\d{1,3})$/.exec(String(id || ""));
+  if (!m) return null;
+  const chamber = m[1];
+  const district = parseInt(m[2], 10);
+  const fax = (chamber === "assembly" ? ASSEMBLY_FAX : SENATE_FAX)[district];
+  if (!fax) return null;
+  const fallbackLabel = (chamber === "assembly" ? "Assembly District " : "Senate District ") + district;
+  return { fax, label: String(clientLabel || "").trim().slice(0, 120) || fallbackLabel, kind: "legislator" };
+}
 
 const MAX_LETTER_CHARS = 8000;
 const MAX_BATCH = 4;
@@ -125,11 +212,12 @@ export default async function handler(req, res) {
   if (Array.isArray(b.recipients)) {
     const wanted = [...new Set(b.recipients.map(String))].slice(0, MAX_BATCH);
     const lettersIn = b.letters && typeof b.letters === "object" ? b.letters : {};
+    const labelsIn = b.labels && typeof b.labels === "object" ? b.labels : {};
     if (!wanted.length) return res.status(400).json({ error: "no_recipients" });
 
     const results = [];
     for (const id of wanted) {
-      const rec = FAX_RECIPIENTS[id];
+      const rec = resolveRecipient(id, labelsIn[id]);
       const letter = String(lettersIn[id] || "").trim().slice(0, MAX_LETTER_CHARS);
       if (!rec || !rec.fax) {
         results.push({ recipient: id, ok: false, error: "unknown_or_no_fax" });
@@ -164,7 +252,7 @@ export default async function handler(req, res) {
   const letterText = String(b.letterText || "").trim().slice(0, MAX_LETTER_CHARS);
   if (letterText.length < 40) return res.status(400).json({ error: "letter_too_short" });
 
-  const rec = FAX_RECIPIENTS.healthfirst;
+  const rec = HEALTHFIRST_REC;
   const pdf = buildPdf(coverFor(rec, patient), letterText);
   const sent = await sendFax(creds, rec.fax, pdf, "grievance.pdf");
   if (!sent.ok) return res.status(502).json({ error: "fax_failed" });
