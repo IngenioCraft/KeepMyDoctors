@@ -661,7 +661,7 @@
   //     opens or any fax request fires.
   // Use FAX_TEST_TO when you want to test real fax delivery to a machine you
   // control. Use SITE_TEST_MODE when you want zero outbound actions, period.
-  var SITE_TEST_MODE = true;
+  var SITE_TEST_MODE = false;
 
   function testModeGuard() {
     if (!SITE_TEST_MODE) return false;
