@@ -128,7 +128,7 @@
  <div class="form-wrap">
 
   <div class="privacy-note">
-   <strong>Please do not include any patient-identifying information.</strong> Speak about your panel in general terms — the letters are written that way automatically. Your answers are used only to draft your letters and are not stored on this site. You review and edit everything before sending.
+   <strong>Please do not include any patient-identifying information.</strong> Speak about your panel in general terms — the letters are written that way automatically. Your answers are used only to draft your letters. If you use one-click fax sending, your name, reply contact, and fax delivery results are logged securely by the practice so it knows your letters went out — never sold or shared beyond the letters you send. You review and edit everything before sending.
   </div>
 
   <!-- ABOUT YOU -->
@@ -191,6 +191,17 @@
     <label class="f-label" for="p-towntext">Town (optional)</label>
     <input type="text" id="p-towntext" placeholder="e.g. Hicksville, Smithtown…">
    </div>
+   <div class="two-col">
+    <div class="field">
+     <label class="f-label" for="p-phone">Office / direct phone</label>
+     <input type="text" id="p-phone" autocomplete="tel" inputmode="tel" placeholder="(516) 555-0100">
+    </div>
+    <div class="field">
+     <label class="f-label" for="p-email">Email</label>
+     <input type="text" id="p-email" autocomplete="email" inputmode="email" placeholder="you@practice.com">
+    </div>
+   </div>
+   <p class="hint" style="margin-top:-6px;">At least one is needed for one-click fax sending — it goes on the fax cover page so offices can reply to you. It is not published anywhere else.</p>
    <div class="field">
     <label class="f-label" for="p-years">How long have you referred patients to Belaray?</label>
     <select id="p-years">
@@ -239,7 +250,7 @@
    <div class="field">
     <textarea id="p-ownwords" maxlength="700"></textarea>
    </div>
-   <label class="check-row"><input type="checkbox" id="consent-review"><span class="txt"><strong>I understand</strong> the letters will be generated from my answers; I will review and edit them before deciding whether to send. They contain no patient-identifying information and are sent by me, in my own professional capacity.</span></label>
+   <label class="check-row"><input type="checkbox" id="consent-review"><span class="txt"><strong>I understand</strong> the letters will be generated from my answers; I will review and edit them before deciding whether to send. They contain no patient-identifying information and are sent by me — by email, or by fax at my instruction — in my own professional capacity.</span></label>
   </div>
 
   <button class="generate-btn" id="generate" onclick="generate()">✍️ Write My Letters</button>
@@ -247,6 +258,17 @@
   <!-- RESULTS -->
   <div id="results" style="display:none;">
    <label class="check-row checked" style="margin-top:22px;"><input type="checkbox" id="cc-practice" checked><span class="txt">Send Belaray a private copy (BCC) so the practice knows my letters went out</span></label>
+
+   <div class="letter-card" id="card-sendall">
+    <h3>📠 Send everything now — one click</h3>
+    <p class="send-note" id="sendall-desc" style="margin-top:2px;">Each checked letter goes by fax on a physician cover page with your name and reply contact, and your DOH complaint opens in your email ready to send — all from one click. Want to read a letter first? Each one is below, and you can still send any of them individually.</p>
+    <div id="sendall-choices" style="margin:10px 0 4px;"></div>
+    <div class="letter-actions">
+     <button class="act-btn act-primary" id="sendall-btn" onclick="sendAllNow()">📠 Send checked letters now</button>
+    </div>
+    <p class="send-note" id="sendall-status" style="font-weight:700;"></p>
+    <p class="send-note">Faxes go through the practice's secure sending service. The DOH complaint carries the most weight coming from your own email address, which is why it opens in your mail for you to press Send.</p>
+   </div>
 
    <div class="letter-card" id="card-assembly">
     <h3>📬 Letter 1: To your NY State legislators</h3>
@@ -303,6 +325,9 @@
  <script>
   // Same letter API as the patient tool; role:"physician" selects the clinician prompt.
   const WORKER_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/letter";
+  // Same fax endpoint as the patient tool. Destinations are only ever chosen
+  // from the server-side whitelist in fax.js; the page names recipient ids.
+  const FAX_URL = "https://invest-beta-six.vercel.app/api/savemydoctors/fax";
 
   document.querySelectorAll('.check-row input').forEach(function(cb) {
     cb.addEventListener('change', function() {
@@ -325,14 +350,16 @@
   }
 
   // Legislator routing by county — verified August 2026.
+  // districtNum keys into fax.js's server-side fax whitelist ("assembly-15" etc.);
+  // all four offices below have practice-verified fax numbers there.
   const REPS = {
     nassau: {
-      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District" },
-      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District" }
+      assembly: { name: "Assemblyman Jake Blumencranz", salutation: "Assemblyman Blumencranz", email: "blumencranzj@nyassembly.gov", district: "15th Assembly District", districtNum: 15 },
+      senate: { name: "Senator Steve Rhoads", salutation: "Senator Rhoads", email: "rhoads@nysenate.gov", district: "5th Senate District", districtNum: 5 }
     },
     suffolk: {
-      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District" },
-      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District" }
+      assembly: { name: "Assemblywoman Rebecca Kassay", salutation: "Assemblywoman Kassay", email: "kassayr@nyassembly.gov", district: "4th Assembly District", districtNum: 4 },
+      senate: { name: "Senator Anthony Palumbo", salutation: "Senator Palumbo", email: "palumbo@nysenate.gov", district: "1st Senate District", districtNum: 1 }
     }
   };
   var currentReps = REPS.nassau;
@@ -418,6 +445,7 @@
         : 'Based on your practice location, this goes to <strong>' + a.name + '</strong> and <strong>' + s.name + '</strong> (the greeting adjusts automatically). Not your district? Find yours: ')
       + '<a href="https://nyassembly.gov/mem/search/" target="_blank" rel="noopener">Assembly</a> · <a href="https://www.nysenate.gov/find-my-senator" target="_blank" rel="noopener">Senate</a>.';
 
+    setupSendAllCard(answers);
     document.getElementById('results').style.display = 'block';
     btn.disabled = false;
     btn.innerHTML = '✍️ Rewrite My Letters';
@@ -460,28 +488,180 @@
     }
   }
 
-  function openMail(which) {
-    var to, subject, body;
-    if (which === 'assembly') {
-      to = currentReps.assembly.email;
-      subject = 'Referring physician: Healthfirst network access to Belaray Dermatology';
-      body = stripHeader(document.getElementById('txt-assembly').value);
-    } else if (which === 'senate') {
-      to = currentReps.senate.email;
-      subject = 'Referring physician: Healthfirst network access to Belaray Dermatology';
-      body = stripHeader(document.getElementById('txt-assembly').value)
-        .replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
-    } else {
-      to = 'managedcarecomplaint@health.ny.gov';
-      subject = 'Provider complaint - Healthfirst dermatology network adequacy';
-      body = stripHeader(document.getElementById('txt-regulator').value);
-    }
+  // Desktop browsers often have no mailto handler (Gmail/Outlook-web users see
+  // nothing happen at all), so on desktop we open a pre-filled Gmail compose
+  // tab, with the letter also on the clipboard as the universal fallback.
+  // Mobile keeps mailto, which reliably opens the mail app there.
+  var IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  function openCompose(to, subject, body) {
     navigator.clipboard.writeText(body).catch(function(){});
+    var bcc = document.getElementById('cc-practice').checked ? 'healthfirst@belaray.com' : '';
+    if (IS_MOBILE) {
+      window.location.href = 'mailto:' + to + '?' + (bcc ? 'bcc=' + encodeURIComponent(bcc) + '&' : '') +
+        'subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    } else {
+      window.open('https://mail.google.com/mail/?view=cm&fs=1' +
+        '&to=' + encodeURIComponent(to) +
+        (bcc ? '&bcc=' + encodeURIComponent(bcc) : '') +
+        '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+    }
+  }
+
+  function mailParts(which) {
+    if (which === 'assembly') {
+      return { to: currentReps.assembly.email,
+        subject: 'Referring physician: Healthfirst network access to Belaray Dermatology',
+        body: stripHeader(document.getElementById('txt-assembly').value) };
+    }
+    if (which === 'senate') {
+      return { to: currentReps.senate.email,
+        subject: 'Referring physician: Healthfirst network access to Belaray Dermatology',
+        body: stripHeader(document.getElementById('txt-assembly').value)
+          .replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',') };
+    }
+    return { to: 'managedcarecomplaint@health.ny.gov',
+      subject: 'Provider complaint - Healthfirst dermatology network adequacy',
+      body: stripHeader(document.getElementById('txt-regulator').value) };
+  }
+
+  function openMail(which) {
+    var m = mailParts(which);
     if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: which + '_phys' } });
-    var cc = document.getElementById('cc-practice').checked ? 'bcc=' + encodeURIComponent('healthfirst@belaray.com') + '&' : '';
-    window.location.href = 'mailto:' + to + '?' + cc + 'subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    showToast('Opening your email… (letter is also copied)');
+    openCompose(m.to, m.subject, m.body);
+    showToast(IS_MOBILE ? 'Opening your email… (letter is also copied)' : 'Opening Gmail… (letter is also copied)');
     return false;
+  }
+
+  // ===== One-click send panel =====
+  // Fax destinations live in a server-side whitelist (fax.js); this page only
+  // names recipient ids. Labels are cosmetic cover-page text.
+  var sendAllLabels = {};
+
+  function setupSendAllCard(answers) {
+    var wrap = document.getElementById('sendall-choices');
+    wrap.innerHTML = '';
+    sendAllLabels = {};
+    var hasDistricts = answers.countyChoice === 'nassau' || answers.countyChoice === 'suffolk';
+    var opts = [];
+    if (hasDistricts) {
+      var a = currentReps.assembly, s = currentReps.senate;
+      var aId = 'assembly-' + a.districtNum, sId = 'senate-' + s.districtNum;
+      sendAllLabels[aId] = a.name + ', ' + a.district;
+      sendAllLabels[sId] = s.name + ', ' + s.district;
+      opts.push({ id: aId, key: 'assembly', label: '📠 Fax ' + a.name });
+      opts.push({ id: sId, key: 'senate', label: '📠 Fax ' + s.name });
+    }
+    opts.push({ id: 'healthfirst', key: 'healthfirst', label: '📠 Fax Healthfirst — cover page asks it be routed to Network Management / Provider Services and answered in writing' });
+    opts.push({ id: 'doh', key: 'doh', label: '✉️ Email the NYS DOH complaint — opens in your email; DOH should hear from you directly' });
+    opts.forEach(function(o) {
+      var row = document.createElement('label');
+      row.className = 'check-row checked';
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.checked = true; cb.value = o.id;
+      cb.dataset.key = o.key; cb.className = 'sendall-cb';
+      cb.onchange = function() { row.classList.toggle('checked', cb.checked); };
+      var span = document.createElement('span');
+      span.className = 'txt'; span.textContent = o.label;
+      row.appendChild(cb); row.appendChild(span);
+      wrap.appendChild(row);
+    });
+    document.getElementById('sendall-desc').textContent = hasDistricts
+      ? 'Each checked letter goes by fax on a physician cover page with your name and reply contact, and your DOH complaint opens in your email ready to send — all from one click. Want to read a letter first? Each one is below, and you can still send any of them individually.'
+      : 'Since your practice is outside Nassau/Suffolk, your legislators aren’t auto-detected — please email them from the letter card below. The button here still faxes Healthfirst and opens your DOH complaint in one click.';
+  }
+
+  function getPhysContact() {
+    var phone = document.getElementById('p-phone').value.trim();
+    var email = document.getElementById('p-email').value.trim();
+    return { phone: phone, email: email, joined: [phone, email].filter(Boolean).join('  |  ') };
+  }
+
+  async function sendAllNow() {
+    var cbs = Array.prototype.slice.call(document.querySelectorAll('.sendall-cb')).filter(function(c) { return c.checked; });
+    if (!cbs.length) { showToast('Please check at least one recipient first.'); return; }
+    var faxCbs = cbs.filter(function(c) { return c.dataset.key !== 'doh'; });
+    var dohChecked = cbs.some(function(c) { return c.dataset.key === 'doh'; });
+
+    var contact = getPhysContact();
+    if (faxCbs.length && !contact.joined) {
+      showToast('Please add your phone or email under "About you" first — it goes on the fax cover page so offices can reply.');
+      document.getElementById('p-phone').focus();
+      return;
+    }
+    var summary = [];
+    if (faxCbs.length) summary.push(faxCbs.length + ' letter' + (faxCbs.length > 1 ? 's' : '') + ' will be faxed immediately');
+    if (dohChecked) summary.push('your email will open with the DOH complaint ready to send');
+    if (!confirm('Send now? ' + summary.join(', and ') + '.')) return;
+
+    var status = document.getElementById('sendall-status');
+    status.textContent = '';
+
+    // Kick off the fax batch first (keepalive lets it finish even if the
+    // mail app takes over the screen)...
+    var faxPromise = null;
+    if (faxCbs.length) {
+      var assemblyBody = stripHeader(document.getElementById('txt-assembly').value);
+      var recipients = [], letters = {};
+      faxCbs.forEach(function(c) {
+        recipients.push(c.value);
+        if (c.dataset.key === 'assembly') letters[c.value] = assemblyBody;
+        else if (c.dataset.key === 'senate') letters[c.value] = assemblyBody.replace(/^Dear .*?,/, 'Dear ' + currentReps.senate.salutation + ',');
+        else letters[c.value] = stripHeader(document.getElementById('txt-healthfirst').value);
+      });
+      var name = document.getElementById('p-name').value.trim();
+      var cred = document.getElementById('p-cred').value;
+      faxPromise = fetch(FAX_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          role: 'physician',
+          recipients: recipients,
+          letters: letters,
+          labels: sendAllLabels,
+          patientName: name + (cred ? ', ' + cred : ''),
+          patientTown: document.getElementById('p-towntext').value.trim(),
+          patientPhone: contact.phone,
+          patientEmail: contact.email,
+          patientContact: contact.joined,
+          specialty: document.getElementById('p-spec').value,
+          practice: document.getElementById('p-practice').value.trim()
+        })
+      });
+    }
+
+    // ...then open the DOH email in the same click gesture, so the browser
+    // treats the mailto / new tab as user-initiated.
+    if (dohChecked) {
+      var m = mailParts('doh');
+      if (typeof plausible !== 'undefined') plausible('open_email', { props: { which: 'sendall-doh_phys' } });
+      openCompose(m.to, m.subject, m.body);
+    }
+
+    if (!faxPromise) return;
+
+    var btn = document.getElementById('sendall-btn');
+    btn.disabled = true;
+    var old = btn.textContent;
+    btn.textContent = '📠 Sending…';
+    try {
+      var resp = await faxPromise;
+      var data = null;
+      try { data = await resp.json(); } catch (e2) {}
+      if (!resp.ok) throw new Error('batch_failed');
+      var msg = (data && data.ok)
+        ? (dohChecked ? '✅ Faxes sent! Now press Send on the DOH email that just opened.' : '✅ Faxes sent!')
+        : '⚠️ Some faxes could not be sent — please use the Copy/Email buttons on those letters below.';
+      status.textContent = msg;
+      showToast(msg);
+      if (typeof plausible !== 'undefined') plausible('fax_batch', { props: { count: faxCbs.length, all_ok: String(!!(data && data.ok)), role: 'physician' } });
+    } catch (e) {
+      status.textContent = '⚠️ The fax service could not be reached — your letters are still ready below to copy, email, or print.';
+      showToast('Fax failed — please use the buttons on each letter below.');
+      if (typeof plausible !== 'undefined') plausible('fax_failed', { props: { which: 'batch_phys' } });
+    }
+    btn.disabled = false;
+    btn.textContent = old;
   }
 
   function sendStats(a) {

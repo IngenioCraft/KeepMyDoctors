@@ -78,13 +78,13 @@
   .info-card p { font-size: 15px; color: #374151; line-height: 1.7; margin-bottom: 10px; }
   .info-card p:last-child { margin-bottom: 0; }
   .info-card strong { color: var(--dark); }
-  .cta-inline {
-    display: inline-block; background: var(--teal); color: #fff;
+  .cta-inline, .cta-inline:link, .cta-inline:visited {
+    display: inline-block; background: var(--teal-dark); color: #fff !important;
     padding: 13px 28px; border-radius: 24px;
     font-size: 16px; font-weight: 800; text-decoration: none;
     margin-top: 6px; transition: transform 0.2s, filter 0.2s;
   }
-  .cta-inline:hover { transform: translateY(-1px); filter: brightness(0.94); }
+  .cta-inline:hover, .cta-inline:active { color: #fff !important; transform: translateY(-1px); filter: brightness(0.94); }
 
   /* ===== POINT CARDS ===== */
   .points-section { padding: 0 20px 48px; max-width: 760px; margin: 0 auto; }
@@ -141,15 +141,15 @@
     transform: translateY(100%); transition: transform 0.4s ease;
   }
   .sticky-cta.visible { transform: translateY(0); }
-  .sticky-cta a {
+  .sticky-cta a, .sticky-cta a:link, .sticky-cta a:visited {
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--teal); color: #fff;
+    background: var(--teal-dark); color: #fff !important;
     text-decoration: none; font-weight: 800; font-size: 16px;
     padding: 14px 32px; border-radius: 28px;
     box-shadow: 0 4px 20px rgba(91,143,168,0.4);
     transition: background 0.2s, transform 0.2s; min-height: 48px;
   }
-  .sticky-cta a:hover { filter: brightness(0.92); transform: translateY(-1px); }
+  .sticky-cta a:hover, .sticky-cta a:active { color: #fff !important; filter: brightness(0.92); transform: translateY(-1px); }
 
   footer {
     background: var(--dark); color: #9CA3AF; text-align: center;
@@ -218,11 +218,11 @@
     <span class="hi">क्या हुआ</span>
    </h2>
    <p>
-    <span class="en">Belaray cared for Healthfirst members from the day we opened in <strong>2006</strong>. In <strong>May 2026</strong>, a contract change on Healthfirst's side put us out of network. We submitted our credentialing immediately and — with a 20-year record — expected to be welcomed back. In <strong>August 2026</strong>, Healthfirst declined, citing its "current network needs." Not quality. Not our record. We are still pressing through every channel, and both offices remain open.</span>
-    <span class="es">Belaray atendió a miembros de Healthfirst desde que abrimos en <strong>2006</strong>. En <strong>mayo de 2026</strong>, un cambio de contrato del lado de Healthfirst nos dejó fuera de la red. Enviamos nuestra acreditación de inmediato y — con 20 años de historial — esperábamos ser aceptados. En <strong>agosto de 2026</strong>, Healthfirst dijo que no, citando las "necesidades actuales de su red." No fue por calidad. No fue por nuestro historial. Seguimos presionando por todos los canales, y nuestras dos oficinas siguen abiertas.</span>
-    <span class="pa">ਬੇਲਾਰੇ ਨੇ <strong>2006</strong> ਵਿੱਚ ਖੁੱਲ੍ਹਣ ਦੇ ਦਿਨ ਤੋਂ Healthfirst ਮੈਂਬਰਾਂ ਦੀ ਦੇਖਭਾਲ ਕੀਤੀ। <strong>ਮਈ 2026</strong> ਵਿੱਚ, Healthfirst ਵੱਲੋਂ ਇਕਰਾਰਨਾਮੇ ਦੇ ਬਦਲਾਅ ਨੇ ਸਾਨੂੰ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਕਰ ਦਿੱਤਾ। ਅਸੀਂ ਤੁਰੰਤ ਆਪਣੇ ਕਾਗਜ਼ ਜਮ੍ਹਾਂ ਕੀਤੇ ਅਤੇ — 20 ਸਾਲਾਂ ਦੇ ਰਿਕਾਰਡ ਨਾਲ — ਵਾਪਸ ਲਏ ਜਾਣ ਦੀ ਉਮੀਦ ਸੀ। <strong>ਅਗਸਤ 2026</strong> ਵਿੱਚ Healthfirst ਨੇ ਇਨਕਾਰ ਕਰ ਦਿੱਤਾ, "ਮੌਜੂਦਾ ਨੈੱਟਵਰਕ ਲੋੜਾਂ" ਦਾ ਹਵਾਲਾ ਦੇ ਕੇ। ਗੁਣਵੱਤਾ ਕਰਕੇ ਨਹੀਂ। ਸਾਡੇ ਰਿਕਾਰਡ ਕਰਕੇ ਨਹੀਂ। ਅਸੀਂ ਹਰ ਰਾਹ ਰਾਹੀਂ ਕੋਸ਼ਿਸ਼ ਜਾਰੀ ਰੱਖ ਰਹੇ ਹਾਂ, ਅਤੇ ਦੋਵੇਂ ਦਫ਼ਤਰ ਖੁੱਲ੍ਹੇ ਹਨ।</span>
-    <span class="bn">বেলারে <strong>২০০৬</strong> সালে খোলার দিন থেকে Healthfirst সদস্যদের সেবা করেছে। <strong>মে ২০২৬</strong>-এ Healthfirst-এর পক্ষের একটি চুক্তি পরিবর্তন আমাদের নেটওয়ার্কের বাইরে করে দেয়। আমরা সাথে সাথে আমাদের কাগজপত্র জমা দিই এবং — ২০ বছরের রেকর্ড নিয়ে — ফিরিয়ে নেওয়ার আশা করেছিলাম। <strong>আগস্ট ২০২৬</strong>-এ Healthfirst অস্বীকার করে, "বর্তমান নেটওয়ার্ক প্রয়োজন"-এর কথা বলে। মানের কারণে নয়। আমাদের রেকর্ডের কারণে নয়। আমরা প্রতিটি পথে চেষ্টা চালিয়ে যাচ্ছি, এবং দুটি অফিসই খোলা আছে।</span>
-    <span class="hi">बेलारे ने <strong>2006</strong> में खुलने के दिन से Healthfirst सदस्यों की देखभाल की। <strong>मई 2026</strong> में, Healthfirst की ओर से अनुबंध बदलाव ने हमें नेटवर्क से बाहर कर दिया। हमने तुरंत अपने दस्तावेज़ जमा किए और — 20 साल के रिकॉर्ड के साथ — वापस लिए जाने की उम्मीद थी। <strong>अगस्त 2026</strong> में Healthfirst ने इनकार कर दिया, "मौजूदा नेटवर्क ज़रूरतों" का हवाला देकर। गुणवत्ता की वजह से नहीं। हमारे रिकॉर्ड की वजह से नहीं। हम हर रास्ते से कोशिश जारी रखे हुए हैं, और दोनों दफ़्तर खुले हैं।</span>
+    <span class="en"><strong>Belaray Dermatology is not currently in Healthfirst's network.</strong> We cared for Healthfirst members from the day we opened in <strong>2006</strong>. In <strong>May 2026</strong>, a contract change on Healthfirst's side put us out of network — not something we chose or caused. We submitted our credentialing immediately and — with a 20-year record — expected to be welcomed back. In <strong>August 2026</strong>, Healthfirst declined, citing its "current network needs." That is Healthfirst's business decision, not ours, and it has nothing to do with the quality of care we provide. We are still pressing through every channel, and both offices remain open.</span>
+    <span class="es"><strong>Belaray Dermatology no está actualmente en la red de Healthfirst.</strong> Atendimos a miembros de Healthfirst desde que abrimos en <strong>2006</strong>. En <strong>mayo de 2026</strong>, un cambio de contrato del lado de Healthfirst nos dejó fuera de la red — algo que no elegimos ni causamos. Enviamos nuestra acreditación de inmediato y — con 20 años de historial — esperábamos ser aceptados de vuelta. En <strong>agosto de 2026</strong>, Healthfirst dijo que no, citando las "necesidades actuales de su red." Esa es la decisión de negocios de Healthfirst, no la nuestra, y no tiene nada que ver con la calidad de la atención que brindamos. Seguimos presionando por todos los canales, y nuestras dos oficinas siguen abiertas.</span>
+    <span class="pa"><strong>ਬੇਲਾਰੇ Dermatology ਹੁਣ Healthfirst ਦੇ ਨੈੱਟਵਰਕ ਵਿੱਚ ਨਹੀਂ ਹੈ।</strong> ਅਸੀਂ 2006 ਵਿੱਚ ਖੁੱਲ੍ਹਣ ਦੇ ਦਿਨ ਤੋਂ Healthfirst ਮੈਂਬਰਾਂ ਦੀ ਦੇਖਭਾਲ ਕੀਤੀ। <strong>ਮਈ 2026</strong> ਵਿੱਚ, Healthfirst ਵੱਲੋਂ ਇਕਰਾਰਨਾਮੇ ਦੇ ਬਦਲਾਅ ਨੇ ਸਾਨੂੰ ਨੈੱਟਵਰਕ ਤੋਂ ਬਾਹਰ ਕਰ ਦਿੱਤਾ — ਇਹ ਸਾਡੀ ਚੋਣ ਜਾਂ ਗ਼ਲਤੀ ਨਹੀਂ ਸੀ। ਅਸੀਂ ਤੁਰੰਤ ਆਪਣੇ ਕਾਗਜ਼ ਜਮ੍ਹਾਂ ਕੀਤੇ ਅਤੇ — 20 ਸਾਲਾਂ ਦੇ ਰਿਕਾਰਡ ਨਾਲ — ਵਾਪਸ ਲਏ ਜਾਣ ਦੀ ਉਮੀਦ ਸੀ। <strong>ਅਗਸਤ 2026</strong> ਵਿੱਚ Healthfirst ਨੇ ਇਨਕਾਰ ਕਰ ਦਿੱਤਾ, "ਮੌਜੂਦਾ ਨੈੱਟਵਰਕ ਲੋੜਾਂ" ਦਾ ਹਵਾਲਾ ਦੇ ਕੇ। ਇਹ Healthfirst ਦਾ ਵਪਾਰਕ ਫ਼ੈਸਲਾ ਹੈ, ਸਾਡਾ ਨਹੀਂ, ਅਤੇ ਇਸਦਾ ਸਾਡੀ ਦੇਖਭਾਲ ਦੀ ਗੁਣਵੱਤਾ ਨਾਲ ਕੋਈ ਸਬੰਧ ਨਹੀਂ। ਅਸੀਂ ਹਰ ਰਾਹ ਰਾਹੀਂ ਕੋਸ਼ਿਸ਼ ਜਾਰੀ ਰੱਖ ਰਹੇ ਹਾਂ, ਅਤੇ ਦੋਵੇਂ ਦਫ਼ਤਰ ਖੁੱਲ੍ਹੇ ਹਨ।</span>
+    <span class="bn"><strong>Belaray Dermatology এখন Healthfirst-এর নেটওয়ার্কে নেই।</strong> আমরা ২০০৬ সালে খোলার দিন থেকে Healthfirst সদস্যদের সেবা করেছি। <strong>মে ২০২৬</strong>-এ, Healthfirst-এর পক্ষের একটি চুক্তি পরিবর্তন আমাদের নেটওয়ার্কের বাইরে করে দেয় — এটা আমাদের বেছে নেওয়া বা করা কিছু ছিল না। আমরা সাথে সাথে আমাদের কাগজপত্র জমা দিই এবং — ২০ বছরের রেকর্ড নিয়ে — ফিরিয়ে নেওয়ার আশা করেছিলাম। <strong>আগস্ট ২০২৬</strong>-এ Healthfirst অস্বীকার করে, "বর্তমান নেটওয়ার্ক প্রয়োজন"-এর কথা বলে। এটা Healthfirst-এর ব্যবসায়িক সিদ্ধান্ত, আমাদের নয়, এবং এর সাথে আমাদের সেবার মানের কোনো সম্পর্ক নেই। আমরা প্রতিটি পথে চেষ্টা চালিয়ে যাচ্ছি, এবং দুটি অফিসই খোলা আছে।</span>
+    <span class="hi"><strong>Belaray Dermatology अभी Healthfirst के नेटवर्क में नहीं है।</strong> हमने 2006 में खुलने के दिन से Healthfirst सदस्यों की देखभाल की। <strong>मई 2026</strong> में, Healthfirst की ओर से अनुबंध बदलाव ने हमें नेटवर्क से बाहर कर दिया — यह हमारी चुनी हुई या की गई बात नहीं थी। हमने तुरंत अपने दस्तावेज़ जमा किए और — 20 साल के रिकॉर्ड के साथ — वापस लिए जाने की उम्मीद थी। <strong>अगस्त 2026</strong> में Healthfirst ने इनकार कर दिया, "मौजूदा नेटवर्क ज़रूरतों" का हवाला देकर। यह Healthfirst का व्यावसायिक फ़ैसला है, हमारा नहीं, और इसका हमारी देखभाल की गुणवत्ता से कोई लेना-देना नहीं। हम हर रास्ते से कोशिश जारी रखे हुए हैं, और दोनों दफ़्तर खुले हैं।</span>
    </p>
   </div>
 
@@ -249,7 +249,7 @@
     <span class="bn">টুলটি আপনার জন্য তিনটি চিঠি লেখে: আপনার রাজ্য আইনপ্রণেতাদের কাছে, আপনার প্ল্যান তদারককারী সংস্থার কাছে, এবং <strong>সরাসরি Healthfirst-এর কাছে একটি আনুষ্ঠানিক অভিযোগ</strong> — যা তারা নথিভুক্ত করে রাজ্যকে জানাতে বাধ্য।</span>
     <span class="hi">टूल आपके लिए तीन पत्र लिखता है: आपके राज्य विधायकों को, आपके प्लान की निगरानी करने वाली एजेंसी को, और <strong>सीधे Healthfirst को एक औपचारिक शिकायत</strong> — जिसे दर्ज करके राज्य को बताना उनकी क़ानूनी ज़िम्मेदारी है।</span>
    </p>
-   <a class="cta-inline" href="advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click')">
+   <a class="cta-inline" href="https://keepmydoctors.com/belaray/advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click')">
     <span class="en">📣 Make Your Voice Heard — 3 Minutes</span>
     <span class="es">📣 Haga Oír Su Voz — 3 Minutos</span>
     <span class="pa">📣 ਆਪਣੀ ਆਵਾਜ਼ ਉਠਾਓ — 3 ਮਿੰਟ</span>
@@ -363,11 +363,11 @@
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>We're doing everything we can</strong> — and decisions like this get revisited, especially when members speak up. <a href="advocate.html">Add your voice — 3 minutes.</a></span>
-    <span class="es"><strong>Estamos haciendo todo lo posible</strong> — y decisiones como esta se reconsideran, especialmente cuando los miembros alzan la voz. <a href="advocate.html">Sume su voz — 3 minutos.</a></span>
-    <span class="pa"><strong>ਅਸੀਂ ਹਰ ਕੋਸ਼ਿਸ਼ ਕਰ ਰਹੇ ਹਾਂ</strong> — ਅਤੇ ਅਜਿਹੇ ਫ਼ੈਸਲੇ ਦੁਬਾਰਾ ਵਿਚਾਰੇ ਜਾਂਦੇ ਹਨ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਮੈਂਬਰ ਆਵਾਜ਼ ਉਠਾਉਂਦੇ ਹਨ। <a href="advocate.html">ਆਪਣੀ ਆਵਾਜ਼ ਜੋੜੋ — 3 ਮਿੰਟ।</a></span>
-    <span class="bn"><strong>আমরা সব রকম চেষ্টা করছি</strong> — আর এমন সিদ্ধান্ত পুনর্বিবেচিত হয়, বিশেষ করে সদস্যরা আওয়াজ তুললে। <a href="advocate.html">আপনার আওয়াজ যোগ করুন — ৩ মিনিট।</a></span>
-    <span class="hi"><strong>हम हर कोशिश कर रहे हैं</strong> — और ऐसे फ़ैसले फिर से विचारे जाते हैं, ख़ासकर जब सदस्य आवाज़ उठाते हैं। <a href="advocate.html">अपनी आवाज़ जोड़ें — 3 मिनट।</a></span>
+    <span class="en"><strong>We're doing everything we can</strong> — and decisions like this get revisited, especially when members speak up. <a href="https://keepmydoctors.com/belaray/advocate.html">Add your voice — 3 minutes.</a></span>
+    <span class="es"><strong>Estamos haciendo todo lo posible</strong> — y decisiones como esta se reconsideran, especialmente cuando los miembros alzan la voz. <a href="https://keepmydoctors.com/belaray/advocate.html">Sume su voz — 3 minutos.</a></span>
+    <span class="pa"><strong>ਅਸੀਂ ਹਰ ਕੋਸ਼ਿਸ਼ ਕਰ ਰਹੇ ਹਾਂ</strong> — ਅਤੇ ਅਜਿਹੇ ਫ਼ੈਸਲੇ ਦੁਬਾਰਾ ਵਿਚਾਰੇ ਜਾਂਦੇ ਹਨ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਮੈਂਬਰ ਆਵਾਜ਼ ਉਠਾਉਂਦੇ ਹਨ। <a href="https://keepmydoctors.com/belaray/advocate.html">ਆਪਣੀ ਆਵਾਜ਼ ਜੋੜੋ — 3 ਮਿੰਟ।</a></span>
+    <span class="bn"><strong>আমরা সব রকম চেষ্টা করছি</strong> — আর এমন সিদ্ধান্ত পুনর্বিবেচিত হয়, বিশেষ করে সদস্যরা আওয়াজ তুললে। <a href="https://keepmydoctors.com/belaray/advocate.html">আপনার আওয়াজ যোগ করুন — ৩ মিনিট।</a></span>
+    <span class="hi"><strong>हम हर कोशिश कर रहे हैं</strong> — और ऐसे फ़ैसले फिर से विचारे जाते हैं, ख़ासकर जब सदस्य आवाज़ उठाते हैं। <a href="https://keepmydoctors.com/belaray/advocate.html">अपनी आवाज़ जोड़ें — 3 मिनट।</a></span>
    </p></div>
   </div>
   <div class="faq-item">
@@ -389,11 +389,11 @@
     <span class="faq-arrow">▼</span>
    </button>
    <div class="faq-a"><p>
-    <span class="en"><strong>Yes.</strong> Plans are legally required to maintain adequate networks, and the State investigates member reports of waits beyond the 4–6 week standard, inaccurate directories, and language barriers. Your real experience is evidence regulators can act on. <a href="advocate.html">File in 3 minutes.</a></span>
-    <span class="es"><strong>Sí.</strong> Los planes están legalmente obligados a mantener redes adecuadas, y el Estado investiga los reportes de esperas mayores al estándar de 4–6 semanas, directorios inexactos y barreras de idioma. Su experiencia real es evidencia. <a href="advocate.html">Presente su queja en 3 minutos.</a></span>
-    <span class="pa"><strong>ਹਾਂ।</strong> ਪਲਾਨਾਂ ਲਈ ਕਾਨੂੰਨੀ ਤੌਰ 'ਤੇ ਉਚਿਤ ਨੈੱਟਵਰਕ ਰੱਖਣਾ ਲਾਜ਼ਮੀ ਹੈ, ਅਤੇ ਰਾਜ 4–6 ਹਫ਼ਤਿਆਂ ਦੇ ਮਿਆਰ ਤੋਂ ਵੱਧ ਉਡੀਕ, ਗ਼ਲਤ ਡਾਇਰੈਕਟਰੀਆਂ ਅਤੇ ਭਾਸ਼ਾ ਦੀਆਂ ਰੁਕਾਵਟਾਂ ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਤੁਹਾਡਾ ਅਸਲ ਤਜਰਬਾ ਸਬੂਤ ਹੈ। <a href="advocate.html">3 ਮਿੰਟਾਂ ਵਿੱਚ ਸ਼ਿਕਾਇਤ ਕਰੋ।</a></span>
-    <span class="bn"><strong>হ্যাঁ।</strong> প্ল্যানগুলি আইনত পর্যাপ্ত নেটওয়ার্ক রাখতে বাধ্য, এবং রাজ্য ৪–৬ সপ্তাহের মানের বেশি অপেক্ষা, ভুল ডিরেক্টরি ও ভাষার বাধার রিপোর্ট তদন্ত করে। আপনার বাস্তব অভিজ্ঞতাই প্রমাণ। <a href="advocate.html">৩ মিনিটে অভিযোগ করুন।</a></span>
-    <span class="hi"><strong>हाँ।</strong> प्लानों के लिए क़ानूनन पर्याप्त नेटवर्क रखना ज़रूरी है, और राज्य 4–6 हफ़्तों के मानक से ज़्यादा इंतज़ार, ग़लत डायरेक्टरी और भाषा की बाधाओं की जाँच करता है। आपका असली अनुभव ही सबूत है। <a href="advocate.html">3 मिनट में शिकायत करें।</a></span>
+    <span class="en"><strong>Yes.</strong> Plans are legally required to maintain adequate networks, and the State investigates member reports of waits beyond the 4–6 week standard, inaccurate directories, and language barriers. Your real experience is evidence regulators can act on. <a href="https://keepmydoctors.com/belaray/advocate.html">File in 3 minutes.</a></span>
+    <span class="es"><strong>Sí.</strong> Los planes están legalmente obligados a mantener redes adecuadas, y el Estado investiga los reportes de esperas mayores al estándar de 4–6 semanas, directorios inexactos y barreras de idioma. Su experiencia real es evidencia. <a href="https://keepmydoctors.com/belaray/advocate.html">Presente su queja en 3 minutos.</a></span>
+    <span class="pa"><strong>ਹਾਂ।</strong> ਪਲਾਨਾਂ ਲਈ ਕਾਨੂੰਨੀ ਤੌਰ 'ਤੇ ਉਚਿਤ ਨੈੱਟਵਰਕ ਰੱਖਣਾ ਲਾਜ਼ਮੀ ਹੈ, ਅਤੇ ਰਾਜ 4–6 ਹਫ਼ਤਿਆਂ ਦੇ ਮਿਆਰ ਤੋਂ ਵੱਧ ਉਡੀਕ, ਗ਼ਲਤ ਡਾਇਰੈਕਟਰੀਆਂ ਅਤੇ ਭਾਸ਼ਾ ਦੀਆਂ ਰੁਕਾਵਟਾਂ ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਤੁਹਾਡਾ ਅਸਲ ਤਜਰਬਾ ਸਬੂਤ ਹੈ। <a href="https://keepmydoctors.com/belaray/advocate.html">3 ਮਿੰਟਾਂ ਵਿੱਚ ਸ਼ਿਕਾਇਤ ਕਰੋ।</a></span>
+    <span class="bn"><strong>হ্যাঁ।</strong> প্ল্যানগুলি আইনত পর্যাপ্ত নেটওয়ার্ক রাখতে বাধ্য, এবং রাজ্য ৪–৬ সপ্তাহের মানের বেশি অপেক্ষা, ভুল ডিরেক্টরি ও ভাষার বাধার রিপোর্ট তদন্ত করে। আপনার বাস্তব অভিজ্ঞতাই প্রমাণ। <a href="https://keepmydoctors.com/belaray/advocate.html">৩ মিনিটে অভিযোগ করুন।</a></span>
+    <span class="hi"><strong>हाँ।</strong> प्लानों के लिए क़ानूनन पर्याप्त नेटवर्क रखना ज़रूरी है, और राज्य 4–6 हफ़्तों के मानक से ज़्यादा इंतज़ार, ग़लत डायरेक्टरी और भाषा की बाधाओं की जाँच करता है। आपका असली अनुभव ही सबूत है। <a href="https://keepmydoctors.com/belaray/advocate.html">3 मिनट में शिकायत करें।</a></span>
    </p></div>
   </div>
   <div class="faq-item">
@@ -429,17 +429,17 @@
   </p>
   <a href="sms:5168227546" class="cta-btn" onclick="trackContact('text')">💬 (516) 822-7546</a>
   <div class="call-link">
-   <span class="en">or <a href="tel:+15168227546" onclick="trackContact('call')">call (516) 822-7546</a> · <a href="advocate.html" style="color:#fff;">make your voice heard →</a></span>
-   <span class="es">o <a href="tel:+15168227546" onclick="trackContact('call')">llame al (516) 822-7546</a> · <a href="advocate.html" style="color:#fff;">haga oír su voz →</a></span>
-   <span class="pa">ਜਾਂ <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 'ਤੇ ਫ਼ੋਨ ਕਰੋ</a> · <a href="advocate.html" style="color:#fff;">ਆਵਾਜ਼ ਉਠਾਓ →</a></span>
-   <span class="bn">বা <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 নম্বরে ফোন করুন</a> · <a href="advocate.html" style="color:#fff;">আওয়াজ তুলুন →</a></span>
-   <span class="hi">या <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 पर फ़ोन करें</a> · <a href="advocate.html" style="color:#fff;">आवाज़ उठाएँ →</a></span>
+   <span class="en">or <a href="tel:+15168227546" onclick="trackContact('call')">call (516) 822-7546</a> · <a href="https://keepmydoctors.com/belaray/advocate.html" style="color:#fff;">make your voice heard →</a></span>
+   <span class="es">o <a href="tel:+15168227546" onclick="trackContact('call')">llame al (516) 822-7546</a> · <a href="https://keepmydoctors.com/belaray/advocate.html" style="color:#fff;">haga oír su voz →</a></span>
+   <span class="pa">ਜਾਂ <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 'ਤੇ ਫ਼ੋਨ ਕਰੋ</a> · <a href="https://keepmydoctors.com/belaray/advocate.html" style="color:#fff;">ਆਵਾਜ਼ ਉਠਾਓ →</a></span>
+   <span class="bn">বা <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 নম্বরে ফোন করুন</a> · <a href="https://keepmydoctors.com/belaray/advocate.html" style="color:#fff;">আওয়াজ তুলুন →</a></span>
+   <span class="hi">या <a href="tel:+15168227546" onclick="trackContact('call')">(516) 822-7546 पर फ़ोन करें</a> · <a href="https://keepmydoctors.com/belaray/advocate.html" style="color:#fff;">आवाज़ उठाएँ →</a></span>
   </div>
  </section>
 
  <!-- ===== STICKY CTA ===== -->
  <div class="sticky-cta" id="sticky-cta">
-  <a href="advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click',{props:{source:'sticky'}})">
+  <a href="https://keepmydoctors.com/belaray/advocate.html" onclick="if(typeof plausible!=='undefined')plausible('advocate_click',{props:{source:'sticky'}})">
    <span class="en">📣 Make Your Voice Heard — 3 Min</span>
    <span class="es">📣 Haga Oír Su Voz — 3 Min</span>
    <span class="pa">📣 ਆਵਾਜ਼ ਉਠਾਓ — 3 ਮਿੰਟ</span>
@@ -452,8 +452,8 @@
  <footer>
   <p>
    Belaray Dermatology · 358 S Oyster Bay Road, Hicksville, NY 11801 · <a href="tel:+15168227546">(516) 822-7546</a> ·
-   <a href="advocate.html"><span class="en" style="display:inline;">Advocacy letter tool</span><span class="es">Herramienta de cartas</span><span class="pa">ਚਿੱਠੀ ਟੂਲ</span><span class="bn">চিঠির টুল</span><span class="hi">पत्र टूल</span></a> ·
-   <a href="Referring_Providers.html">Referring physicians</a>
+   <a href="https://keepmydoctors.com/belaray/advocate.html"><span class="en" style="display:inline;">Advocacy letter tool</span><span class="es">Herramienta de cartas</span><span class="pa">ਚਿੱਠੀ ਟੂਲ</span><span class="bn">চিঠির টুল</span><span class="hi">पत्र टूल</span></a> ·
+   <a href="https://keepmydoctors.com/belaray/Referring_Providers.html">Referring physicians</a>
   </p>
  </footer>
 

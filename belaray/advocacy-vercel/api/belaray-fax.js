@@ -16,6 +16,11 @@
  * fax cover page only; the fax NUMBER always comes from this file's own
  * district-keyed tables below, never from the client.
  *
+ * Batch requests may also carry role:"physician" (plus specialty/practice)
+ * from Referring_Providers.html — same whitelist and pipeline, but cover
+ * pages identify a referring clinician, and the Healthfirst cover asks that
+ * the fax be routed to Network Management / Provider Services.
+ *
  * 2) Legacy single grievance (kept for the per-card fax button):
  *    POST { letterText, patientName, patientTown, patientContact, planType }
  *
@@ -200,12 +205,17 @@ export default async function handler(req, res) {
   const patientEmail = String(b.patientEmail || "").trim().slice(0, 120);
   const patientZip = String(b.patientZip || "").trim().slice(0, 10);
   const planType = String(b.planType || "").trim().slice(0, 80);
+  // Referring-physician mode (Referring_Providers.html): same whitelist and
+  // pipeline, but the cover pages identify a clinician, not a member.
+  const role = b.role === "physician" ? "physician" : "patient";
+  const specialty = String(b.specialty || "").trim().slice(0, 80);
+  const practice = String(b.practice || "").trim().slice(0, 120);
 
   // A fax with no reply path is easy to dismiss, and every fax leaves the
-  // same sending number. Require a per-patient contact for the cover page.
+  // same sending number. Require a per-sender contact for the cover page.
   if (!patientContact) return res.status(400).json({ error: "contact_required" });
 
-  const patient = { patientName, patientTown, patientContact, patientPhone, patientEmail, patientZip, planType };
+  const patient = { patientName, patientTown, patientContact, patientPhone, patientEmail, patientZip, planType, role, specialty, practice };
   const creds = { projectId, keyId, keySecret };
 
   // ---- Batch mode -----------------------------------------------------
@@ -235,12 +245,14 @@ export default async function handler(req, res) {
     }
 
     const allOk = results.every((r) => r.ok);
-    console.log("fax_batch", JSON.stringify({ ip, results }));
+    console.log("fax_batch", JSON.stringify({ ip, role, results }));
     try {
       await sheetAppend([
         new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
-        "fax_batch",
-        patientName, patientTown, planType, patientContact, "",
+        role === "physician" ? "fax_batch_physician" : "fax_batch",
+        patientName, patientTown,
+        role === "physician" ? [specialty, practice].filter(Boolean).join(" - ") : planType,
+        patientContact, "",
         JSON.stringify(results).slice(0, 45000),
         "",
       ]);
@@ -337,13 +349,16 @@ function coverFor(rec, p) {
   const date = new Date().toLocaleDateString("en-US", {
     timeZone: "America/New_York", year: "numeric", month: "long", day: "numeric",
   });
-  const who = rec.kind === "grievance" ? "member" : "constituent";
-  const from = (p.patientName || "Healthfirst member") +
+  const isPhys = p.role === "physician";
+  const who = isPhys ? "physician" : rec.kind === "grievance" ? "member" : "constituent";
+  const from = (p.patientName || (isPhys ? "A referring physician" : "Healthfirst member")) +
+    (isPhys && p.specialty ? " - " + p.specialty : "") +
+    (isPhys && p.practice ? " - " + p.practice : "") +
     (p.patientTown ? ", " + p.patientTown + ", NY" + (p.patientZip ? " " + p.patientZip : "") : "");
 
   // Clearly labeled reply channels, so nobody tries to fax a cell number.
   const replyLines = [];
-  if (p.patientPhone) replyLines.push({ t: "Cell phone (call or text this " + who + "): " + fmtPhone(p.patientPhone) });
+  if (p.patientPhone) replyLines.push({ t: (isPhys ? "Phone (call this physician's office): " : "Cell phone (call or text this " + who + "): ") + fmtPhone(p.patientPhone) });
   if (p.patientEmail) replyLines.push({ t: "Email this " + who + ": " + p.patientEmail });
   if (!p.patientPhone && !p.patientEmail && p.patientContact) {
     replyLines.push({ t: "Reply to this " + who + " at: " + p.patientContact });
@@ -353,6 +368,24 @@ function coverFor(rec, p) {
   }
 
   if (rec.kind === "grievance") {
+    if (isPhys) {
+      return [
+        { t: "FAX - COMMUNICATION FROM A REFERRING PHYSICIAN", b: true },
+        { t: "" },
+        { t: "To: Healthfirst - please route to Network Management / Provider Services" },
+        { t: "Received via: " + rec.label + ", fax 1-646-313-4618" },
+        { t: "From (referring physician): " + from },
+        ...replyLines,
+        { t: "Date: " + date },
+        { t: "Re: Referring physician request - restore Belaray Dermatology to network" },
+        { t: "" },
+        { t: "This fax was sent by the clinician named above, using an online tool" },
+        { t: "that lets referring providers write and send their own letters." },
+        { t: "Please forward it to Network Management / Provider Services and" },
+        { t: "provide a written response to the physician at the contact above." },
+        { t: "------------------------------------------------------------------" },
+      ];
+    }
     return [
       { t: "FAX - MEMBER GRIEVANCE", b: true },
       { t: "" },
@@ -368,6 +401,22 @@ function coverFor(rec, p) {
       { t: "that lets patients write and send their own letters." },
       { t: "Please log this as a formal grievance and provide a written response" },
       { t: "with a grievance reference number." },
+      { t: "------------------------------------------------------------------" },
+    ];
+  }
+
+  if (isPhys) {
+    return [
+      { t: "FAX - LETTER FROM A PHYSICIAN IN YOUR DISTRICT", b: true },
+      { t: "" },
+      { t: "To: " + rec.label },
+      { t: "From (referring physician): " + from },
+      ...replyLines,
+      { t: "Date: " + date },
+      { t: "Re: Healthfirst network access to Belaray Dermatology" },
+      { t: "" },
+      { t: "This fax was sent by the clinician named above, using an online tool" },
+      { t: "that lets referring providers write and send their own letters." },
       { t: "------------------------------------------------------------------" },
     ];
   }
