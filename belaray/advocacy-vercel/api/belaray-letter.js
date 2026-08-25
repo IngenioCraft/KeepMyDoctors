@@ -128,12 +128,16 @@ export default async function handler(req, res) {
         additionalProperties: false,
       }
     : {
+        // what_happened first on purpose: at low effort the model sometimes
+        // returned it empty when it came after the long story. (No minLength
+        // here: string length constraints aren't supported by structured
+        // outputs, and this file calls the API raw with no SDK to strip them.)
         type: "object",
         properties: {
-          story: { type: "string" },
           what_happened: { type: "string" },
+          story: { type: "string" },
         },
-        required: ["story", "what_happened"],
+        required: ["what_happened", "story"],
         additionalProperties: false,
       };
 
@@ -361,7 +365,7 @@ function buildPrompt(a) {
   add("Anything else, in the patient's own words", clip(a.ownWords));
 
   return (
-    "Here are one patient's questionnaire answers. Write BOTH pieces described in your instructions: \"story\" (no network history) AND \"what_happened\" (2 to 4 sentences on how the practice came to be out of network, in this patient's voice). Neither may be empty.\n\n" +
+    "Here are one patient's questionnaire answers. Write BOTH pieces described in your instructions, \"what_happened\" first (2 to 4 sentences on how the practice came to be out of network, in this patient's voice), then \"story\" (no network history). Neither may be empty.\n\n" +
     lines.join("\n") +
     "\n\nSTYLE CARD for this patient (follow exactly, so no two patients' letters look alike):\n" +
     styleCard()
@@ -378,8 +382,8 @@ function styleCard() {
       "about 5th grade: short sentences, very common words",
       "about 6th grade: simple sentences, everyday words",
       "about 7th grade: plain sentences with an occasional longer one",
-      "about 8th grade: comfortable everyday writing, some longer sentences",
-      "about 9th to 10th grade: a careful adult's personal letter, longer sentences and a wider everyday vocabulary, but still a regular person writing, never professional or policy language",
+      "about 8th grade: comfortable everyday writing; most sentences carry two connected thoughts, joined with words like because, so, and when",
+      "about 9th to 10th grade: a well-read adult writing an important personal letter; sentences regularly run 15 to 25 words with subordinate clauses, and the vocabulary is noticeably richer, though still personal and warm, never professional or policy language",
     ]),
     "Opening: " + pick([
       "start with how many years they have been going to Belaray",
