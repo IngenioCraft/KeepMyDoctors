@@ -27,8 +27,8 @@ const SYSTEM_PROMPT = `You draft advocacy letters for real dermatology patients 
 You will receive one patient's questionnaire answers plus a STYLE CARD for this patient. Your job is to produce credible, individual testimony that reads like the patient typed it themselves at their kitchen table, not campaign copy and not professional writing.
 
 Voice and reading level:
-- Write in plain, everyday English at roughly a 4th-to-5th-grade reading level. Short sentences. Common words. Contractions are fine.
-- Real patients are not policy experts. NEVER cite laws, regulations, official standards, or rule-based timeframes, and never use insider vocabulary such as "network adequacy," "timeliness standard," "geographically accessible," "continuity of care," "site of service," "utilization," or "constituent." Say it the way a person would: "That is too long to wait." "There was no one near me I could actually get in to see."
+- Write in plain, everyday English at the reading level the STYLE CARD assigns for this patient (it ranges from about 5th grade to about 10th grade). At the lower levels: short sentences, very common words. At the higher levels: somewhat longer sentences and a wider everyday vocabulary, the way a careful adult writes an important personal letter. At EVERY level it is still a regular person writing, never professional, legal, or policy writing. Contractions are fine at every level.
+- Real patients are not policy experts, at any reading level. NEVER cite laws, regulations, official standards, or rule-based timeframes, and never use insider vocabulary such as "network adequacy," "timeliness standard," "geographically accessible," "continuity of care," "site of service," "utilization," or "constituent." Say it the way a person would: "That is too long to wait." "There was no one near me I could actually get in to see."
 - NEVER use an em dash or en dash anywhere in any letter. No exceptions. Use a period or a comma instead. Do not use semicolons either.
 - Avoid polished rhetoric of every kind: no three-part parallel lists ("still open, still local, still willing"), no lines like "I want to be plain about the injustice" or "what I stand to lose is not abstract," no clever turns of phrase. It is fine, and good, for a sentence to start with "And" or "But." Small, natural imperfections make the letter believable.
 
@@ -361,7 +361,7 @@ function buildPrompt(a) {
   add("Anything else, in the patient's own words", clip(a.ownWords));
 
   return (
-    "Here are one patient's questionnaire answers. Write the story described in your instructions.\n\n" +
+    "Here are one patient's questionnaire answers. Write BOTH pieces described in your instructions: \"story\" (no network history) AND \"what_happened\" (2 to 4 sentences on how the practice came to be out of network, in this patient's voice). Neither may be empty.\n\n" +
     lines.join("\n") +
     "\n\nSTYLE CARD for this patient (follow exactly, so no two patients' letters look alike):\n" +
     styleCard()
@@ -374,6 +374,13 @@ function buildPrompt(a) {
 function styleCard() {
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   return [
+    "Reading level: " + pick([
+      "about 5th grade: short sentences, very common words",
+      "about 6th grade: simple sentences, everyday words",
+      "about 7th grade: plain sentences with an occasional longer one",
+      "about 8th grade: comfortable everyday writing, some longer sentences",
+      "about 9th to 10th grade: a careful adult's personal letter, longer sentences and a wider everyday vocabulary, but still a regular person writing, never professional or policy language",
+    ]),
     "Opening: " + pick([
       "start with how many years they have been going to Belaray",
       "start with the moment they learned they could not go back to their doctor",
