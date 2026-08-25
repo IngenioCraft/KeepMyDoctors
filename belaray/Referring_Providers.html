@@ -683,28 +683,42 @@
     }});
   }
 
-  // Template fallback (no AI)
+  // Template fallback (no AI). The three letters are deliberately built on
+  // different skeletons so even the fallback never reads as one letter
+  // re-addressed three times — and the DOH letter carries NO history of how
+  // Belaray left the network (the Department reviews access to care, not
+  // contracting disputes between a practice and a plan).
   function templateLetters(a) {
     var who = (a.name || '') + (a.credentials ? ', ' + a.credentials : '');
     var sig = '\n\nSincerely,\n' + who + '\n' + (a.specialty ? a.specialty.charAt(0).toUpperCase() + a.specialty.slice(1) : '') +
       (a.practice ? '\n' + a.practice : '') + (a.town ? '\n' + a.town + ', NY' : '');
-    var intro = 'I practice ' + (a.specialty || 'medicine') + (a.town ? ' in ' + a.town + ', NY' : '') +
-      (a.yearsReferring ? ', and I have referred patients to Belaray Dermatology for ' + a.yearsReferring + '. ' : '. ');
-    var pat = a.patientImpact.length ? 'Since this practice was forced out of the Healthfirst network, my patients have been directly affected: ' + a.patientImpact.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. ' : '';
-    var prac = a.practiceImpact.length ? 'From the referring side: ' + a.practiceImpact.map(function(m){ return m.charAt(0).toLowerCase() + m.slice(1); }).join('; ') + '. ' : '';
-    var facts = 'Belaray Dermatology participated with Healthfirst from 2006 until a contract change in May 2026, submitted credentialing to rejoin, and was declined in August 2026 — despite remaining open, local, and willing to participate. A directory listing is not a referral pathway; New York\'s managed-care standards generally expect a specialist appointment within 4-6 weeks. ';
+    var lower = function(m){ return m.charAt(0).toLowerCase() + m.slice(1); };
+    var practiceDesc = (a.specialty || 'medicine') + (a.town ? ' in ' + a.town + ', NY' : '');
+    var yearsBit = a.yearsReferring ? 'I have referred patients to Belaray Dermatology for ' + a.yearsReferring + '. ' : '';
+    var patList = a.patientImpact.map(lower).join('; ');
+    var pracList = a.practiceImpact.map(lower).join('; ');
     var own = a.ownWords ? '\n\n' + a.ownWords : '';
 
-    var assembly = 'Dear ' + (a.assemblyRepSalutation || 'Assemblyman Blumencranz') + ',\n\n' + intro + facts + pat + prac +
-      '\n\nI am asking your office to contact Healthfirst about this decision, raise the issue with the New York State Department of Health, and examine whether Healthfirst\'s dermatology network is genuinely adequate for members in our community — and to help restore Belaray Dermatology to the network.' + own + sig;
+    var history = 'Belaray Dermatology participated with Healthfirst from 2006 until Healthfirst\'s termination of its contract with the practice\'s larger medical group ended that participation in May 2026, through no action of the practice. Belaray reapplied immediately and was declined in August 2026, in what Healthfirst described as a business decision. ';
 
-    var regulator = 'Dear New York State Department of Health, Managed Care Complaint Unit,\n\n' + intro +
-      'I am filing this complaint as a referring provider regarding the adequacy of Healthfirst\'s dermatology network. ' + facts + pat + prac +
-      '\n\nI request that the Department review Healthfirst\'s dermatology network adequacy in Nassau and Suffolk County — including actual appointment availability against the 4-6 week standard — and that Belaray Dermatology be restored to the network.' + own + sig;
+    var assembly = 'Dear ' + (a.assemblyRepSalutation || 'Assemblyman Blumencranz') + ',\n\n' +
+      'I practice ' + practiceDesc + '. ' + yearsBit + history +
+      (patList ? '\n\nFor my patients, the consequences have been concrete: ' + patList + '. ' : '') +
+      (pracList ? (patList ? '' : '\n\n') + 'For my practice: ' + pracList + '. ' : '') +
+      '\n\nI am asking your office to contact Healthfirst about this decision, to raise the matter with the New York State Department of Health, and to examine whether Healthfirst\'s dermatology network is genuinely adequate for members in our community. Most directly, I ask your help in restoring Belaray Dermatology to the network.' + own + sig;
 
-    var healthfirst = 'Dear Healthfirst Provider Services,\n\n' + intro +
-      'I am writing regarding your decision to decline Belaray Dermatology\'s application to rejoin your network. ' + facts + pat + prac +
-      '\n\nOn behalf of the Healthfirst members in my care, I ask that Healthfirst reconsider its August 2026 decision and restore Belaray Dermatology to the network, and that you respond to me in writing.' + own + sig;
+    var regulator = 'Dear New York State Department of Health, Managed Care Complaint Unit,\n\n' +
+      'I am asking the Department to review the adequacy of Healthfirst\'s dermatology network in Nassau and Suffolk County. I practice ' + practiceDesc + ', and this complaint reflects what I see when I try to get Healthfirst patients specialist care. ' + yearsBit +
+      (patList ? '\n\nWhat my patients experience now: ' + patList + '. ' : '') +
+      (pracList ? 'From the referring side: ' + pracList + '. ' : '') +
+      '\n\nA directory listing is not a referral pathway; New York\'s managed-care standards generally expect a specialist appointment within 4-6 weeks, and that is not what members are getting. Belaray Dermatology (Hicksville and Stony Brook) is willing and able to participate in Healthfirst\'s network, but Healthfirst is not currently allowing its physicians to participate. I request that the Department review the network\'s actual appointment availability against that standard. A willing, qualified local practice currently outside the network is directly relevant to remedying any gap the Department finds.' + own + sig;
+
+    var healthfirst = 'Dear Healthfirst Provider Services,\n\n' +
+      'I write to ask that Healthfirst reconsider its August 2026 decision declining Belaray Dermatology\'s application to rejoin your network. I practice ' + practiceDesc + '. ' + yearsBit +
+      'That referral relationship worked well for your members until this year. ' +
+      (patList ? '\n\nSince May 2026, the members in my care have been affected as follows: ' + patList + '. ' : '') +
+      (pracList ? 'In my own workflow: ' + pracList + '. ' : '') +
+      '\n\nRestoring Belaray Dermatology to the network would resolve each of these problems for your members. Please reconsider the decision and respond to me in writing.' + own + sig;
 
     return { assembly_letter: assembly, regulator_letter: regulator, healthfirst_letter: healthfirst };
   }

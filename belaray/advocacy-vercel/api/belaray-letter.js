@@ -41,7 +41,7 @@ Content rules:
 - When in doubt, understate rather than overstate. These letters go to legislators and regulators, and they only work if every line is checkably true. One inflated claim can undercut the whole letter and the patient's credibility.
 - Describing what happened: NEVER say Healthfirst "dropped" the practice, that the practice left, or that it lost its spot over any problem. In plain words: a contract change on Healthfirst's side, between Healthfirst and the larger medical group Belaray was part of, pushed the practice out of the network in May 2026 through no choice of its own. The practice asked to come back right away and expected to be back by August 1. In August, Healthfirst said no and called it a business decision. Patients may naturally quote that: "they told my doctor it was a business decision."
 - Cover every topic this patient answered, but lead with what matters most to this person and let the rest support it, so the letter reads as one person's story rather than a list.
-- Order of the story, after the opening: first who they are and their history with Belaray; then WHAT HAPPENED (pushed out in May 2026 when Healthfirst ended its contract with the larger group, applied to come back right away, told no in August, called a business decision); then what this costs them and what happened when they tried other offices; and last, the directory contradiction if present, because each letter's closing ask follows directly after it. The opening may preview the single most important fact as a hook, but never argue the full harm before the reader knows what happened.
+- Order of the story, after the opening: first who they are and their history with Belaray; then what this costs them and what happened when they tried other offices; and last, the directory contradiction if present, because each letter's closing ask follows directly after it. The opening may preview the single most important fact as a hook.
 - Where the patient wrote something in their own words, keep their phrasing (lightly cleaned up; translated to English if needed).
 - Concrete beats general. Use supplied numbers of offices called, quoted waits, and distances plainly and exactly.
 - If the quoted wait was long, state it plainly and let the number speak for itself: "The soonest anyone else could see me was more than three months from now. That is too long when someone is watching you for skin cancer." Always put the actual wait they selected into the story. If they said they could not get a timely appointment but gave no number, say in plain words that the wait at the other offices they tried was far too long. Do NOT compare the wait to any official standard or rule.
@@ -57,15 +57,22 @@ Content rules:
 - If the patient receives care at Belaray in another language, mention how hard that is to find anywhere else.
 - Do not include any salutation, greeting, sign-off, or signature; those are added separately for each letter.
 
-Produce ONE piece of writing, returned as "story", in English. It is the shared body of the patient's letters: their story and the facts, with NO salutation or greeting, NO mention of any reader or office, NO requests or asks, and NO sign-off or signature. The exact same story is inserted into three letters addressed to different offices (the patient's state legislators, the state agency that oversees their plan, and Healthfirst itself), so:
+Produce TWO pieces of writing, in English, both in the patient's same voice per the STYLE CARD:
+
+"story" — the shared body of the patient's letters: who they are, their history with Belaray, what losing access costs them, what happened when they tried other offices, and the directory contradiction if present. CRITICAL: the story must NOT explain how or why Belaray came to be out of the network. No contract change, no larger medical group, no application to rejoin, no August denial, no "business decision," no May 2026. The story may say plainly that they cannot use their plan at Belaray now and that the office is still open and still wants to see them; the how-it-happened lives in the second piece. This is because one of the letters goes to the state agency that reviews ACCESS to care, and it must never read as asking the state to referee a dispute between the practice and the insurer.
+
+"what_happened" — 2 to 4 plain sentences, same voice, telling how it happened: a contract change on Healthfirst's side, between Healthfirst and the larger medical group Belaray was part of, pushed the practice out of the network in May 2026 through no choice of its own; the practice asked to come back right away; in August Healthfirst said no and called it a business decision; the practice had been in the network since 2006 (include the 2006 fact only if it fits naturally). Vary the wording and sentence order from patient to patient so no two are alike. This piece is inserted only into the legislator and Healthfirst letters, never the state agency letter.
+
+The same story is inserted into three letters addressed to different offices (the patient's state legislators, the state agency that oversees their plan, and Healthfirst itself), so for BOTH pieces:
 1. Refer to Healthfirst by name, in the third person, always. Never "you," "your network," or "your list."
 2. Never address a reader ("your office," "the Department," "please...").
 3. No closing requests of any kind; each letter's own ask is added separately after the story.
-4. Length, opening, tone, and paragraphing per the STYLE CARD. Do not open with a greeting or with "I am writing."`;
+4. No salutation, greeting, sign-off, or signature.
+5. Length, opening, tone, and paragraphing of the story per the STYLE CARD. Do not open with a greeting or with "I am writing."`;
 
 const PHYSICIAN_PROMPT = `You draft advocacy letters for physicians and clinicians in Nassau and Suffolk County, New York, who refer patients to Belaray Dermatology (Hicksville and Stony Brook). What happened, precisely: Belaray participated with Healthfirst continuously from 2006, most recently through CHS. When Healthfirst terminated its contract with CHS earlier in 2026, Belaray was forced out of network effective May 2026 through no action of its own. Belaray immediately submitted re-credentialing through IPANY and expected reinstatement around August 1, 2026; instead, in August 2026 Healthfirst denied the application as a business decision based on its "current network needs." Never characterize this as Belaray being dropped for cause or choosing to leave. The practice remains open and willing to participate; referring clinicians and their Healthfirst patients have lost a functioning dermatology referral pathway.
 
-You will receive one clinician's questionnaire answers. Write in the clinician's own professional first-person voice.
+You will receive one clinician's questionnaire answers plus a STYLE CARD assigning each of the three letters its own opening, register, length, and paragraphing. Write in the clinician's own professional first-person voice.
 
 How to write:
 - Use ONLY the facts supplied. Never invent details, statistics, patient counts, or patient stories. Omit blank topics.
@@ -75,14 +82,19 @@ How to write:
 - The core argument is network adequacy seen from the referring side: a directory listing is not a referral pathway. If the clinician reports they cannot get Healthfirst patients seen in a timely way, that is front-line evidence the network is inadequate. New York's managed-care standards generally expect a specialist appointment within 4-6 weeks.
 - Where the answers support it: the clinician did not choose this disruption, Belaray is willing to participate, and the insurer's decision alone severed a functioning referral relationship.
 - Do not praise Belaray's reputation except as it bears on patient access and referral function.
-- Each letter roughly 300-500 words, in English.
-- Vary structure and phrasing so letters from different clinicians never look templated.
+- Never use an em dash or en dash anywhere in any letter; use a comma or a period instead.
 - Sign with the clinician's name, credentials, specialty, and practice/town as provided.
 
-Produce THREE letters:
-1. "assembly_letter" — a letter to the NY State legislator named in the input, from a community physician. IMPORTANT: it may also be sent to the State Senator with only the salutation changed, so refer to "your office" and avoid chamber-specific references. Explain how the insurer's decision affects the clinician's patients and ability to practice, and ask your office to contact Healthfirst, raise the issue with the NYS Department of Health, and examine whether Healthfirst's dermatology network is genuinely adequate — and to help restore Belaray Dermatology to the network.
-2. "regulator_letter" — a formal complaint to the New York State Department of Health, Managed Care Complaint Unit ("Dear New York State Department of Health, Managed Care Complaint Unit,") — providers may file complaints with the State directly. State the clinician's role and referral relationship, the concrete access problems observed since the termination, and request a review of Healthfirst's dermatology network adequacy and restoration of the practice.
-3. "healthfirst_letter" — a letter to Healthfirst Provider Services / network management ("Dear Healthfirst Provider Services,"), from a referring clinician. Professional and firm: describe the referral impact on Healthfirst's own members, request reconsideration of the August 2026 decision and restoration of Belaray Dermatology to the network, and ask for a written response.`;
+Make the three letters unmistakably individual:
+- Follow the STYLE CARD exactly. Two clinicians who checked the same boxes must still produce visibly different letters, and the three letters in this one response must read as three separately written documents, not one letter re-addressed three times.
+- Never reuse a sentence or a distinctive phrase across two of the letters. Re-derive each point in new words, or leave it to the one letter where it matters most; the three readers have different jobs, so the letters should emphasize different things.
+- Do not give the letters the same paragraph skeleton (who I am, what happened, impact, ask). Let each letter's structure follow its own logic per the STYLE CARD.
+- BANNED stock phrases, in any letter: "I write to express my concern", "I am writing to express", "It has come to my attention", "I urge you in the strongest terms", "Thank you for your attention to this matter", "profound impact", "cannot overstate", and three-part parallel constructions such as "open, local, and willing". Plain professional prose instead.
+
+Produce THREE letters, in English:
+1. "assembly_letter" — a letter to the NY State legislator named in the input, from a community physician. IMPORTANT: it may also be sent to the State Senator with only the salutation changed, so refer to "your office" and avoid chamber-specific references. The history belongs HERE: forced out of network in May 2026 by Healthfirst's termination of its CHS contract through no action of the practice, reapplied immediately, denied in August as a "business decision." Explain how that decision affects the clinician's patients and ability to practice, and ask your office to contact Healthfirst, raise the issue with the NYS Department of Health, and examine whether Healthfirst's dermatology network is genuinely adequate — and to help restore Belaray Dermatology to the network.
+2. "regulator_letter" — a network adequacy complaint to the New York State Department of Health, Managed Care Complaint Unit ("Dear New York State Department of Health, Managed Care Complaint Unit,"); providers may file complaints with the State directly. CRITICAL FRAMING: the Department reviews whether a plan's network gives members adequate and timely access to care. It does not referee contract or credentialing disputes between a plan and a practice, and a complaint that reads like one is easy to set aside. So this letter must NOT recount how Belaray came to be out of network: no contract history, no CHS, no credentialing application, no August denial, no "business decision," no dates of any of it. State the present-tense fact at most once, simply: Healthfirst is not currently allowing Belaray's dermatologists to participate in its network, although the practice is willing and able to. The substance of the letter is the clinician's own front-line evidence of inadequate ACCESS: what happens now when they try to get a Healthfirst patient seen (the waits, the services no other in-network practice offers, delayed diagnoses, avoidable emergency department visits), measured against the 4-6 week expectation. Ask the Department to review the actual appointment availability of Healthfirst's dermatology network in the clinician's county, and note that a willing, qualified local practice currently excluded from the network is directly relevant to remedying any inadequacy the Department finds.
+3. "healthfirst_letter" — a letter to Healthfirst Provider Services / network management ("Dear Healthfirst Provider Services,"), from a referring clinician. Professional and firm; the August 2026 denial may be referenced here since reconsideration of it is the request. Describe the referral impact on Healthfirst's own members, request reconsideration and restoration of Belaray Dermatology to the network, and ask for a written response.`;
 
 export default async function handler(req, res) {
   const origin = req.headers.origin || "";
@@ -117,8 +129,11 @@ export default async function handler(req, res) {
       }
     : {
         type: "object",
-        properties: { story: { type: "string" } },
-        required: ["story"],
+        properties: {
+          story: { type: "string" },
+          what_happened: { type: "string" },
+        },
+        required: ["story", "what_happened"],
         additionalProperties: false,
       };
 
@@ -165,7 +180,7 @@ export default async function handler(req, res) {
 
     // Safety net: strip any dash punctuation the model slipped in despite the
     // prompt ban (em/en dashes and spaced hyphens read as machine-written).
-    for (const k of ["assembly_letter", "regulator_letter", "healthfirst_letter", "story"]) {
+    for (const k of ["assembly_letter", "regulator_letter", "healthfirst_letter", "story", "what_happened"]) {
       if (letters[k]) letters[k] = humanize(letters[k]);
     }
 
@@ -412,6 +427,59 @@ function buildPhysicianPrompt(a) {
   add("Anything else, in the clinician's own words", clip(a.ownWords));
   return (
     "Here are one referring clinician's questionnaire answers. Draft the three letters described in your instructions.\n\n" +
-    lines.join("\n")
+    lines.join("\n") +
+    "\n\nSTYLE CARD (follow exactly; it makes this clinician's letters unlike any other clinician's, and the three letters unlike each other):\n" +
+    physicianStyleCard()
+  );
+}
+
+// Randomized per-request, per-letter writing directives for the physician
+// tool. Shuffled so each of the three letters draws a DIFFERENT opening,
+// register, length, and shape — three separately written documents, and no
+// two clinicians' packets alike.
+function physicianStyleCard() {
+  const shuffle = (arr) =>
+    arr.map((v) => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map((p) => p[1]);
+  const openings = shuffle([
+    "open with how long you have referred patients to Belaray and what you send them for",
+    "open with the concrete clinical problem you now face when a Healthfirst patient needs dermatology",
+    "open with a plain statement of who you are and where you practice",
+    "open with what changed for your Healthfirst patients this year, as observed from your exam room",
+    "open with the specific referral you can no longer make",
+    "open with the state of dermatology appointment availability in your county as you currently experience it",
+  ]);
+  const registers = shuffle([
+    "measured and formal",
+    "crisp and clinical, minimal adjectives",
+    "plainspoken and direct, as if dictated between patients",
+    "collegial and matter-of-fact",
+    "firm, with restrained frustration showing through",
+  ]);
+  const lengths = shuffle([
+    "about 200 to 300 words",
+    "about 300 to 400 words",
+    "about 400 to 480 words",
+  ]);
+  const shapes = shuffle([
+    "3 paragraphs",
+    "4 short paragraphs",
+    "2 substantial paragraphs",
+    "5 brief paragraphs, almost clipped",
+  ]);
+  const rhythms = shuffle([
+    "mostly short declarative sentences",
+    "longer, clause-rich sentences typical of formal medical correspondence",
+    "a mix of short and medium sentences with an occasional long one",
+  ]);
+  const card = (i) =>
+    "- Opening: " + openings[i] +
+    "\n- Register: " + registers[i] +
+    "\n- Length: " + lengths[i] +
+    "\n- Paragraphs: " + shapes[i] +
+    "\n- Sentences: " + rhythms[i % rhythms.length];
+  return (
+    "ASSEMBLY/SENATE LETTER:\n" + card(0) +
+    "\n\nREGULATOR (DOH) LETTER:\n" + card(1) +
+    "\n\nHEALTHFIRST LETTER:\n" + card(2)
   );
 }

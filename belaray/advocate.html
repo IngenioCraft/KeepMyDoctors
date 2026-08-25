@@ -551,6 +551,12 @@
     <textarea id="txt-story" oninput="assembleLetters()"></textarea>
    </div>
 
+   <div class="letter-card" id="card-whathappened">
+    <h3><span class="en">📄 How it happened — goes in the legislator and Healthfirst letters</span><span class="es">📄 Cómo pasó — va en las cartas a los legisladores y a Healthfirst</span><span class="pa">📄 ਇਹ ਕਿਵੇਂ ਹੋਇਆ — ਵਿਧਾਇਕਾਂ ਅਤੇ Healthfirst ਵਾਲੀਆਂ ਚਿੱਠੀਆਂ ਵਿੱਚ ਜਾਂਦਾ ਹੈ</span><span class="bn">📄 কীভাবে হলো — আইনপ্রণেতা ও Healthfirst-এর চিঠিতে যায়</span><span class="hi">📄 यह कैसे हुआ — विधायकों और Healthfirst वाले पत्रों में जाता है</span></h3>
+    <p class="send-note" style="margin-top:2px;"><span class="en">The letter to the State leaves this history out on purpose. The State reviews whether members can actually get care, not disagreements between a practice and an insurance company, so that letter sticks to what you cannot get.</span><span class="es">La carta al Estado omite esta historia a propósito. El Estado revisa si los miembros realmente pueden recibir atención, no los desacuerdos entre un consultorio y una aseguradora, así que esa carta se centra en lo que usted no puede obtener.</span><span class="pa">ਰਾਜ ਨੂੰ ਭੇਜੀ ਚਿੱਠੀ ਵਿੱਚ ਇਹ ਇਤਿਹਾਸ ਜਾਣਬੁੱਝ ਕੇ ਨਹੀਂ ਪਾਇਆ ਜਾਂਦਾ। ਰਾਜ ਇਹ ਵੇਖਦਾ ਹੈ ਕਿ ਮੈਂਬਰਾਂ ਨੂੰ ਸੱਚਮੁੱਚ ਦੇਖਭਾਲ ਮਿਲਦੀ ਹੈ ਜਾਂ ਨਹੀਂ, ਨਾ ਕਿ ਦਫ਼ਤਰ ਅਤੇ ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਝਗੜੇ, ਇਸ ਲਈ ਉਹ ਚਿੱਠੀ ਸਿਰਫ਼ ਇਸ ਗੱਲ 'ਤੇ ਰਹਿੰਦੀ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਕੀ ਨਹੀਂ ਮਿਲ ਰਿਹਾ।</span><span class="bn">রাজ্যকে পাঠানো চিঠিতে এই ইতিহাস ইচ্ছা করেই বাদ দেওয়া হয়। রাজ্য দেখে সদস্যরা সত্যিই চিকিৎসা পাচ্ছেন কি না, কোনো প্র্যাকটিস ও বিমা কোম্পানির মতবিরোধ নয়, তাই সেই চিঠি শুধু আপনি যা পাচ্ছেন না তাতেই থাকে।</span><span class="hi">राज्य को भेजे पत्र में यह इतिहास जानबूझकर नहीं रखा जाता। राज्य यह देखता है कि सदस्यों को वाकई देखभाल मिल रही है या नहीं, किसी क्लिनिक और बीमा कंपनी के विवाद नहीं, इसलिए वह पत्र सिर्फ़ इस पर रहता है कि आपको क्या नहीं मिल रहा।</span></p>
+    <textarea id="txt-whathappened" oninput="assembleLetters()" style="min-height:110px;"></textarea>
+   </div>
+
    <div class="letter-card" id="card-sendall">
     <h3 id="sendall-title"></h3>
     <p class="send-note" id="sendall-desc" style="margin-top:2px;"></p>
@@ -1070,7 +1076,7 @@
     }, 12000);
     if (typeof plausible !== 'undefined') plausible('generate_letter', { props: { plan: answers.planKey } });
 
-    var story = null, usage = null;
+    var story = null, whatHappened = null, usage = null;
     if (WORKER_URL) {
       try {
         var resp = await fetch(WORKER_URL, {
@@ -1082,6 +1088,7 @@
           var data = await resp.json();
           if (data.story) {
             story = data.story;
+            whatHappened = data.what_happened || null;
             usage = data.usage;
             directoryVerified = data.directory_verified || null;
           }
@@ -1090,6 +1097,7 @@
     }
     clearTimeout(slowTimer);
     if (!story) story = fallbackStory(answers);
+    if (!whatHappened) whatHappened = fallbackWhatHappened();
     if (usage && typeof plausible !== 'undefined') {
       plausible('letter_cost', { props: { cost_usd: String(usage.estimated_cost_usd), output_tokens: String(usage.output_tokens) } });
     }
@@ -1099,6 +1107,7 @@
     // re-assembled on every story edit.
     letterCtx = answers;
     document.getElementById('txt-story').value = story;
+    document.getElementById('txt-whathappened').value = whatHappened;
     assembleLetters();
     setupSendAllCard(answers);
     setupAssemblyCard(answers);
@@ -1131,6 +1140,12 @@
     var a = letterCtx;
     if (!a) return;
     var story = document.getElementById('txt-story').value.trim();
+    // The how-it-happened history goes ONLY into the legislator and
+    // Healthfirst letters. The regulator letter deliberately omits it: the
+    // State reviews access to care, and a complaint that recounts the
+    // contract history reads like a contracting dispute it can set aside.
+    var whatHappened = document.getElementById('txt-whathappened').value.trim();
+    var whatPara = whatHappened ? '\n\n' + whatHappened : '';
     var sig = '\n\nSincerely,\n' + (a.name || '') + (a.town ? '\n' + a.town + ', NY' + (a.zip ? ' ' + a.zip : '') : '');
 
     // "Is this a mix-up?" framing: raised whenever the still-listed fact is in
@@ -1143,8 +1158,8 @@
     var assemblyAsk = mixup + 'I\'m asking for your office\'s help. Please contact Healthfirst about this, ask the State Health Department to check whether Healthfirst really has enough skin doctors that people here can actually get seen, and help get Belaray Dermatology back in the network so I can keep my care.';
 
     var regSal = 'Dear ' + (a.regulatorRecipient.charAt(0).toUpperCase() + a.regulatorRecipient.slice(1)).replace(/^The /, '') + ',';
-    var regIntent = 'I have ' + a.planType + (a.town ? ' and live in ' + a.town + ', NY' : '') + '. I am writing to complain about getting dermatology care in my plan\'s network.';
-    var regAsk = mixup + 'I\'m asking you to look into whether Healthfirst really has enough skin doctors in Nassau and Suffolk County that members can actually get in to see, and to help get Belaray Dermatology back in the network so I can keep my care.';
+    var regIntent = 'I have ' + a.planType + (a.town ? ' and live in ' + a.town + ', NY' : '') + '. I am writing to complain about getting dermatology care in my plan\'s network. My doctor\'s office is still open and willing to see Healthfirst patients, but Healthfirst is not letting its doctors be in the network right now.';
+    var regAsk = mixup + 'I\'m asking you to look into whether Healthfirst really has enough skin doctors in Nassau and Suffolk County that members can actually get in to see. A local practice that wants to see Healthfirst patients is sitting right here, and members like me still cannot use it. Please review whether this network truly meets members\' needs, so I can get the care my plan is supposed to cover.';
 
     var hfSal = 'Dear Healthfirst Member Services,';
     var hfIntent = 'I have ' + a.planType + '. I am filing a formal grievance about getting dermatology care in your network.';
@@ -1155,9 +1170,9 @@
     var hfAsk = hfMixup + 'Please put Belaray Dermatology back in the network so I can keep my care.' + rebill + ' Please log this as a formal grievance and send me a written answer with a grievance reference number.';
 
     var h = letterHeaders(a);
-    document.getElementById('txt-assembly').value = h.assembly + assemblySal + '\n\n' + assemblyIntent + '\n\n' + story + '\n\n' + assemblyAsk + sig;
+    document.getElementById('txt-assembly').value = h.assembly + assemblySal + '\n\n' + assemblyIntent + whatPara + '\n\n' + story + '\n\n' + assemblyAsk + sig;
     document.getElementById('txt-regulator').value = h.regulator + regSal + '\n\n' + regIntent + '\n\n' + story + '\n\n' + regAsk + sig;
-    document.getElementById('txt-healthfirst').value = h.healthfirst + hfSal + '\n\n' + hfIntent + '\n\n' + story + '\n\n' + hfAsk + sig;
+    document.getElementById('txt-healthfirst').value = h.healthfirst + hfSal + '\n\n' + hfIntent + whatPara + '\n\n' + story + '\n\n' + hfAsk + sig;
   }
 
   // Fallback story when the AI endpoint is unreachable: the shared body only
@@ -1173,17 +1188,25 @@
     var careBits = a.careAtBelaray.map(lower);
     var care = careBits.length ? 'This is the practice that knows my history: ' + careBits.join('; ') + '. ' : '';
     var lang = a.language ? 'Belaray also provides my care in ' + a.language + ', which is very hard to find elsewhere. ' : '';
-    var facts = 'A contract change on Healthfirst\'s side forced Belaray Dermatology out of the network in May 2026. My doctors never chose to leave. They applied right away to come back and expected to be back by August 1, but this August Healthfirst said no and called it a business decision. Belaray had been in the network since 2006. I did not leave my doctor, and my doctor did not leave me. The office is still open, still close to me, and still wants to take my plan. Healthfirst\'s decision is the only thing stopping me. ';
+    // No network history here: the how-it-happened lives in
+    // fallbackWhatHappened() and never enters the regulator letter.
+    var facts = 'The office is still open, still close to me, and still wants to take my plan, but I cannot use my insurance there now. ';
     var meaning = a.whatLosingMeans.length ? 'Losing access to Belaray is not a small thing for me. ' + a.whatLosingMeans.map(lower).join('; ') + '. ' : '';
     var access = a.accessProblems.length ? 'I have tried to find alternatives, and my real experience is this: ' + a.accessProblems.map(lower).join('; ') + '. ' : '';
     if (a.accessDetails) access += 'Specifically: ' + a.accessDetails + '. ';
     if (a.waitExceedsStandard) access += 'That is much too long to wait. ';
     var dir = (a.directoryStatements && a.directoryStatements.length) ? 'About Healthfirst\'s own doctor list: ' + a.directoryStatements.map(lower).join('; ') + '. ' : '';
     var own = a.ownWords ? '\n\n' + a.ownWords : '';
-    // Paragraph order: who I am -> what happened -> what it costs me ->
+    // Paragraph order: who I am -> what it costs me ->
     // the directory contradiction last (the closing ask follows it).
     var harm = (meaning + access).trim();
-    return (years + found + fam + care + lang + '\n\n' + facts + (harm ? '\n\n' + harm : '') + (dir ? '\n\n' + dir : '')).trim() + own;
+    return (years + found + fam + care + lang + facts + (harm ? '\n\n' + harm : '') + (dir ? '\n\n' + dir : '')).trim() + own;
+  }
+
+  // Fallback how-it-happened paragraph (legislator + Healthfirst letters
+  // only; the regulator letter stays an access complaint).
+  function fallbackWhatHappened() {
+    return 'A contract change on Healthfirst\'s side forced Belaray Dermatology out of the network in May 2026. My doctors never chose to leave. They asked right away to come back, but this August Healthfirst said no and called it a business decision. Belaray had been in the network since 2006.';
   }
 
   function letterHeaders(answers) {
