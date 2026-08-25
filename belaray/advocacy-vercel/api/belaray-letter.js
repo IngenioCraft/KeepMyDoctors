@@ -411,11 +411,7 @@ function styleCard() {
       "5 very short paragraphs",
       "2 longer paragraphs",
     ]),
-    "Sentences: " + pick([
-      "mostly short sentences",
-      "a mix of short and medium sentences",
-      "plain medium-length sentences",
-    ]),
+    "Sentence length follows the reading level above: short at the lower levels, noticeably longer and more connected at the higher levels.",
   ].join("\n");
 }
 
