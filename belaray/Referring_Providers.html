@@ -413,6 +413,16 @@
       cEl.focus();
       return;
     }
+    // County drives legislator routing (Nassau -> Blumencranz/Rhoads,
+    // Suffolk -> Kassay/Palumbo); without it the default would silently
+    // route a Suffolk clinician to Nassau offices.
+    if (!document.getElementById('p-county').value) {
+      showToast('Please select your practice county — it determines which legislators your letter goes to.');
+      var coEl = document.getElementById('p-county');
+      coEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      coEl.focus();
+      return;
+    }
     var answers = collectAnswers();
     sendStats(answers);
 
