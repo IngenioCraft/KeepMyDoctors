@@ -214,6 +214,9 @@ export default async function handler(req, res) {
   // A fax with no reply path is easy to dismiss, and every fax leaves the
   // same sending number. Require a per-sender contact for the cover page.
   if (!patientContact) return res.status(400).json({ error: "contact_required" });
+  // Likewise a nameless letter: covers and signatures name the sender, and
+  // both pages now require a full name before letters are even drafted.
+  if (!patientName) return res.status(400).json({ error: "name_required" });
 
   const patient = { patientName, patientTown, patientContact, patientPhone, patientEmail, patientZip, planType, role, specialty, practice };
   const creds = { projectId, keyId, keySecret };

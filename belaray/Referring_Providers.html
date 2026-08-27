@@ -136,7 +136,7 @@
    <h2>About you</h2>
    <div class="three-col">
     <div class="field">
-     <label class="f-label" for="p-name">Your name</label>
+     <label class="f-label" for="p-name">Your name (first and last)</label>
      <input type="text" id="p-name" autocomplete="name">
     </div>
     <div class="field">
@@ -147,7 +147,7 @@
       <option value="DO">DO</option>
       <option value="NP">NP</option>
       <option value="PA">PA</option>
-      <option value="">Other / prefer not to say</option>
+      <option value="other">Other</option>
      </select>
     </div>
     <div class="field">
@@ -371,10 +371,11 @@
     var townText = document.getElementById('p-towntext').value.trim();
     var townForLetter = townText ||
       (countySel === 'nassau' ? 'Nassau County' : countySel === 'suffolk' ? 'Suffolk County' : '');
+    var credSel = document.getElementById('p-cred').value;
     return {
       role: 'physician',
       name: document.getElementById('p-name').value.trim(),
-      credentials: document.getElementById('p-cred').value,
+      credentials: credSel === 'other' ? '' : credSel,
       specialty: document.getElementById('p-spec').value,
       practice: document.getElementById('p-practice').value.trim(),
       town: townForLetter,
@@ -393,6 +394,23 @@
     var btn = document.getElementById('generate');
     if (!document.getElementById('consent-review').checked) {
       showToast('Please check the consent box first.');
+      return;
+    }
+    // Letters are signed and fax covers name the sender; require a full name
+    // and an explicit credential choice before anything is drafted.
+    var pn = document.getElementById('p-name').value.trim();
+    if (pn.split(/\s+/).filter(Boolean).length < 2) {
+      showToast('Please enter your first and last name — your letters are signed with it.');
+      var nEl = document.getElementById('p-name');
+      nEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nEl.focus();
+      return;
+    }
+    if (!document.getElementById('p-cred').value) {
+      showToast('Please select your credentials (MD, DO, NP, PA, or Other).');
+      var cEl = document.getElementById('p-cred');
+      cEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cEl.focus();
       return;
     }
     var answers = collectAnswers();
@@ -610,6 +628,7 @@
       });
       var name = document.getElementById('p-name').value.trim();
       var cred = document.getElementById('p-cred').value;
+      if (cred === 'other') cred = '';
       faxPromise = fetch(FAX_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

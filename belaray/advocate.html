@@ -255,7 +255,7 @@
     </p>
     <div class="two-col">
      <div class="field">
-      <label class="f-label" for="f-name"><span class="en">Your name</span><span class="es">Su nombre</span><span class="pa">ਤੁਹਾਡਾ ਨਾਮ</span><span class="bn">আপনার নাম</span><span class="hi">आपका नाम</span></label>
+      <label class="f-label" for="f-name"><span class="en">Your first and last name</span><span class="es">Su nombre y apellido</span><span class="pa">ਤੁਹਾਡਾ ਪੂਰਾ ਨਾਮ (ਨਾਮ ਤੇ ਗੋਤ)</span><span class="bn">আপনার পুরো নাম (নাম ও পদবি)</span><span class="hi">आपका पूरा नाम (नाम और उपनाम)</span></label>
       <input type="text" id="f-name" autocomplete="name">
      </div>
      <div class="field">
@@ -684,6 +684,7 @@
   var STR = {
     stepOf: { en: 'Step {N} of 7', es: 'Paso {N} de 7', pa: 'ਕਦਮ {N} / 7', bn: 'ধাপ {N} / ৭', hi: 'चरण {N} / 7' },
     consentFirst: { en: 'Please check the consent box first.', es: 'Por favor marque la casilla de consentimiento primero.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਹਿਮਤੀ ਵਾਲਾ ਖ਼ਾਨਾ ਚੁਣੋ।', bn: 'অনুগ্রহ করে আগে সম্মতির ঘরে টিক দিন।', hi: 'कृपया पहले सहमति वाला बॉक्स चुनें।' },
+    nameFirst: { en: 'Please enter your first and last name — the letters are signed with your name.', es: 'Por favor escriba su nombre y apellido — las cartas van firmadas con su nombre.', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਨਾਮ ਅਤੇ ਗੋਤ ਲਿਖੋ — ਚਿੱਠੀਆਂ ਤੁਹਾਡੇ ਨਾਮ ਨਾਲ ਸਾਈਨ ਹੁੰਦੀਆਂ ਹਨ।', bn: 'অনুগ্রহ করে আপনার নাম ও পদবি লিখুন — চিঠিগুলি আপনার নামে স্বাক্ষরিত হয়।', hi: 'कृपया अपना नाम और उपनाम लिखें — पत्रों पर आपके नाम से हस्ताक्षर होते हैं।' },
     writing: { en: 'Writing your letters…', es: 'Escribiendo sus cartas…', pa: 'ਚਿੱਠੀਆਂ ਲਿਖੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ…', bn: 'চিঠি লেখা হচ্ছে…', hi: 'आपके पत्र लिखे जा रहे हैं…' },
     writingLong: { en: 'Still writing — a personal letter takes a few extra seconds…', es: 'Todavía escribiendo — unos segundos más…', pa: 'ਹਾਲੇ ਲਿਖ ਰਹੇ ਹਾਂ — ਕੁਝ ਸਕਿੰਟ ਹੋਰ…', bn: 'এখনও লেখা হচ্ছে — আরও কয়েক সেকেন্ড…', hi: 'अभी लिख रहे हैं — कुछ सेकंड और…' },
     rewrite: { en: '✍️ Rewrite My Letters', es: '✍️ Escribir Otra Vez', pa: '✍️ ਦੁਬਾਰਾ ਲਿਖੋ', bn: '✍️ আবার লিখুন', hi: '✍️ फिर से लिखें' },
@@ -1065,6 +1066,17 @@
 
     if (!document.getElementById('consent-review').checked) {
       showToast(t('consentFirst'));
+      return;
+    }
+    // Letters are signed with the patient's name and the fax cover names the
+    // sender; a blank signature makes them easy to dismiss.
+    var pname = document.getElementById('f-name').value.trim();
+    if (pname.split(/\s+/).filter(Boolean).length < 2) {
+      showToast(t('nameFirst'));
+      goStep(2);
+      var nameEl = document.getElementById('f-name');
+      nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nameEl.focus();
       return;
     }
     if (document.getElementById('consent-stats').checked) sendStats(answers);
