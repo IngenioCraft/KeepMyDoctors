@@ -912,6 +912,12 @@
   var step = 1, TOTAL = 7;
   function goStep(n) {
     if (step === 2 && n === 3) {
+      var nmVal = document.getElementById('f-name').value.trim();
+      if (nmVal.split(/\s+/).filter(Boolean).length < 2) {
+        showToast(t('nameFirst'));
+        document.getElementById('f-name').focus();
+        return;
+      }
       var zipVal = document.getElementById('f-zip').value.trim();
       if (!/^\d{5}$/.test(zipVal)) {
         showToast(t('zipNeed'));
